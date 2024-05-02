@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <!--- <meta> tag to defines metadata about our HTML document ------------>
+    <meta charset="UTF-8">
+    <meta name="author" content="EpicKOM">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keywords" content="Weather, Forecasts, Climatology, Webcam">
+    <meta name="description" content=""/>
+
+    <!--- CDN CSS ---------------------------------------------------------->
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.min.css"
+      rel="stylesheet"
+    />
+
+    <!--- Website Icon --------------------------------------------------------------------------------->
+
+
+    <!--- Custom CSS ----------------------------------------------------------------------------------->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/msi.css') }}">
+    {% block css %}
+    {% endblock css %}
+
+
+    <!--- Website Title ------------>
+    <title>Météo Saint-Ismier (38330 - FR) - Live et prévisions</title>
+</head>
+
+<body>
+    <header>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-color">
+            <!-- Container wrapper -->
+            <div class="container-fluid">
+                <!-- Toggle button -->
+                <button
+                    data-mdb-collapse-init
+                    class="navbar-toggler font-light"
+                    type="button"
+                    data-mdb-target="#nav-collapse"
+                    aria-controls="nav-collapse"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <!-- Collapsible wrapper -->
+                <div class="collapse navbar-collapse" id="nav-collapse">
+                    <!-- Navbar brand -->
+                    <a class="navbar-brand mt-2 mt-lg-0" href="#">
+                        <img
+                          src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
+                          height="15"
+                          alt="MSI Logo"
+                          loading="lazy"/>
+                    </a>
+
+                    <!-- Left links -->
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Dashboard</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Team</a>
+                        </li>
+
+                    </ul>
+
+                    <!-- Left links -->
+                </div>
+                <!-- Collapsible wrapper -->
+            </div>
+            <!-- Container wrapper -->
+        </nav>
+        <!-- Navbar -->
+    </header>
+
+    <main role="main" class="container">
+        <div class="content">
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </main>
+
+    <!--- Javascript CDN ---------------------------------------------------->
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.umd.min.js">
+    </script>
+
+</body>
+
+</html>
