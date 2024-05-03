@@ -1,0 +1,78 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/meteo_live_saint_ismier.css') }}">
+{% endblock css %}
+
+{% block meteo_active %}
+    active-background active
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <span class="badge m-0 p-3 text-light-green bg-dark-green badge-update-border">
+            <i class="fa-solid fa-rotate-right me-2"></i>Dernière mise à jour : fehfhbffe
+        </span>
+    </div>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col">
+                <div class="card background-color border border-light">
+                    <div class="row m-2">
+                        <div class="col-10">
+                            <h6 class="text-light">Température</h6>
+                        </div>
+                        <div class="col-2">
+                            <i class="fa-solid fa-temperature-three-quarters text-light text-center opacity-50"></i>
+                        </div>
+                    </div>
+                    <div class="row m-2">
+                        <div class="col-12">
+                            <h4 class="text-light">15.6°C</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col bg-danger">
+                <div class="card">
+                  <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/184.webp" class="card-img-top" alt="Fissure in Sandstone"/>
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#!" class="btn btn-primary" data-mdb-ripple-init>Button</a>
+                  </div>
+                </div>
+
+            </div>
+                        <div class="col bg-success">
+                <div class="card">
+                  <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/184.webp" class="card-img-top" alt="Fissure in Sandstone"/>
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#!" class="btn btn-primary" data-mdb-ripple-init>Button</a>
+                  </div>
+                </div>
+            </div>
+            <div class="col bg-danger">
+                <div class="card">
+                  <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/184.webp" class="card-img-top" alt="Fissure in Sandstone"/>
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#!" class="btn btn-primary" data-mdb-ripple-init>Button</a>
+                  </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+{% endblock %}
+
+{% block script %}
+{% endblock %}

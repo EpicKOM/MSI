@@ -62,7 +62,7 @@
                 <!-- Collapsible wrapper -->
                 <div class="collapse navbar-collapse" id="nav-collapse">
                     <!-- Navbar brand -->
-                    <a class="navbar-brand mt-2 mt-lg-0" href="#">
+                    <a class="navbar-brand mt-2 mt-lg-0 pe-1 ps-1" href="#">
                         <img
                           src="{{ url_for('static', filename='img/logo.png') }}"
                           height="35"
@@ -71,18 +71,31 @@
                     </a>
 
                     <!-- Left links -->
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">Dashboard</a>
+                    <ul class="navbar-nav me-auto mt-2 mt-lg-0 mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a  data-mdb-dropdown-init
+                                class="nav-link dropdown-toggle pe-2 ps-2 {% block meteo_active %}{% endblock %}"
+                                href="#"
+                                id="meteoLiveDropdownMenu"
+                                role="button"
+                                aria-expanded="false">
+                                Météo Live
+                            </a>
+                            <ul class="dropdown-menu navbar-color" aria-labelledby="meteoLiveDropdownMenu">
+                                <li>
+                                    <a class="dropdown-item text-light dropdown-hov-bgcolor" href="{{ url_for('meteo_live_saint_ismier') }}">Saint-Ismier | <span class="text-info">Amateur</span></a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item text-light dropdown-hov-bgcolor" href="#">Saint-Martin-d'Hères | <span class="text-info">Réseau StatIC</span></a>
+                                </li>
+                            </ul>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Team</a>
+                            <a class="nav-link pe-2 ps-2 {% block previsions_active %}{% endblock %}" href="{{ url_for('previsions') }}">Prévisions</a>
                         </li>
-
                     </ul>
-
-                    <!-- Left links -->
+                <!-- Left links -->
                 </div>
                 <!-- Collapsible wrapper -->
             </div>
@@ -91,12 +104,51 @@
         <!-- Navbar -->
     </header>
 
-    <main role="main" class="container">
-        <div class="content">
-            {% block content %}
-            {% endblock content %}
-        </div>
+    <main role="main" class="container-fluid">
+        {% block content %}
+        {% endblock content %}
     </main>
+
+    <footer class="text-light mt-5 navbar-color">
+        <div class="container p-3 pt-5">
+            <div class="row">
+                <div class="col-lg-6 col-sm-12 col-xs-12 mb-0">
+                    <h5 class="fw-bold text-info text-uppercase">
+                        <img class="me-2 mb-1" height="25px" width="auto" src="{{ url_for('static', filename='img/logo.png') }}">Meteo-saint-ismier.fr
+                    </h5>
+                    <p class="text-start">
+                        Météo en direct | Prévisions | Graphiques | Observations | Climatologie | Records | Webcams
+                        pour la commune de Saint Ismier (38330) et ses environs.
+                    </p>
+                    <p>
+                        <i class="fas fa-envelope me-2"></i><span class="text-info">contact@meteo-saint-ismier.fr</span>
+                    </p>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12 mb-0">
+                    <h5 class="fw-bold text-info text-uppercase">
+                        Informations
+                    </h5>
+                    <ul class="list-unstyled">
+                        <li><a href="" class="text-light" target="_blank">Github</a></li>
+                        <li><a href="" class="text-light">Mentions légales</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12 mb-0">
+                    <h5 class="fw-bold text-info text-uppercase">
+                        Utilitaires
+                    </h5>
+                    <ul class="list-unstyled">
+                        <li><a href="https://www.meteo60.fr/" class="text-light" target="_blank">Météo 60</a></li>
+                        <li><a href="https://meteofrance.com/" class="text-light" target="_blank">Météo France</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <hr class="m-0">
+        <div class="footer-copyright text-center py-3 text-light">
+            <span class="text-info"><i class="fas fa-copyright mr-1"></i> {{ copyright_year }} Copyright :</span> meteo-saint-ismier.fr
+        </div>
+    </footer>
 
     <!--- Javascript CDN ---------------------------------------------------->
     <script
@@ -104,6 +156,10 @@
       src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.umd.min.js">
     </script>
 
-</body>
+    <!--- Custom Javascript ------------------------------------------------->
+    <script src="{{ url_for('static', filename='js/layout.js') }}"></script>
+    {% block script %}
+    {% endblock %}
 
+</body>
 </html>

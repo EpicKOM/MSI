@@ -2,8 +2,10 @@
 
 .background-color {background: #1E1F22;}
 .navbar-color {background: #2B2D30;}
-.font-light {color: #FAFAFA;}
-
+.text-light-green {color: rgba(89, 243, 166, 1);}
+.bg-light-green {background: rgba(89, 243, 166, 1);}
+.text-dark-green {color: rgba(0, 31, 15, 1);}
+.bg-dark-green {background: rgba(0, 31, 15, 1);}
 
 /* --- General ------------------------------------------ */
 body {
@@ -12,24 +14,19 @@ body {
     flex-direction: column;
     justify-content: space-between;
     min-height: calc(100vh - 61px);
-    background: #070a0c;
+    background: #1E1F22;
     margin: 61px 0 0;
-    color: #1E1F22;
+}
+
+main
+{
+    flex: 1 0 auto;
 }
 
 /* --- Navbar ------------------------------------------ */
-.nav-item-hover {
-  opacity: 0.8;
-  color: #FAFAFA;
-  transition: opacity 0.3s ease;
+.active-background {
+    background-color: rgba(68, 69, 74, 1);
+    border-radius: 8px;
 }
 
-.nav-item-hover:hover {
-  opacity: 1;
-  color: #FAFAFA;
-}
-
-.active {
-    opacity: 0.3;
-    background: #1E1F22;
-}
+.dropdown-hov-bgcolor:hover{background-color:rgba(46, 67, 110, 1);}
