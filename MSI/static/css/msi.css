@@ -6,6 +6,7 @@
 .bg-light-green {background: rgba(89, 243, 166, 1);}
 .text-dark-green {color: rgba(0, 31, 15, 1);}
 .bg-dark-green {background: rgba(0, 31, 15, 1);}
+.bg-card {background: rgba(9, 9, 11, 1);}
 
 /* --- General ------------------------------------------ */
 body {
@@ -30,3 +31,5 @@ main
 }
 
 .dropdown-hov-bgcolor:hover{background-color:rgba(46, 67, 110, 1);}
+
+.dropdown-border {border: 1px solid rgba(251, 251, 251, .3);}
