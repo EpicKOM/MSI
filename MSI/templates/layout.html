@@ -50,19 +50,19 @@
                 <!-- Toggle button -->
                 <button
                     data-mdb-collapse-init
-                    class="navbar-toggler font-light"
+                    class="navbar-toggler btn btn-floating menu-button-hov-bgcolor"
                     type="button"
                     data-mdb-target="#nav-collapse"
                     aria-controls="nav-collapse"
                     aria-expanded="false"
                     aria-label="Toggle navigation">
-                    <i class="fas fa-bars"></i>
+                    <i class="fas fa-bars text-light"></i>
                 </button>
 
                 <!-- Collapsible wrapper -->
                 <div class="collapse navbar-collapse" id="nav-collapse">
                     <!-- Navbar brand -->
-                    <a class="navbar-brand mt-2 mt-lg-0 pe-1 ps-1" href="#">
+                    <a class="navbar-brand mt-2 mt-lg-0 pe-1 ps-1" href="{{ url_for('meteo_live_saint_ismier') }}">
                         <img
                           src="{{ url_for('static', filename='img/logo.png') }}"
                           height="35"
@@ -104,9 +104,11 @@
         <!-- Navbar -->
     </header>
 
-    <main role="main" class="container-fluid">
-        {% block content %}
-        {% endblock content %}
+    <main role="main" class="container">
+        <div class="content">
+            {% block content %}
+            {% endblock content %}
+        </div>
     </main>
 
     <footer class="text-light mt-5 navbar-color">

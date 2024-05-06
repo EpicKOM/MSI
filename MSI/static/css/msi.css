@@ -24,12 +24,40 @@ main
     flex: 1 0 auto;
 }
 
+hr {border-top: 1px solid rgba(251, 251, 251, .7);}
+
 /* --- Navbar ------------------------------------------ */
 .active-background {
     background-color: rgba(68, 69, 74, 1);
     border-radius: 8px;
 }
 
+.menu-button-hov-bgcolor:hover{
+    background-color:rgba(68, 69, 74, 1);
+    }
+
 .dropdown-hov-bgcolor:hover{background-color:rgba(46, 67, 110, 1);}
 
 .dropdown-border {border: 1px solid rgba(251, 251, 251, .3);}
+
+/* --- Website Scrollbar -------------------------------- */
+::-webkit-scrollbar
+{
+    width: 8px;
+}
+
+::-webkit-scrollbar-track
+{
+    background: #2E2E2E;
+}
+
+::-webkit-scrollbar-thumb
+{
+    background: #9E9E9E;
+    border-radius: 100vw;
+}
+
+::-webkit-scrollbar-thumb:hover
+{
+    background: #616161;
+}

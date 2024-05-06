@@ -9,32 +9,30 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container mt-4">
-        <div class="d-flex flex-column flex-md-row mb-3">
-            <div class="">
+    <div class="container mt-md-4 mt-2">
+        <div class="d-flex flex-column flex-md-row">
+            <div>
                 <span class="badge p-3 text-light-green bg-dark-green badge-update-border">
                     <i class="fa-solid fa-rotate-right me-2"></i>Dernière mise à jour : 06/03/2023 à 02:53
                 </span>
             </div>
-            <div class="">
+            <div>
                 <span class="badge p-3 text-light opacity-75">
                     <i class="fa-solid fa-map-pin me-2"></i><span class="text-info">Saint-Ismier</span>
                 </span>
             </div>
-            <div class="">
+            <div>
                 <span class="badge p-3 text-light opacity-75">
                     <i class="fa-solid fa-mountain me-2"></i>377 m
                 </span>
             </div>
-            <div class="">
+            <div>
                 <span class="badge p-3 text-light opacity-75">
                     <i class="fa-solid fa-diagram-project me-2"></i>Réseau Amateur
                 </span>
             </div>
         </div>
-
     </div>
-    <hr>
     <div class="container mt-4">
         <div class="row">
             <div class="col-lg">
@@ -61,7 +59,7 @@
                         <div class="text-light"data-mdb-tooltip-init title="02:53">
                             <i class="fa-solid fa-arrow-down text-info me-2"></i>-21.4 °C
                         </div>
-                        <div class="text-light">
+                        <div class="text-light" data-mdb-tooltip-init title="16:53">
                             <i class="fa-solid fa-arrow-up text-danger me-2"></i>40.8 °C
                         </div>
                     </div>
@@ -112,14 +110,14 @@
                                 Vent
                             </p>
                             <h5 class="fw-bold mb-1 text-light">
-                                21.9 km/h
+                                22 km/h
                             </h5>
                         </div>
                     </div>
                     <div class="d-flex flex-grow-1"></div>
                     <div class="d-flex justify-content-between">
                         <div class="text-light">
-                            <i class="fa-solid fa-location-arrow text-danger me-2"></i>157.1 km/h
+                            <i class="fa-solid fa-location-arrow text-danger me-2"></i>157 km/h
                         </div>
                         <div class="text-light">
                             <i class="fa-solid fa-compass text-light me-2"></i>NNE
@@ -163,11 +161,23 @@
                                 Pression
                             </p>
                             <h5 class="fw-bold mb-1 text-light">
-                                1032.6 hPa
+                                1033 hPa
                             </h5>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-lg-3">
+                <select class="form-select select-modern text-light">
+                    <option value="24 heures" selected>24 heures</option>
+                    <option value="48 heures">48 heures</option>
+                    <option value="72 heures">72 heures</option>
+                    <option value="1 semaine">1 semaine</option>
+                </select>
             </div>
         </div>
     </div>

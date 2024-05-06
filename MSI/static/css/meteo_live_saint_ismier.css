@@ -10,3 +10,12 @@
         height: 160px;
     }
 }
+
+.select-modern {
+    background-color: rgba(255, 255, 255, 0); /* Rouge, vert, bleu avec une opacité */
+    border: 1px solid rgba(251, 251, 251, .3);
+}
+
+option {
+    background: #2B2D30;;
+}
