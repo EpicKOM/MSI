@@ -86,7 +86,7 @@
                                     <a class="dropdown-item text-light dropdown-hov-bgcolor" href="{{ url_for('meteo_live_saint_ismier') }}">Saint-Ismier | <span class="text-info">Amateur</span></a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item text-light dropdown-hov-bgcolor" href="#">Saint-Martin-d'Hères | <span class="text-info">Réseau StatIC</span></a>
+                                    <a class="dropdown-item text-light dropdown-hov-bgcolor" href="{{ url_for('meteo_live_saint_martin_dheres') }}">Saint-Martin-d'Hères | <span class="text-info">Réseau StatIC</span></a>
                                 </li>
                             </ul>
                         </li>
@@ -148,7 +148,7 @@
         </div>
         <hr class="m-0">
         <div class="footer-copyright text-center py-3 text-light">
-            <span class="text-info"><i class="fas fa-copyright mr-1"></i> {{ copyright_year }} Copyright :</span> meteo-saint-ismier.fr
+            <span class="text-info"><i class="fas fa-copyright me-1"></i>{{ current_year }} Copyright :</span> meteo-saint-ismier.fr
         </div>
     </footer>
 
