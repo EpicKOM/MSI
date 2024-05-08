@@ -15,7 +15,7 @@ class SaintMartinDheresData(db.Model):
     uv = db.Column(db.Integer)
 
     @classmethod
-    def is_empty(cls):
+    def table_is_empty(cls):
         return cls.query.first() is None
 
     @classmethod
@@ -28,7 +28,8 @@ class SaintMartinDheresData(db.Model):
                         "dew_point": data.dew_point,
                         "wind": data.wind,
                         "gust": data.gust,
-                        "wind_direction": data.wind_angle,
+                        "wind_angle": data.wind_angle,
+                        "wind_direction": ModelUtils.get_wind_direction(data.wind_angle),
                         "rain_1h": data.rain_1h,
                         "uv": data.uv,
                         }

@@ -9,187 +9,206 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container mt-md-4 mt-2">
-        <div class="d-flex flex-column flex-md-row">
-            <div>
-                <span class="badge p-3 text-light-green bg-dark-green badge-update-border">
-                    <i class="fa-solid fa-rotate-right me-2"></i>Dernière mise à jour : {{ current_data["update_datetime"] }}
-                </span>
-            </div>
-            <div>
-                <span class="badge p-3 text-light opacity-75">
-                    <i class="fa-solid fa-map-pin me-2"></i><span class="text-info">Saint-Martin-d'Hères</span>
-                </span>
-            </div>
-            <div>
-                <span class="badge p-3 text-light opacity-75">
-                    <i class="fa-solid fa-mountain me-2"></i>220 m
-                </span>
-            </div>
-            <div>
-                <span class="badge p-3 text-light opacity-75">
-                    <i class="fa-solid fa-diagram-project me-2"></i>Réseau StatIC
-                </span>
+    {% if table_is_empty %}
+        <div class="container mt-md-4 mt-2">
+            <h3 class="text-center text-danger">
+                <span class="fa-stack fa-2x">
+                    <i class="fas fa-database fa-stack-1x fa-inverse text-info"></i>
+                    <i class="fas fa-slash fa-stack-1x text-danger"></i>
+                </span><br>
+                Aucune donnée n'est actuellement disponible.<br>
+                veuillez réessayer ultérieurement.
+            </h3>
+        </div>
+    {% else %}
+        <div class="container mt-md-4 mt-2">
+            <div class="d-flex flex-column flex-md-row">
+                <div>
+                    <span class="badge p-3 text-light-green bg-dark-green badge-update-border">
+                        <i class="fa-solid fa-rotate-right me-2"></i>Dernière mise à jour : {{ current_data["update_datetime"] }}
+                    </span>
+                </div>
+                <div>
+                    <span class="badge p-3 text-light opacity-75">
+                        <i class="fa-solid fa-map-pin me-2"></i><span class="text-info">Saint-Martin-d'Hères</span>
+                    </span>
+                </div>
+                <div>
+                    <span class="badge p-3 text-light opacity-75">
+                        <i class="fa-solid fa-mountain me-2"></i>220 m
+                    </span>
+                </div>
+                <div>
+                    <span class="badge p-3 text-light opacity-75">
+                        <i class="fa-solid fa-diagram-project me-2"></i>Réseau StatIC
+                    </span>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-lg">
-                <div class="card bg-card weather-card p-3">
-                    <div class="d-flex align-items-start">
-                        <div class="flex-shrink-0">
-                            <div class="p-2 badge-primary background-color rounded-4">
-                                <span class="fa-stack fa-lg fa-fw">
-                                    <i class="fa-solid fa-temperature-three-quarters fa-stack-1x text-light"></i>
-                                </span>
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-lg">
+                    <div class="card bg-card weather-card p-3">
+                        <div class="d-flex align-items-start">
+                            <div class="flex-shrink-0">
+                                <div class="p-2 badge-primary background-color rounded-4">
+                                    <span class="fa-stack fa-lg fa-fw">
+                                        <i class="fa-solid fa-temperature-three-quarters fa-stack-1x text-light"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-4">
+                                <p class="text-light opacity-50 mb-1">
+                                    Température
+                                </p>
+                                <h5 class="fw-bold mb-1 text-light">
+                                    {{ current_data["temperature"] }} °C
+                                </h5>
                             </div>
                         </div>
-                        <div class="flex-grow-1 ms-4">
-                            <p class="text-light opacity-50 mb-1">
-                                Température
-                            </p>
-                            <h5 class="fw-bold mb-1 text-light">
-                                {{ current_data["temperature"] }} °C
-                            </h5>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-grow-1"></div>
-                    <div class="d-flex justify-content-between">
-                        <div class="text-light"data-mdb-tooltip-init title="">
-                            <i class="fa-solid fa-arrow-down text-info me-2"></i>°C
-                        </div>
-                        <div class="text-light" data-mdb-tooltip-init title="">
-                            <i class="fa-solid fa-arrow-up text-danger me-2"></i>°C
+                        <div class="d-flex flex-grow-1"></div>
+                        <div class="d-flex justify-content-between">
+                            <div class="text-light"data-mdb-tooltip-init title="">
+                                <i class="fa-solid fa-arrow-down text-info me-2"></i>°C
+                            </div>
+                            <div class="text-light" data-mdb-tooltip-init title="">
+                                <i class="fa-solid fa-arrow-up text-danger me-2"></i>°C
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg mt-lg-0 mt-2">
-                <div class="card bg-card weather-card p-3">
-                    <div class="d-flex align-items-start">
-                        <div class="flex-shrink-0">
-                            <div class="p-2 badge-primary background-color rounded-4">
-                                <span class="fa-stack fa-lg fa-fw">
-                                    <i class="fa-solid fa-cloud-rain fa-stack-1x text-light"></i>
-                                    <i class="fa-solid fa-slash fa-stack-1x text-danger"></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="flex-grow-1 ms-4">
-                            <p class="text-light opacity-50 mb-1">
-                                Pluie
-                            </p>
-                            <h5 class="fw-bold mb-1 text-light">
-                                {{ current_data["rain_1h"] }} mm/1h
-                            </h5>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-grow-1"></div>
-                    <div class="d-flex justify-content-between">
-
-                        <p class="small mb-0">
-                            <span class="text-light opacity-75">Cumul du jour :</span> <span class="text-info">mm</span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl mt-xl-0 mt-2">
-                <div class="card bg-card weather-card p-3">
-                    <div class="d-flex align-items-start">
-                        <div class="flex-shrink-0">
-                            <div class="p-2 badge-primary background-color rounded-4">
-                                <span class="fa-stack fa-lg fa-fw">
-                                    <i class="fa-solid fa-wind fa-stack-1x text-light"></i>
-                                    {% if current_data["wind"] <= 0 %}
+                <div class="col-lg mt-lg-0 mt-2">
+                    <div class="card bg-card weather-card p-3">
+                        <div class="d-flex align-items-start">
+                            <div class="flex-shrink-0">
+                                <div class="p-2 badge-primary background-color rounded-4">
+                                    <span class="fa-stack fa-lg fa-fw">
+                                        <i class="fa-solid fa-cloud-rain fa-stack-1x text-light"></i>
                                         <i class="fa-solid fa-slash fa-stack-1x text-danger"></i>
-                                    {% endif %}
-                                </span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-4">
+                                <p class="text-light opacity-50 mb-1">
+                                    Pluie
+                                </p>
+                                <h5 class="fw-bold mb-1 text-light">
+                                    {{ current_data["rain_1h"] }} mm/1h
+                                </h5>
                             </div>
                         </div>
-                        <div class="flex-grow-1 ms-4">
-                            <p class="text-light opacity-50 mb-1">
-                                Vent
-                            </p>
-                            <h5 class="fw-bold mb-1 text-light">
-                                {{ current_data["wind"] }} km/h
-                            </h5>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-grow-1"></div>
-                    <div class="d-flex justify-content-between">
-                        <div class="text-light">
-                            <i class="fa-solid fa-location-arrow text-danger me-2"></i>{{ current_data["gust"] }} km/h
-                        </div>
-                        <div class="text-light">
-                            <i class="fa-solid fa-compass text-light me-2"></i>{{ current_data["wind_direction"] }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg mt-xl-0 mt-2">
-                <div class="card bg-card weather-card p-3">
-                    <div class="d-flex align-items-start">
-                        <div class="flex-shrink-0">
-                            <div class="p-2 badge-primary background-color rounded-4">
-                                <span class="fa-stack fa-lg fa-fw">
-                                    <i class="fa-solid fa-droplet fa-stack-1x text-light"></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="flex-grow-1 ms-4">
-                            <p class="text-light opacity-50 mb-1">
-                                Humidité
-                            </p>
-                            <h5 class="fw-bold mb-1 text-light">
-                                {{ current_data["humidity"] }} %
-                            </h5>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-grow-1"></div>
-                    <div class="d-flex justify-content-between">
+                        <div class="d-flex flex-grow-1"></div>
+                        <div class="d-flex justify-content-between">
 
-                        <p class="small mb-0">
-                            <span class="text-light opacity-75">Point de rosée :</span> <span class="text-info">{{ current_data["dew_point"] }} °C</span>
-                        </p>
+                            <p class="small mb-0">
+                                <span class="text-light opacity-75">Cumul du jour :</span> <span class="text-info">mm</span>
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg mt-xl-0 mt-2">
-                <div class="card bg-card weather-card p-3">
-                    <div class="d-flex align-items-start">
-                        <div class="flex-shrink-0">
-                            <div class="p-2 badge-primary background-color rounded-4">
-                                <span class="fa-stack fa-lg fa-fw">
-                                    <i class="fa-solid fa-sun fa-stack-1x text-light"></i>
-                                </span>
+                <div class="col-xl mt-xl-0 mt-2">
+                    <div class="card bg-card weather-card p-3">
+                        <div class="d-flex align-items-start">
+                            <div class="flex-shrink-0">
+                                <div class="p-2 badge-primary background-color rounded-4">
+                                    <span class="fa-stack fa-lg fa-fw">
+                                        <i class="fa-solid fa-wind fa-stack-1x text-light"></i>
+                                        {% if current_data["wind"] <= 0 %}
+                                            <i class="fa-solid fa-slash fa-stack-1x text-danger"></i>
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-4">
+                                <p class="text-light opacity-50 mb-1">
+                                    Vent
+                                </p>
+                                <h5 class="fw-bold mb-1 text-light">
+                                    {{ current_data["wind"] }} km/h
+                                </h5>
                             </div>
                         </div>
-                        <div class="flex-grow-1 ms-4">
-                            <p class="text-light opacity-50 mb-1">
-                                Radiations
+                        <div class="d-flex flex-grow-1"></div>
+                        <div class="d-flex justify-content-between">
+                            <div class="text-light">
+                                <i class="fa-solid fa-location-arrow text-danger me-2"></i>{{ current_data["gust"] }} km/h
+                            </div>
+                            {% if current_data["wind"]!=0 or current_data["gust"]!=0 %}
+                                <div class="text-light" data-mdb-tooltip-init title="Angle {{ current_data['wind_angle'] }} °">
+                                    <i class="fa-solid fa-compass text-light me-2"></i>{{ current_data["wind_direction"] }}
+                                </div>
+                            {% else %}
+                                <div class="text-light">
+                                    <i class="fa-solid fa-compass text-light me-2"></i>-
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg mt-xl-0 mt-2">
+                    <div class="card bg-card weather-card p-3">
+                        <div class="d-flex align-items-start">
+                            <div class="flex-shrink-0">
+                                <div class="p-2 badge-primary background-color rounded-4">
+                                    <span class="fa-stack fa-lg fa-fw">
+                                        <i class="fa-solid fa-droplet fa-stack-1x text-light"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-4">
+                                <p class="text-light opacity-50 mb-1">
+                                    Humidité
+                                </p>
+                                <h5 class="fw-bold mb-1 text-light">
+                                    {{ current_data["humidity"] }} %
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-grow-1"></div>
+                        <div class="d-flex justify-content-between">
+
+                            <p class="small mb-0">
+                                <span class="text-light opacity-75">Point de rosée :</span> <span class="text-info">{{ current_data["dew_point"] }} °C</span>
                             </p>
-                            <h5 class="fw-bold mb-1 text-light">
-                                {{ current_data["uv"] }} W/m²
-                            </h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg mt-xl-0 mt-2">
+                    <div class="card bg-card weather-card p-3">
+                        <div class="d-flex align-items-start">
+                            <div class="flex-shrink-0">
+                                <div class="p-2 badge-primary background-color rounded-4">
+                                    <span class="fa-stack fa-lg fa-fw">
+                                        <i class="fa-solid fa-sun fa-stack-1x text-light"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-4">
+                                <p class="text-light opacity-50 mb-1">
+                                    Radiations
+                                </p>
+                                <h5 class="fw-bold mb-1 text-light">
+                                    {{ current_data["uv"] }} W/m²
+                                </h5>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-lg-3">
-                <select class="form-select select-modern text-light">
-                    <option value="24 heures" selected>24 heures</option>
-                    <option value="48 heures">48 heures</option>
-                    <option value="72 heures">72 heures</option>
-                    <option value="1 semaine">1 semaine</option>
-                </select>
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-lg-3">
+                    <select class="form-select select-modern text-light">
+                        <option value="24 heures" selected>24 heures</option>
+                        <option value="48 heures">48 heures</option>
+                        <option value="72 heures">72 heures</option>
+                        <option value="1 semaine">1 semaine</option>
+                    </select>
+                </div>
             </div>
         </div>
-    </div>
+    {% endif %}
 
 {% endblock %}
 

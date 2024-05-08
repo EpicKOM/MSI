@@ -17,8 +17,16 @@ def meteo_live_saint_ismier():
 
 @app.route("/meteo-live/saint-martin-d-heres/")
 def meteo_live_saint_martin_dheres():
-    return render_template("meteo_live_saint_martin_dheres.html",
-                           current_data=SaintMartinDheresData.current_data(),)
+    table_is_empty = SaintMartinDheresData.table_is_empty()
+
+    if table_is_empty:
+        return render_template("meteo_live_saint_martin_dheres.html",
+                               table_is_empty=table_is_empty)
+
+    else:
+        return render_template("meteo_live_saint_martin_dheres.html",
+                               table_is_empty=table_is_empty,
+                               current_data=SaintMartinDheresData.current_data())
 
 
 @app.route("/previsions/")
