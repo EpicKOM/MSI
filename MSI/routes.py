@@ -1,7 +1,12 @@
-from MSI import app
+from MSI import app, db
 from flask import render_template
 from MSI.models.saint_martin_dheres_data import SaintMartinDheresData
 from datetime import datetime
+
+
+@app.before_request
+def create_dummy_data():
+    db.create_all()
 
 
 @app.context_processor

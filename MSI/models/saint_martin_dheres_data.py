@@ -1,10 +1,11 @@
 from MSI import app, db
 from MSI.models.utils import ModelUtils
+import datetime
 
 
 class SaintMartinDheresData(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    date_time = db.Column(db.DateTime, index=True)
+    date_time = db.Column(db.DateTime, nullable=False)
     temperature = db.Column(db.Float)
     humidity = db.Column(db.Integer)
     dew_point = db.Column(db.Float)
@@ -23,19 +24,23 @@ class SaintMartinDheresData(db.Model):
         data = ModelUtils.get_last_record(cls)
 
         current_data = {"update_datetime": data.date_time.strftime("%d/%m/%Y à %H:%M"),
-                        "temperature": data.temperature,
+                        "temperature": round(data.temperature, 1),
                         "humidity": data.humidity,
-                        "dew_point": data.dew_point,
+                        "dew_point": round(data.dew_point, 1),
                         "wind": data.wind,
-                        "gust": data.gust,
+                        "gust": round(data.gust, 1),
                         "wind_angle": data.wind_angle,
                         "wind_direction": ModelUtils.get_wind_direction(data.wind_angle),
-                        "rain_1h": data.rain_1h,
+                        "rain_1h": round(data.rain_1h, 1),
                         "uv": data.uv,
                         }
 
         return current_data
 
+    @classmethod
+    def temperature_extremes_today(cls):
+        ModelUtils.get_temperature_extremes_today(cls)
 
-# with app.app_context():
-#     print(SaintMartinDheresData.current_data())
+
+with app.app_context():
+    SaintMartinDheresData.temperature_extremes_today()
