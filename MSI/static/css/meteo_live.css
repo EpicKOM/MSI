@@ -3,12 +3,12 @@
 
 .weather-card {
     border: 1px solid rgba(251, 251, 251, .3);
-    height: 150px;}
+    height: 160px;}
 
 /* Style spécifique pour les écrans de taille inférieure ou égale à 768px */
 @media screen and (max-width: 1400px) {
     .weather-card {
-        height: 160px;
+        height: 170px;
     }
 }
 
@@ -19,4 +19,10 @@
 
 option {
     background: #2B2D30;;
+}
+
+.test{
+    border-top: 1px solid rgba(227, 112, 102, .6);
+    border-right: 1px solid rgba(227, 112, 102, .6);
+    border-bottom: 1px solid rgba(227, 112, 102, .6);
 }

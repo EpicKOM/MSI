@@ -72,3 +72,17 @@ class ModelUtils:
         cumulative_rain_today = round(sum(data_rain_today_list), 1)
 
         return cumulative_rain_today
+
+    @staticmethod
+    def get_maximum_gust_today(cls):
+        date_beginning_day = ModelUtils.get_last_record_datetime(cls).date()
+
+        gust_max = cls.query.with_entities(db.func.max(cls.gust)).filter(db.func.DATE(cls.date_time) == date_beginning_day).scalar()
+        gust_max_time = cls.query.with_entities(db.func.max(cls.date_time)).filter_by(gust=gust_max).scalar()
+
+        maximum_gust_today = {"gust_max": gust_max,
+                              "gust_max_time": gust_max_time.strftime("%H:%M")
+                              }
+
+        return maximum_gust_today
+

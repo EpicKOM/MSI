@@ -49,6 +49,10 @@ class SaintMartinDheresData(db.Model):
     def cumulative_rain_today(cls):
         return ModelUtils.get_cumulative_rain_today(cls)
 
+    @classmethod
+    def maximum_gust_today(cls):
+        return ModelUtils.get_maximum_gust_today(cls)
+
 
 # with app.app_context():
-#     SaintMartinDheresData.temperature_extremes_today()
+#     SaintMartinDheresData.maximum_gust_today()

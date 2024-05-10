@@ -23,8 +23,12 @@
     {% else %}
         <div class="container mt-md-4 mt-2">
             {% if reception_error %}
-                <p class="note text-light-red bg-dark-red lead mt-4">
-                    <span class="font-weight-normal"><i class="fas fa-info-circle text-light me-2"></i>Les webcams en temps réel</span> présentées sur cette page sont situées dans un rayon de moins de
+                <p class="note text-light-red bg-dark-red lead mt-4 test fw-normal">
+                    <span class="fa-stack fa-xs fa-fw me-2">
+                        <i class="fa-solid fa-circle fa-stack-2x text-light-red"></i>
+                        <i class="fa-solid fa-exclamation fa-stack-1x text-dark-red"></i>
+                    </span>
+                    Les webcams en temps réel présentées sur cette page sont situées dans un rayon de moins de
                     30 kilomètres et permettent de visualiser du mieux possible la météo qu'il fait dans votre région.
                 </p>
                 <div class="d-flex flex-column flex-md-row">
@@ -155,13 +159,13 @@
                                 <h5 class="fw-bold mb-1 text-light">
                                     {{ current_data["wind"] }} km/h
                                 </h5>
-
                             </div>
                         </div>
+                        <span class="small mt-2 mt-xl-0 mt-xxl-1 text-light opacity-50">raf: {{ current_data["gust"] }} km/h</span>
                         <div class="d-flex flex-grow-1"></div>
                         <div class="d-flex justify-content-between">
-                            <div class="text-light">
-                                <i class="fa-solid fa-location-arrow text-danger me-2"></i>{{ current_data["gust"] }} km/h
+                            <div class="text-light" data-mdb-tooltip-init title="{{ maximum_gust_today['gust_max_time'] }}">
+                                <i class="fa-solid fa-location-arrow text-danger me-2"></i>{{ maximum_gust_today['gust_max'] }} km/h
                             </div>
                             {% if current_data["wind"]!=0 or current_data["gust"]!=0 %}
                                 <div class="text-light" data-mdb-tooltip-init title="Angle {{ current_data['wind_angle'] }} °">
