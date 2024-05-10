@@ -31,7 +31,10 @@ def meteo_live_saint_martin_dheres():
     else:
         return render_template("meteo_live_saint_martin_dheres.html",
                                table_is_empty=table_is_empty,
-                               current_data=SaintMartinDheresData.current_data())
+                               reception_error=SaintMartinDheresData.check_reception(),
+                               current_data=SaintMartinDheresData.current_data(),
+                               temperature_extremes_today=SaintMartinDheresData.temperature_extremes_today(),
+                               cumulative_rain_today=SaintMartinDheresData.cumulative_rain_today())
 
 
 @app.route("/previsions/")

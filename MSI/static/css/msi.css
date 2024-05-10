@@ -6,6 +6,10 @@
 .bg-light-green {background: rgba(89, 243, 166, 1);}
 .text-dark-green {color: rgba(0, 31, 15, 1);}
 .bg-dark-green {background: rgba(0, 31, 15, 1);}
+.bg-dark-red {background: rgba(44, 15, 20, 1);}
+.text-dark-red {color: rgba(44, 15, 20, 1);}
+.bg-light-red {background: rgba(227, 112, 102, 1);}
+.text-light-red {color: rgba(227, 112, 102, 1);}
 .bg-card {background: rgba(9, 9, 11, 1);}
 .bg-dark-red {background: rgba(44, 15, 20, 1);}
 

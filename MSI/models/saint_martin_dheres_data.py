@@ -20,6 +20,10 @@ class SaintMartinDheresData(db.Model):
         return cls.query.first() is None
 
     @classmethod
+    def check_reception(cls):
+        return ModelUtils.get_check_reception(cls)
+
+    @classmethod
     def current_data(cls):
         data = ModelUtils.get_last_record(cls)
 
@@ -39,8 +43,12 @@ class SaintMartinDheresData(db.Model):
 
     @classmethod
     def temperature_extremes_today(cls):
-        ModelUtils.get_temperature_extremes_today(cls)
+        return ModelUtils.get_temperature_extremes_today(cls)
+
+    @classmethod
+    def cumulative_rain_today(cls):
+        return ModelUtils.get_cumulative_rain_today(cls)
 
 
-with app.app_context():
-    SaintMartinDheresData.temperature_extremes_today()
+# with app.app_context():
+#     SaintMartinDheresData.temperature_extremes_today()

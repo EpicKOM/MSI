@@ -3,6 +3,26 @@ import datetime
 
 
 class ModelUtils:
+
+    # ------------METEO LIVE--------------------------------------------------------------------------------------------
+    @staticmethod
+    def get_check_reception(cls):
+        """
+        Si la réception des données météo remonte à plus de 3h alors affichage d'un message d'erreur
+        """
+        current_time = datetime.datetime.now()
+        last_record_datetime = ModelUtils.get_last_record_datetime(cls)
+        delta_time = current_time - last_record_datetime
+        deadline = datetime.timedelta(hours=3)
+
+        if delta_time >= deadline:
+            reception_error = True
+
+        else:
+            reception_error = False
+
+        return reception_error
+
     @staticmethod
     def get_last_record(cls):
         return cls.query.order_by(cls.id.desc()).first()
@@ -17,9 +37,12 @@ class ModelUtils:
         return directions.get(compass_rose_angle)
 
     @staticmethod
+    def get_last_record_datetime(cls):
+        return cls.query.with_entities(db.func.max(cls.date_time)).scalar()
+
+    @staticmethod
     def get_temperature_extremes_today(cls):
-        date_beginning_day = cls.query.order_by(cls.id.desc()).first().date_time.date()
-        print(date_beginning_day)
+        date_beginning_day = ModelUtils.get_last_record_datetime(cls).date()
 
         temperature_extremes = cls.query.with_entities(db.func.min(cls.temperature).label("t_min"),
                                                        db.func.max(cls.temperature).label("t_max"))\
@@ -28,8 +51,24 @@ class ModelUtils:
         t_max = temperature_extremes.t_max
         t_min = temperature_extremes.t_min
 
-        print(t_max)
-        print(t_min)
+        t_max_time = cls.query.with_entities(db.func.max(cls.date_time)).filter_by(temperature=t_max).scalar()
+        t_min_time = cls.query.with_entities(db.func.max(cls.date_time)).filter_by(temperature=t_min).scalar()
 
+        temperature_extremes_today = {"tmax": t_max,
+                                      "tmin": t_min,
+                                      "tmax_time": t_max_time.strftime("%H:%M"),
+                                      "tmin_time": t_min_time.strftime("%H:%M")
+                                      }
 
+        return temperature_extremes_today
 
+    @staticmethod
+    def get_cumulative_rain_today(cls):
+        date_beginning_day = ModelUtils.get_last_record_datetime(cls).date()
+
+        data_rain_today = cls.query.with_entities(cls.rain_1h).filter(db.func.DATE(cls.date_time) == date_beginning_day).all()
+        data_rain_today_list = [x[0] for x in data_rain_today]
+
+        cumulative_rain_today = round(sum(data_rain_today_list), 1)
+
+        return cumulative_rain_today
