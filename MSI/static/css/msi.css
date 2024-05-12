@@ -66,3 +66,11 @@ hr {border-top: 1px solid rgba(251, 251, 251, .7);}
 {
     background: #616161;
 }
+
+/* Modifier l'apparence du contenu du tooltip */
+.tooltip-inner {
+  background-color: rgba(9, 9, 11, 1);
+  color: rgba(251, 251, 251, 1);
+  border-radius: 6px;
+  border: 1px solid rgba(251, 251, 251, .2);
+}

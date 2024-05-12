@@ -1,11 +1,10 @@
-.badge-update-border {border: 1px solid rgba(89, 243, 166, .6);}
-.badge-update-border-error {border: 1px solid rgba(227, 112, 102, .6);}
+.border-achievement {border: 1px solid rgba(89, 243, 166, .6);}
+.border-error {border: 1px solid rgba(227, 112, 102, .6);}
 
 .weather-card {
     border: 1px solid rgba(251, 251, 251, .3);
     height: 160px;}
 
-/* Style spécifique pour les écrans de taille inférieure ou égale à 768px */
 @media screen and (max-width: 1400px) {
     .weather-card {
         height: 170px;
@@ -13,16 +12,10 @@
 }
 
 .select-modern {
-    background-color: rgba(255, 255, 255, 0); /* Rouge, vert, bleu avec une opacité */
+    background-color: rgba(255, 255, 255, 0);
     border: 1px solid rgba(251, 251, 251, .3);
 }
 
 option {
     background: #2B2D30;;
-}
-
-.test{
-    border-top: 1px solid rgba(227, 112, 102, .6);
-    border-right: 1px solid rgba(227, 112, 102, .6);
-    border-bottom: 1px solid rgba(227, 112, 102, .6);
 }

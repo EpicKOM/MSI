@@ -46,7 +46,7 @@ class ModelUtils:
 
         temperature_extremes = cls.query.with_entities(db.func.min(cls.temperature).label("t_min"),
                                                        db.func.max(cls.temperature).label("t_max"))\
-            .filter(db.func.DATE(cls.date_time) == date_beginning_day).first()
+            .filter(db.func.DATE(cls.date_time) == date_beginning_day, cls.temperature.isnot(None)).first()
 
         t_max = temperature_extremes.t_max
         t_min = temperature_extremes.t_min
@@ -54,10 +54,10 @@ class ModelUtils:
         t_max_time = cls.query.with_entities(db.func.max(cls.date_time)).filter_by(temperature=t_max).scalar()
         t_min_time = cls.query.with_entities(db.func.max(cls.date_time)).filter_by(temperature=t_min).scalar()
 
-        temperature_extremes_today = {"tmax": t_max,
-                                      "tmin": t_min,
-                                      "tmax_time": t_max_time.strftime("%H:%M"),
-                                      "tmin_time": t_min_time.strftime("%H:%M")
+        temperature_extremes_today = {"tmax": t_max if t_max is not None else "-",
+                                      "tmin": t_min if t_min is not None else "-",
+                                      "tmax_time": t_max_time.strftime("%H:%M") if t_max is not None else "-",
+                                      "tmin_time": t_min_time.strftime("%H:%M") if t_min is not None else "-"
                                       }
 
         return temperature_extremes_today
@@ -66,7 +66,8 @@ class ModelUtils:
     def get_cumulative_rain_today(cls):
         date_beginning_day = ModelUtils.get_last_record_datetime(cls).date()
 
-        data_rain_today = cls.query.with_entities(cls.rain_1h).filter(db.func.DATE(cls.date_time) == date_beginning_day).all()
+        data_rain_today = cls.query.with_entities(cls.rain_1h).filter(db.func.DATE(cls.date_time) == date_beginning_day,
+                                                                      cls.rain_1h.isnot(None)).all()
         data_rain_today_list = [x[0] for x in data_rain_today]
 
         cumulative_rain_today = round(sum(data_rain_today_list), 1)
@@ -77,12 +78,12 @@ class ModelUtils:
     def get_maximum_gust_today(cls):
         date_beginning_day = ModelUtils.get_last_record_datetime(cls).date()
 
-        gust_max = cls.query.with_entities(db.func.max(cls.gust)).filter(db.func.DATE(cls.date_time) == date_beginning_day).scalar()
+        gust_max = cls.query.with_entities(db.func.max(cls.gust)).filter(db.func.DATE(cls.date_time) == date_beginning_day,
+                                                                         cls.gust.isnot(None)).scalar()
         gust_max_time = cls.query.with_entities(db.func.max(cls.date_time)).filter_by(gust=gust_max).scalar()
 
-        maximum_gust_today = {"gust_max": gust_max,
-                              "gust_max_time": gust_max_time.strftime("%H:%M")
+        maximum_gust_today = {"gust_max": gust_max if gust_max is not None else "-",
+                              "gust_max_time": gust_max_time.strftime("%H:%M") if gust_max is not None else "-"
                               }
 
         return maximum_gust_today
-

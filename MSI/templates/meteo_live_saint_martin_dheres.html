@@ -23,17 +23,17 @@
     {% else %}
         <div class="container mt-md-4 mt-2">
             {% if reception_error %}
-                <p class="note text-light-red bg-dark-red lead mt-4 test fw-normal">
-                    <span class="fa-stack fa-xs fa-fw me-2">
-                        <i class="fa-solid fa-circle fa-stack-2x text-light-red"></i>
-                        <i class="fa-solid fa-exclamation fa-stack-1x text-dark-red"></i>
-                    </span>
-                    Les webcams en temps réel présentées sur cette page sont situées dans un rayon de moins de
-                    30 kilomètres et permettent de visualiser du mieux possible la météo qu'il fait dans votre région.
-                </p>
+                <div class="d-flex justify-content-md-center">
+                    <div class="alert alert-dismissible w-40 text-center text-light-red bg-dark-red border-error" role="alert">
+                        Station météorologique indisponible.
+                        <a role="button" class="position-absolute end-0 me-4 text-light-red">
+                          <i class="fa-solid fa-xmark fa-lg"></i>
+                        </a>
+                    </div>
+                </div>
                 <div class="d-flex flex-column flex-md-row">
                     <div>
-                        <span class="badge p-3 text-light-red bg-dark-red badge-update-border-error">
+                        <span class="badge p-3 text-light-red bg-dark-red border-error">
                             <i class="fa-solid fa-rotate-right me-2"></i>Dernière mise à jour : {{ current_data["update_datetime"] }}
                         </span>
                     </div>
@@ -56,7 +56,7 @@
             {% else %}
                 <div class="d-flex flex-column flex-md-row">
                     <div>
-                        <span class="badge p-3 text-light-green bg-dark-green badge-update-border">
+                        <span class="badge p-3 text-light-green bg-dark-green border-achievement">
                             <i class="fa-solid fa-rotate-right me-2"></i>Dernière mise à jour : {{ current_data["update_datetime"] }}
                         </span>
                     </div>
@@ -101,7 +101,7 @@
                         </div>
                         <div class="d-flex flex-grow-1"></div>
                         <div class="d-flex justify-content-between">
-                            <div class="text-light"data-mdb-tooltip-init title="{{ temperature_extremes_today['tmin_time'] }}">
+                            <div class="text-light" data-mdb-tooltip-init title="{{ temperature_extremes_today['tmin_time'] }}">
                                 <i class="fa-solid fa-arrow-down text-info me-2"></i>{{ temperature_extremes_today["tmin"] }} °C
                             </div>
                             <div class="text-light" data-mdb-tooltip-init title="{{ temperature_extremes_today['tmax_time'] }}">
@@ -146,7 +146,7 @@
                                 <div class="p-2 badge-primary background-color rounded-4">
                                     <span class="fa-stack fa-lg fa-fw">
                                         <i class="fa-solid fa-wind fa-stack-1x text-light"></i>
-                                        {% if current_data["wind"] <= 0 %}
+                                        {% if current_data["wind"]|float <= 0 or current_data["wind"] == "-" %}
                                             <i class="fa-solid fa-slash fa-stack-1x text-danger"></i>
                                         {% endif %}
                                     </span>
@@ -243,7 +243,6 @@
             </div>
         </div>
     {% endif %}
-
 {% endblock %}
 
 {% block script %}

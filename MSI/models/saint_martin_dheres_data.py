@@ -28,15 +28,15 @@ class SaintMartinDheresData(db.Model):
         data = ModelUtils.get_last_record(cls)
 
         current_data = {"update_datetime": data.date_time.strftime("%d/%m/%Y à %H:%M"),
-                        "temperature": round(data.temperature, 1),
-                        "humidity": data.humidity,
-                        "dew_point": round(data.dew_point, 1),
-                        "wind": data.wind,
-                        "gust": round(data.gust, 1),
-                        "wind_angle": data.wind_angle,
-                        "wind_direction": ModelUtils.get_wind_direction(data.wind_angle),
-                        "rain_1h": round(data.rain_1h, 1),
-                        "uv": data.uv,
+                        "temperature": round(data.temperature, 1) if data.temperature is not None else "-",
+                        "humidity": data.humidity if data.humidity is not None else "-",
+                        "dew_point": round(data.dew_point, 1) if data.dew_point is not None else "-",
+                        "wind": data.wind if data.wind is not None else "-",
+                        "gust": round(data.gust, 1) if data.gust is not None else "-",
+                        "wind_angle": data.wind_angle if data.wind_angle is not None else "-",
+                        "wind_direction": ModelUtils.get_wind_direction(data.wind_angle) if data.wind_angle is not None else "-",
+                        "rain_1h": round(data.rain_1h, 1) if data.rain_1h is not None else "-",
+                        "uv": data.uv if data.uv is not None else "-",
                         }
 
         return current_data
