@@ -1,7 +1,6 @@
 from MSI import db
 import datetime
 
-
 class ModelUtils:
 
     # ------------METEO LIVE--------------------------------------------------------------------------------------------
@@ -73,6 +72,24 @@ class ModelUtils:
         cumulative_rain_today = round(sum(data_rain_today_list), 1)
 
         return cumulative_rain_today
+
+    @staticmethod
+    def get_rain_1h(cls):
+        # rain_measurement_start_date = rain_measurement_end_date - datetime.timedelta(hours=1)
+        # print(rain_measurement_end_date)
+        # print(rain_measurement_start_date)
+        # rain_measurement_end_date = ModelUtils.get_last_record_datetime(cls).replace(minute=0)
+
+        date_time_test = datetime.datetime(2024, 5, 2, 23, 0)
+
+
+        # Retourne True
+        # print(rain_measurement_end_date == test)
+        #
+        rainnn_1h = db.session.query(cls.rain_1h).filter(cls.date_time == date_time_test).scalar()
+
+        # Retourne None
+        print(rainnn_1h)
 
     @staticmethod
     def get_maximum_gust_today(cls):

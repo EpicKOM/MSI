@@ -5,7 +5,7 @@ import datetime
 
 class SaintMartinDheresData(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    date_time = db.Column(db.DateTime, nullable=False)
+    date_time = db.Column(db.DateTime, index=True)
     temperature = db.Column(db.Float)
     humidity = db.Column(db.Integer)
     dew_point = db.Column(db.Float)
@@ -50,9 +50,13 @@ class SaintMartinDheresData(db.Model):
         return ModelUtils.get_cumulative_rain_today(cls)
 
     @classmethod
+    def caca_1h(cls):
+        ModelUtils.get_rain_1h(cls)
+
+    @classmethod
     def maximum_gust_today(cls):
         return ModelUtils.get_maximum_gust_today(cls)
 
 
-# with app.app_context():
-#     SaintMartinDheresData.maximum_gust_today()
+with app.app_context():
+    SaintMartinDheresData.caca_1h()

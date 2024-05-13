@@ -24,9 +24,9 @@
         <div class="container mt-md-4 mt-2">
             {% if reception_error %}
                 <div class="d-flex justify-content-md-center">
-                    <div class="alert alert-dismissible w-40 text-center text-light-red bg-dark-red border-error" role="alert">
+                    <div class="alert alert-dismissible w-40 text-center text-light-red bg-dark-red border-error" role="alert" id="weather-station-unavailable-alert" style="display: none;">
                         Station météorologique indisponible.
-                        <a role="button" class="position-absolute end-0 me-4 text-light-red">
+                        <a role="button" class="position-absolute end-0 me-4 text-light-red" id="weather-station-unavailable-alert-button">
                           <i class="fa-solid fa-xmark fa-lg"></i>
                         </a>
                     </div>
@@ -246,4 +246,5 @@
 {% endblock %}
 
 {% block script %}
+    <script src="{{ url_for('static', filename='js/meteo_live.js') }}"></script>
 {% endblock %}
