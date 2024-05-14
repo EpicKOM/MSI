@@ -117,7 +117,9 @@
                                 <div class="p-2 badge-primary background-color rounded-4">
                                     <span class="fa-stack fa-lg fa-fw">
                                         <i class="fa-solid fa-cloud-rain fa-stack-1x text-light"></i>
-                                        <i class="fa-solid fa-slash fa-stack-1x text-danger"></i>
+                                        {% if rain['rain_1h']|float <= 0 or rain['rain_1h'] == "-" %}
+                                            <i class="fa-solid fa-slash fa-stack-1x text-danger"></i>
+                                        {% endif %}
                                     </span>
                                 </div>
                             </div>
@@ -125,14 +127,13 @@
                                 <p class="text-light opacity-50 mb-1">
                                     Pluie
                                 </p>
-                                <h5 class="fw-bold mb-1 text-light">
-                                    {{ current_data["rain_1h"] }} mm/1h
+                                <h5 class="fw-bold mb-1 text-light" data-mdb-tooltip-init title="{{ rain['rain_1h_date'] }}">
+                                    {{ rain['rain_1h'] }} mm/1h
                                 </h5>
                             </div>
                         </div>
                         <div class="d-flex flex-grow-1"></div>
                         <div class="d-flex justify-content-between">
-
                             <p class="small mb-0">
                                 <span class="text-light opacity-75">Cumul du jour :</span> <span class="text-info">{{ cumulative_rain_today }} mm</span>
                             </p>

@@ -1,6 +1,7 @@
 from MSI import db
 import datetime
 
+
 class ModelUtils:
 
     # ------------METEO LIVE--------------------------------------------------------------------------------------------
@@ -31,7 +32,8 @@ class ModelUtils:
         COMPASS_ROSE = [0, 22.5, 45, 67.5, 90, 112.5, 135, 157.5, 180, 202.5, 225, 247.5, 270, 292.5, 315, 337.5, 360]
         compass_rose_angle = min(COMPASS_ROSE, key=lambda x: abs(x - wind_angle))
 
-        directions = {0: "N", 22.5: "NNE", 45: "NE", 67.5: "ENE", 90: "E", 112.5: "ESE", 135: "SE", 157.5: "SSE", 180: "S",
+        directions = {0: "N", 22.5: "NNE", 45: "NE", 67.5: "ENE", 90: "E", 112.5: "ESE", 135: "SE", 157.5: "SSE",
+                      180: "S",
                       202.5: "SSO", 225: "SO", 247.5: "OSO", 270: "O", 292.5: "ONO", 315: "NO", 337.5: "NNO", 360: "N"}
         return directions.get(compass_rose_angle)
 
@@ -44,7 +46,7 @@ class ModelUtils:
         date_beginning_day = ModelUtils.get_last_record_datetime(cls).date()
 
         temperature_extremes = cls.query.with_entities(db.func.min(cls.temperature).label("t_min"),
-                                                       db.func.max(cls.temperature).label("t_max"))\
+                                                       db.func.max(cls.temperature).label("t_max")) \
             .filter(db.func.DATE(cls.date_time) == date_beginning_day, cls.temperature.isnot(None)).first()
 
         t_max = temperature_extremes.t_max
@@ -53,8 +55,8 @@ class ModelUtils:
         t_max_time = cls.query.with_entities(db.func.max(cls.date_time)).filter_by(temperature=t_max).scalar()
         t_min_time = cls.query.with_entities(db.func.max(cls.date_time)).filter_by(temperature=t_min).scalar()
 
-        temperature_extremes_today = {"tmax": t_max if t_max is not None else "-",
-                                      "tmin": t_min if t_min is not None else "-",
+        temperature_extremes_today = {"tmax": round(t_max, 1) if t_max is not None else "-",
+                                      "tmin": round(t_min, 1) if t_min is not None else "-",
                                       "tmax_time": t_max_time.strftime("%H:%M") if t_max is not None else "-",
                                       "tmin_time": t_min_time.strftime("%H:%M") if t_min is not None else "-"
                                       }
@@ -67,6 +69,7 @@ class ModelUtils:
 
         data_rain_today = cls.query.with_entities(cls.rain_1h).filter(db.func.DATE(cls.date_time) == date_beginning_day,
                                                                       cls.rain_1h.isnot(None)).all()
+
         data_rain_today_list = [x[0] for x in data_rain_today]
 
         cumulative_rain_today = round(sum(data_rain_today_list), 1)
@@ -75,31 +78,29 @@ class ModelUtils:
 
     @staticmethod
     def get_rain_1h(cls):
-        # rain_measurement_start_date = rain_measurement_end_date - datetime.timedelta(hours=1)
-        # print(rain_measurement_end_date)
-        # print(rain_measurement_start_date)
-        # rain_measurement_end_date = ModelUtils.get_last_record_datetime(cls).replace(minute=0)
+        rain_measurement_end_date = ModelUtils.get_last_record_datetime(cls).replace(minute=0)
+        rain_measurement_start_date = rain_measurement_end_date - datetime.timedelta(hours=1)
 
-        date_time_test = datetime.datetime(2024, 5, 2, 23, 0)
+        data_rain_1h = cls.query.with_entities(cls.rain_1h).filter(cls.date_time == rain_measurement_end_date,
+                                                                   cls.rain_1h.isnot(None)).scalar()
 
+        rain_1h = {"rain_1h": round(data_rain_1h, 1) if data_rain_1h is not None else "-",
+                   "rain_1h_date": f"Mesure entre {rain_measurement_start_date.strftime('%H:%M')} et "
+                                   f"{rain_measurement_end_date.strftime('%H:%M')}" if data_rain_1h is not None else "-"
+                   }
 
-        # Retourne True
-        # print(rain_measurement_end_date == test)
-        #
-        rainnn_1h = db.session.query(cls.rain_1h).filter(cls.date_time == date_time_test).scalar()
-
-        # Retourne None
-        print(rainnn_1h)
+        return rain_1h
 
     @staticmethod
     def get_maximum_gust_today(cls):
         date_beginning_day = ModelUtils.get_last_record_datetime(cls).date()
 
-        gust_max = cls.query.with_entities(db.func.max(cls.gust)).filter(db.func.DATE(cls.date_time) == date_beginning_day,
-                                                                         cls.gust.isnot(None)).scalar()
+        gust_max = cls.query.with_entities(db.func.max(cls.gust)).filter(
+            db.func.DATE(cls.date_time) == date_beginning_day,
+            cls.gust.isnot(None)).scalar()
         gust_max_time = cls.query.with_entities(db.func.max(cls.date_time)).filter_by(gust=gust_max).scalar()
 
-        maximum_gust_today = {"gust_max": gust_max if gust_max is not None else "-",
+        maximum_gust_today = {"gust_max": round(gust_max, 1) if gust_max is not None else "-",
                               "gust_max_time": gust_max_time.strftime("%H:%M") if gust_max is not None else "-"
                               }
 

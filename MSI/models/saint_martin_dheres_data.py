@@ -35,7 +35,6 @@ class SaintMartinDheresData(db.Model):
                         "gust": round(data.gust, 1) if data.gust is not None else "-",
                         "wind_angle": data.wind_angle if data.wind_angle is not None else "-",
                         "wind_direction": ModelUtils.get_wind_direction(data.wind_angle) if data.wind_angle is not None else "-",
-                        "rain_1h": round(data.rain_1h, 1) if data.rain_1h is not None else "-",
                         "uv": data.uv if data.uv is not None else "-",
                         }
 
@@ -50,13 +49,13 @@ class SaintMartinDheresData(db.Model):
         return ModelUtils.get_cumulative_rain_today(cls)
 
     @classmethod
-    def caca_1h(cls):
-        ModelUtils.get_rain_1h(cls)
+    def rain(cls):
+        return ModelUtils.get_rain_1h(cls)
 
     @classmethod
     def maximum_gust_today(cls):
         return ModelUtils.get_maximum_gust_today(cls)
 
 
-with app.app_context():
-    SaintMartinDheresData.caca_1h()
+# with app.app_context():
+#     SaintMartinDheresData
