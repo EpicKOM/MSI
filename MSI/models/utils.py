@@ -125,3 +125,10 @@ class ModelUtils:
                               }
 
         return maximum_gust_today
+
+    @staticmethod
+    def get_current_chart_data(cls):
+        data_start_date = ModelUtils.get_last_record_datetime(cls) - datetime.timedelta(1)
+        print(data_start_date)
+        return cls.query.filter(cls.date_time >= data_start_date).all()
+

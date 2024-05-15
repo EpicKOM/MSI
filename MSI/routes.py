@@ -36,7 +36,8 @@ def meteo_live_saint_martin_dheres():
                                temperature_extremes_today=SaintMartinDheresData.temperature_extremes_today(),
                                cumulative_rain_today=SaintMartinDheresData.cumulative_rain_today(),
                                maximum_gust_today=SaintMartinDheresData.maximum_gust_today(),
-                               rain=SaintMartinDheresData.rain())
+                               rain=SaintMartinDheresData.rain(),
+                               current_chart_data=SaintMartinDheresData.current_chart_data())
 
 
 @app.route("/previsions/")

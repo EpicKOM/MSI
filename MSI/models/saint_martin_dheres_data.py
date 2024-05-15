@@ -34,7 +34,8 @@ class SaintMartinDheresData(db.Model):
                         "wind": data.wind if data.wind is not None else "-",
                         "gust": round(data.gust, 1) if data.gust is not None else "-",
                         "wind_angle": data.wind_angle if data.wind_angle is not None else "-",
-                        "wind_direction": ModelUtils.get_wind_direction(data.wind_angle) if data.wind_angle is not None else "-",
+                        "wind_direction": ModelUtils.get_wind_direction(
+                            data.wind_angle) if data.wind_angle is not None else "-",
                         "uv": data.uv if data.uv is not None else "-",
                         }
 
@@ -56,6 +57,15 @@ class SaintMartinDheresData(db.Model):
     def maximum_gust_today(cls):
         return ModelUtils.get_maximum_gust_today(cls)
 
+    @classmethod
+    def current_chart_data(cls):
+        current_chart_data = ModelUtils.get_current_chart_data(cls)
+
+        current_chart_data_dict = {"datetime": [data.date_time for data in current_chart_data],
+                                   "temperature": [data.temperature for data in current_chart_data], }
+
+        return current_chart_data_dict
+
 
 # with app.app_context():
-#     SaintMartinDheresData
+#     SaintMartinDheresData.current_chart_data()
