@@ -1,7 +1,7 @@
 /* --- Color ---------------------------------------- */
 
 .background-color {background: #1E1F22;}
-.navbar-color {background: #2B2D30;}
+.navbar-color {background: #1E1F22;}
 .text-light-green {color: rgba(89, 243, 166, 1);}
 .bg-light-green {background: rgba(89, 243, 166, 1);}
 .text-dark-green {color: rgba(0, 31, 15, 1);}
@@ -20,7 +20,7 @@ body {
     flex-direction: column;
     justify-content: space-between;
     min-height: calc(100vh - 61px);
-    background: #1E1F22;
+    background: rgba(9, 9, 11, 1);
     margin: 61px 0 0;
 }
 

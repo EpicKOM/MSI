@@ -13,14 +13,8 @@ var temperature_chart = new Chart(temperature_canvas,
         datasets:
         [{
             data: temperature_data,
-            backgroundColor:
-            [
-                'rgba(105, 0, 132, .2)',
-            ],
-            borderColor:
-            [
-                'rgba(255, 53, 71, .8)',
-            ],
+            borderColor: 'rgba(255, 53, 71, .8)',
+
             tension: 0,
             borderWidth: 2,
             pointStyle: 'circle',
@@ -32,60 +26,20 @@ var temperature_chart = new Chart(temperature_canvas,
     },
     options:
     {
-        tooltips:
-        {
-            displayColors: false,
-            callbacks:
-            {
-                label: function(tooltipItems, data) {
-                        return 'Température : ' + tooltipItems.yLabel + ' °C';
-                        }
-            },
-        },
-
-        legend:
-        {
-            display: false,
-        },
         scales:
         {
-            xAxes:
+            x:
             [{
-                ticks:
-                {
-                    fontColor: '#e2e2e2',
-                    fontFamily: 'Roboto',
-                },
                 type: 'time',
                 time:
                 {
                     unit: 'hour',
-                    unitStepSize: 1,
-                    tooltipFormat:'DD/MM/YYYY à HH:mm',
                     displayFormats:
                     {
-                        hour: 'HH[H]',
+                        hour: 'HH[h]',
                     }
                 },
-                gridLines:
-                {
-                    color: 'rgba(255,255,255,.4)',
-                    lineWidth: .3,
-                },
             }],
-            yAxes:
-            [{
-               ticks:
-                {
-                    fontColor: '#e2e2e2',
-                    fontFamily: 'Roboto',
-                },
-                gridLines:
-                {
-                    color: 'rgba(255,255,255,.4)',
-                    lineWidth: .3,
-                },
-            }]
         },
     }
 });
