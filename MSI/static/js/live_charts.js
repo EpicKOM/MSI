@@ -111,11 +111,7 @@ const myChart = new Chart(
 function Update_Current_Charts(date, temperature, dew_point, interval_duration)
 {
     //    Temperature chart
-//    myChart.data.labels = date;
-//    myChart.data.datasets[0].data = temperature;
-//    myChart.data.datasets[1].data = dew_point;
-    myChart.options.scales.x.ticks.stepSize = 2*interval_duration;
-    myChart.update();
+
 }
 
 //----------------Ajax request------------------------------------------------------------------------------------------
@@ -136,10 +132,18 @@ $('#select_charts_duration').change(function() {
             let temperature = results["live_charts"]["temperature"];
             let dew_point = results["live_charts"]["dew_point"];
 
+            test = ['2024-05-14 23:00:00', '2024-05-15 00:00:00', '2024-05-15 01:00:00', '2024-05-15 02:00:00', '2024-05-15 03:00:00', '2024-05-15 04:00:00', '2024-05-15 05:00:00', '2024-05-15 06:00:00', '2024-05-15 07:00:00', '2024-05-15 08:00:00', '2024-05-15 09:00:00', '2024-05-15 10:00:00', '2024-05-15 11:00:00', '2024-05-15 12:00:00', '2024-05-15 13:00:00', '2024-05-15 14:00:00', '2024-05-15 15:00:00', '2024-05-15 16:00:00', '2024-05-15 17:00:00', '2024-05-15 18:00:00', '2024-05-15 19:00:00', '2024-05-15 20:00:00', '2024-05-15 21:00:00', '2024-05-15 22:00:00', '2024-05-15 23:00:00', '2024-05-16 00:00:00', '2024-05-16 01:00:00', '2024-05-16 02:00:00', '2024-05-16 03:00:00', '2024-05-16 04:00:00', '2024-05-16 05:00:00', '2024-05-16 06:00:00', '2024-05-16 07:00:00', '2024-05-16 08:00:00', '2024-05-16 09:00:00', '2024-05-16 10:00:00', '2024-05-16 11:00:00', '2024-05-16 12:00:00', '2024-05-16 13:00:00', '2024-05-16 14:00:00', '2024-05-16 15:00:00', '2024-05-16 16:00:00', '2024-05-16 17:00:00', '2024-05-16 18:00:00', '2024-05-16 19:00:00', '2024-05-16 20:00:00', '2024-05-16 21:00:00', '2024-05-16 22:00:00', '2024-05-16 23:00:00'];
+
             console.log(datetime);
             console.log(temperature);
 
-            Update_Current_Charts(datetime, temperature, dew_point, interval_duration);
+            myChart.data.labels = datetime;
+            myChart.data.datasets[0].data = temperature;
+            myChart.data.datasets[1].data = dew_point;
+            myChart.options.scales.x.ticks.stepSize = 2 * interval_duration;
+            myChart.update();
+
+//            Update_Current_Charts(datetime, temperature, dew_point, interval_duration);
 
         },
 

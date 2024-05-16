@@ -61,7 +61,7 @@ class SaintMartinDheresData(db.Model):
     def current_chart_data(cls, interval_duration):
         current_chart_data = ModelUtils.get_current_chart_data(cls, interval_duration)
 
-        current_chart_data_dict = {"datetime": [data.date_time for data in current_chart_data],
+        current_chart_data_dict = {"datetime": [data.date_time.strftime("%Y-%m-%d %H:%M:%S") for data in current_chart_data],
                                    "temperature": [data.temperature for data in current_chart_data],
                                    "dew_point": [data.dew_point for data in current_chart_data], }
 
