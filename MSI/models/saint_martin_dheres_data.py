@@ -58,14 +58,14 @@ class SaintMartinDheresData(db.Model):
         return ModelUtils.get_maximum_gust_today(cls)
 
     @classmethod
-    def current_chart_data(cls):
-        current_chart_data = ModelUtils.get_current_chart_data(cls)
+    def current_chart_data(cls, interval_duration):
+        current_chart_data = ModelUtils.get_current_chart_data(cls, interval_duration)
 
         current_chart_data_dict = {"datetime": [data.date_time for data in current_chart_data],
-                                   "temperature": [data.temperature for data in current_chart_data], }
+                                   "temperature": [data.temperature for data in current_chart_data],
+                                   "dew_point": [data.dew_point for data in current_chart_data], }
 
         return current_chart_data_dict
-
 
 # with app.app_context():
 #     SaintMartinDheresData.current_chart_data()

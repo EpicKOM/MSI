@@ -228,7 +228,7 @@
                         <div class="d-flex justify-content-between">
 
                             <p class="small mb-0">
-                                <span class="text-light opacity-75">Point de rosée :</span> <span class="text-info">{{ current_data["dew_point"] }} °C</span>
+                                <span class="text-light opacity-75">Point de rosée :</span> <span class="dew-point-color">{{ current_data["dew_point"] }} °C</span>
                             </p>
                         </div>
                     </div>
@@ -259,7 +259,7 @@
         <div class="container mt-4">
             <div class="row">
                 <div class="col-lg-3">
-                    <select class="form-select select-modern text-light">
+                    <select class="form-select select-modern text-light" id="select_charts_duration">
                         <option value="24 heures" selected>24 heures</option>
                         <option value="48 heures">48 heures</option>
                         <option value="72 heures">72 heures</option>
@@ -277,7 +277,8 @@
                         </h5>
                         <span id="current_temperature_chart"
                             values-x = "{% for item in current_chart_data['datetime'] %}{{ item }},{% endfor %}"
-                            values-y = "{% for item in current_chart_data['temperature'] %}{{ item }},{% endfor %}" style="display: none;">
+                            values-y = "{% for item in current_chart_data['temperature'] %}{{ item }},{% endfor %}"
+                            values-z = "{% for item in current_chart_data['dew_point'] %}{{ item }},{% endfor %}" style="display: none;">
                         </span>
                         <canvas id="currentTemperatureChart"></canvas>
                     </div>

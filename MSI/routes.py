@@ -1,5 +1,5 @@
 from MSI import app, db
-from flask import render_template
+from flask import render_template, request, abort, jsonify
 from MSI.models.saint_martin_dheres_data import SaintMartinDheresData
 from datetime import datetime
 
@@ -37,7 +37,23 @@ def meteo_live_saint_martin_dheres():
                                cumulative_rain_today=SaintMartinDheresData.cumulative_rain_today(),
                                maximum_gust_today=SaintMartinDheresData.maximum_gust_today(),
                                rain=SaintMartinDheresData.rain(),
-                               current_chart_data=SaintMartinDheresData.current_chart_data())
+                               current_chart_data=SaintMartinDheresData.current_chart_data(1))
+
+
+# ------------Requête AJAX Live Charts---------------------------------------------------------------------------
+@app.route('/data/saint-martin-d-heres/live-charts', methods=['POST'])
+def saint_martin_dheres_update_charts():
+    interval_duration = request.form.get('interval_duration')
+
+    if interval_duration is not None:
+        interval_duration = int(interval_duration)
+        SaintMartinDheresData.current_chart_data(interval_duration)
+        return jsonify(live_charts=SaintMartinDheresData.current_chart_data(interval_duration)), 200
+
+    else:
+        # Gérer le cas où la clé 'interval_duration' est manquante dans le formulaire
+        print("Clé 'interval_duration' manquante dans la requête.")
+        abort(404)
 
 
 @app.route("/previsions/")
