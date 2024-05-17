@@ -1,5 +1,5 @@
 from MSI import app, db
-from MSI.models.utils import ModelUtils
+from MSI.models.meteo_live_utils import MeteoLiveUtils
 import datetime
 
 
@@ -21,11 +21,11 @@ class SaintMartinDheresData(db.Model):
 
     @classmethod
     def check_reception(cls):
-        return ModelUtils.get_check_reception(cls)
+        return MeteoLiveUtils.get_check_reception(cls)
 
     @classmethod
     def current_data(cls):
-        data = ModelUtils.get_last_record(cls)
+        data = MeteoLiveUtils.get_last_record(cls)
 
         current_data = {"update_datetime": data.date_time.strftime("%d/%m/%Y à %H:%M"),
                         "temperature": round(data.temperature, 1) if data.temperature is not None else "-",
@@ -34,8 +34,7 @@ class SaintMartinDheresData(db.Model):
                         "wind": data.wind if data.wind is not None else "-",
                         "gust": round(data.gust, 1) if data.gust is not None else "-",
                         "wind_angle": data.wind_angle if data.wind_angle is not None else "-",
-                        "wind_direction": ModelUtils.get_wind_direction(
-                            data.wind_angle) if data.wind_angle is not None else "-",
+                        "wind_direction": MeteoLiveUtils.get_wind_direction(data.wind_angle) if data.wind_angle is not None else "-",
                         "uv": data.uv if data.uv is not None else "-",
                         }
 
@@ -43,23 +42,23 @@ class SaintMartinDheresData(db.Model):
 
     @classmethod
     def temperature_extremes_today(cls):
-        return ModelUtils.get_temperature_extremes_today(cls)
+        return MeteoLiveUtils.get_temperature_extremes_today(cls)
 
     @classmethod
     def cumulative_rain_today(cls):
-        return ModelUtils.get_cumulative_rain_today(cls)
+        return MeteoLiveUtils.get_cumulative_rain_today(cls)
 
     @classmethod
     def rain(cls):
-        return ModelUtils.get_rain_1h(cls)
+        return MeteoLiveUtils.get_rain_1h(cls)
 
     @classmethod
     def maximum_gust_today(cls):
-        return ModelUtils.get_maximum_gust_today(cls)
+        return MeteoLiveUtils.get_maximum_gust_today(cls)
 
     @classmethod
     def current_chart_data(cls, interval_duration):
-        current_chart_data = ModelUtils.get_current_chart_data(cls, interval_duration)
+        current_chart_data = MeteoLiveUtils.get_current_chart_data(cls, interval_duration)
 
         current_chart_data_dict = {"datetime": [data.date_time.strftime("%Y-%m-%d %H:%M:%S") for data in current_chart_data],
                                    "temperature": [data.temperature for data in current_chart_data],

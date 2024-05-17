@@ -44,7 +44,7 @@
 <body>
     <header>
         <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-color">
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top secondary-color">
             <!-- Container wrapper -->
             <div class="container-fluid">
                 <!-- Toggle button -->
@@ -81,7 +81,7 @@
                                 aria-expanded="false">
                                 Météo Live
                             </a>
-                            <ul class="dropdown-menu navbar-color dropdown-border" aria-labelledby="meteoLiveDropdownMenu">
+                            <ul class="dropdown-menu secondary-color dropdown-border" aria-labelledby="meteoLiveDropdownMenu">
                                 <li>
                                     <a class="dropdown-item text-light dropdown-hov-bgcolor" href="{{ url_for('meteo_live_saint_ismier') }}">Saint-Ismier | <span class="text-info">Amateur</span></a>
                                 </li>
@@ -111,7 +111,7 @@
         </div>
     </main>
 
-    <footer class="text-light mt-5 navbar-color">
+    <footer class="text-light mt-5 secondary-color">
         <div class="container p-3 pt-5">
             <div class="row">
                 <div class="col-lg-6 col-sm-12 col-xs-12 mb-0">
@@ -158,12 +158,13 @@
         type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.umd.min.js">
     </script>
+
     <!-- Jquery & Jquery UI -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js" integrity="sha256-sw0iNNXmOJbQhYFuC9OF2kOlD5KQKe1y5lfBn4C9Sjg=" crossorigin="anonymous"></script>
+
     <!-- ChartJS -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 
 

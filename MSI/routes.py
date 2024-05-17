@@ -1,7 +1,7 @@
 from MSI import app, db
 from flask import render_template, request, abort, jsonify
 from MSI.models.saint_martin_dheres_data import SaintMartinDheresData
-from datetime import datetime
+import datetime
 
 
 @app.before_request
@@ -11,7 +11,7 @@ def create_dummy_data():
 
 @app.context_processor
 def current_year():
-    return {'current_year': datetime.now().year}
+    return {'current_year': datetime.datetime.now().year}
 
 
 @app.route("/")

@@ -2,7 +2,7 @@ from MSI import db
 import datetime
 
 
-class ModelUtils:
+class MeteoLiveUtils:
 
     # ------------METEO LIVE--------------------------------------------------------------------------------------------
     @staticmethod
@@ -15,7 +15,7 @@ class ModelUtils:
             bool: True if there is a reception error, False otherwise.
         """
         current_time = datetime.datetime.now()
-        last_record_datetime = ModelUtils.get_last_record_datetime(cls)
+        last_record_datetime = MeteoLiveUtils.get_last_record_datetime(cls)
         delta_time = current_time - last_record_datetime
         deadline = datetime.timedelta(hours=3)
 
@@ -63,7 +63,7 @@ class ModelUtils:
 
     @staticmethod
     def get_temperature_extremes_today(cls):
-        date_beginning_day = ModelUtils.get_last_record_datetime(cls).date()
+        date_beginning_day = MeteoLiveUtils.get_last_record_datetime(cls).date()
 
         temperature_extremes = cls.query.with_entities(db.func.min(cls.temperature).label("t_min"),
                                                        db.func.max(cls.temperature).label("t_max")) \
@@ -85,7 +85,7 @@ class ModelUtils:
 
     @staticmethod
     def get_cumulative_rain_today(cls):
-        date_beginning_day = ModelUtils.get_last_record_datetime(cls).date()
+        date_beginning_day = MeteoLiveUtils.get_last_record_datetime(cls).date()
 
         data_rain_today = cls.query.with_entities(cls.rain_1h).filter(db.func.DATE(cls.date_time) == date_beginning_day,
                                                                       cls.rain_1h.isnot(None)).all()
@@ -98,7 +98,7 @@ class ModelUtils:
 
     @staticmethod
     def get_rain_1h(cls):
-        rain_measurement_end_date = ModelUtils.get_last_record_datetime(cls).replace(minute=0)
+        rain_measurement_end_date = MeteoLiveUtils.get_last_record_datetime(cls).replace(minute=0)
         rain_measurement_start_date = rain_measurement_end_date - datetime.timedelta(hours=1)
 
         data_rain_1h = cls.query.with_entities(cls.rain_1h).filter(cls.date_time == rain_measurement_end_date,
@@ -113,7 +113,7 @@ class ModelUtils:
 
     @staticmethod
     def get_maximum_gust_today(cls):
-        date_beginning_day = ModelUtils.get_last_record_datetime(cls).date()
+        date_beginning_day = MeteoLiveUtils.get_last_record_datetime(cls).date()
 
         gust_max = cls.query.with_entities(db.func.max(cls.gust)).filter(
             db.func.DATE(cls.date_time) == date_beginning_day,
@@ -128,6 +128,6 @@ class ModelUtils:
 
     @staticmethod
     def get_current_chart_data(cls, interval_duration):
-        data_start_date = ModelUtils.get_last_record_datetime(cls) - datetime.timedelta(interval_duration)
+        data_start_date = MeteoLiveUtils.get_last_record_datetime(cls) - datetime.timedelta(interval_duration)
         return cls.query.filter(cls.date_time >= data_start_date).all()
 

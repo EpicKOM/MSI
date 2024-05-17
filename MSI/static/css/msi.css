@@ -1,7 +1,5 @@
 /* --- Color ---------------------------------------- */
-
-.background-color {background: #1E1F22;}
-.navbar-color {background: #1E1F22;}
+.secondary-color {background: #27272A;}
 .text-light-green {color: rgba(89, 243, 166, 1);}
 .bg-light-green {background: rgba(89, 243, 166, 1);}
 .text-dark-green {color: rgba(0, 31, 15, 1);}
@@ -68,7 +66,7 @@ hr {border-top: 1px solid rgba(251, 251, 251, .7);}
     background: #616161;
 }
 
-/* Modifier l'apparence du contenu du tooltip */
+/* --- Tooltip Design -------------------------------- */
 .tooltip-inner {
   background-color: rgba(9, 9, 11, 1);
   color: rgba(251, 251, 251, 1);
