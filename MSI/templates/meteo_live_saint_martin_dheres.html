@@ -263,7 +263,7 @@
                         <option value="24 heures" selected>24 heures</option>
                         <option value="48 heures">48 heures</option>
                         <option value="72 heures">72 heures</option>
-                        <option value="1 semaine">1 semaine</option>
+                        <option value="7 jours">7 jours</option>
                     </select>
                 </div>
             </div>
@@ -272,14 +272,9 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="card bg-card p-3 border-chart-card">
-                        <h5 class="card-title text-center text-light">
-                            Température sur 24h (°C)
+                        <h5 class="card-title text-center text-light" id="currentTemperatureChartTitle">
                         </h5>
-                        <span id="current_temperature_chart"
-                            values-x = "{% for item in current_chart_data['datetime'] %}{{ item }},{% endfor %}"
-                            values-y = "{% for item in current_chart_data['temperature'] %}{{ item }},{% endfor %}"
-                            values-z = "{% for item in current_chart_data['dew_point'] %}{{ item }},{% endfor %}" style="display: none;">
-                        </span>
+
                         <canvas id="currentTemperatureChart"></canvas>
                     </div>
                 </div>

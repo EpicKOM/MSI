@@ -1,17 +1,11 @@
 //------------------TEMPERATURE CHART-----------------------------------------------------------------------------------
 
-let datetime_data = $('#current_temperature_chart').attr('values-x').split(',').slice(0, -1);
-let temperature_data = $('#current_temperature_chart').attr('values-y').split(',').slice(0, -1).map(Number);
-let dew_point_data = $('#current_temperature_chart').attr('values-z').split(',').slice(0, -1).map(Number);
-console.log(datetime_data);
-console.log(temperature_data);
-
 // setup
-const data = {
-    labels: datetime_data,
+const temperatureData = {
+    labels:[],
     datasets: [{
         label: 'Température',
-        data: temperature_data,
+        data:[],
         borderColor: 'rgba(255, 26, 104, 1)',
         tension: 0,
         borderWidth: 2,
@@ -23,7 +17,7 @@ const data = {
     },
     {
         label: 'Point de rosée',
-        data: dew_point_data,
+        data: [],
         borderColor: 'rgba(41, 247, 255, 1)',
         tension: 0,
         borderWidth: 2,
@@ -36,9 +30,9 @@ const data = {
 };
 
 // config
-const config = {
+const temperatureConfig = {
     type: 'line',
-    data,
+    data: temperatureData,
     options: {
         responsive: true,
         plugins: {
@@ -100,27 +94,32 @@ const config = {
     }
 };
 
-// render init block
-const myChart = new Chart(
-    document.getElementById('currentTemperatureChart'),
-    config
-);
+//Chart Init
+const temperatureChart = new Chart(document.getElementById('currentTemperatureChart'), temperatureConfig);
 
-//----------------Update Charts-----------------------------------------------------------------------------------------
+//------------------LOGIQUE---------------------------------------------------------------------------------------------
+$(document).ready(function(){
 
-function Update_Current_Charts(date, temperature, dew_point, interval_duration)
-{
-    //    Temperature chart
+    $('#select_charts_duration').change(function() {
+        let interval_duration_string = $(this).val();
+        let interval_duration_chart_title = convertSelectResponseToChartTitle(interval_duration_string);
+        let interval_duration = convertSelectResponseToDays(interval_duration_string);
 
-}
+        ajaxRequest(interval_duration, interval_duration_chart_title);
+    });
+
+    // Initial AJAX request
+    ajaxRequest(1, "24h");
+
+    document.addEventListener("visibilitychange", event => {
+        if (document.visibilityState === "visible") {
+            temperatureChart.update();
+        }
+    });
+});
 
 //----------------Ajax request------------------------------------------------------------------------------------------
-
-$('#select_charts_duration').change(function() {
-    let interval_duration_string = $(this).val();
-    let interval_duration = convertSelectResponseToDays(interval_duration_string);
-
-    //Ajax
+function ajaxRequest(interval_duration, interval_duration_chart_title) {
     $.ajax({
         type : 'POST',
         url : '/data/saint-martin-d-heres/live-charts',
@@ -132,19 +131,9 @@ $('#select_charts_duration').change(function() {
             let temperature = results["live_charts"]["temperature"];
             let dew_point = results["live_charts"]["dew_point"];
 
-            test = ['2024-05-14 23:00:00', '2024-05-15 00:00:00', '2024-05-15 01:00:00', '2024-05-15 02:00:00', '2024-05-15 03:00:00', '2024-05-15 04:00:00', '2024-05-15 05:00:00', '2024-05-15 06:00:00', '2024-05-15 07:00:00', '2024-05-15 08:00:00', '2024-05-15 09:00:00', '2024-05-15 10:00:00', '2024-05-15 11:00:00', '2024-05-15 12:00:00', '2024-05-15 13:00:00', '2024-05-15 14:00:00', '2024-05-15 15:00:00', '2024-05-15 16:00:00', '2024-05-15 17:00:00', '2024-05-15 18:00:00', '2024-05-15 19:00:00', '2024-05-15 20:00:00', '2024-05-15 21:00:00', '2024-05-15 22:00:00', '2024-05-15 23:00:00', '2024-05-16 00:00:00', '2024-05-16 01:00:00', '2024-05-16 02:00:00', '2024-05-16 03:00:00', '2024-05-16 04:00:00', '2024-05-16 05:00:00', '2024-05-16 06:00:00', '2024-05-16 07:00:00', '2024-05-16 08:00:00', '2024-05-16 09:00:00', '2024-05-16 10:00:00', '2024-05-16 11:00:00', '2024-05-16 12:00:00', '2024-05-16 13:00:00', '2024-05-16 14:00:00', '2024-05-16 15:00:00', '2024-05-16 16:00:00', '2024-05-16 17:00:00', '2024-05-16 18:00:00', '2024-05-16 19:00:00', '2024-05-16 20:00:00', '2024-05-16 21:00:00', '2024-05-16 22:00:00', '2024-05-16 23:00:00'];
+            updateLiveCharts(datetime, temperature, dew_point, interval_duration);
 
-            console.log(datetime);
-            console.log(temperature);
-
-            myChart.data.labels = datetime;
-            myChart.data.datasets[0].data = temperature;
-            myChart.data.datasets[1].data = dew_point;
-            myChart.options.scales.x.ticks.stepSize = 2 * interval_duration;
-            myChart.update();
-
-//            Update_Current_Charts(datetime, temperature, dew_point, interval_duration);
-
+            $('#currentTemperatureChartTitle').text(`Température sur ${interval_duration_chart_title} (°C)`);
         },
 
         error:function()
@@ -156,17 +145,38 @@ $('#select_charts_duration').change(function() {
         {
             console.log("oudine");
         },
-
     })
-})
+}
+
+//----------------Update Charts-----------------------------------------------------------------------------------------
+function updateLiveCharts(datetime, temperature, dew_point, interval_duration)
+{
+    //Temperature chart
+    temperatureChart.data.labels = datetime;
+    temperatureChart.data.datasets[0].data = temperature;
+    temperatureChart.data.datasets[1].data = dew_point;
+    temperatureChart.options.scales.x.ticks.stepSize = 2 * interval_duration;
+    temperatureChart.update();
+}
 
 function convertSelectResponseToDays(interval_duration_string) {
     const durations = {
         "24 heures": 1,
         "48 heures": 2,
         "72 heures": 3,
-        "1 semaine": 7
+        "7 jours": 7
     };
 
     return durations[interval_duration_string] || 1;
+}
+
+function convertSelectResponseToChartTitle(interval_duration_string) {
+    const durations_title = {
+        "24 heures": "24h",
+        "48 heures": "48h",
+        "72 heures": "72h",
+        "7 jours": "7 jours"
+    };
+
+    return durations_title[interval_duration_string] || "24h";
 }
