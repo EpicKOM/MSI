@@ -268,7 +268,7 @@
                 </div>
             </div>
         </div>
-        <div class="container mt-4">
+        <div class="container mt-4" id="live_charts_container">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="card bg-card p-3 border-chart-card">
@@ -278,15 +278,32 @@
                         <canvas id="currentTemperatureChart"></canvas>
                     </div>
                 </div>
-
-                <div class="col-lg-6">
+                <div class="col-lg-6 mt-lg-0 mt-2">
                     <div class="card bg-card p-3 border-chart-card">
-                        <h5 class="card-title text-center text-light">
+                        <h5 class="card-title text-center text-light" id="currentRainChartTitle">
                             Pluie sur 24h (mm)
                         </h5>
-                        <span style="display: none;">
-                        </span>
-                        <canvas></canvas>
+
+                        <canvas id="currentRainChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <div class="col-lg-6">
+                    <div class="card bg-card p-3 border-chart-card">
+                        <h5 class="card-title text-center text-light" id="currentWindChartTitle">
+                        </h5>
+
+                        <canvas id="currentWindChart"></canvas>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card bg-card p-3 border-chart-card">
+                        <h5 class="card-title text-center text-light" id="currentWindDirectionChartTitle">
+                        </h5>
+
+                        <canvas id="currentWindDirectionChart"></canvas>
                     </div>
                 </div>
             </div>

@@ -139,6 +139,7 @@ function ajaxRequest(interval_duration, interval_duration_chart_title) {
         error:function()
         {
             console.log("error");
+            $("#live_charts_container").before('<p class="text-danger mt-5 text-center lead" id="monthly_climatologie-message-errors">Erreur lors de la tentative de récupération des données. Veuillez réessayer plus tard.</p>');
         },
 
         complete:function()
