@@ -62,7 +62,9 @@ class SaintMartinDheresData(db.Model):
 
         current_chart_data_dict = {"datetime": [data.date_time.strftime("%Y-%m-%d %H:%M:%S") for data in current_chart_data],
                                    "temperature": [data.temperature for data in current_chart_data],
-                                   "dew_point": [data.dew_point for data in current_chart_data], }
+                                   "dew_point": [data.dew_point for data in current_chart_data],
+                                   "wind": [data.wind for data in current_chart_data],
+                                   "gust": [data.gust for data in current_chart_data], }
 
         return current_chart_data_dict
 
