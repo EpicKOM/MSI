@@ -94,6 +94,82 @@ const temperatureConfig = {
     }
 };
 
+//------------------RAIN CHART------------------------------------------------------------------------------------------
+
+// setup
+const rainData = {
+    labels:[],
+    datasets: [{
+        label: 'Pluie',
+        data:[],
+        borderColor: 'rgba(74, 171, 237, 1)',
+        backgroundColor: 'rgba(74, 171, 237, .2)',
+        borderWidth: 2,
+        borderRadius: 4,
+    }]
+};
+
+// config
+const rainConfig = {
+    type: 'bar',
+    data: rainData,
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+                labels: {
+                    color: 'rgba(251, 251, 251, .6)',
+                },
+            },
+            tooltip: {
+                borderWidth: 1,
+                borderColor: 'rgba(251, 251, 251, .3)',
+                displayColors: false,
+                callbacks:{
+                    label: function(context) {
+                        if (context.datasetIndex === 0) {
+                            return 'Pluie sur 1h : ' + context.parsed.y.toFixed(1) + ' mm';
+                        }
+                    }
+                },
+            },
+        },
+        scales: {
+            x:{
+                type: 'time',
+                time: {
+                    unit: 'hour',
+                    tooltipFormat: "dd'/'MM'/'yyyy 'à' HH':'mm",
+                    displayFormats:
+                    {
+                        hour: "HH'h'",
+                    },
+                },
+
+                ticks: {
+                    stepSize: 2,
+                    color: 'rgba(251, 251, 251, .5)',
+                },
+
+                grid: {
+                    color: 'rgba(251, 251, 251, .1)',
+                },
+
+            },
+            y: {
+                grid: {
+                    color: 'rgba(251, 251, 251, .1)',
+                },
+
+                ticks: {
+                    color: 'rgba(251, 251, 251, .5)',
+                },
+            }
+        }
+    }
+}
+
 //------------------WIND CHART------------------------------------------------------------------------------------------
 
 // setup
@@ -313,7 +389,7 @@ const humidityConfig = {
     }
 }
 
-//------------------UV CHART-----------------------------------------------------------------------------------
+//------------------UV CHART--------------------------------------------------------------------------------------------
 
 // setup
 const uvData = {
@@ -391,6 +467,7 @@ const uvConfig = {
 
 //Chart Init
 const temperatureChart = new Chart(document.getElementById('currentTemperatureChart'), temperatureConfig);
+const rainChart = new Chart(document.getElementById('currentRainChart'), rainConfig);
 const windChart = new Chart(document.getElementById('currentWindChart'), windConfig);
 //const windDirectionChart = new Chart(document.getElementById('currentWindDirectionChart'), config);
 const humidityChart = new Chart(document.getElementById('currentHumidityChart'), humidityConfig);
@@ -414,6 +491,7 @@ $(document).ready(function(){
     document.addEventListener("visibilitychange", event => {
         if (document.visibilityState === "visible") {
             temperatureChart.update();
+            rainChart.update();
             windChart.update();
             humidityChart.update();
             uvChart.update();
@@ -437,13 +515,17 @@ function ajaxRequest(interval_duration, interval_duration_chart_title) {
             let gust = results["live_charts"]["gust"];
             let humidity = results["live_charts"]["humidity"];
             let uv = results["live_charts"]["uv"];
+            let rain = results["live_charts"]["rain"];
+            let rain_datetime = results["live_charts"]["rain_datetime"];
 
-            updateLiveCharts(datetime, temperature, dew_point, wind, gust, humidity, uv, interval_duration);
+            updateLiveCharts(datetime, temperature, dew_point, wind, gust, humidity, uv, rain, rain_datetime,
+            interval_duration);
 
             $('#currentTemperatureChartTitle').text(`Température sur ${interval_duration_chart_title} (°C)`);
             $('#currentWindChartTitle').text(`Vent sur ${interval_duration_chart_title} (km/h)`);
             $('#currentHumidityChartTitle').text(`Humidité sur ${interval_duration_chart_title} (%)`);
             $('#currentUvChartTitle').text(`Radiations sur ${interval_duration_chart_title} (W/m²)`);
+            $('#currentRainChartTitle').text(`Pluie sur ${interval_duration_chart_title} (mm)`);
 
             $('#live-charts-message-errors').remove();
             $("#live_charts_container").show();
@@ -463,13 +545,18 @@ function ajaxRequest(interval_duration, interval_duration_chart_title) {
 }
 
 //----------------Update Charts-----------------------------------------------------------------------------------------
-function updateLiveCharts(datetime, temperature, dew_point, wind, gust, humidity, uv, interval_duration)
+function updateLiveCharts(datetime, temperature, dew_point, wind, gust, humidity, uv, rain, rain_datetime, interval_duration)
 {
     //Temperature chart
     temperatureChart.data.labels = datetime;
     temperatureChart.data.datasets[0].data = temperature;
     temperatureChart.data.datasets[1].data = dew_point;
     temperatureChart.options.scales.x.ticks.stepSize = 2 * interval_duration;
+
+    //Rain Chart
+    rainChart.data.labels = rain_datetime;
+    rainChart.data.datasets[0].data = rain;
+    rainChart.options.scales.x.ticks.stepSize = 2 * interval_duration;
 
     //Wind chart
     windChart.data.labels = datetime;
@@ -489,6 +576,7 @@ function updateLiveCharts(datetime, temperature, dew_point, wind, gust, humidity
 
     //Update chart
     temperatureChart.update();
+    rainChart.update();
     windChart.update();
     humidityChart.update();
     uvChart.update();

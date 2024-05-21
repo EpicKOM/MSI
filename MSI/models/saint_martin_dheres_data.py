@@ -57,16 +57,18 @@ class SaintMartinDheresData(db.Model):
         return MeteoLiveUtils.get_maximum_gust_today(cls)
 
     @classmethod
-    def current_chart_data(cls, interval_duration):
-        current_chart_data = MeteoLiveUtils.get_current_chart_data(cls, interval_duration)
+    def current_charts_data(cls, interval_duration):
+        current_chart_data = MeteoLiveUtils.get_current_charts_data(cls, interval_duration)
 
-        current_chart_data_dict = {"datetime": [data.date_time.strftime("%Y-%m-%d %H:%M:%S") for data in current_chart_data],
-                                   "temperature": [data.temperature for data in current_chart_data],
-                                   "dew_point": [data.dew_point for data in current_chart_data],
-                                   "wind": [data.wind for data in current_chart_data],
-                                   "gust": [data.gust for data in current_chart_data],
-                                   "humidity": [data.humidity for data in current_chart_data],
-                                   "uv": [data.uv for data in current_chart_data]}
+        current_chart_data_dict = {"datetime": [data.date_time.strftime("%Y-%m-%d %H:%M:%S") for data in current_chart_data[0]],
+                                   "temperature": [data.temperature for data in current_chart_data[0]],
+                                   "dew_point": [data.dew_point for data in current_chart_data[0]],
+                                   "wind": [data.wind for data in current_chart_data[0]],
+                                   "gust": [data.gust for data in current_chart_data[0]],
+                                   "humidity": [data.humidity for data in current_chart_data[0]],
+                                   "uv": [data.uv for data in current_chart_data[0]],
+                                   "rain": [data.rain_1h for data in current_chart_data[1]],
+                                   "rain_datetime": [data.date_time.strftime("%Y-%m-%d %H:%M:%S") for data in current_chart_data[1]]}
 
         return current_chart_data_dict
 

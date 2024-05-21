@@ -127,7 +127,10 @@ class MeteoLiveUtils:
         return maximum_gust_today
 
     @staticmethod
-    def get_current_chart_data(cls, interval_duration):
+    def get_current_charts_data(cls, interval_duration):
         data_start_date = MeteoLiveUtils.get_last_record_datetime(cls) - datetime.timedelta(interval_duration)
-        return cls.query.filter(cls.date_time >= data_start_date).all()
 
+        current_charts_data = cls.query.filter(cls.date_time >= data_start_date).all()
+        current_rain_chart_data = cls.query.with_entities(cls.rain_1h, cls.date_time).filter(cls.date_time >= data_start_date, cls.rain_1h.isnot(None)).all()
+
+        return [current_charts_data, current_rain_chart_data]

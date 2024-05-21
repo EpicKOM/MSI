@@ -36,8 +36,7 @@ def meteo_live_saint_martin_dheres():
                                temperature_extremes_today=SaintMartinDheresData.temperature_extremes_today(),
                                cumulative_rain_today=SaintMartinDheresData.cumulative_rain_today(),
                                maximum_gust_today=SaintMartinDheresData.maximum_gust_today(),
-                               rain=SaintMartinDheresData.rain(),
-                               current_chart_data=SaintMartinDheresData.current_chart_data(1))
+                               rain=SaintMartinDheresData.rain(),)
 
 
 # ------------Requête AJAX Live Charts---------------------------------------------------------------------------
@@ -47,8 +46,7 @@ def saint_martin_dheres_update_charts():
 
     if interval_duration is not None:
         interval_duration = int(interval_duration)
-        SaintMartinDheresData.current_chart_data(interval_duration)
-        return jsonify(live_charts=SaintMartinDheresData.current_chart_data(interval_duration)), 200
+        return jsonify(live_charts=SaintMartinDheresData.current_charts_data(interval_duration)), 200
 
     else:
         # Gérer le cas où la clé 'interval_duration' est manquante dans le formulaire
