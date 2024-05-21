@@ -1,0 +1,10 @@
+.border-achievement {border: 1px solid rgba(89, 243, 166, .6);}
+.border-error {border: 1px solid rgba(227, 112, 102, .6);}
+
+.border-weather-card {border: 1px solid rgba(251, 251, 251, .3);}
+
+.forecast-items {cursor: pointer;}
+
+.forecast-items:hover {
+  background-color: rgba(39, 39, 42, 1);
+}
