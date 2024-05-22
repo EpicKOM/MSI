@@ -267,45 +267,87 @@ const windConfig = {
 };
 
 //------------------WIND DIRECTION CHART--------------------------------------------------------------------------------
+
 // setup
-//const windDirectionData = {
-//    labels:['N', 'E', 'S', 'O'],
-//    datasets: [{
-//        label: 'Rose des vents',
-//        data:[40, 20, 20, 20],
-//        borderColor: 'rgba(255, 193, 7, 1)',
-//        backgroundColor: 'rgba(230, 81, 0, .2)',
-//    }]
-//};
-//
-////// config
-//const windDirectionConfig = {
-//    type: 'radar',
-//    data: windDirectionData,
-//    options: {
-//        responsive: true,
-//        plugins: {
-//            legend: {
-//                position: 'top',
-//                labels: {
-//                    color: 'rgba(251, 251, 251, .6)',
-//                },
-//            },
-//            tooltip: {
-//                borderWidth: 1,
-//                borderColor: 'rgba(251, 251, 251, .3)',
-//                displayColors: false,
-//                callbacks:{
-//                    label: function(context) {
-//                        if (context.datasetIndex === 0) {
-//                            return context.parsed.x + " : " + context.parsed.y.toFixed(1) + ' %';
-//                        }
-//                    }
-//                },
-//            },
-//        },
-//    }
-//}
+const windDirectionData = {
+    labels: ['N',
+            'NNE',
+            'NE',
+            'ENE',
+            'E',
+            'ESE',
+            'SE',
+            'SSE',
+            'S',
+            'SSO',
+            'SO',
+            'OSO',
+            'O',
+            'ONO',
+            'NO',
+            'NNO'],
+    datasets: [
+    {
+        label: 'Rose des vents',
+        data: [],
+        borderColor: 'rgba(29, 233, 182, 1)',
+        backgroundColor: 'rgba(29, 233, 182, .3)',
+        borderWidth: 2,
+        pointStyle: 'circle',
+        pointBorderColor: 'rgba(29, 233, 182, 1)',
+        pointBackgroundColor: 'rgba(29, 233, 182, 1)',
+        pointHoverBorderColor: 'rgba(29, 233, 182, 1)',
+        pointHoverBackgroundColor: 'rgba(29, 233, 182, 1)',
+    }]
+};
+
+const windDirectionConfig = {
+    type: 'radar',
+    data: windDirectionData,
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+                labels: {
+                    color: 'rgba(251, 251, 251, .6)',
+                },
+            },
+            tooltip: {
+                borderWidth: 1,
+                borderColor: 'rgba(251, 251, 251, .3)',
+                displayColors: false,
+                callbacks:{
+                    label: function(context) {
+                        if (context.datasetIndex === 0) {
+                            return context.parsed.r.toFixed(1) + ' %';
+                        }
+                    }
+                },
+            },
+        },
+        scales: {
+            r: {
+                angleLines: {
+                    color: 'rgba(251, 251, 251, .7)',
+                },
+
+                grid: {
+                    color: 'rgba(251, 251, 251, .4)',
+                },
+
+                pointLabels: {
+                    color: 'rgba(255, 255, 255, 1)',
+                },
+
+                ticks: {
+                    color: 'rgba(251, 251, 251, 1)',
+                    backdropColor: 'rgba(0, 0, 0, 0)',
+                },
+            }
+        },
+    },
+};
 
 //------------------Humidity CHART-----------------------------------------------------------------------------------
 
@@ -469,7 +511,7 @@ const uvConfig = {
 const temperatureChart = new Chart(document.getElementById('currentTemperatureChart'), temperatureConfig);
 const rainChart = new Chart(document.getElementById('currentRainChart'), rainConfig);
 const windChart = new Chart(document.getElementById('currentWindChart'), windConfig);
-//const windDirectionChart = new Chart(document.getElementById('currentWindDirectionChart'), config);
+const windDirectionChart = new Chart(document.getElementById('currentWindDirectionChart'), windDirectionConfig);
 const humidityChart = new Chart(document.getElementById('currentHumidityChart'), humidityConfig);
 const uvChart = new Chart(document.getElementById('currentUvChart'), uvConfig);
 
@@ -495,6 +537,7 @@ $(document).ready(function(){
             windChart.update();
             humidityChart.update();
             uvChart.update();
+            windDirectionChart.update();
         }
     });
 });
@@ -517,15 +560,17 @@ function ajaxRequest(interval_duration, interval_duration_chart_title) {
             let uv = results["live_charts"]["uv"];
             let rain = results["live_charts"]["rain"];
             let rain_datetime = results["live_charts"]["rain_datetime"];
+            let wind_direction = results["live_charts"]["wind_direction"];
 
             updateLiveCharts(datetime, temperature, dew_point, wind, gust, humidity, uv, rain, rain_datetime,
-            interval_duration);
+            wind_direction, interval_duration);
 
             $('#currentTemperatureChartTitle').text(`Température sur ${interval_duration_chart_title} (°C)`);
             $('#currentWindChartTitle').text(`Vent sur ${interval_duration_chart_title} (km/h)`);
             $('#currentHumidityChartTitle').text(`Humidité sur ${interval_duration_chart_title} (%)`);
             $('#currentUvChartTitle').text(`Radiations sur ${interval_duration_chart_title} (W/m²)`);
             $('#currentRainChartTitle').text(`Pluie sur ${interval_duration_chart_title} (mm)`);
+            $('#currentWindDirectionChartTitle').text(`Rose des vents sur ${interval_duration_chart_title} (%)`);
 
             $('#live-charts-message-errors').remove();
             $("#live_charts_container").show();
@@ -545,7 +590,7 @@ function ajaxRequest(interval_duration, interval_duration_chart_title) {
 }
 
 //----------------Update Charts-----------------------------------------------------------------------------------------
-function updateLiveCharts(datetime, temperature, dew_point, wind, gust, humidity, uv, rain, rain_datetime, interval_duration)
+function updateLiveCharts(datetime, temperature, dew_point, wind, gust, humidity, uv, rain, rain_datetime, wind_direction, interval_duration)
 {
     //Temperature chart
     temperatureChart.data.labels = datetime;
@@ -574,12 +619,16 @@ function updateLiveCharts(datetime, temperature, dew_point, wind, gust, humidity
     uvChart.data.datasets[0].data = uv;
     uvChart.options.scales.x.ticks.stepSize = 2 * interval_duration;
 
-    //Update chart
+    //Wind Direction Chart
+    windDirectionChart.data.datasets[0].data = wind_direction;
+
+    //Update charts
     temperatureChart.update();
     rainChart.update();
     windChart.update();
     humidityChart.update();
     uvChart.update();
+    windDirectionChart.update();
 }
 
 function convertSelectResponseToDays(interval_duration_string) {

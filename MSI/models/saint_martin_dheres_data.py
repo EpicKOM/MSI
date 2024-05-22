@@ -68,7 +68,8 @@ class SaintMartinDheresData(db.Model):
                                    "humidity": [data.humidity for data in current_chart_data[0]],
                                    "uv": [data.uv for data in current_chart_data[0]],
                                    "rain": [data.rain_1h for data in current_chart_data[1]],
-                                   "rain_datetime": [data.date_time.strftime("%Y-%m-%d %H:%M:%S") for data in current_chart_data[1]]}
+                                   "rain_datetime": [data.date_time.strftime("%Y-%m-%d %H:%M:%S") for data in current_chart_data[1]],
+                                   "wind_direction": current_chart_data[2]}
 
         return current_chart_data_dict
 
