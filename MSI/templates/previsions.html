@@ -16,6 +16,21 @@
                     <i class="fa-solid fa-rotate-right me-2"></i>Dernière mise à jour : 21/05/2024 à 06:00
                 </span>
             </div>
+            <div>
+                <span class="badge p-3 text-light opacity-75">
+                    <i class="fa-solid fa-map-pin me-2"></i><span class="text-info">Grenoble</span>
+                </span>
+            </div>
+            <div>
+                <span class="badge p-3 text-light opacity-75">
+                    <i class="fa-solid fa-mountain me-2"></i>218 m
+                </span>
+            </div>
+            <div>
+                <span class="badge p-3 text-light opacity-75">
+                    <i class="fa-brands fa-uncharted me-2"></i>45.18°N | 5.71°E
+                </span>
+            </div>
         </div>
     </div>
     <div class="container mt-4">
@@ -54,7 +69,80 @@
             </div>
 
             <div class="col-lg-8">
+                <div class="card bg-card border-weather-card p-4">
+                    <div class="row">
+                        <div class="col-6 text-center">
+                            <img src="https://static.meteoblue.com/assets/images/picto/03_iday.svg" alt="weather-icon" style="width: 100px; height: 100px;"/>
+                        </div>
+                        <div class="col-6 d-flex align-items-center">
+                            <div class="flex-grow-1">
+                                <h6 class="text-light mb-2 opacity-75">
+                                    Prévisibilité: <span class="text-warning">Moyenne</span>
+                                </h6>
+                                <div class="progress" style="height: 10px; border-radius: 5px;">
+                                  <div
+                                    class="progress-bar bg-warning"
+                                    role="progressbar"
+                                    aria-valuenow="75"
+                                    aria-valuemin="0"
+                                    aria-valuemax="100"
+                                    style="width: 75%; "
+                                  ></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-outline p-2 mt-3">
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr>
+                                    <th class="text-light fw-bold opacity-75" scope="row">Température</th>
+                                    <td class="text-info">12 °C</td>
+                                    <td class="text-light">15 °C</td>
+                                    <td class="text-danger">18 °C</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-light fw-bold opacity-75" scope="row">Température ressentie</th>
+                                    <td class="text-info">11.5 °C</td>
+                                    <td class="text-light">14.5 °C</td>
+                                    <td class="text-danger">18.5 °C</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-outline p-2 mt-2">
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr>
+                                    <th class="text-light fw-bold opacity-75" scope="row">Précipitations</th>
+                                    <td class="rain-color">2.3 mm</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th class="text-light fw-bold opacity-75" scope="row">Probabilité de précipitation</th>
+                                    <td colspan="2" class="text-info">
+                                        <div class="progress" style="height: 20px;">
+                                            <div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
+                                        </div>
+                                    </td>
+                                </tr>
 
+                                <tr>
+                                    <th class="text-light fw-bold opacity-75" scope="row">Pluie convective</th>
+                                    <td class="text-light">2 mm</td>
+                                </tr>
+
+                                <tr>
+                                    <th class="text-light fw-bold opacity-75" scope="row">Snow fraction</th>
+                                    <td class="text-light">neige : 0 %</td>
+                                    <td class="rain-color">pluie : 100 %</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

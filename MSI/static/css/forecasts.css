@@ -8,3 +8,12 @@
 .forecast-items:hover {
   background-color: rgba(39, 39, 42, 1);
 }
+
+.table-outline{
+    border: 1px solid rgba(251, 251, 251, .2);
+    border-radius: 6px;
+}
+
+th, td {
+    background-color: rgba(0, 0, 0, 1) !important;
+}

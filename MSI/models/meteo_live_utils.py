@@ -138,35 +138,27 @@ class MeteoLiveUtils:
 
     @staticmethod
     def get_wind_direction_chart_data(cls, data_start_date):
-        wind_angle_data = cls.query.with_entities(cls.wind_angle).filter(cls.date_time >= data_start_date, cls.wind > 0, cls.wind_angle.isnot(None)).all()
+        wind_angle_data = cls.query.with_entities(cls.wind_angle).filter(cls.date_time >= data_start_date, cls.wind > 0,
+                                                                         cls.wind_angle.isnot(None)).all()
 
-        wind_direction = []
+        wind_direction_counts = {
+            "N": 0, "NNE": 0, "NE": 0, "ENE": 0, "E": 0, "ESE": 0,
+            "SE": 0, "SSE": 0, "S": 0, "SSO": 0, "SO": 0, "OSO": 0,
+            "O": 0, "ONO": 0, "NO": 0, "NNO": 0
+        }
 
         for wind_angle in wind_angle_data:
-            wind_direction.append(MeteoLiveUtils.get_wind_direction(wind_angle[0]))
+            direction = MeteoLiveUtils.get_wind_direction(wind_angle[0])
+            if direction in wind_direction_counts:
+                wind_direction_counts[direction] += 1
 
-        total = len(wind_direction)
+        total = sum(wind_direction_counts.values())
 
-        results = [round(MeteoLiveUtils.percentage(wind_direction.count("N"), total), 1),
-                   round(MeteoLiveUtils.percentage(wind_direction.count("NNE"), total), 1),
-                   round(MeteoLiveUtils.percentage(wind_direction.count("NE"), total), 1),
-                   round(MeteoLiveUtils.percentage(wind_direction.count("ENE"), total), 1),
-                   round(MeteoLiveUtils.percentage(wind_direction.count("E"), total), 1),
-                   round(MeteoLiveUtils.percentage(wind_direction.count("ESE"), total), 1),
-                   round(MeteoLiveUtils.percentage(wind_direction.count("SE"), total), 1),
-                   round(MeteoLiveUtils.percentage(wind_direction.count("SSE"), total), 1),
-                   round(MeteoLiveUtils.percentage(wind_direction.count("S"), total), 1),
-                   round(MeteoLiveUtils.percentage(wind_direction.count("SSO"), total), 1),
-                   round(MeteoLiveUtils.percentage(wind_direction.count("SO"), total), 1),
-                   round(MeteoLiveUtils.percentage(wind_direction.count("OSO"), total), 1),
-                   round(MeteoLiveUtils.percentage(wind_direction.count("O"), total), 1),
-                   round(MeteoLiveUtils.percentage(wind_direction.count("ONO"), total), 1),
-                   round(MeteoLiveUtils.percentage(wind_direction.count("NO"), total), 1),
-                   round(MeteoLiveUtils.percentage(wind_direction.count("NNO"), total), 1),
-                   ]
+        results = [round(MeteoLiveUtils.wind_direction_percentage(wind_direction_counts[direction], total), 1)
+                   for direction in ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSO", "SO", "OSO", "O", "ONO", "NO", "NNO"]]
 
         return results
 
     @staticmethod
-    def percentage(part, total):
+    def wind_direction_percentage(part, total):
         return 100 * part / total
