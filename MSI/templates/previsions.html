@@ -37,30 +37,28 @@
         <div class="row">
             <div class="col-lg-4">
                 <div class="card bg-card border-weather-card p-2">
-                    {% for i in range(7) %}
-
-                        {% if i > 0 %}
+                    {% for data in forecasts_data %}
+                        {% if data["index"] > 0 %}
                             <hr class="mt-1 mb-1">
                         {% endif %}
-
-                        <div class="d-flex align-items-start p-1 rounded-3 align-items-center forecast-items">
+                        <div class="d-flex align-items-start p-1 rounded-3 align-items-center forecast-items {% if data['index'] == 0 %}test{% endif %}">
                             <div class="flex-shrink-0">
-                                <img class="img-fluid" src="https://static.meteoblue.com/assets/images/picto/03_iday.svg" alt="weather-icon" style="width: 60px; height: 60px;">
+                                <img class="img-fluid" src="https://static.meteoblue.com/assets/images/picto/{{ data['pictocode'] }}_iday.svg" alt="weather-icon" style="width: 60px; height: 60px;">
                             </div>
                             <div class="flex-grow-1 ms-4">
                                 <h6 class="text-light mb-1 fw-bold">
-                                    Lundi
+                                    {{ data["day_name"] }}
                                 </h6>
                                 <h6 class="text-light opacity-50 mb-0 fw-normal">
-                                    21/05/2024
+                                    {{ data["date"] }}
                                 </h6>
                             </div>
                             <div class="me-3 text-end">
                                 <h6 class="text-info mb-2 fw-normal">
-                                    -25 °C
+                                    {{ data["temperature_min"] }} °C
                                 </h6>
                                 <h6 class="text-danger mb-0 fw-normal">
-                                    36 °C
+                                    {{ data["temperature_max"] }} °C
                                 </h6>
                             </div>
                         </div>
@@ -74,10 +72,10 @@
                         <div class="col-6 text-center">
                             <img src="https://static.meteoblue.com/assets/images/picto/03_iday.svg" alt="weather-icon" style="width: 100px; height: 100px;"/>
                         </div>
-                        <div class="col-6 d-flex align-items-center">
+                        <div class="col-4 d-flex align-items-center">
                             <div class="flex-grow-1">
                                 <h6 class="text-light mb-2 opacity-75">
-                                    Prévisibilité: <span class="text-warning">Moyenne</span>
+                                    Prévisibilité : <span class="text-warning">Moyenne</span>
                                 </h6>
                                 <div class="progress" style="height: 10px; border-radius: 5px;">
                                   <div

@@ -1,6 +1,7 @@
 from MSI import app, db
 from flask import render_template, request, abort, jsonify
 from MSI.models.saint_martin_dheres_data import SaintMartinDheresData
+from MSI.api.forecasts import ForecastsApi
 import datetime
 
 
@@ -56,4 +57,5 @@ def saint_martin_dheres_update_charts():
 
 @app.route("/previsions/")
 def previsions():
-    return render_template("previsions.html")
+    return render_template("previsions.html",
+                           forecasts_data=ForecastsApi.get_forecasts_data())
