@@ -12,6 +12,7 @@
 .bg-dark-red {background: rgba(44, 15, 20, 1);}
 .dew-point-color {color: rgba(41, 247, 255, 1);}
 .rain-color {color: rgba(74, 171, 237, 1) !important;}
+.bg-rain-color {background: rgba(74, 171, 237, 1) !important;}
 
 /* --- General ------------------------------------------ */
 body {

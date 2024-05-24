@@ -18,6 +18,15 @@ th, td {
     background-color: rgba(0, 0, 0, 1) !important;
 }
 
-.test{
+.active{
     background-color: rgba(39, 39, 42, 1);
 }
+
+.hide {
+    visibility: collapse;
+}
+
+.show {
+    visibility: visible;
+}
+

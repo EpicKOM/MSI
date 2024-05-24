@@ -41,7 +41,7 @@
                         {% if data["index"] > 0 %}
                             <hr class="mt-1 mb-1">
                         {% endif %}
-                        <div class="d-flex align-items-start p-1 rounded-3 align-items-center forecast-items {% if data['index'] == 0 %}test{% endif %}">
+                        <div class="d-flex align-items-start p-1 rounded-3 align-items-center forecast-items {% if data['index'] == 0 %} active {% endif %}" data-value="{{ data['index'] }}">
                             <div class="flex-shrink-0">
                                 <img class="img-fluid" src="https://static.meteoblue.com/assets/images/picto/{{ data['pictocode'] }}_iday.svg" alt="weather-icon" style="width: 60px; height: 60px;">
                             </div>
@@ -69,10 +69,22 @@
             <div class="col-lg-8">
                 <div class="card bg-card border-weather-card p-4">
                     <div class="row">
-                        <div class="col-6 text-center">
-                            <img src="https://static.meteoblue.com/assets/images/picto/03_iday.svg" alt="weather-icon" style="width: 100px; height: 100px;"/>
+                        <div class="col-4 ms-auto me-auto">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <div class="flex-shrink-0">
+                                    <img class="img-fluid" src="https://static.meteoblue.com/assets/images/picto/08_iday.svg" alt="weather-icon" style="width: 80px; height: 80px;">
+                                </div>
+                                <div class="flex-shrink-0 ms-3 justify-content-center">
+                                    <h5 class="text-light mb-2 fw-bold">
+                                       Jeudi
+                                    </h5>
+                                    <h6 class="text-light opacity-50 mb-0 fw-normal">
+                                        23/05/2024
+                                    </h6>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-4 d-flex align-items-center">
+                        <div class="col-4 d-flex align-items-center ms-auto me-auto">
                             <div class="flex-grow-1">
                                 <h6 class="text-light mb-2 opacity-75">
                                     Prévisibilité : <span class="text-warning">Moyenne</span>
@@ -90,55 +102,75 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="table-outline p-2 mt-3">
-                        <table class="table table-borderless">
+                        <table class="table table-borderless" data-value="true" id="forecasts-table">
                             <tbody>
                                 <tr>
-                                    <th class="text-light fw-bold opacity-75" scope="row">Température</th>
+                                    <th class="text-light fw-bold opacity-75" scope="row">Température :</th>
                                     <td class="text-info">12 °C</td>
                                     <td class="text-light">15 °C</td>
                                     <td class="text-danger">18 °C</td>
                                 </tr>
-                                <tr>
-                                    <th class="text-light fw-bold opacity-75" scope="row">Température ressentie</th>
+                                <tr style="border-bottom: 1px solid rgba(251, 251, 251, .2);">
+                                    <th class="text-light fw-bold opacity-75" scope="row">Température ressentie :</th>
                                     <td class="text-info">11.5 °C</td>
                                     <td class="text-light">14.5 °C</td>
                                     <td class="text-danger">18.5 °C</td>
                                 </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="table-outline p-2 mt-2">
-                        <table class="table table-borderless">
-                            <tbody>
                                 <tr>
-                                    <th class="text-light fw-bold opacity-75" scope="row">Précipitations</th>
+                                    <th class="text-light fw-bold opacity-75" scope="row">Précipitations :</th>
                                     <td class="rain-color">2.3 mm</td>
-                                    <td></td>
-                                    <td></td>
                                 </tr>
                                 <tr>
-                                    <th class="text-light fw-bold opacity-75" scope="row">Probabilité de précipitation</th>
-                                    <td colspan="2" class="text-info">
-                                        <div class="progress" style="height: 20px;">
-                                            <div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
+                                    <th class="text-light fw-bold opacity-75" scope="row">Probabilité de précipitation :</th>
+                                    <td colspan="2">
+                                        <div class="progress" style="height: 15px;">
+                                            <div class="progress-bar bg-rain-color" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
                                         </div>
                                     </td>
                                 </tr>
-
                                 <tr>
-                                    <th class="text-light fw-bold opacity-75" scope="row">Pluie convective</th>
+                                    <th class="text-light fw-bold opacity-75" scope="row">Pluie convective :</th>
                                     <td class="text-light">2 mm</td>
                                 </tr>
-
                                 <tr>
-                                    <th class="text-light fw-bold opacity-75" scope="row">Snow fraction</th>
-                                    <td class="text-light">neige : 0 %</td>
-                                    <td class="rain-color">pluie : 100 %</td>
+                                    <th class="text-light fw-bold opacity-75" scope="row">Fraction de neige :</th>
+                                    <td class="text-light"><i class="fa-solid fa-snowflake text-light"></i> : 0 %</td>
+                                    <td class="text-light"><i class="fa-solid fa-droplet rain-color"></i> : 100 %</td>
                                 </tr>
 
+                                <tr class="hide">
+                                    <th class="text-light fw-bold opacity-75" scope="row" >Fraction de neige :</th>
+                                    <td class="text-light"><i class="fa-solid fa-snowflake text-light"></i> : 0 %</td>
+                                    <td class="text-light"><i class="fa-solid fa-droplet rain-color"></i> : 100 %</td>
+                                </tr>
+                                <tr class="hide">
+                                    <th class="text-light fw-bold opacity-75" scope="row" >Fraction de neige :</th>
+                                    <td class="text-light"><i class="fa-solid fa-snowflake text-light"></i> : 0 %</td>
+                                    <td class="text-light"><i class="fa-solid fa-droplet rain-color"></i> : 100 %</td>
+                                </tr>
+                                                            <tr class="hide">
+                                    <th class="text-light fw-bold opacity-75" scope="row" >Fraction de neige :</th>
+                                    <td class="text-light"><i class="fa-solid fa-snowflake text-light"></i> : 0 %</td>
+                                    <td class="text-light"><i class="fa-solid fa-droplet rain-color"></i> : 100 %</td>
+                                </tr>
+                                                            <tr class="hide">
+                                    <th class="text-light fw-bold opacity-75" scope="row" >Fraction de neige :</th>
+                                    <td class="text-light"><i class="fa-solid fa-snowflake text-light"></i> : 0 %</td>
+                                    <td class="text-light"><i class="fa-solid fa-droplet rain-color"></i> : 100 %</td>
+                                </tr>
                             </tbody>
                         </table>
+                        <div class="text-center">
+                        <button type="button" class="btn btn-primary btn-floating bg-success" data-mdb-ripple-init id="collapseButton">
+                            <i class="fa-solid fa-angles-down"></i>
+                        </button>
+<!--                            <button class="btn btn-primary" type="button" >-->
+<!--                                toggle second element-->
+<!--                            </button>-->
+                        </div>
+
                     </div>
                 </div>
             </div>
