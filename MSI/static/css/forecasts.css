@@ -15,10 +15,10 @@
 }
 
 th, td {
-    background-color: rgba(0, 0, 0, 1) !important;
+    background-color: rgba(0, 0, 0, 0) !important;
 }
 
-.active{
+.active-bg-color{
     background-color: rgba(39, 39, 42, 1);
 }
 

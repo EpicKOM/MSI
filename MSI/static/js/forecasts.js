@@ -1,29 +1,34 @@
 $(document).ready(function() {
+//    alert($("#col1").height());
+//    alert($("#col2").height());
+    $("tr.collapsable").hide();
+
     $('.forecast-items').on('click', function() {
-        $('.forecast-items').removeClass('active');
-        $(this).addClass('active');
+        $('.forecast-items').removeClass('active-bg-color');
+        $(this).addClass('active-bg-color');
 
         let dayNumber = parseInt($(this).data('value'), 10);
     });
 
     $('#collapseButton').click(function() {
-        let tableIsCollapsed = ($("#forecasts-table").attr("data-value") === "true");
+        let tableIsCollapsed = $("#forecasts-table").attr("data-value") === "true";
 
         if (tableIsCollapsed) {
             $("#forecasts-table").attr("data-value", "false");
-            let collapseTr = $("tr.hide");
-            collapseTr.each(function() {
-                $(this).removeClass('hide').addClass('show');
-            })
+//            $("#caca").hide();
+            $("tr.collapsable").show();
+//            $("#caca").slideDown();
+            $("#bite").removeClass('fa-angles-down').addClass('fa-angles-up');
         }
+        else{
+            $("#forecasts-table").attr("data-value", "true");
+            $("tr.collapsable").hide();
+//            $("#caca").slideUp(function(){
+//                $("tr.collapsable").hide();
+//                $("#caca").show();
+//            });
 
-        else {
-             $("#forecasts-table").attr("data-value", "true");
-            let collapseTr = $("tr.show");
-
-            collapseTr.each(function() {
-                $(this).removeClass('show').addClass('hide');
-            })
+            $("#bite").removeClass('fa-angles-up').addClass('fa-angles-down');
         }
-    });
+    })
 })
