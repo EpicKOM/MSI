@@ -154,8 +154,12 @@ class MeteoLiveUtils:
 
         total = sum(wind_direction_counts.values())
 
-        results = [round(MeteoLiveUtils.wind_direction_percentage(wind_direction_counts[direction], total), 1)
-                   for direction in ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSO", "SO", "OSO", "O", "ONO", "NO", "NNO"]]
+        if total != 0:
+            results = [round(MeteoLiveUtils.wind_direction_percentage(wind_direction_counts[direction], total), 1)
+                       for direction in ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSO", "SO", "OSO", "O", "ONO", "NO", "NNO"]]
+
+        else:
+            results = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
         return results
 

@@ -1,9 +1,10 @@
+from MSI import app
 import json
 import datetime
 
 
 class ForecastsApi:
-    json_path = "C:/Users/remif/Documents/PycharmProject/MSI/MSI/static/json/forecast.json"
+    json_path = app.config.get('JSON_FORECASTS_PATH')
 
     @classmethod
     def get_forecasts_data(cls):
@@ -39,7 +40,7 @@ class ForecastsApi:
             return results
 
         except FileNotFoundError:
-            print(f"Erreur : Le fichier {json_path} n'a pas été trouvé.")
+            print(f"Erreur : Le fichier {cls.json_path} n'a pas été trouvé.")
 
         except json.JSONDecodeError as json_error:
             print(f"Erreur lors de la lecture du fichier JSON : {json_error}")

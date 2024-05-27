@@ -96,14 +96,14 @@
                                          aria-valuemin="0"
                                          aria-valuemax="100"
                                          style="width: 75%;">
-                                        75%
+                                        <span>75%</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="table-outline p-2 mt-3" id="caca">
+                    <div class="table-outline p-2 mt-3">
                         <table class="table align-middle table-borderless" data-value="true" id="forecasts-table">
                             <tbody>
                                 <tr>
@@ -157,12 +157,56 @@
                                     <th class="text-light fw-bold opacity-75" scope="row">Direction du vent :</th>
                                     <td class="text-light"><i class="fa-solid fa-compass me-2"></i>NNE</td>
                                 </tr>
+                                <tr class="collapsable" style="border-top: 1px solid rgba(251, 251, 251, .2);">
+                                    <th class="text-light fw-bold opacity-75" scope="row">Pression :</th>
+                                    <td class="text-info">1016 hPa</td>
+                                    <td class="text-light">1017 hPa</td>
+                                    <td class="text-danger">1018 hPa</td>
+                                </tr>
+                                <tr class="collapsable">
+                                    <th class="text-light fw-bold opacity-75" scope="row">Humidité :</th>
+                                    <td class="text-info">67 %</td>
+                                    <td class="text-light">87 %</td>
+                                    <td class="text-danger">96 %</td>
+                                </tr>
                             </tbody>
 
                         </table>
+<!--                        <div class="row">-->
+<!--                            <div class="col-6 collapsable">-->
+<!--                                <div class="d-flex align-items-center justify-content-center">-->
+<!--                                    <div class="flex-shrink-0">-->
+<!--                                        <i class="fa-solid fa-sun fa-2x text-warning"></i>-->
+<!--                                    </div>-->
+<!--                                    <div class="flex-shrink-0 ms-3 justify-content-center">-->
+<!--                                        <span class="text-light">-->
+<!--                                           <i class="fa-solid fa-caret-up me-2"></i>06:21-->
+<!--                                        </span>-->
+<!--                                        <span class="text-light">-->
+<!--                                            <i class="fa-solid fa-caret-down me-2"></i>22:46-->
+<!--                                        </span>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
 
+<!--                            <div class="col-6 collapsable">-->
+<!--                                <div class="d-flex align-items-center justify-content-center">-->
+<!--                                    <div class="flex-shrink-0">-->
+<!--                                        <img class="img-fluid" src="https://static.meteoblue.com/assets/images/picto/08_iday.svg" alt="weather-icon" style="width: 80px; height: 80px;">-->
+<!--                                    </div>-->
+<!--                                    <div class="flex-shrink-0 ms-3 justify-content-center">-->
+<!--                                        <h5 class="text-light mb-2 fw-bold">-->
+<!--                                           Jeudi-->
+<!--                                        </h5>-->
+<!--                                        <h6 class="text-light opacity-50 mb-0 fw-normal">-->
+<!--                                            23/05/2024-->
+<!--                                        </h6>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
                         <div class="text-center">
-                            <button type="button" class="btn btn-floating text-light border-weather-card active-bg-color" data-mdb-ripple-init id="collapseButton">
+                            <button type="button" class="btn btn-floating text-light active-bg-color" data-mdb-ripple-init id="collapseButton">
                                 <i class="fa-solid fa-angles-down" id="bite"></i>
                             </button>
                         </div>

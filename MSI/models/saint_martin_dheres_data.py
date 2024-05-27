@@ -1,4 +1,4 @@
-from MSI import app, db
+from MSI import db
 from MSI.models.meteo_live_utils import MeteoLiveUtils
 import datetime
 
@@ -70,6 +70,8 @@ class SaintMartinDheresData(db.Model):
                                    "rain": [data.rain_1h for data in current_chart_data[1]],
                                    "rain_datetime": [data.date_time.strftime("%Y-%m-%d %H:%M:%S") for data in current_chart_data[1]],
                                    "wind_direction": current_chart_data[2]}
+
+        print(current_chart_data_dict)
 
         return current_chart_data_dict
 
