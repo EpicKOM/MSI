@@ -22,18 +22,23 @@ class ForecastsApi:
             results = [
                 {
                     "index": index,
-                    "date": ForecastsApi.get_date_french_format(date),
+                    "date": date,
+                    "frDate": ForecastsApi.get_date_french_format(date),
                     "day_name": ForecastsApi.get_french_day_name(date),
                     "pictocode": f"{pictocode:02d}",
                     "temperature_min": round(temperature_min),
-                    "temperature_max": round(temperature_max)
+                    "temperature_max": round(temperature_max),
+                    "temperature_mean": round(temperature_mean),
+                    "precipitation": round(precipitation),
                 }
-                for index, date, pictocode, temperature_min, temperature_max in zip(
+                for index, date, pictocode, temperature_min, temperature_max, temperature_mean, precipitation in zip(
                     range(len(forecasts_data["time"])),
                     forecasts_data["time"],
                     forecasts_data["pictocode"],
                     forecasts_data["temperature_min"],
-                    forecasts_data["temperature_max"]
+                    forecasts_data["temperature_max"],
+                    forecasts_data["temperature_mean"],
+                    forecasts_data["precipitation"]
                 )
             ]
 

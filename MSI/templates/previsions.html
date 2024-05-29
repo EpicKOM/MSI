@@ -50,7 +50,7 @@
                                     {{ data["day_name"] }}
                                 </h6>
                                 <h6 class="text-light opacity-50 mb-0 fw-normal">
-                                    {{ data["date"] }}
+                                    {{ data["frDate"] }}
                                 </h6>
                             </div>
                             <div class="me-3 text-end">
@@ -66,7 +66,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-8" id="col2">
+            <div class="col-lg-8 mt-lg-0 mt-2" id="col2">
                 <div class="card bg-card border-weather-card p-4">
                     <div class="row">
                         <div class="col-4 ms-auto me-auto">
@@ -90,7 +90,7 @@
                                     Prévisibilité : <span class="text-warning">Moyenne</span>
                                 </h6>
                                 <div class="progress active-bg-color" style="height: 16px; border-radius: 8px;">
-                                    <div class="progress-bar bg-warning text-dark"
+                                    <div class="progress-bar bg-warning text-dark fw-bold"
                                          role="progressbar"
                                          aria-valuenow="75"
                                          aria-valuemin="0"
@@ -127,7 +127,7 @@
                                     <th class="text-light fw-bold opacity-75" scope="row">Probabilité de précipitation :</th>
                                     <td colspan="2">
                                         <div class="progress active-bg-color" style="height: 16px; border-radius: 8px;">
-                                            <div class="progress-bar bg-rain-color text-dark"
+                                            <div class="progress-bar bg-rain-color text-dark fw-bold"
                                                  role="progressbar"
                                                  style="width: 75%;"
                                                  aria-valuenow="75"
@@ -172,39 +172,7 @@
                             </tbody>
 
                         </table>
-<!--                        <div class="row">-->
-<!--                            <div class="col-6 collapsable">-->
-<!--                                <div class="d-flex align-items-center justify-content-center">-->
-<!--                                    <div class="flex-shrink-0">-->
-<!--                                        <i class="fa-solid fa-sun fa-2x text-warning"></i>-->
-<!--                                    </div>-->
-<!--                                    <div class="flex-shrink-0 ms-3 justify-content-center">-->
-<!--                                        <span class="text-light">-->
-<!--                                           <i class="fa-solid fa-caret-up me-2"></i>06:21-->
-<!--                                        </span>-->
-<!--                                        <span class="text-light">-->
-<!--                                            <i class="fa-solid fa-caret-down me-2"></i>22:46-->
-<!--                                        </span>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
 
-<!--                            <div class="col-6 collapsable">-->
-<!--                                <div class="d-flex align-items-center justify-content-center">-->
-<!--                                    <div class="flex-shrink-0">-->
-<!--                                        <img class="img-fluid" src="https://static.meteoblue.com/assets/images/picto/08_iday.svg" alt="weather-icon" style="width: 80px; height: 80px;">-->
-<!--                                    </div>-->
-<!--                                    <div class="flex-shrink-0 ms-3 justify-content-center">-->
-<!--                                        <h5 class="text-light mb-2 fw-bold">-->
-<!--                                           Jeudi-->
-<!--                                        </h5>-->
-<!--                                        <h6 class="text-light opacity-50 mb-0 fw-normal">-->
-<!--                                            23/05/2024-->
-<!--                                        </h6>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
                         <div class="text-center">
                             <button type="button" class="btn btn-floating text-light active-bg-color" data-mdb-ripple-init id="collapseButton">
                                 <i class="fa-solid fa-angles-down" id="bite"></i>
@@ -215,9 +183,40 @@
                 </div>
             </div>
         </div>
+        <div class="row mt-2">
+            <div class="col-lg-6">
+                <div class="card bg-card p-3 border-weather-card">
+                    <h5 class="card-title text-center text-light">
+                        Évolution des températures sur 7 jours (°C)
+                    </h5>
+                    <span id="forecastsTemperatureChartValues"
+                        values-w = "{% for value in forecasts_data %}{{ value['date'] }},{% endfor %}"
+                        values-x = "{% for value in forecasts_data %}{{ value['temperature_min'] }},{% endfor %}"
+                        values-y = "{% for value in forecasts_data %}{{ value['temperature_mean'] }},{% endfor %}"
+                        values-z = "{% for value in forecasts_data %}{{ value['temperature_max'] }},{% endfor %}"
+                        style="display: none;">
+                    </span>
+                    <canvas id="forecastsTemperatureChart"></canvas>
+                </div>
+            </div>
+
+            <div class="col-lg-6 mt-lg-0 mt-2">
+                <div class="card bg-card p-3 border-weather-card">
+                    <h5 class="card-title text-center text-light">
+                        Évolution des précipitations sur 7 jours (mm)
+                    </h5>
+                    <span id="forecastsRainChartValues"
+                        values-x = "{% for value in forecasts_data %}{{ value['precipitation'] }},{% endfor %}"
+                        style="display: none;">
+                    </span>
+                    <canvas id="forecastsRainChart"></canvas>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
 
 {% block script %}
     <script src="{{ url_for('static', filename='js/forecasts.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/forecasts_charts.js') }}"></script>
 {% endblock %}

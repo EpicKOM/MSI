@@ -1,6 +1,5 @@
 $(document).ready(function() {
-//    alert($("#col1").height());
-//    alert($("#col2").height());
+
     $("tr.collapsable").hide();
 
     $('.forecast-items').on('click', function() {

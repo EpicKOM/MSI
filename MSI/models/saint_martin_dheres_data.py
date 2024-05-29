@@ -71,8 +71,6 @@ class SaintMartinDheresData(db.Model):
                                    "rain_datetime": [data.date_time.strftime("%Y-%m-%d %H:%M:%S") for data in current_chart_data[1]],
                                    "wind_direction": current_chart_data[2]}
 
-        print(current_chart_data_dict)
-
         return current_chart_data_dict
 
 # with app.app_context():
