@@ -30,3 +30,12 @@ th, td {
     visibility: visible;
 }
 
+.collapseButton {
+    border: 1px solid rgba(251, 251, 251, .4);
+    background-color: rgba(39, 39, 42, 1);
+}
+
+.collapseButton:hover {
+    background-color: rgba(46, 67, 110, 1);
+}
+

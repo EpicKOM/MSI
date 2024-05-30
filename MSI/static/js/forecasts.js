@@ -14,20 +14,14 @@ $(document).ready(function() {
 
         if (tableIsCollapsed) {
             $("#forecasts-table").attr("data-value", "false");
-//            $("#caca").hide();
-            $("tr.collapsable").show();
-//            $("#caca").slideDown();
-            $("#bite").removeClass('fa-angles-down').addClass('fa-angles-up');
+            $("tr.collapsable").fadeIn();
+            $("#collapseButtonIcon").removeClass('fa-angles-down').addClass('fa-angles-up');
         }
         else{
             $("#forecasts-table").attr("data-value", "true");
-            $("tr.collapsable").hide();
-//            $("#caca").slideUp(function(){
-//                $("tr.collapsable").hide();
-//                $("#caca").show();
-//            });
+            $("tr.collapsable").fadeOut();
 
-            $("#bite").removeClass('fa-angles-up').addClass('fa-angles-down');
+            $("#collapseButtonIcon").removeClass('fa-angles-up').addClass('fa-angles-down');
         }
     })
 })

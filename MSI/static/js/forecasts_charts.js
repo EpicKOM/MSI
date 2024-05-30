@@ -87,7 +87,7 @@ $(document).ready(function() {
                         tooltipFormat: "dd'/'MM'/'yyyy",
                         displayFormats:
                         {
-                            day: "dd",
+                            day: "dd/MM",
                         },
                     },
 
@@ -161,7 +161,7 @@ $(document).ready(function() {
                         tooltipFormat: "dd'/'MM'/'yyyy",
                         displayFormats:
                         {
-                            day: "dd",
+                            day: "dd/MM",
                         },
                     },
 

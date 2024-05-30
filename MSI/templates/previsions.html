@@ -104,26 +104,27 @@
                     </div>
 
                     <div class="table-outline p-2 mt-3">
-                        <table class="table align-middle table-borderless" data-value="true" id="forecasts-table">
+                        <table class="table align-middle table-striped table-borderless" data-value="true" id="forecasts-table">
                             <tbody>
                                 <tr>
                                     <th class="text-light fw-bold opacity-75" scope="row">Température :</th>
-                                    <td class="text-info">12 °C</td>
-                                    <td class="text-light">15 °C</td>
-                                    <td class="text-danger">18 °C</td>
+                                    <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i>12 <sup><span class="opacity-75">°C</span></sup></td>
+                                    <td class="text-light">15 <sup><span class="opacity-75">°C</span></sup></td>
+                                    <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-danger"></i>18 <sup><span class="opacity-75">°C</span></sup></td>
                                 </tr>
-                                <tr>
+                                <tr class="active-bg-color">
                                     <th class="text-light fw-bold opacity-75" scope="row">Température ressentie :</th>
-                                    <td class="text-info">12 °C</td>
-                                    <td class="text-light">14 °C</td>
-                                    <td class="text-danger">17 °C</td>
-                                </tr>
-                                <tr style="border-top: 1px solid rgba(251, 251, 251, .2);">
-                                    <th class="text-light fw-bold opacity-75" scope="row">Précipitations :</th>
-                                    <td class="rain-color">4.3 mm</td>
-                                    <td class="text-light"><i class="fa-solid fa-clock me-2"></i>6h</td>
+                                    <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i>12 <sup><span class="opacity-75">°C</span></sup></td>
+                                    <td class="text-light">14 <sup><span class="opacity-75">°C</span></sup></td>
+                                    <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-danger"></i>17 <sup><span class="opacity-75">°C</span></sup></td>
                                 </tr>
                                 <tr>
+                                    <th class="text-light fw-bold opacity-75" scope="row">Précipitations :</th>
+                                    <td class="text-light">4.3 <sup><span class="opacity-75">mm</span></sup></td>
+                                    <td class="text-light"><i class="fa-solid fa-clock me-2"></i>6<sup><span class="opacity-75">h</span></sup></td>
+                                    <td></td>
+                                </tr>
+                                <tr class="active-bg-color">
                                     <th class="text-light fw-bold opacity-75" scope="row">Probabilité de précipitation :</th>
                                     <td colspan="2">
                                         <div class="progress active-bg-color" style="height: 16px; border-radius: 8px;">
@@ -137,15 +138,19 @@
                                             </div>
                                         </div>
                                     </td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <th class="text-light fw-bold opacity-75" scope="row">Pluie convective :</th>
-                                    <td class="text-light">2 mm</td>
+                                    <td class="text-light">2 <sup><span class="opacity-75">mm</span></sup></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
-                                <tr>
+                                <tr class="active-bg-color">
                                     <th class="text-light fw-bold opacity-75" scope="row">Fraction de neige :</th>
-                                    <td class="text-light"><i class="fa-solid fa-snowflake me-2"></i>0 %</td>
-                                    <td class="text-light"><i class="fa-solid fa-droplet rain-color me-2"></i>100 %</td>
+                                    <td class="text-light"><i class="fa-solid fa-snowflake me-2"></i>0 <sup><span class="opacity-75">%</span></sup></td>
+                                    <td class="text-light"><i class="fa-solid fa-droplet rain-color me-2"></i>100 <sup><span class="opacity-75">%</span></sup></td>
+                                    <td></td>
                                 </tr>
                                 <tr class="collapsable" style="border-top: 1px solid rgba(251, 251, 251, .2);">
                                     <th class="text-light fw-bold opacity-75" scope="row">Vitesse du vent :</th>
@@ -174,8 +179,8 @@
                         </table>
 
                         <div class="text-center">
-                            <button type="button" class="btn btn-floating text-light active-bg-color" data-mdb-ripple-init id="collapseButton">
-                                <i class="fa-solid fa-angles-down" id="bite"></i>
+                            <button type="button" class="btn btn-floating text-light collapseButton" data-mdb-ripple-init id="collapseButton">
+                                <i class="fa-solid fa-angles-down" id="collapseButtonIcon"></i>
                             </button>
                         </div>
 
