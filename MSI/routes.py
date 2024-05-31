@@ -57,5 +57,5 @@ def saint_martin_dheres_update_charts():
 
 @app.route("/previsions/")
 def previsions():
-    return render_template("previsions.html",
+    return render_template("forecasts.html",
                            forecasts_data=ForecastsApi.get_forecasts_data())

@@ -81,10 +81,10 @@
         <div class="container mt-4">
             <div class="row">
                 <div class="col-lg">
-                    <div class="card bg-card weather-card p-3">
+                    <div class="card bg-primary-color weather-card p-3">
                         <div class="d-flex align-items-start">
                             <div class="flex-shrink-0">
-                                <div class="p-2 badge-primary secondary-color rounded-4">
+                                <div class="p-2 badge-primary bg-secondary-color rounded-4">
                                     <span class="fa-stack fa-lg fa-fw">
                                         <i class="fa-solid fa-temperature-three-quarters fa-stack-1x text-light"></i>
                                     </span>
@@ -124,10 +124,10 @@
                     </div>
                 </div>
                 <div class="col-lg mt-lg-0 mt-2">
-                    <div class="card bg-card weather-card p-3">
+                    <div class="card bg-primary-color weather-card p-3">
                         <div class="d-flex align-items-start">
                             <div class="flex-shrink-0">
-                                <div class="p-2 badge-primary secondary-color rounded-4">
+                                <div class="p-2 badge-primary bg-secondary-color rounded-4">
                                     <span class="fa-stack fa-lg fa-fw">
                                         <i class="fa-solid fa-cloud-rain fa-stack-1x text-light"></i>
                                         {% if rain['rain_1h']|float <= 0 or rain['rain_1h'] == "-" %}
@@ -160,10 +160,10 @@
                     </div>
                 </div>
                 <div class="col-xl mt-xl-0 mt-2">
-                    <div class="card bg-card weather-card p-3">
+                    <div class="card bg-primary-color weather-card p-3">
                         <div class="d-flex align-items-start">
                             <div class="flex-shrink-0">
-                                <div class="p-2 badge-primary secondary-color rounded-4">
+                                <div class="p-2 badge-primary bg-secondary-color rounded-4">
                                     <span class="fa-stack fa-lg fa-fw">
                                         <i class="fa-solid fa-wind fa-stack-1x text-light"></i>
                                         {% if current_data["wind"]|float <= 0 or current_data["wind"] == "-" %}
@@ -206,10 +206,10 @@
                     </div>
                 </div>
                 <div class="col-lg mt-xl-0 mt-2">
-                    <div class="card bg-card weather-card p-3">
+                    <div class="card bg-primary-color weather-card p-3">
                         <div class="d-flex align-items-start">
                             <div class="flex-shrink-0">
-                                <div class="p-2 badge-primary secondary-color rounded-4">
+                                <div class="p-2 badge-primary bg-secondary-color rounded-4">
                                     <span class="fa-stack fa-lg fa-fw">
                                         <i class="fa-solid fa-droplet fa-stack-1x text-light"></i>
                                     </span>
@@ -234,10 +234,10 @@
                     </div>
                 </div>
                 <div class="col-lg mt-xl-0 mt-2">
-                    <div class="card bg-card weather-card p-3">
+                    <div class="card bg-primary-color weather-card p-3">
                         <div class="d-flex align-items-start">
                             <div class="flex-shrink-0">
-                                <div class="p-2 badge-primary secondary-color rounded-4">
+                                <div class="p-2 badge-primary bg-secondary-color rounded-4">
                                     <span class="fa-stack fa-lg fa-fw">
                                         <i class="fa-solid fa-sun fa-stack-1x text-light"></i>
                                     </span>
@@ -271,7 +271,7 @@
         <div class="container mt-4" id="live_charts_container">
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="card bg-card p-3 border-chart-card">
+                    <div class="card bg-primary-color p-3 border-chart-card">
                         <h5 class="card-title text-center text-light" id="currentTemperatureChartTitle">
                         </h5>
 
@@ -279,7 +279,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 mt-lg-0 mt-2">
-                    <div class="card bg-card p-3 border-chart-card">
+                    <div class="card bg-primary-color p-3 border-chart-card">
                         <h5 class="card-title text-center text-light" id="currentRainChartTitle">
                         </h5>
 
@@ -290,7 +290,7 @@
 
             <div class="row mt-2">
                 <div class="col-lg-6">
-                    <div class="card bg-card p-3 border-chart-card">
+                    <div class="card bg-primary-color p-3 border-chart-card">
                         <h5 class="card-title text-center text-light" id="currentHumidityChartTitle">
                         </h5>
 
@@ -298,7 +298,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 mt-lg-0 mt-2">
-                    <div class="card bg-card p-3 border-chart-card">
+                    <div class="card bg-primary-color p-3 border-chart-card">
                         <h5 class="card-title text-center text-light" id="currentUvChartTitle">
                         </h5>
 
@@ -308,7 +308,7 @@
             </div>
             <div class="row mt-2">
                 <div class="col-lg-6">
-                    <div class="card bg-card p-3 border-chart-card">
+                    <div class="card bg-primary-color p-3 border-chart-card">
                         <h5 class="card-title text-center text-light" id="currentWindChartTitle">
                         </h5>
 
@@ -316,7 +316,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 mt-lg-0 mt-2">
-                    <div class="card bg-card p-3 border-chart-card">
+                    <div class="card bg-primary-color p-3 border-chart-card">
                         <h5 class="card-title text-center text-light" id="currentWindDirectionChartTitle">
                         </h5>
 

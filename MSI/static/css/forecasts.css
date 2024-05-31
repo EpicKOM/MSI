@@ -1,12 +1,7 @@
-.border-achievement {border: 1px solid rgba(89, 243, 166, .6);}
-.border-error {border: 1px solid rgba(227, 112, 102, .6);}
-
-.border-weather-card {border: 1px solid rgba(251, 251, 251, .3);}
-
 .forecast-items {cursor: pointer;}
 
 .forecast-items:hover {
-  background-color: rgba(39, 39, 42, 1);
+    background-color: rgba(39, 39, 42, 1);
 }
 
 .table-outline{
@@ -18,18 +13,6 @@ th, td {
     background-color: rgba(0, 0, 0, 0) !important;
 }
 
-.active-bg-color{
-    background-color: rgba(39, 39, 42, 1);
-}
-
-.hide {
-    visibility: collapse;
-}
-
-.show {
-    visibility: visible;
-}
-
 .collapseButton {
     border: 1px solid rgba(251, 251, 251, .4);
     background-color: rgba(39, 39, 42, 1);
@@ -39,3 +22,7 @@ th, td {
     background-color: rgba(46, 67, 110, 1);
 }
 
+.forecasts-progress {
+    height: 16px;
+    border-radius: 8px;
+}

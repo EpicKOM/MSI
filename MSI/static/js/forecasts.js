@@ -3,8 +3,8 @@ $(document).ready(function() {
     $("tr.collapsable").hide();
 
     $('.forecast-items').on('click', function() {
-        $('.forecast-items').removeClass('active-bg-color');
-        $(this).addClass('active-bg-color');
+        $('.forecast-items').removeClass('bg-secondary-color');
+        $(this).addClass('bg-secondary-color');
 
         let dayNumber = parseInt($(this).data('value'), 10);
     });

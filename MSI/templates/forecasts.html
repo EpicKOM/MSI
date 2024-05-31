@@ -35,13 +35,13 @@
     </div>
     <div class="container mt-4">
         <div class="row">
-            <div class="col-lg-4" id="col1">
-                <div class="card bg-card border-weather-card p-2">
+            <div class="col-lg-4">
+                <div class="card bg-primary-color msi-border p-2">
                     {% for data in forecasts_data %}
                         {% if data["index"] > 0 %}
                             <hr class="mt-1 mb-1">
                         {% endif %}
-                        <div class="d-flex align-items-start p-1 rounded-3 align-items-center forecast-items {% if data['index'] == 0 %} active-bg-color {% endif %}" data-value="{{ data['index'] }}">
+                        <div class="d-flex align-items-start p-1 rounded-3 align-items-center forecast-items {% if data['index'] == 0 %} bg-secondary-color {% endif %}" data-value="{{ data['index'] }}">
                             <div class="flex-shrink-0">
                                 <img class="img-fluid" src="https://static.meteoblue.com/assets/images/picto/{{ data['pictocode'] }}_iday.svg" alt="weather-icon" style="width: 60px; height: 60px;">
                             </div>
@@ -66,8 +66,8 @@
                 </div>
             </div>
 
-            <div class="col-lg-8 mt-lg-0 mt-2" id="col2">
-                <div class="card bg-card border-weather-card p-4">
+            <div class="col-lg-8 mt-lg-0 mt-2">
+                <div class="card bg-primary-color msi-border p-4">
                     <div class="row">
                         <div class="col-4 ms-auto me-auto">
                             <div class="d-flex align-items-center justify-content-center">
@@ -89,7 +89,7 @@
                                 <h6 class="text-light mb-2 opacity-75">
                                     Prévisibilité : <span class="text-warning">Moyenne</span>
                                 </h6>
-                                <div class="progress active-bg-color" style="height: 16px; border-radius: 8px;">
+                                <div class="progress bg-light forecasts-progress">
                                     <div class="progress-bar bg-warning text-dark fw-bold"
                                          role="progressbar"
                                          aria-valuenow="75"
@@ -104,7 +104,7 @@
                     </div>
 
                     <div class="table-outline p-2 mt-3">
-                        <table class="table align-middle table-striped table-borderless" data-value="true" id="forecasts-table">
+                        <table class="table align-middle table-borderless" data-value="true" id="forecasts-table">
                             <tbody>
                                 <tr>
                                     <th class="text-light fw-bold opacity-75" scope="row">Température :</th>
@@ -112,7 +112,7 @@
                                     <td class="text-light">15 <sup><span class="opacity-75">°C</span></sup></td>
                                     <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-danger"></i>18 <sup><span class="opacity-75">°C</span></sup></td>
                                 </tr>
-                                <tr class="active-bg-color">
+                                <tr class="bg-secondary-color">
                                     <th class="text-light fw-bold opacity-75" scope="row">Température ressentie :</th>
                                     <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i>12 <sup><span class="opacity-75">°C</span></sup></td>
                                     <td class="text-light">14 <sup><span class="opacity-75">°C</span></sup></td>
@@ -124,10 +124,10 @@
                                     <td class="text-light"><i class="fa-solid fa-clock me-2"></i>6 <sup><span class="opacity-75">h</span></sup></td>
                                     <td></td>
                                 </tr>
-                                <tr class="active-bg-color">
+                                <tr class="bg-secondary-color">
                                     <th class="text-light fw-bold opacity-75" scope="row">Probabilité de précipitation :</th>
                                     <td colspan="2">
-                                        <div class="progress" style="height: 16px; border-radius: 8px; background-color: rgba(9, 9, 11, 1);">
+                                        <div class="progress forecasts-progress bg-light">
                                             <div class="progress-bar bg-rain-color text-dark fw-bold"
                                                  role="progressbar"
                                                  style="width: 75%;"
@@ -146,7 +146,7 @@
                                     <td></td>
                                     <td></td>
                                 </tr>
-                                <tr class="active-bg-color">
+                                <tr class="bg-secondary-color">
                                     <th class="text-light fw-bold opacity-75" scope="row">Fraction de neige :</th>
                                     <td class="text-light"><i class="fa-solid fa-snowflake me-2"></i>0 <sup><span class="opacity-75">%</span></sup></td>
                                     <td class="text-light"><i class="fa-solid fa-droplet rain-color me-2"></i>100 <sup><span class="opacity-75">%</span></sup></td>
@@ -158,7 +158,7 @@
                                     <td class="text-light">15 <sup><span class="opacity-75">km/h</span></sup></td>
                                     <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-danger"></i>18 <sup><span class="opacity-75">km/h</span></sup></td>
                                 </tr>
-                                <tr class="collapsable active-bg-color">
+                                <tr class="collapsable bg-secondary-color">
                                     <th class="text-light fw-bold opacity-75" scope="row">Direction du vent :</th>
                                     <td class="text-light"><i class="fa-solid fa-arrow-up-long me-2"></i>NNE</td>
                                     <td></td>
@@ -170,7 +170,7 @@
                                     <td class="text-light">1017 <sup><span class="opacity-75">hPa</span></sup></td>
                                     <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-danger"></i>1018 <sup><span class="opacity-75">hPa</span></sup></td>
                                 </tr>
-                                <tr class="collapsable active-bg-color">
+                                <tr class="collapsable bg-secondary-color">
                                     <th class="text-light fw-bold opacity-75" scope="row">Humidité :</th>
                                     <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i>67 <sup><span class="opacity-75">%</span></sup></td>
                                     <td class="text-light">87 <sup><span class="opacity-75">%</span></sup></td>
@@ -182,7 +182,7 @@
                                     <td class="text-light"><i class="fa-solid fa-sun me-2 text-warning"><sup><span class="opacity-75">&nbsp;&nbsp;<i class="fa-solid fa-caret-down text-light"></i></span></sup></i>21:37</td>
                                     <td class="text-light"><i class="fa-solid fa-lightbulb me-2 text-warning"></i>3</td>
                                 </tr>
-                                <tr class="collapsable active-bg-color">
+                                <tr class="collapsable bg-secondary-color">
                                     <th class="text-light fw-bold opacity-75" scope="row">Lune :</th>
                                     <td class="text-light"><i class="fa-solid fa-moon me-2"><sup><span class="opacity-75">&nbsp;&nbsp;<i class="fa-solid fa-caret-up text-light"></i></span></sup></i>06:45</td>
                                     <td class="text-light"><i class="fa-solid fa-moon me-2"><sup><span class="opacity-75">&nbsp;&nbsp;<i class="fa-solid fa-caret-down text-light"></i></span></sup></i>21:37</td>
@@ -203,7 +203,7 @@
         </div>
         <div class="row mt-2">
             <div class="col-lg-6">
-                <div class="card bg-card p-3 border-weather-card">
+                <div class="card bg-primary-color p-3 msi-border">
                     <h5 class="card-title text-center text-light">
                         Évolution des températures sur 7 jours (°C)
                     </h5>
@@ -219,7 +219,7 @@
             </div>
 
             <div class="col-lg-6 mt-lg-0 mt-2">
-                <div class="card bg-card p-3 border-weather-card">
+                <div class="card bg-primary-color p-3 msi-border">
                     <h5 class="card-title text-center text-light">
                         Évolution des précipitations sur 7 jours (mm)
                     </h5>
