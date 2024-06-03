@@ -1,6 +1,5 @@
 from MSI import db
 from MSI.models.meteo_live_utils import MeteoLiveUtils
-import datetime
 
 
 class SaintMartinDheresData(db.Model):

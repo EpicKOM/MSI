@@ -15,7 +15,7 @@ class ForecastsApi:
 
             forecasts_data = json_forecasts_data["data_day"]
 
-            keys = ["time", "pictocode", "temperature_min", "temperature_max"]
+            keys = ["time", "pictocode", "temperature_min", "temperature_mean", "temperature_max", "precipitation"]
             if not all(key in forecasts_data for key in keys):
                 raise KeyError("Une des clés attendues est manquante dans les données du fichier JSON")
 
@@ -31,14 +31,17 @@ class ForecastsApi:
                     "temperature_mean": round(temperature_mean),
                     "precipitation": round(precipitation),
                 }
-                for index, date, pictocode, temperature_min, temperature_max, temperature_mean, precipitation in zip(
-                    range(len(forecasts_data["time"])),
-                    forecasts_data["time"],
-                    forecasts_data["pictocode"],
-                    forecasts_data["temperature_min"],
-                    forecasts_data["temperature_max"],
-                    forecasts_data["temperature_mean"],
-                    forecasts_data["precipitation"]
+
+                for index, (date, pictocode, temperature_min, temperature_max, temperature_mean, precipitation) in
+                enumerate(
+                    zip(
+                        forecasts_data["time"],
+                        forecasts_data["pictocode"],
+                        forecasts_data["temperature_min"],
+                        forecasts_data["temperature_max"],
+                        forecasts_data["temperature_mean"],
+                        forecasts_data["precipitation"]
+                    )
                 )
             ]
 
@@ -57,6 +60,43 @@ class ForecastsApi:
             print(f"Erreur inconnue lors de la récupération des données : {e}")
 
         return []
+
+    @classmethod
+    def get_forecasts_data_by_index(cls, index):
+        """Récupère les données du fichier JSON spécifié."""
+        try:
+            with open(cls.json_path, "r") as file:
+                json_forecasts_data = json.load(file)
+
+            forecasts_data = json_forecasts_data["data_day"]
+
+            keys = ["time", "pictocode", "temperature_min", "temperature_mean", "temperature_max"]
+            if not all(key in forecasts_data for key in keys):
+                raise KeyError("Une des clés attendues est manquante dans les données du fichier JSON")
+
+            results = {
+                "date": forecasts_data["time"][index],
+                "pictocode": f"{forecasts_data['pictocode'][index]:02d}",
+                "temperature_min": round(forecasts_data["temperature_min"][index]),
+                "temperature_mean": round(forecasts_data["temperature_mean"][index]),
+                "temperature_max": round(forecasts_data["temperature_max"][index]),
+            }
+            
+            return results
+
+        except FileNotFoundError:
+            print(f"Erreur : Le fichier {cls.json_path} n'a pas été trouvé.")
+
+        except json.JSONDecodeError as json_error:
+            print(f"Erreur lors de la lecture du fichier JSON : {json_error}")
+
+        except KeyError as key_error:
+            print(f"Erreur de clé dans le fichier JSON : {key_error}")
+
+        except Exception as e:
+            print(f"Erreur inconnue lors de la récupération des données : {e}")
+
+        return {}
 
     @staticmethod
     def get_french_day_name(date):

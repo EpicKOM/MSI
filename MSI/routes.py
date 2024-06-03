@@ -56,6 +56,21 @@ def saint_martin_dheres_update_charts():
 
 
 @app.route("/previsions/")
-def previsions():
+def forecasts():
     return render_template("forecasts.html",
                            forecasts_data=ForecastsApi.get_forecasts_data())
+
+
+# ------------Requête AJAX Forecasts---------------------------------------------------------------------------
+@app.route('/data/forecasts', methods=['POST'])
+def forecasts_update():
+    day_number = request.form.get("day_number")
+
+    if day_number is not None:
+        day_number = int(day_number)
+        return jsonify(forecasts_data=ForecastsApi.get_forecasts_data_by_index(day_number)), 200
+
+    else:
+        # Gérer le cas où la clé 'interval_duration' est manquante dans le formulaire
+        print("Clé 'day_number' manquante dans la requête.")
+        abort(404)

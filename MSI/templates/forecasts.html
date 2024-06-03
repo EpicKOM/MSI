@@ -72,7 +72,7 @@
                         <div class="col-4 ms-auto me-auto">
                             <div class="d-flex align-items-center justify-content-center">
                                 <div class="flex-shrink-0">
-                                    <img class="img-fluid" src="https://static.meteoblue.com/assets/images/picto/08_iday.svg" alt="weather-icon" style="width: 80px; height: 80px;">
+                                    <img class="img-fluid" alt="weather-icon" style="width: 80px; height: 80px;" id="pictocode">
                                 </div>
                                 <div class="flex-shrink-0 ms-3 justify-content-center">
                                     <h5 class="text-light mb-2 fw-bold">
@@ -108,9 +108,9 @@
                             <tbody>
                                 <tr>
                                     <th class="text-light fw-bold opacity-75" scope="row">Température :</th>
-                                    <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i>12 <sup><span class="opacity-75">°C</span></sup></td>
-                                    <td class="text-light">15 <sup><span class="opacity-75">°C</span></sup></td>
-                                    <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-danger"></i>18 <sup><span class="opacity-75">°C</span></sup></td>
+                                    <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i><span id="temperature_min"></span> <sup><span class="opacity-75">°C</span></sup></td>
+                                    <td class="text-light"><span id="temperature_mean"></span> <sup><span class="opacity-75">°C</span></sup></td>
+                                    <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-danger"></i><span id="temperature_max"></span> <sup><span class="opacity-75">°C</span></sup></td>
                                 </tr>
                                 <tr class="bg-secondary-color">
                                     <th class="text-light fw-bold opacity-75" scope="row">Température ressentie :</th>
