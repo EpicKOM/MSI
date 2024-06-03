@@ -3,17 +3,18 @@
 .text-primary-color {color: rgba(9, 9, 11, 1);}
 .bg-secondary-color {background: rgba(39, 39, 42, 1);}
 .text-secondary-color {color: rgba(39, 39, 42, 1);}
-.text-light-green {color: rgba(89, 243, 166, 1);}
 .bg-light-green {background: rgba(89, 243, 166, 1);}
-.text-dark-green {color: rgba(0, 31, 15, 1);}
+.text-light-green {color: rgba(89, 243, 166, 1);}
 .bg-dark-green {background: rgba(0, 31, 15, 1);}
+.text-dark-green {color: rgba(0, 31, 15, 1);}
 .bg-dark-red {background: rgba(44, 15, 20, 1);}
 .text-dark-red {color: rgba(44, 15, 20, 1);}
 .bg-light-red {background: rgba(227, 112, 102, 1);}
 .text-light-red {color: rgba(227, 112, 102, 1);}
-.dew-point-color {color: rgba(41, 247, 255, 1);}
-.rain-color {color: rgba(74, 171, 237, 1) !important;}
+.bg-dew-point-color {background: rgba(41, 247, 255, 1);}
+.text-dew-point-color {color: rgba(41, 247, 255, 1);}
 .bg-rain-color {background: rgba(74, 171, 237, 1) !important;}
+.text-rain-color {color: rgba(74, 171, 237, 1) !important;}
 
 /* --- General ------------------------------------------ */
 body {
@@ -37,9 +38,9 @@ main
     border-radius: 4px;
 }
 
-.menu-button-hov-bgcolor:hover{
+.menu-button-hov-bgcolor:hover {
     background-color:rgba(68, 69, 74, 1);
-    }
+}
 
 .dropdown-hov-bgcolor:hover{background-color:rgba(46, 67, 110, 1);}
 
