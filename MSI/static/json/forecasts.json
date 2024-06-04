@@ -99,7 +99,7 @@
     "moonphaseangle": [176.13, 191.85, 203.67, 215.91, 228.41, 241.11, 253.98],
     "felttemperature_mean": [14.66, 15.03, 15.67, 18.2, 16.9, 15.31, 17.75],
     "felttemperature_min": [11.51, 10.61, 10.28, 10.35, 13.34, 10.93, 11.14],
-    "precipitation_probability": [74, 63, 27, 21, 76, 11, 25],
+    "precipitation_probability": [74, 63, 27, 21, 76, 10, 25],
     "uvindex": [3, 4, 5, 7, 5, 7, 6],
     "sunset": [
       "21:10",
