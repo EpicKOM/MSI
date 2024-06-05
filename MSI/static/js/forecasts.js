@@ -51,26 +51,31 @@ function ajaxRequest(dayNumber) {
             $('#predictabilityLabel').text(predictabilityLabel);
             switch(predictabilityLabel) {
                 case "Très faible":
+                    $('#predictabilityLabel').removeClass().addClass('text-predictability-class-1');
+                    $('#predictability').removeClass().addClass('progress-bar text-dark fw-bold bg-predictability-class-1');
                     break;
 
                 case "Faible":
+                    $('#predictabilityLabel').removeClass().addClass('text-predictability-class-2');
+                    $('#predictability').removeClass().addClass('progress-bar text-dark fw-bold bg-predictability-class-2');
                     break;
 
                 case "Moyenne":
-                    $('#predictabilityLabel').removeClass().addClass('text-amber-color');
-                    $('#predictability').removeClass().addClass('progress-bar text-dark fw-bold bg-amber-color');
+                    $('#predictabilityLabel').removeClass().addClass('text-predictability-class-3');
+                    $('#predictability').removeClass().addClass('progress-bar text-dark fw-bold bg-predictability-class-3');
                     break;
 
                 case "Élevée":
-                    $('#predictabilityLabel').removeClass().addClass('text-success');
-                    $('#predictability').removeClass().addClass('progress-bar text-dark fw-bold bg-success');
+                    $('#predictabilityLabel').removeClass().addClass('text-predictability-class-4');
+                    $('#predictability').removeClass().addClass('progress-bar text-dark fw-bold bg-predictability-class-4');
                     break;
 
                 case "Très élevée":
+                    $('#predictabilityLabel').removeClass().addClass('text-predictability-class-5');
+                    $('#predictability').removeClass().addClass('progress-bar text-dark fw-bold bg-predictability-class-5');
                     break;
-
-                default:
             }
+
             $('#predictability').css('width', `${results['forecasts_data']['predictability']}%`);
             $('#predictability').text(`${results['forecasts_data']['predictability']}%`);
 
@@ -93,7 +98,8 @@ function ajaxRequest(dayNumber) {
             $('#windspeed_min').text(results['forecasts_data']['windspeed_min']);
             $('#windspeed_mean').text(results['forecasts_data']['windspeed_mean']);
             $('#windspeed_max').text(results['forecasts_data']['windspeed_max']);
-            $('#windDirectionArrow').css('transform', `rotate(${results['forecasts_data']['wind_direction']}deg)`);
+            $('#windDirectionArrow').css('transform', `rotate(${results['forecasts_data']['wind_angle']}deg)`);
+            $('#wind_direction').text(results['forecasts_data']['wind_direction']);
 
             $('#sealevelpressure_min').text(results['forecasts_data']['sealevelpressure_min']);
             $('#sealevelpressure_mean').text(results['forecasts_data']['sealevelpressure_mean']);
@@ -101,6 +107,13 @@ function ajaxRequest(dayNumber) {
             $('#relativehumidity_min').text(results['forecasts_data']['relativehumidity_min']);
             $('#relativehumidity_mean').text(results['forecasts_data']['relativehumidity_mean']);
             $('#relativehumidity_max').text(results['forecasts_data']['relativehumidity_max']);
+
+            $('#sunrise').text(results['forecasts_data']['sunrise']);
+            $('#sunset').text(results['forecasts_data']['sunset']);
+            $('#uvindex').text(results['forecasts_data']['uvindex']);
+            $('#moonrise').text(results['forecasts_data']['moonrise']);
+            $('#moonset').text(results['forecasts_data']['moonset']);
+            $('#moonphasename').text(results['forecasts_data']['moonphasename']);
         },
 
         error:function() {

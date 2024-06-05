@@ -76,6 +76,7 @@ class ForecastsApi:
 
             date = forecasts_data["time"][index]
             snow_fraction = forecasts_data["snowfraction"][index]
+            wind_angle = forecasts_data["winddirection"][index]
 
             results = {
                 "date": ForecastsApi.get_date_french_format(date),
@@ -98,15 +99,22 @@ class ForecastsApi:
                 "windspeed_min": round(forecasts_data["windspeed_min"][index] * 3.6),
                 "windspeed_mean": round(forecasts_data["windspeed_mean"][index] * 3.6),
                 "windspeed_max": round(forecasts_data["windspeed_max"][index] * 3.6),
-                "wind_direction": forecasts_data["winddirection"][index],
+                "wind_angle": (wind_angle + 180) % 360,
+                "wind_direction": ForecastsApi.get_wind_direction(wind_angle),
                 "sealevelpressure_min": forecasts_data["sealevelpressure_min"][index],
                 "sealevelpressure_mean": forecasts_data["sealevelpressure_mean"][index],
                 "sealevelpressure_max": forecasts_data["sealevelpressure_max"][index],
                 "relativehumidity_min": forecasts_data["relativehumidity_min"][index],
                 "relativehumidity_mean": forecasts_data["relativehumidity_mean"][index],
                 "relativehumidity_max": forecasts_data["relativehumidity_max"][index],
+                "sunrise": forecasts_data["sunrise"][index],
+                "sunset": forecasts_data["sunset"][index],
+                "uvindex": forecasts_data["uvindex"][index],
+                "moonrise": forecasts_data["moonrise"][index],
+                "moonset": forecasts_data["moonset"][index],
+                "moonphasename": ForecastsApi.get_moon_phase_frname(forecasts_data["moonphasename"][index]),
             }
-            
+
             return results
 
         except FileNotFoundError:
@@ -170,3 +178,39 @@ class ForecastsApi:
         }
 
         return precipitation_fraction[precipitation_type]
+
+    @staticmethod
+    def get_moon_phase_frname(moon_phase_enname):
+
+        moon_phase_name = {
+            "new": "Nouvelle lune",
+            "waxing crescent": "Premier croissant",
+            "first quarter": "Premier quartier",
+            "waxing gibbous": "Gibbeuse croissante",
+            "full": "Pleine lune",
+            "waning gibbous": "Gibbeuse décroissante",
+            "last quarter": "Dernier quartier",
+            "waning crescent": "Dernier croissant",
+        }
+
+        return moon_phase_name[moon_phase_enname]
+
+    @staticmethod
+    def get_wind_direction(wind_angle):
+        """
+        Determines the wind direction based on the given wind angle.
+
+        Args:
+            wind_angle (float): The wind angle in degrees.
+
+        Returns:
+            str: The wind direction as a cardinal or intercardinal direction abbreviation.
+        """
+        COMPASS_ROSE = [0, 22.5, 45, 67.5, 90, 112.5, 135, 157.5, 180, 202.5, 225, 247.5, 270, 292.5, 315, 337.5, 360]
+        compass_rose_angle = min(COMPASS_ROSE, key=lambda x: abs(x - wind_angle))
+
+        directions = {0: "N", 22.5: "NNE", 45: "NE", 67.5: "ENE", 90: "E", 112.5: "ESE", 135: "SE", 157.5: "SSE",
+                      180: "S",
+                      202.5: "SSO", 225: "SO", 247.5: "OSO", 270: "O", 292.5: "ONO", 315: "NO", 337.5: "NNO", 360: "N"}
+
+        return directions.get(compass_rose_angle)

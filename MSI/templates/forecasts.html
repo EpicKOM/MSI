@@ -72,7 +72,7 @@
                         <div class="col-4 ms-auto me-auto">
                             <div class="d-flex align-items-center justify-content-center">
                                 <div class="flex-shrink-0">
-                                    <img class="img-fluid" alt="weather-icon" style="width: 80px; height: 80px;" id="pictocode">
+                                    <img class="img-fluid" alt="weather-icon" style="width: 80px; height: 80px;" id="pictocode" src="">
                                 </div>
                                 <div class="flex-shrink-0 ms-3 justify-content-center">
                                     <h5 class="text-light mb-2 fw-bold" id="dayName">
@@ -154,7 +154,7 @@
                                 </tr>
                                 <tr class="collapsable bg-secondary-color">
                                     <th class="text-light fw-bold opacity-75" scope="row">Direction du vent :</th>
-                                    <td class="text-light"><i class="fa-solid fa-arrow-up-long me-2" id="windDirectionArrow"></i>NNE</td>
+                                    <td class="text-light"><i class="fa-solid fa-arrow-up-long me-2" id="windDirectionArrow"></i><span id="wind_direction"></span></td>
                                     <td></td>
                                     <td></td>
                                 </tr>
@@ -172,15 +172,15 @@
                                 </tr>
                                 <tr class="collapsable">
                                     <th class="text-light fw-bold opacity-75" scope="row">Soleil :</th>
-                                    <td class="text-light"><i class="fa-solid fa-sun me-2 text-amber-color"><sup><span class="opacity-75">&nbsp;&nbsp;<i class="fa-solid fa-caret-up text-light"></i></span></sup></i>06:45</td>
-                                    <td class="text-light"><i class="fa-solid fa-sun me-2 text-amber-color"><sup><span class="opacity-75">&nbsp;&nbsp;<i class="fa-solid fa-caret-down text-light"></i></span></sup></i>21:37</td>
-                                    <td class="text-light"><i class="fa-solid fa-lightbulb me-2 text-amber-color"></i>3</td>
+                                    <td class="text-light"><i class="fa-solid fa-sun me-2 text-amber-color"><sup><span class="opacity-75">&nbsp;&nbsp;<i class="fa-solid fa-caret-up text-light"></i></span></sup></i><span id="sunrise"></span></td>
+                                    <td class="text-light"><i class="fa-solid fa-sun me-2 text-amber-color"><sup><span class="opacity-75">&nbsp;&nbsp;<i class="fa-solid fa-caret-down text-light"></i></span></sup></i><span id="sunset"></span></td>
+                                    <td class="text-light"><i class="fa-regular fa-sun me-2 text-amber-color"></i><span id="uvindex"></span></td>
                                 </tr>
                                 <tr class="collapsable bg-secondary-color">
                                     <th class="text-light fw-bold opacity-75" scope="row">Lune :</th>
-                                    <td class="text-light"><i class="fa-solid fa-moon me-2"><sup><span class="opacity-75">&nbsp;&nbsp;<i class="fa-solid fa-caret-up text-light"></i></span></sup></i>06:45</td>
-                                    <td class="text-light"><i class="fa-solid fa-moon me-2"><sup><span class="opacity-75">&nbsp;&nbsp;<i class="fa-solid fa-caret-down text-light"></i></span></sup></i>21:37</td>
-                                    <td class="text-light">waning gibbous</td>
+                                    <td class="text-light"><i class="fa-solid fa-moon me-2"><sup><span class="opacity-75">&nbsp;&nbsp;<i class="fa-solid fa-caret-up text-light"></i></span></sup></i><span id="moonrise"></span></td>
+                                    <td class="text-light"><i class="fa-solid fa-moon me-2"><sup><span class="opacity-75">&nbsp;&nbsp;<i class="fa-solid fa-caret-down text-light"></i></span></sup></i><span id="moonset"></span></td>
+                                    <td class="text-light"><span id="moonphasename"></span></td>
                                 </tr>
                             </tbody>
                         </table>
