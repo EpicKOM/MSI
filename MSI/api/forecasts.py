@@ -7,73 +7,78 @@ class ForecastsApi:
     json_path = app.config.get('JSON_FORECASTS_PATH')
 
     @classmethod
-    def get_forecasts_data(cls):
-        """Récupère les données du fichier JSON spécifié."""
+    def load_forecasts_data(cls):
+        """Charge les données du fichier JSON une seule fois."""
         try:
             with open(cls.json_path, "r") as file:
-                json_forecasts_data = json.load(file)
-
-            forecasts_data = json_forecasts_data["data_day"]
-
-            keys = ["time", "pictocode", "temperature_min", "temperature_mean", "temperature_max", "precipitation"]
-            if not all(key in forecasts_data for key in keys):
-                raise KeyError("Une des clés attendues est manquante dans les données du fichier JSON")
-
-            results = [
-                {
-                    "index": index,
-                    "date": date,
-                    "frDate": ForecastsApi.get_date_french_format(date),
-                    "day_name": ForecastsApi.get_french_day_name(date),
-                    "pictocode": f"{pictocode:02d}",
-                    "temperature_min": round(temperature_min),
-                    "temperature_max": round(temperature_max),
-                    "temperature_mean": round(temperature_mean),
-                    "precipitation": round(precipitation),
-                }
-
-                for index, (date, pictocode, temperature_min, temperature_max, temperature_mean, precipitation) in
-                enumerate(
-                    zip(
-                        forecasts_data["time"],
-                        forecasts_data["pictocode"],
-                        forecasts_data["temperature_min"],
-                        forecasts_data["temperature_max"],
-                        forecasts_data["temperature_mean"],
-                        forecasts_data["precipitation"]
-                    )
-                )
-            ]
-
-            return results
+                return json.load(file)["data_day"]
 
         except FileNotFoundError:
-            print(f"Erreur : Le fichier {cls.json_path} n'a pas été trouvé.")
-
-        except json.JSONDecodeError as json_error:
-            print(f"Erreur lors de la lecture du fichier JSON : {json_error}")
-
-        except KeyError as key_error:
-            print(f"Erreur de clé dans le fichier JSON : {key_error}")
-
+            app.logger.exception(f"Erreur : Le fichier {cls.json_path} n'a pas été trouvé.")
+        except json.JSONDecodeError:
+            app.logger.exception(f"Erreur lors de la lecture du fichier JSON.")
         except Exception as e:
-            print(f"Erreur inconnue lors de la récupération des données : {e}")
+            app.logger.exception(f"Erreur inconnue lors de la récupération des données")
 
-        return []
+        return None
+
+    @classmethod
+    def get_forecasts_data(cls):
+        """Récupère les données du fichier JSON spécifié."""
+        forecasts_data = cls.load_forecasts_data()
+
+        if not forecasts_data:
+            app.logger.warning("Aucune donnée de prévision trouvée")
+            return []
+
+        keys = ["time", "pictocode", "temperature_min", "temperature_mean", "temperature_max", "precipitation"]
+        if not all(key in forecasts_data for key in keys):
+            app.logger.error("Une des clés attendues est manquante dans les données du fichier JSON")
+            raise KeyError("Une des clés attendues est manquante dans les données du fichier JSON")
+
+        results = [
+            {
+                "index": index,
+                "date": date,
+                "frDate": ForecastsApi.get_date_french_format(date),
+                "day_name": ForecastsApi.get_french_day_name(date),
+                "pictocode": f"{pictocode:02d}",
+                "temperature_min": round(temperature_min),
+                "temperature_max": round(temperature_max),
+                "temperature_mean": round(temperature_mean),
+                "precipitation": round(precipitation),
+            }
+
+            for index, (date, pictocode, temperature_min, temperature_max, temperature_mean, precipitation) in
+            enumerate(
+                zip(
+                    forecasts_data["time"],
+                    forecasts_data["pictocode"],
+                    forecasts_data["temperature_min"],
+                    forecasts_data["temperature_max"],
+                    forecasts_data["temperature_mean"],
+                    forecasts_data["precipitation"]
+                )
+            )
+        ]
+
+        return results
 
     @classmethod
     def get_forecasts_data_by_index(cls, index):
         """Récupère les données du fichier JSON spécifié."""
+        forecasts_data = cls.load_forecasts_data()
+
+        if not forecasts_data:
+            app.logger.warning("Aucune donnée de prévision trouvée")
+            return {}
+
+        keys = ["time", "pictocode", "temperature_min", "temperature_mean", "temperature_max"]
+        if not all(key in forecasts_data for key in keys):
+            raise KeyError("Une des clés attendues est manquante dans les données du fichier JSON")
+
         try:
-            with open(cls.json_path, "r") as file:
-                json_forecasts_data = json.load(file)
-
-            forecasts_data = json_forecasts_data["data_day"]
-
-            keys = ["time", "pictocode", "temperature_min", "temperature_mean", "temperature_max"]
-            if not all(key in forecasts_data for key in keys):
-                raise KeyError("Une des clés attendues est manquante dans les données du fichier JSON")
-
+            a = 5/0
             date = forecasts_data["time"][index]
             snow_fraction = forecasts_data["snowfraction"][index]
             wind_angle = forecasts_data["winddirection"][index]
@@ -114,28 +119,18 @@ class ForecastsApi:
                 "moonset": forecasts_data["moonset"][index],
                 "moonphasename": ForecastsApi.get_moon_phase_frname(forecasts_data["moonphasename"][index]),
             }
-
             return results
 
-        except FileNotFoundError:
-            print(f"Erreur : Le fichier {cls.json_path} n'a pas été trouvé.")
-
-        except json.JSONDecodeError as json_error:
-            print(f"Erreur lors de la lecture du fichier JSON : {json_error}")
-
-        except KeyError as key_error:
-            print(f"Erreur de clé dans le fichier JSON : {key_error}")
-
-        except Exception as e:
-            print(f"Erreur inconnue lors de la récupération des données : {e}")
-
-        return {}
+        except IndexError:
+            app.logger.exception(f"Index {index} hors limites")
+            return {}
+        except Exception:
+            app.logger.exception(f"Erreur lors de la récupération des données de prévisions par index")
+            return {}
 
     @staticmethod
     def get_french_day_name(date):
-        date_obj = datetime.datetime.strptime(date, "%Y-%m-%d")
-        day_name = date_obj.strftime("%A")
-
+        day_name = datetime.datetime.strptime(date, "%Y-%m-%d").strftime("%A")
         french_day_name = {
             "Monday": "Lundi",
             "Tuesday": "Mardi",
@@ -150,39 +145,28 @@ class ForecastsApi:
 
     @staticmethod
     def get_date_french_format(date):
-        date_obj = datetime.datetime.strptime(date, "%Y-%m-%d")
-        date_fr = date_obj.strftime("%d/%m/%Y")
-
-        return date_fr
+        return datetime.datetime.strptime(date, "%Y-%m-%d").strftime("%d/%m/%Y")
 
     @staticmethod
     def get_predictability_label(predictability_class):
-        predictability_label = {
+        return {
             1: "Très faible",
             2: "Faible",
             3: "Moyenne",
             4: "Élevée",
             5: "Très élevée",
-        }
-
-        return predictability_label[predictability_class]
+        }.get(predictability_class, "-")
 
     @staticmethod
     def get_precipitation_fraction(snow_fraction, precipitation_type):
         snow = snow_fraction * 100
         rain = 100 - snow
 
-        precipitation_fraction = {
-            "snow": snow,
-            "rain": rain,
-        }
-
-        return precipitation_fraction[precipitation_type]
+        return {"snow": snow, "rain": rain}.get(precipitation_type)
 
     @staticmethod
     def get_moon_phase_frname(moon_phase_enname):
-
-        moon_phase_name = {
+        return {
             "new": "Nouvelle lune",
             "waxing crescent": "Premier croissant",
             "first quarter": "Premier quartier",
@@ -191,9 +175,7 @@ class ForecastsApi:
             "waning gibbous": "Gibbeuse décroissante",
             "last quarter": "Dernier quartier",
             "waning crescent": "Dernier croissant",
-        }
-
-        return moon_phase_name[moon_phase_enname]
+        }.get(moon_phase_enname, "-")
 
     @staticmethod
     def get_wind_direction(wind_angle):

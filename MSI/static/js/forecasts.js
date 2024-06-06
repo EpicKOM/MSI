@@ -114,9 +114,16 @@ function ajaxRequest(dayNumber) {
             $('#moonrise').text(results['forecasts_data']['moonrise']);
             $('#moonset').text(results['forecasts_data']['moonset']);
             $('#moonphasename').text(results['forecasts_data']['moonphasename']);
+
+            $('#forecasts-message-errors').remove();
+            $("#forecasts-content").show();
         },
 
         error:function() {
+
+            $('#forecasts-message-errors').remove();
+            $("#forecasts-content").hide();
+            $("#forecasts-content").before('<p class="text-danger mt-4 text-center lead" id="forecasts-message-errors"><i class="fa-solid fa-xmark me-2"></i>Erreur lors de la tentative de récupération des données. Veuillez réessayer plus tard.</p>');
         },
 
         complete:function() {

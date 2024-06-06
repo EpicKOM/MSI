@@ -68,130 +68,131 @@
 
             <div class="col-lg-8 mt-lg-0 mt-2">
                 <div class="card bg-primary-color msi-border p-4">
-                    <div class="row">
-                        <div class="col-4 ms-auto me-auto">
-                            <div class="d-flex align-items-center justify-content-center">
-                                <div class="flex-shrink-0">
-                                    <img class="img-fluid" alt="weather-icon" style="width: 80px; height: 80px;" id="pictocode" src="">
-                                </div>
-                                <div class="flex-shrink-0 ms-3 justify-content-center">
-                                    <h5 class="text-light mb-2 fw-bold" id="dayName">
-                                    </h5>
-                                    <h6 class="text-light opacity-50 mb-0 fw-normal" id="date">
-                                    </h6>
+                    <div id="forecasts-content">
+                        <div class="row">
+                            <div class="col-4 ms-auto me-auto">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <div class="flex-shrink-0">
+                                        <img class="img-fluid" alt="weather-icon" style="width: 80px; height: 80px;" id="pictocode" src="">
+                                    </div>
+                                    <div class="flex-shrink-0 ms-3 justify-content-center">
+                                        <h5 class="text-light mb-2 fw-bold" id="dayName">
+                                        </h5>
+                                        <h6 class="text-light opacity-50 mb-0 fw-normal" id="date">
+                                        </h6>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-4 d-flex align-items-center ms-auto me-auto">
-                            <div class="flex-grow-1">
-                                <h6 class="text-light mb-2 opacity-75">
-                                    Prévisibilité : <span class="" id="predictabilityLabel"></span>
-                                </h6>
-                                <div class="progress bg-light forecasts-progress">
-                                    <div class="progress-bar text-dark fw-bold"
-                                         role="progressbar"
-                                         aria-valuemin="0"
-                                         aria-valuemax="100"
-                                         id="predictability">
+                            <div class="col-4 d-flex align-items-center ms-auto me-auto">
+                                <div class="flex-grow-1">
+                                    <h6 class="text-light mb-2 opacity-75">
+                                        Prévisibilité : <span class="" id="predictabilityLabel"></span>
+                                    </h6>
+                                    <div class="progress bg-light forecasts-progress">
+                                        <div class="progress-bar text-dark fw-bold"
+                                             role="progressbar"
+                                             aria-valuemin="0"
+                                             aria-valuemax="100"
+                                             id="predictability">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="table-outline table-responsive p-2 mt-3">
-                        <table class="table align-middle table-borderless text-nowrap" data-value="true" id="forecasts-table">
-                            <tbody>
-                                <tr>
-                                    <th class="text-light fw-bold opacity-75" scope="row">Température :</th>
-                                    <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i><span id="temperature_min"></span> <sup><span class="opacity-75">°C</span></sup></td>
-                                    <td class="text-light"><span id="temperature_mean"></span> <sup><span class="opacity-75">°C</span></sup></td>
-                                    <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-danger"></i><span id="temperature_max"></span> <sup><span class="opacity-75">°C</span></sup></td>
-                                </tr>
-                                <tr class="bg-secondary-color">
-                                    <th class="text-light fw-bold opacity-75" scope="row">Température ressentie :</th>
-                                    <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i><span id="felttemperature_min"></span> <sup><span class="opacity-75">°C</span></sup></td>
-                                    <td class="text-light"><span id="felttemperature_mean"></span> <sup><span class="opacity-75">°C</span></sup></td>
-                                    <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-danger"></i><span id="felttemperature_max"></span> <sup><span class="opacity-75">°C</span></sup></td>
-                                </tr>
-                                <tr>
-                                    <th class="text-light fw-bold opacity-75" scope="row">Précipitations :</th>
-                                    <td class="text-light"><span id="precipitation"></span> <sup><span class="opacity-75">mm</span></sup></td>
-                                    <td class="text-light"><i class="fa-solid fa-clock me-2"></i><span id="precipitation_hours"></span> <sup><span class="opacity-75">h</span></sup></td>
-                                    <td></td>
-                                </tr>
-                                <tr class="bg-secondary-color">
-                                    <th class="text-light fw-bold opacity-75" scope="row">Probabilité de précipitation :</th>
-                                    <td colspan="2">
-                                        <div class="progress forecasts-progress bg-light">
-                                            <div class="progress-bar bg-rain-color text-dark fw-bold"
-                                                 role="progressbar"
-                                                 aria-valuemin="0"
-                                                 aria-valuemax="100"
-                                                 id="precipitation_probability">
+                        <div class="table-outline table-responsive p-2 mt-3">
+                            <table class="table align-middle table-borderless text-nowrap" data-value="true" id="forecasts-table">
+                                <tbody>
+                                    <tr>
+                                        <th class="text-light fw-bold opacity-75" scope="row">Température :</th>
+                                        <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i><span id="temperature_min"></span> <sup><span class="opacity-75">°C</span></sup></td>
+                                        <td class="text-light"><span id="temperature_mean"></span> <sup><span class="opacity-75">°C</span></sup></td>
+                                        <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-danger"></i><span id="temperature_max"></span> <sup><span class="opacity-75">°C</span></sup></td>
+                                    </tr>
+                                    <tr class="bg-secondary-color">
+                                        <th class="text-light fw-bold opacity-75" scope="row">Température ressentie :</th>
+                                        <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i><span id="felttemperature_min"></span> <sup><span class="opacity-75">°C</span></sup></td>
+                                        <td class="text-light"><span id="felttemperature_mean"></span> <sup><span class="opacity-75">°C</span></sup></td>
+                                        <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-danger"></i><span id="felttemperature_max"></span> <sup><span class="opacity-75">°C</span></sup></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-light fw-bold opacity-75" scope="row">Précipitations :</th>
+                                        <td class="text-light"><span id="precipitation"></span> <sup><span class="opacity-75">mm</span></sup></td>
+                                        <td class="text-light"><i class="fa-solid fa-clock me-2"></i><span id="precipitation_hours"></span> <sup><span class="opacity-75">h</span></sup></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="bg-secondary-color">
+                                        <th class="text-light fw-bold opacity-75" scope="row">Probabilité de précipitation :</th>
+                                        <td colspan="2">
+                                            <div class="progress forecasts-progress bg-light">
+                                                <div class="progress-bar bg-rain-color text-dark fw-bold"
+                                                     role="progressbar"
+                                                     aria-valuemin="0"
+                                                     aria-valuemax="100"
+                                                     id="precipitation_probability">
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th class="text-light fw-bold opacity-75" scope="row">Pluie convective :</th>
-                                    <td class="text-light"><span id="convective_precipitation"></span> <sup><span class="opacity-75">mm</span></sup></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr class="bg-secondary-color">
-                                    <th class="text-light fw-bold opacity-75" scope="row">Fraction de neige :</th>
-                                    <td class="text-light"><i class="fa-solid fa-snowflake me-2"></i><span id="snow_fraction"></span> <sup><span class="opacity-75">%</span></sup></td>
-                                    <td class="text-light"><i class="fa-solid fa-droplet text-rain-color me-2"></i><span id="rain_fraction"></span> <sup><span class="opacity-75">%</span></sup></td>
-                                    <td></td>
-                                </tr>
-                                <tr class="collapsable">
-                                    <th class="text-light fw-bold opacity-75" scope="row">Vitesse du vent :</th>
-                                    <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i><span id="windspeed_min"></span> <sup><span class="opacity-75">km/h</span></sup></td>
-                                    <td class="text-light"><span id="windspeed_mean"></span> <sup><span class="opacity-75">km/h</span></sup></td>
-                                    <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-danger"></i><span id="windspeed_max"></span> <sup><span class="opacity-75">km/h</span></sup></td>
-                                </tr>
-                                <tr class="collapsable bg-secondary-color">
-                                    <th class="text-light fw-bold opacity-75" scope="row">Direction du vent :</th>
-                                    <td class="text-light"><i class="fa-solid fa-arrow-up-long me-2" id="windDirectionArrow"></i><span id="wind_direction"></span></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr class="collapsable">
-                                    <th class="text-light fw-bold opacity-75" scope="row">Pression :</th>
-                                    <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i><span id="sealevelpressure_min"></span> <sup><span class="opacity-75">hPa</span></sup></td>
-                                    <td class="text-light"><span id="sealevelpressure_mean"></span> <sup><span class="opacity-75">hPa</span></sup></td>
-                                    <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-danger"></i><span id="sealevelpressure_max"></span> <sup><span class="opacity-75">hPa</span></sup></td>
-                                </tr>
-                                <tr class="collapsable bg-secondary-color">
-                                    <th class="text-light fw-bold opacity-75" scope="row">Humidité :</th>
-                                    <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i><span id="relativehumidity_min"></span> <sup><span class="opacity-75">%</span></sup></td>
-                                    <td class="text-light"><span id="relativehumidity_mean"></span> <sup><span class="opacity-75">%</span></sup></td>
-                                    <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-danger"></i><span id="relativehumidity_max"></span> <sup><span class="opacity-75">%</span></sup></td>
-                                </tr>
-                                <tr class="collapsable">
-                                    <th class="text-light fw-bold opacity-75" scope="row">Soleil :</th>
-                                    <td class="text-light"><i class="fa-solid fa-sun me-2 text-amber-color"><sup><span class="opacity-75">&nbsp;&nbsp;<i class="fa-solid fa-caret-up text-light"></i></span></sup></i><span id="sunrise"></span></td>
-                                    <td class="text-light"><i class="fa-solid fa-sun me-2 text-amber-color"><sup><span class="opacity-75">&nbsp;&nbsp;<i class="fa-solid fa-caret-down text-light"></i></span></sup></i><span id="sunset"></span></td>
-                                    <td class="text-light"><i class="fa-regular fa-sun me-2 text-amber-color"></i><span id="uvindex"></span></td>
-                                </tr>
-                                <tr class="collapsable bg-secondary-color">
-                                    <th class="text-light fw-bold opacity-75" scope="row">Lune :</th>
-                                    <td class="text-light"><i class="fa-solid fa-moon me-2"><sup><span class="opacity-75">&nbsp;&nbsp;<i class="fa-solid fa-caret-up text-light"></i></span></sup></i><span id="moonrise"></span></td>
-                                    <td class="text-light"><i class="fa-solid fa-moon me-2"><sup><span class="opacity-75">&nbsp;&nbsp;<i class="fa-solid fa-caret-down text-light"></i></span></sup></i><span id="moonset"></span></td>
-                                    <td class="text-light"><span id="moonphasename"></span></td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <div class="text-center">
-                            <button type="button" class="btn btn-floating text-light collapseButton" data-mdb-ripple-init id="collapseButton">
-                                <i class="fa-solid fa-angles-down" id="collapseButtonIcon"></i>
-                            </button>
-                        </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-light fw-bold opacity-75" scope="row">Pluie convective :</th>
+                                        <td class="text-light"><span id="convective_precipitation"></span> <sup><span class="opacity-75">mm</span></sup></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="bg-secondary-color">
+                                        <th class="text-light fw-bold opacity-75" scope="row">Fraction de neige :</th>
+                                        <td class="text-light"><i class="fa-solid fa-snowflake me-2"></i><span id="snow_fraction"></span> <sup><span class="opacity-75">%</span></sup></td>
+                                        <td class="text-light"><i class="fa-solid fa-droplet text-rain-color me-2"></i><span id="rain_fraction"></span> <sup><span class="opacity-75">%</span></sup></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="collapsable">
+                                        <th class="text-light fw-bold opacity-75" scope="row">Vitesse du vent :</th>
+                                        <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i><span id="windspeed_min"></span> <sup><span class="opacity-75">km/h</span></sup></td>
+                                        <td class="text-light"><span id="windspeed_mean"></span> <sup><span class="opacity-75">km/h</span></sup></td>
+                                        <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-danger"></i><span id="windspeed_max"></span> <sup><span class="opacity-75">km/h</span></sup></td>
+                                    </tr>
+                                    <tr class="collapsable bg-secondary-color">
+                                        <th class="text-light fw-bold opacity-75" scope="row">Direction du vent :</th>
+                                        <td class="text-light"><i class="fa-solid fa-arrow-up-long me-2" id="windDirectionArrow"></i><span id="wind_direction"></span></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="collapsable">
+                                        <th class="text-light fw-bold opacity-75" scope="row">Pression :</th>
+                                        <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i><span id="sealevelpressure_min"></span> <sup><span class="opacity-75">hPa</span></sup></td>
+                                        <td class="text-light"><span id="sealevelpressure_mean"></span> <sup><span class="opacity-75">hPa</span></sup></td>
+                                        <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-danger"></i><span id="sealevelpressure_max"></span> <sup><span class="opacity-75">hPa</span></sup></td>
+                                    </tr>
+                                    <tr class="collapsable bg-secondary-color">
+                                        <th class="text-light fw-bold opacity-75" scope="row">Humidité :</th>
+                                        <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i><span id="relativehumidity_min"></span> <sup><span class="opacity-75">%</span></sup></td>
+                                        <td class="text-light"><span id="relativehumidity_mean"></span> <sup><span class="opacity-75">%</span></sup></td>
+                                        <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-danger"></i><span id="relativehumidity_max"></span> <sup><span class="opacity-75">%</span></sup></td>
+                                    </tr>
+                                    <tr class="collapsable">
+                                        <th class="text-light fw-bold opacity-75" scope="row">Soleil :</th>
+                                        <td class="text-light"><i class="fa-solid fa-sun me-2 text-amber-color"><sup><span class="opacity-75">&nbsp;&nbsp;<i class="fa-solid fa-caret-up text-light"></i></span></sup></i><span id="sunrise"></span></td>
+                                        <td class="text-light"><i class="fa-solid fa-sun me-2 text-amber-color"><sup><span class="opacity-75">&nbsp;&nbsp;<i class="fa-solid fa-caret-down text-light"></i></span></sup></i><span id="sunset"></span></td>
+                                        <td class="text-light"><i class="fa-regular fa-sun me-2 text-amber-color"></i><span id="uvindex"></span></td>
+                                    </tr>
+                                    <tr class="collapsable bg-secondary-color">
+                                        <th class="text-light fw-bold opacity-75" scope="row">Lune :</th>
+                                        <td class="text-light"><i class="fa-solid fa-moon me-2"><sup><span class="opacity-75">&nbsp;&nbsp;<i class="fa-solid fa-caret-up text-light"></i></span></sup></i><span id="moonrise"></span></td>
+                                        <td class="text-light"><i class="fa-solid fa-moon me-2"><sup><span class="opacity-75">&nbsp;&nbsp;<i class="fa-solid fa-caret-down text-light"></i></span></sup></i><span id="moonset"></span></td>
+                                        <td class="text-light"><span id="moonphasename"></span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <button type="button" class="btn btn-floating text-light collapseButton" data-mdb-ripple-init id="collapseButton">
+                                    <i class="fa-solid fa-angles-down" id="collapseButtonIcon"></i>
+                                </button>
+                            </div>
 
                     </div>
+                    </div>
+
                 </div>
             </div>
         </div>
