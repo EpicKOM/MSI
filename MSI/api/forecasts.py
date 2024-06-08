@@ -78,7 +78,6 @@ class ForecastsApi:
             raise KeyError("Une des clés attendues est manquante dans les données du fichier JSON")
 
         try:
-            a = 5/0
             date = forecasts_data["time"][index]
             snow_fraction = forecasts_data["snowfraction"][index]
             wind_angle = forecasts_data["winddirection"][index]

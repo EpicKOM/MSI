@@ -24,20 +24,17 @@ def meteo_live_saint_ismier():
 @app.route("/meteo-live/saint-martin-d-heres/")
 def meteo_live_saint_martin_dheres():
     table_is_empty = SaintMartinDheresData.table_is_empty()
+    context = {'table_is_empty': table_is_empty}
 
-    if table_is_empty:
-        return render_template("meteo_live_saint_martin_dheres.html",
-                               table_is_empty=table_is_empty)
+    if not table_is_empty:
+        context.update(reception_error=SaintMartinDheresData.check_reception(),
+                       current_data=SaintMartinDheresData.current_data(),
+                       temperature_extremes_today=SaintMartinDheresData.temperature_extremes_today(),
+                       cumulative_rain_today=SaintMartinDheresData.cumulative_rain_today(),
+                       maximum_gust_today=SaintMartinDheresData.maximum_gust_today(),
+                       rain=SaintMartinDheresData.rain(),)
 
-    else:
-        return render_template("meteo_live_saint_martin_dheres.html",
-                               table_is_empty=table_is_empty,
-                               reception_error=SaintMartinDheresData.check_reception(),
-                               current_data=SaintMartinDheresData.current_data(),
-                               temperature_extremes_today=SaintMartinDheresData.temperature_extremes_today(),
-                               cumulative_rain_today=SaintMartinDheresData.cumulative_rain_today(),
-                               maximum_gust_today=SaintMartinDheresData.maximum_gust_today(),
-                               rain=SaintMartinDheresData.rain(),)
+    return render_template("meteo_live_saint_martin_dheres.html", **context)
 
 
 # ------------Requête AJAX Live Charts---------------------------------------------------------------------------
@@ -45,14 +42,12 @@ def meteo_live_saint_martin_dheres():
 def saint_martin_dheres_update_charts():
     interval_duration = request.form.get('interval_duration')
 
-    if interval_duration is not None:
-        interval_duration = int(interval_duration)
-        return jsonify(live_charts=SaintMartinDheresData.current_charts_data(interval_duration)), 200
-
-    else:
-        # Gérer le cas où la clé 'interval_duration' est manquante dans le formulaire
-        print("Clé 'interval_duration' manquante dans la requête.")
+    if interval_duration is None:
+        app.logger.error("[saint_martin_dheres_update_charts] - Clé 'interval_duration' manquante dans la requête.")
         abort(404)
+
+    interval_duration = int(interval_duration)
+    return jsonify(live_charts=SaintMartinDheresData.current_charts_data(interval_duration)), 200
 
 
 @app.route("/previsions/")
@@ -66,11 +61,17 @@ def forecasts():
 def forecasts_update():
     day_number = request.form.get("day_number")
 
-    if day_number is not None:
-        day_number = int(day_number)
-        return jsonify(forecasts_data=ForecastsApi.get_forecasts_data_by_index(day_number)), 200
-
-    else:
-        # Gérer le cas où la clé 'interval_duration' est manquante dans le formulaire
-        print("Clé 'day_number' manquante dans la requête.")
+    if day_number is None:
+        app.logger.error("[forecasts_update] - Clé 'day_number' manquante dans la requête.")
         abort(404)
+
+    day_number = int(day_number)
+    return jsonify(forecasts_data=ForecastsApi.get_forecasts_data_by_index(day_number)), 200
+
+
+# -------GESTION DES ERREURS--------------------------------------------------------------------------------------------
+@app.errorhandler(404)
+def error_404(error):
+    print(error)
+    return render_template('error.html',
+                           error_code=404), 404

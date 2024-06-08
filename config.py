@@ -17,7 +17,7 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = ast.literal_eval(os.environ.get('SQLALCHEMY_TRACK_MODIFICATIONS')) or False
 
     JSON_FORECASTS_PATH = os.path.join(basedir, os.environ.get('JSON_FORECASTS_PATH'))
-    LOG_PATH = os.path.join(basedir, os.environ.get('LOG_PATH'))
+
     PAPERTRAIL_HOST = os.environ.get('PAPERTRAIL_HOST')
     PAPERTRAIL_PORT = int(os.getenv('PAPERTRAIL_PORT'))
 
