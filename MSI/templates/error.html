@@ -1,15 +1,29 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-    <div class="container mt-4">
-        <div class="d-flex align-items-center justify-content-center ms-auto me-auto">
-            <div class="flex-shrink-0">
-                <h1>404</h1>
+    <div class="container mt-5">
+        <div class="row align-items-center">
+            <div class="col-lg-5 ms-auto text-center text-info">
+                <h1 style="font-size: 12em;">
+                    {{ error_code }}
+                </h1>
             </div>
-            <div class="flex-shrink-0 ms-3 justify-content-center">
-                <h6 class="text-light opacity-50 mb-0 fw-normal">
-                    404 Not Found: The requested URL was not found on the server.<br> If you entered the URL manually please check your spelling and try again.
-                </h6>
+            <div class="col-lg-5 me-auto text-light">
+                {% if error_code == 404 %}
+                    <h2>
+                        Désolés, la page que vous demandez a été déplacée ou n'existe plus.
+                    </h2>
+                    <p>
+                        L'URL demandée n'a pas été trouvée sur le serveur. Si vous avez entré l'URL manuellement, veuillez vérifier l'orthographe et réessayer.
+                    </p>
+                {% elif error_code == 500 %}
+                    <h2>
+                        Erreur interne du serveur.
+                    </h2>
+                    <p>
+                        Le serveur a rencontré une erreur interne et n'a pas pu compléter votre requête. Soit le serveur est surchargé, soit il y a une erreur dans l'application.
+                    </p>
+                {% endif %}
             </div>
         </div>
     </div>

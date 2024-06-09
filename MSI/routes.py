@@ -69,9 +69,23 @@ def forecasts_update():
     return jsonify(forecasts_data=ForecastsApi.get_forecasts_data_by_index(day_number)), 200
 
 
+@app.route('/500')
+def generate500():
+    abort(500)
+
+
 # -------GESTION DES ERREURS--------------------------------------------------------------------------------------------
 @app.errorhandler(404)
 def error_404(error):
-    print(error)
+    app.logger.warning(f"Erreur 404 : {error}")
     return render_template('error.html',
-                           error_code=404), 404
+                           error_code=404,
+                           title="Erreur 404 - Page non trouvée"), 404
+
+
+@app.errorhandler(500)
+def error_500(error):
+    app.logger.error(f"Erreur 500 : {error}")
+    return render_template('error.html',
+                           error_code=500,
+                           title="Erreur 500 - Erreur interne du serveur"), 500

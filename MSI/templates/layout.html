@@ -38,7 +38,11 @@
 
 
     <!--- Website Title ------------>
-    <title>Météo Saint-Ismier (38330 - FR) - Live et prévisions</title>
+    {% if title %}
+        <title>{{ title }}</title>
+    {% else %}
+        <title>Météo Saint-Ismier (38330 - FR) - Live et prévisions</title>
+    {% endif %}
 </head>
 
 <body>

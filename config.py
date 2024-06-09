@@ -22,3 +22,4 @@ class Config:
     PAPERTRAIL_PORT = int(os.getenv('PAPERTRAIL_PORT'))
 
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'flask-secret-key'
+    ENV = os.environ.get('ENV') or 'development'
