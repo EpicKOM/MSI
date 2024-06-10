@@ -69,18 +69,45 @@ def forecasts_update():
     return jsonify(forecasts_data=ForecastsApi.get_forecasts_data_by_index(day_number)), 200
 
 
-@app.route('/500')
-def generate500():
-    abort(500)
-
-
 # -------GESTION DES ERREURS--------------------------------------------------------------------------------------------
+@app.errorhandler(400)
+def error_400(error):
+    app.logger.warning(f"Erreur 400 : {error}")
+    return render_template('error.html',
+                           error_code=400,
+                           title="Erreur 400 - Mauvaise requête"), 400
+
+
+@app.errorhandler(403)
+def error_403(error):
+    app.logger.warning(f"Erreur 403 : {error}")
+    return render_template('error.html',
+                           error_code=403,
+                           title="Erreur 403 - Accès interdit"), 403
+
+
 @app.errorhandler(404)
 def error_404(error):
     app.logger.warning(f"Erreur 404 : {error}")
     return render_template('error.html',
                            error_code=404,
                            title="Erreur 404 - Page non trouvée"), 404
+
+
+@app.errorhandler(405)
+def error_405(error):
+    app.logger.warning(f"Erreur 405 : {error}")
+    return render_template('error.html',
+                           error_code=405,
+                           title="Erreur 405 - Méthode non autorisée"), 405
+
+
+@app.errorhandler(410)
+def error_410(error):
+    app.logger.warning(f"Erreur 410 : {error}")
+    return render_template('error.html',
+                           error_code=410,
+                           title="Erreur 410 - Ressource supprimée"), 410
 
 
 @app.errorhandler(500)

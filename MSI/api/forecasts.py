@@ -17,7 +17,7 @@ class ForecastsApi:
             app.logger.exception(f"Erreur : Le fichier {cls.json_path} n'a pas été trouvé.")
         except json.JSONDecodeError:
             app.logger.exception(f"Erreur lors de la lecture du fichier JSON.")
-        except Exception as e:
+        except Exception:
             app.logger.exception(f"Erreur inconnue lors de la récupération des données")
 
         return None

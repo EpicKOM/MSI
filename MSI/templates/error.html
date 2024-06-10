@@ -9,12 +9,40 @@
                 </h1>
             </div>
             <div class="col-lg-5 me-auto text-light">
-                {% if error_code == 404 %}
+                {% if error_code == 400 %}
                     <h2>
-                        Désolés, la page que vous demandez a été déplacée ou n'existe plus.
+                        Désolé, la requête est invalide.
+                    </h2>
+                    <p>
+                        Le navigateur (ou le proxy) a envoyé une requête que le serveur ne peut pas comprendre.
+                    </p>
+                {% elif error_code == 403 %}
+                    <h2>
+                        Désolé, vous n'avez pas la permission d'accéder à cette ressource.
+                    </h2>
+                    <p>
+                        Vous n'avez pas la permission d'accéder à la ressource demandée. Elle est soit protégée en lecture, soit illisible par le serveur.
+                    </p>
+                {% elif error_code == 404 %}
+                    <h2>
+                        Désolé, la page que vous demandez a été déplacée ou n'existe plus.
                     </h2>
                     <p>
                         L'URL demandée n'a pas été trouvée sur le serveur. Si vous avez entré l'URL manuellement, veuillez vérifier l'orthographe et réessayer.
+                    </p>
+                {% elif error_code == 405 %}
+                    <h2>
+                        Désolé, la méthode est non autorisée.
+                    </h2>
+                    <p>
+                        La méthode n'est pas autorisée pour l'URL demandée.
+                    </p>
+                {% elif error_code == 410 %}
+                    <h2>
+                        Désolé, la ressource a été supprimée.
+                    </h2>
+                    <p>
+                        La ressource demandée n'est plus disponible sur ce serveur et il n'y a pas d'adresse de redirection. Veuillez supprimer toutes les références à cette ressource.
                     </p>
                 {% elif error_code == 500 %}
                     <h2>

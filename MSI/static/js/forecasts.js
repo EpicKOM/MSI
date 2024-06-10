@@ -89,8 +89,8 @@ function ajaxRequest(dayNumber) {
 
             $('#precipitation').text(results['forecasts_data']['precipitation']);
             $('#precipitation_hours').text(results['forecasts_data']['precipitation_hours']);
-            $('#precipitation_probability').css('width', `${results['forecasts_data']['precipitation_probability']}%`);
             $('#precipitation_probability').text(`${results['forecasts_data']['precipitation_probability']}%`);
+            $('#precipitation_probability').css('width', `${results['forecasts_data']['precipitation_probability']}%`);
             $('#convective_precipitation').text(results['forecasts_data']['convective_precipitation']);
             $('#snow_fraction').text(results['forecasts_data']['snow_fraction']);
             $('#rain_fraction').text(results['forecasts_data']['rain_fraction']);
