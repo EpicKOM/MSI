@@ -11,7 +11,7 @@ class ForecastsApi:
         """Charge les données du fichier JSON une seule fois."""
         try:
             with open(cls.json_path, "r") as file:
-                return json.load(file)["data_day"]
+                return json.load(file)
 
         except FileNotFoundError:
             app.logger.exception(f"Erreur : Le fichier {cls.json_path} n'a pas été trouvé.")
