@@ -52,8 +52,12 @@ def saint_martin_dheres_update_charts():
 
 @app.route("/previsions/")
 def forecasts():
+    forecasts_data = ForecastsApi.get_forecasts_data()
+
     return render_template("forecasts.html",
-                           forecasts_data=ForecastsApi.get_forecasts_data())
+                           forecasts_data=forecasts_data[0],
+                           is_data_fresh=forecasts_data[1],
+                           update_datetime=forecasts_data[2])
 
 
 # ------------Requête AJAX Forecasts---------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-from MSI import db
+from MSI import db, app
 from MSI.models.meteo_live_utils import MeteoLiveUtils
 
 
@@ -16,61 +16,90 @@ class SaintMartinDheresData(db.Model):
 
     @classmethod
     def table_is_empty(cls):
-        return cls.query.first() is None
+        try:
+            return cls.query.first() is None
+
+        except Exception:
+            app.logger.exception("[table_is_empty] - Erreur lors de la vérification de si la table est vide.")
 
     @classmethod
     def check_reception(cls):
-        return MeteoLiveUtils.get_check_reception(cls)
+        try:
+            return MeteoLiveUtils.get_check_reception(cls)
+
+        except Exception:
+            app.logger.exception("[check_reception] - Erreur lors de la vérification de réception des données.")
 
     @classmethod
     def current_data(cls):
-        data = MeteoLiveUtils.get_last_record(cls)
+        try:
+            data = MeteoLiveUtils.get_last_record(cls)
 
-        current_data = {"update_datetime": data.date_time.strftime("%d/%m/%Y à %H:%M"),
-                        "temperature": round(data.temperature, 1) if data.temperature is not None else "-",
-                        "humidity": data.humidity if data.humidity is not None else "-",
-                        "dew_point": round(data.dew_point, 1) if data.dew_point is not None else "-",
-                        "wind": data.wind if data.wind is not None else "-",
-                        "gust": round(data.gust, 1) if data.gust is not None else "-",
-                        "wind_angle": data.wind_angle if data.wind_angle is not None else "-",
-                        "wind_direction": MeteoLiveUtils.get_wind_direction(data.wind_angle) if data.wind_angle is not None else "-",
-                        "uv": data.uv if data.uv is not None else "-",
-                        }
+            current_data = {"update_datetime": data.date_time.strftime("%d/%m/%Y à %H:%M"),
+                            "temperature": round(data.temperature, 1) if data.temperature is not None else "-",
+                            "humidity": data.humidity if data.humidity is not None else "-",
+                            "dew_point": round(data.dew_point, 1) if data.dew_point is not None else "-",
+                            "wind": data.wind if data.wind is not None else "-",
+                            "gust": round(data.gust, 1) if data.gust is not None else "-",
+                            "wind_angle": data.wind_angle if data.wind_angle is not None else "-",
+                            "wind_direction": MeteoLiveUtils.get_wind_direction(data.wind_angle) if data.wind_angle is not None else "-",
+                            "uv": data.uv if data.uv is not None else "-",
+                            }
 
-        return current_data
+            return current_data
+
+        except Exception:
+            app.logger.exception("[current_data] - Erreur lors de la récupération des données actuelles.")
 
     @classmethod
     def temperature_extremes_today(cls):
-        return MeteoLiveUtils.get_temperature_extremes_today(cls)
+        try:
+            return MeteoLiveUtils.get_temperature_extremes_today(cls)
+
+        except Exception:
+            app.logger.exception("[temperature_extremes_today] - Erreur lors de la récupération des températures extrêmes du jour.")
 
     @classmethod
     def cumulative_rain_today(cls):
-        return MeteoLiveUtils.get_cumulative_rain_today(cls)
+        try:
+            return MeteoLiveUtils.get_cumulative_rain_today(cls)
+
+        except Exception:
+            app.logger.exception("[cumulative_rain_today] - Erreur lors de la récupération du cumul de pluie du jour.")
 
     @classmethod
     def rain(cls):
-        return MeteoLiveUtils.get_rain_1h(cls)
+        try:
+            return MeteoLiveUtils.get_rain_1h(cls)
+
+        except Exception:
+            app.logger.exception("[rain] - Erreur lors de la récupération du cumul de pluie de la dernière heure.")
 
     @classmethod
     def maximum_gust_today(cls):
-        return MeteoLiveUtils.get_maximum_gust_today(cls)
+        try:
+            return MeteoLiveUtils.get_maximum_gust_today(cls)
+
+        except Exception:
+            app.logger.exception("[maximum_gust_today] - Erreur lors de la récupération de la rafale maximum du jour.")
 
     @classmethod
     def current_charts_data(cls, interval_duration):
-        current_chart_data = MeteoLiveUtils.get_current_charts_data(cls, interval_duration)
+        try:
+            current_chart_data = MeteoLiveUtils.get_current_charts_data(cls, interval_duration)
 
-        current_chart_data_dict = {"datetime": [data.date_time.strftime("%Y-%m-%d %H:%M:%S") for data in current_chart_data[0]],
-                                   "temperature": [data.temperature for data in current_chart_data[0]],
-                                   "dew_point": [data.dew_point for data in current_chart_data[0]],
-                                   "wind": [data.wind for data in current_chart_data[0]],
-                                   "gust": [data.gust for data in current_chart_data[0]],
-                                   "humidity": [data.humidity for data in current_chart_data[0]],
-                                   "uv": [data.uv for data in current_chart_data[0]],
-                                   "rain": [data.rain_1h for data in current_chart_data[1]],
-                                   "rain_datetime": [data.date_time.strftime("%Y-%m-%d %H:%M:%S") for data in current_chart_data[1]],
-                                   "wind_direction": current_chart_data[2]}
+            current_chart_data_dict = {"datetime": [data.date_time.strftime("%Y-%m-%d %H:%M:%S") for data in current_chart_data[0]],
+                                       "temperature": [data.temperature for data in current_chart_data[0]],
+                                       "dew_point": [data.dew_point for data in current_chart_data[0]],
+                                       "wind": [data.wind for data in current_chart_data[0]],
+                                       "gust": [data.gust for data in current_chart_data[0]],
+                                       "humidity": [data.humidity for data in current_chart_data[0]],
+                                       "uv": [data.uv for data in current_chart_data[0]],
+                                       "rain": [data.rain_1h for data in current_chart_data[1]],
+                                       "rain_datetime": [data.date_time.strftime("%Y-%m-%d %H:%M:%S") for data in current_chart_data[1]],
+                                       "wind_direction": current_chart_data[2]}
 
-        return current_chart_data_dict
+            return current_chart_data_dict
 
-# with app.app_context():
-#     SaintMartinDheresData.current_chart_data()
+        except Exception:
+            app.logger.exception("[current_charts_data] - Erreur lors de la récupération des données pour les graphiques.")

@@ -14,11 +14,11 @@ class ForecastsApi:
                 return json.load(file)
 
         except FileNotFoundError:
-            app.logger.exception(f"Erreur : Le fichier {cls.json_path} n'a pas été trouvé.")
+            app.logger.exception(f"[load_forecasts_data] - Erreur : Le fichier {cls.json_path} n'a pas été trouvé.")
         except json.JSONDecodeError:
-            app.logger.exception(f"Erreur lors de la lecture du fichier JSON.")
+            app.logger.exception(f"[load_forecasts_data] - Erreur lors de la lecture du fichier JSON.")
         except Exception:
-            app.logger.exception(f"Erreur inconnue lors de la récupération des données")
+            app.logger.exception(f"[load_forecasts_data] - Erreur inconnue lors de la récupération des prévisions.")
 
         return None
 
@@ -28,8 +28,15 @@ class ForecastsApi:
         forecasts_data = cls.load_forecasts_data()
 
         if not forecasts_data:
-            app.logger.warning("Aucune donnée de prévision trouvée")
-            return []
+            app.logger.warning("[get_forecasts_data] - Aucune donnée de prévision trouvée.")
+            return [], None, True
+
+        current_time = datetime.datetime.now()
+        update_datetime = datetime.datetime.strptime(forecasts_data.get("update_datetime"), "%Y-%m-%d %H:%M:%S.%f")
+        delta_time = current_time - update_datetime
+        deadline = datetime.timedelta(days=1)
+
+        is_data_fresh = delta_time < deadline
 
         keys = ["time", "pictocode", "temperature_min", "temperature_mean", "temperature_max", "precipitation"]
         if not all(key in forecasts_data for key in keys):
@@ -62,7 +69,7 @@ class ForecastsApi:
             )
         ]
 
-        return results
+        return results, is_data_fresh, update_datetime.strftime("%d/%m/%Y à %H:%M")
 
     @classmethod
     def get_forecasts_data_by_index(cls, index):
@@ -70,7 +77,7 @@ class ForecastsApi:
         forecasts_data = cls.load_forecasts_data()
 
         if not forecasts_data:
-            app.logger.warning("Aucune donnée de prévision trouvée")
+            app.logger.warning("[get_forecasts_data_by_index] - Aucune donnée de prévision trouvée.")
             return {}
 
         keys = ["time", "pictocode", "temperature_min", "temperature_mean", "temperature_max"]
@@ -121,10 +128,10 @@ class ForecastsApi:
             return results
 
         except IndexError:
-            app.logger.exception(f"Index {index} hors limites")
+            app.logger.exception(f"[get_forecasts_data_by_index] - Index {index} hors limites.")
             return {}
         except Exception:
-            app.logger.exception(f"Erreur lors de la récupération des données de prévisions par index")
+            app.logger.exception(f"[get_forecasts_data_by_index] - Erreur lors de la récupération des données de prévisions par index.")
             return {}
 
     @staticmethod

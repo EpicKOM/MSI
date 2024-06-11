@@ -122,56 +122,50 @@ class MeteoLiveUtils:
 
     @staticmethod
     def get_current_charts_data(cls, interval_duration):
-        try:
-            data_start_date = MeteoLiveUtils.get_last_record_datetime(cls) - datetime.timedelta(interval_duration)
+        data_start_date = MeteoLiveUtils.get_last_record_datetime(cls) - datetime.timedelta(interval_duration)
 
-            current_charts_data = cls.query.filter(cls.date_time >= data_start_date).all()
-            current_rain_chart_data = cls.query.with_entities(cls.rain_1h, cls.date_time).filter(cls.date_time >= data_start_date, cls.rain_1h.isnot(None)).all()
-            current_wind_direction_chart_data = MeteoLiveUtils.get_wind_direction_chart_data(cls, data_start_date)
+        current_charts_data = cls.query.filter(cls.date_time >= data_start_date).all()
+        current_rain_chart_data = cls.query.with_entities(cls.rain_1h, cls.date_time).filter(cls.date_time >= data_start_date, cls.rain_1h.isnot(None)).all()
+        current_wind_direction_chart_data = MeteoLiveUtils.get_wind_direction_chart_data(cls, data_start_date)
 
-            return [current_charts_data, current_rain_chart_data, current_wind_direction_chart_data]
-
-        except Exception:
-            app.logger.exception()
-            return [[], [], []]
+        return [current_charts_data, current_rain_chart_data, current_wind_direction_chart_data]
 
     @staticmethod
     def get_wind_direction_chart_data(cls, data_start_date):
-        try:
-            wind_angle_data = cls.query.with_entities(cls.wind_angle).filter(cls.date_time >= data_start_date, cls.wind > 0,
-                                                                             cls.wind_angle.isnot(None)).all()
+        wind_angle_data = cls.query.with_entities(cls.wind_angle).filter(cls.date_time >= data_start_date, cls.wind > 0,
+                                                                         cls.wind_angle.isnot(None)).all()
 
-            wind_direction_counts = {
-                "N": 0, "NNE": 0, "NE": 0, "ENE": 0, "E": 0, "ESE": 0,
-                "SE": 0, "SSE": 0, "S": 0, "SSO": 0, "SO": 0, "OSO": 0,
-                "O": 0, "ONO": 0, "NO": 0, "NNO": 0
-            }
+        wind_direction_counts = {
+            "N": 0, "NNE": 0, "NE": 0, "ENE": 0, "E": 0, "ESE": 0,
+            "SE": 0, "SSE": 0, "S": 0, "SSO": 0, "SO": 0, "OSO": 0,
+            "O": 0, "ONO": 0, "NO": 0, "NNO": 0
+        }
 
-            for wind_angle in wind_angle_data:
-                direction = MeteoLiveUtils.get_wind_direction(wind_angle[0])
-                if direction in wind_direction_counts:
-                    wind_direction_counts[direction] += 1
+        for wind_angle in wind_angle_data:
+            direction = MeteoLiveUtils.get_wind_direction(wind_angle[0])
+            if direction in wind_direction_counts:
+                wind_direction_counts[direction] += 1
 
-            total = sum(wind_direction_counts.values())
+        total = sum(wind_direction_counts.values())
 
-            if total != 0:
-                results = [round(MeteoLiveUtils.wind_direction_percentage(wind_direction_counts[direction], total), 1)
-                           for direction in ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSO", "SO", "OSO", "O", "ONO", "NO", "NNO"]]
+        if total != 0:
+            results = [round(MeteoLiveUtils.wind_direction_percentage(wind_direction_counts[direction], total), 1)
+                       for direction in ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSO", "SO", "OSO", "O", "ONO", "NO", "NNO"]]
 
-            else:
-                results = [0] * 16
+        else:
+            results = [0] * 16
 
-            return results
-
-        except Exception:
-            app.logger.exception("[get_wind_direction_chart_data] : Erreur lors de la récupération des données destinées au graphique de la direction du vent.")
-            return [0] * 16
+        return results
 
     @staticmethod
     def wind_direction_percentage(part, total):
         try:
             return 100 * part / total
 
+        except ZeroDivisionError:
+            logging.error(f"[wind_direction_percentage] : Division par zéro impossible. Total = {total}")
+
         except Exception:
             app.logger.exception("[wind_direction_percentage] : Erreur lors du calcul du pourcentage de la direction du vent.")
-            return 0
+
+        return 0.0
