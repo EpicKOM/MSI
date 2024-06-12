@@ -6,7 +6,7 @@ class MeteoLiveUtils:
 
     # ------------METEO LIVE--------------------------------------------------------------------------------------------
     @staticmethod
-    def get_check_reception(cls):
+    def get_check_is_data_fresh(cls):
         """
         Checks if there has been a reception error based on the time elapsed
         since the last record was received.
@@ -19,7 +19,7 @@ class MeteoLiveUtils:
         delta_time = current_time - last_record_datetime
         deadline = datetime.timedelta(hours=3)
 
-        return delta_time >= deadline
+        return delta_time < deadline
 
     @staticmethod
     def get_last_record(cls):

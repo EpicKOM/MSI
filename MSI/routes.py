@@ -27,7 +27,7 @@ def meteo_live_saint_martin_dheres():
     context = {'table_is_empty': table_is_empty}
 
     if not table_is_empty:
-        context.update(reception_error=SaintMartinDheresData.check_reception(),
+        context.update(is_data_fresh=SaintMartinDheresData.check_is_data_fresh(),
                        current_data=SaintMartinDheresData.current_data(),
                        temperature_extremes_today=SaintMartinDheresData.temperature_extremes_today(),
                        cumulative_rain_today=SaintMartinDheresData.cumulative_rain_today(),
@@ -53,11 +53,16 @@ def saint_martin_dheres_update_charts():
 @app.route("/previsions/")
 def forecasts():
     forecasts_data = ForecastsApi.get_forecasts_data()
+    forecasts_is_empty = forecasts_data[0]
 
-    return render_template("forecasts.html",
-                           forecasts_data=forecasts_data[0],
-                           is_data_fresh=forecasts_data[1],
-                           update_datetime=forecasts_data[2])
+    context = {'forecasts_is_empty': forecasts_is_empty}
+
+    if not forecasts_is_empty:
+        context.update(update_datetime=forecasts_data[1],
+                       is_data_fresh=forecasts_data[2],
+                       forecasts_data=forecasts_data[3],)
+
+    return render_template("forecasts.html", **context)
 
 
 # ------------Requête AJAX Forecasts---------------------------------------------------------------------------

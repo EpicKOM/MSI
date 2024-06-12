@@ -1,4 +1,11 @@
 $(document).ready(function() {
+    $('#forecasts-unavailable-alert').fadeIn(1000);
+
+    $("#forecasts-unavailable-alert-button").click(function(){
+        $('#forecasts-unavailable-alert').fadeOut(function() {
+            $(this).remove();
+        });
+    });
 
     $("tr.collapsable").hide();
 
@@ -89,8 +96,12 @@ function ajaxRequest(dayNumber) {
 
             $('#precipitation').text(results['forecasts_data']['precipitation']);
             $('#precipitation_hours').text(results['forecasts_data']['precipitation_hours']);
-            $('#precipitation_probability').text(`${results['forecasts_data']['precipitation_probability']}%`);
             $('#precipitation_probability').css('width', `${results['forecasts_data']['precipitation_probability']}%`);
+            $('#precipitation_probability').text("");
+            if (results['forecasts_data']['precipitation_probability'] >= 10) {
+                $('#precipitation_probability').text(`${results['forecasts_data']['precipitation_probability']}%`);
+            }
+
             $('#convective_precipitation').text(results['forecasts_data']['convective_precipitation']);
             $('#snow_fraction').text(results['forecasts_data']['snow_fraction']);
             $('#rain_fraction').text(results['forecasts_data']['rain_fraction']);
@@ -124,10 +135,6 @@ function ajaxRequest(dayNumber) {
             $('#forecasts-message-errors').remove();
             $("#forecasts-content").hide();
             $("#forecasts-content").before('<p class="text-danger mt-4 text-center lead" id="forecasts-message-errors"><i class="fa-solid fa-xmark me-2"></i>Erreur lors de la tentative de récupération des données. Veuillez réessayer plus tard.</p>');
-        },
-
-        complete:function() {
-
         },
     })
 }

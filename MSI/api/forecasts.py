@@ -29,7 +29,7 @@ class ForecastsApi:
 
         if not forecasts_data:
             app.logger.warning("[get_forecasts_data] - Aucune donnée de prévision trouvée.")
-            return [], None, True
+            return True, None, True, []
 
         current_time = datetime.datetime.now()
         update_datetime = datetime.datetime.strptime(forecasts_data.get("update_datetime"), "%Y-%m-%d %H:%M:%S.%f")
@@ -40,8 +40,11 @@ class ForecastsApi:
 
         keys = ["time", "pictocode", "temperature_min", "temperature_mean", "temperature_max", "precipitation"]
         if not all(key in forecasts_data for key in keys):
-            app.logger.error("Une des clés attendues est manquante dans les données du fichier JSON")
-            raise KeyError("Une des clés attendues est manquante dans les données du fichier JSON")
+            missing_keys = [key for key in keys if key not in forecasts_data]
+            for missing_key in missing_keys:
+                app.logger.error(f"[get_forecasts_data] - La clé attendue '{missing_key}' est manquante dans les données du fichier JSON")
+
+            raise KeyError("Une ou plusieurs clés attendues sont manquantes dans les données du fichier JSON")
 
         results = [
             {
@@ -69,7 +72,7 @@ class ForecastsApi:
             )
         ]
 
-        return results, is_data_fresh, update_datetime.strftime("%d/%m/%Y à %H:%M")
+        return False, update_datetime.strftime("%d/%m/%Y à %H:%M"), is_data_fresh, results
 
     @classmethod
     def get_forecasts_data_by_index(cls, index):
@@ -80,9 +83,19 @@ class ForecastsApi:
             app.logger.warning("[get_forecasts_data_by_index] - Aucune donnée de prévision trouvée.")
             return {}
 
-        keys = ["time", "pictocode", "temperature_min", "temperature_mean", "temperature_max"]
+        keys = ["time", "pictocode", "predictability_class", "predictability", "temperature_min", "temperature_mean",
+                "temperature_max", "felttemperature_min", "felttemperature_mean", "felttemperature_max", "precipitation",
+                "precipitation_hours", "precipitation_probability", "convective_precipitation", "snowfraction",
+                "windspeed_min", "windspeed_mean", "windspeed_max", "winddirection", "sealevelpressure_min",
+                "sealevelpressure_mean", "sealevelpressure_max", "relativehumidity_min", "relativehumidity_mean",
+                "relativehumidity_max", "sunrise", "sunset", "uvindex", "moonrise", "moonset", "moonphasename"]
+
         if not all(key in forecasts_data for key in keys):
-            raise KeyError("Une des clés attendues est manquante dans les données du fichier JSON")
+            missing_keys = [key for key in keys if key not in forecasts_data]
+            for missing_key in missing_keys:
+                app.logger.error(f"[get_forecasts_data] - La clé attendue '{missing_key}' est manquante dans les données du fichier JSON")
+
+            raise KeyError("Une ou plusieurs clés attendues sont manquantes dans les données du fichier JSON")
 
         try:
             date = forecasts_data["time"][index]

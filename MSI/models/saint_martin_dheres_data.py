@@ -20,15 +20,15 @@ class SaintMartinDheresData(db.Model):
             return cls.query.first() is None
 
         except Exception:
-            app.logger.exception("[table_is_empty] - Erreur lors de la vérification de si la table est vide.")
+            app.logger.exception("[table_is_empty] - Erreur lors de la vérification de l'état vide de la table.")
 
     @classmethod
-    def check_reception(cls):
+    def check_is_data_fresh(cls):
         try:
-            return MeteoLiveUtils.get_check_reception(cls)
+            return MeteoLiveUtils.get_check_is_data_fresh(cls)
 
         except Exception:
-            app.logger.exception("[check_reception] - Erreur lors de la vérification de réception des données.")
+            app.logger.exception("[check_reception] - Erreur lors de la vérification de la réception des données.")
 
     @classmethod
     def current_data(cls):
@@ -73,7 +73,7 @@ class SaintMartinDheresData(db.Model):
             return MeteoLiveUtils.get_rain_1h(cls)
 
         except Exception:
-            app.logger.exception("[rain] - Erreur lors de la récupération du cumul de pluie de la dernière heure.")
+            app.logger.exception("[rain] - Erreur lors de la récupération du cumul de pluie de l'heure précédente.")
 
     @classmethod
     def maximum_gust_today(cls):
@@ -81,7 +81,7 @@ class SaintMartinDheresData(db.Model):
             return MeteoLiveUtils.get_maximum_gust_today(cls)
 
         except Exception:
-            app.logger.exception("[maximum_gust_today] - Erreur lors de la récupération de la rafale maximum du jour.")
+            app.logger.exception("[maximum_gust_today] - Erreur lors de la récupération de la rafale maximale du jour.")
 
     @classmethod
     def current_charts_data(cls, interval_duration):

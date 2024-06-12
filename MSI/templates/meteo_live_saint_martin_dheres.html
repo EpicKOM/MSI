@@ -22,7 +22,7 @@
         </div>
     {% else %}
         <div class="container mt-md-4 mt-2">
-            {% if reception_error %}
+            {% if not is_data_fresh %}
                 <div class="d-flex justify-content-md-center">
                     <div class="alert alert-dismissible w-40 text-center text-light-red bg-dark-red border-error" role="alert" id="weather-station-unavailable-alert" style="display: none;">
                         Station météorologique indisponible.
@@ -31,52 +31,29 @@
                         </a>
                     </div>
                 </div>
-                <div class="d-flex flex-column flex-md-row">
-                    <div>
-                        <span class="badge p-3 text-light-red bg-dark-red border-error">
-                            <i class="fa-solid fa-rotate-right me-2"></i>Dernière mise à jour : {{ current_data["update_datetime"] }}
-                        </span>
-                    </div>
-                    <div>
-                        <span class="badge p-3 text-light opacity-75">
-                            <i class="fa-solid fa-map-pin me-2"></i><span class="text-info">Saint-Martin-d'Hères</span>
-                        </span>
-                    </div>
-                    <div>
-                        <span class="badge p-3 text-light opacity-75">
-                            <i class="fa-solid fa-mountain me-2"></i>220 m
-                        </span>
-                    </div>
-                    <div>
-                        <span class="badge p-3 text-light opacity-75">
-                            <i class="fa-solid fa-diagram-project me-2"></i>Réseau StatIC
-                        </span>
-                    </div>
-                </div>
-            {% else %}
-                <div class="d-flex flex-column flex-md-row">
-                    <div>
-                        <span class="badge p-3 text-light-green bg-dark-green border-achievement">
-                            <i class="fa-solid fa-rotate-right me-2"></i>Dernière mise à jour : {{ current_data["update_datetime"] }}
-                        </span>
-                    </div>
-                    <div>
-                        <span class="badge p-3 text-light opacity-75">
-                            <i class="fa-solid fa-map-pin me-2"></i><span class="text-info">Saint-Martin-d'Hères</span>
-                        </span>
-                    </div>
-                    <div>
-                        <span class="badge p-3 text-light opacity-75">
-                            <i class="fa-solid fa-mountain me-2"></i>220 m
-                        </span>
-                    </div>
-                    <div>
-                        <span class="badge p-3 text-light opacity-75">
-                            <i class="fa-solid fa-diagram-project me-2"></i>Réseau StatIC
-                        </span>
-                    </div>
-                </div>
             {% endif %}
+            <div class="d-flex flex-column flex-md-row">
+                <div>
+                    <span class="badge p-3 {% if not is_data_fresh %}text-light-red bg-dark-red border-error{% else %}text-light-green bg-dark-green border-achievement{% endif %}">
+                        <i class="fa-solid fa-rotate-right me-2"></i>Dernière mise à jour : {{ current_data["update_datetime"] }}
+                    </span>
+                </div>
+                <div>
+                    <span class="badge p-3 text-light opacity-75">
+                        <i class="fa-solid fa-map-pin me-2"></i><span class="text-info">Saint-Martin-d'Hères</span>
+                    </span>
+                </div>
+                <div>
+                    <span class="badge p-3 text-light opacity-75">
+                        <i class="fa-solid fa-mountain me-2"></i>220 m
+                    </span>
+                </div>
+                <div>
+                    <span class="badge p-3 text-light opacity-75">
+                        <i class="fa-solid fa-diagram-project me-2"></i>Réseau StatIC
+                    </span>
+                </div>
+            </div>
         </div>
         <div class="container mt-4">
             <div class="row">
