@@ -78,6 +78,11 @@ def forecasts_update():
     return jsonify(forecasts_data=ForecastsApi.get_forecasts_data_by_index(day_number)), 200
 
 
+@app.route("/test/")
+def test():
+    return render_template("test.html")
+
+
 # -------GESTION DES ERREURS--------------------------------------------------------------------------------------------
 @app.errorhandler(400)
 def error_400(error):
