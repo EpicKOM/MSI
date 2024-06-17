@@ -1,4 +1,9 @@
+// Initialize the tooltip on document ready
+const tooltipPrecipitationProbability = document.getElementById('precipitation_probability');
+
 $(document).ready(function() {
+
+
     $('#forecasts-unavailable-alert').fadeIn(1000);
 
     $("#forecasts-unavailable-alert-button").click(function(){
@@ -98,7 +103,12 @@ function ajaxRequest(dayNumber) {
             $('#precipitation_hours').text(results['forecasts_data']['precipitation_hours']);
             $('#precipitation_probability').css('width', `${results['forecasts_data']['precipitation_probability']}%`);
             $('#precipitation_probability').text("");
+            $('#precipitation_probability').attr('title', `${results['forecasts_data']['precipitation_probability']}%`);
+            let tooltipInstance = new mdb.Tooltip(tooltipPrecipitationProbability);
+
             if (results['forecasts_data']['precipitation_probability'] >= 10) {
+                tooltipInstance.dispose(); // Dispose of the current tooltip instance
+                $('#precipitation_probability').removeAttr('title');
                 $('#precipitation_probability').text(`${results['forecasts_data']['precipitation_probability']}%`);
             }
 
