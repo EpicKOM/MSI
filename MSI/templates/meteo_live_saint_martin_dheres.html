@@ -265,6 +265,11 @@
                 <div class="col-lg-6 mt-lg-0 mt-2">
                     <div class="card bg-primary-color p-3 border-chart-card">
                         <div>
+                            <a class="float-end text-light d-none d-lg-block"
+                               role="button" data-mdb-tooltip-init title="Agrandir"
+                               data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#rainModal">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                            </a>
                             <h5 class="card-title text-center text-light" id="currentRainChartTitle">
                             </h5>
                         </div>
@@ -316,14 +321,37 @@
         <div class="modal fade" id="temperatureModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content bg-primary-color msi-border">
-                    <div class="modal-header text-light" style="border-bottom: 1px solid rgba(251, 251, 251, 0);">
-                        <h5 class="modal-title" id="exampleModalLabel">Température sur 24 h (°C)</h5>
-                        <a class="text-light" role="button" data-mdb-dismiss="modal">
+                    <div class="p-3">
+                        <a class="float-end text-light"
+                           role="button"
+                            data-mdb-dismiss="modal">
                             <i class="fas fa-xmark fa-lg"></i>
                         </a>
+                        <h5 class="card-title text-center text-light" id="currentTemperatureChartModalTitle">
+                        </h5>
                     </div>
                     <div class="modal-body">
                         <canvas id="currentTemperatureChartModal"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modale Pluie -->
+        <div class="modal fade" id="rainModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content bg-primary-color msi-border">
+                    <div class="p-3">
+                        <a class="float-end text-light"
+                           role="button"
+                            data-mdb-dismiss="modal">
+                            <i class="fas fa-xmark fa-lg"></i>
+                        </a>
+                        <h5 class="card-title text-center text-light" id="currentRainChartModalTitle">
+                        </h5>
+                    </div>
+                    <div class="modal-body">
+                        <canvas id="currentRainChartModal"></canvas>
                     </div>
                 </div>
             </div>

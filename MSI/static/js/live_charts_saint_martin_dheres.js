@@ -511,6 +511,7 @@ const uvConfig = {
 const temperatureChart = new Chart(document.getElementById('currentTemperatureChart'), temperatureConfig);
 const temperatureChartModal = new Chart(document.getElementById('currentTemperatureChartModal'), temperatureConfig);
 const rainChart = new Chart(document.getElementById('currentRainChart'), rainConfig);
+const rainChartModal = new Chart(document.getElementById('currentRainChartModal'), rainConfig);
 const windChart = new Chart(document.getElementById('currentWindChart'), windConfig);
 const windDirectionChart = new Chart(document.getElementById('currentWindDirectionChart'), windDirectionConfig);
 const humidityChart = new Chart(document.getElementById('currentHumidityChart'), humidityConfig);
@@ -543,7 +544,13 @@ $(document).ready(function(){
     });
 
     $('#temperatureModal').on('shown.bs.modal', function (e) {
+        temperatureChartModal.update();
         temperatureChartModal.resize();
+    });
+
+    $('#rainModal').on('shown.bs.modal', function (e) {
+        rainChartModal.update();
+        rainChartModal.resize();
     });
 });
 
@@ -571,10 +578,12 @@ function ajaxRequest(interval_duration, interval_duration_chart_title) {
             wind_direction, interval_duration);
 
             $('#currentTemperatureChartTitle').text(`Température sur ${interval_duration_chart_title} (°C)`);
+            $('#currentTemperatureChartModalTitle').text(`Température sur ${interval_duration_chart_title} (°C)`);
             $('#currentWindChartTitle').text(`Vent sur ${interval_duration_chart_title} (km/h)`);
             $('#currentHumidityChartTitle').text(`Humidité sur ${interval_duration_chart_title} (%)`);
             $('#currentUvChartTitle').text(`Radiations sur ${interval_duration_chart_title} (W/m²)`);
             $('#currentRainChartTitle').text(`Pluie sur ${interval_duration_chart_title} (mm)`);
+            $('#currentRainChartModalTitle').text(`Pluie sur ${interval_duration_chart_title} (mm)`);
             $('#currentWindDirectionChartTitle').text(`Rose des vents sur ${interval_duration_chart_title} (%)`);
 
             $('#live-charts-message-errors').remove();
@@ -629,7 +638,6 @@ function updateLiveCharts(datetime, temperature, dew_point, wind, gust, humidity
 
     //Update charts
     temperatureChart.update();
-    temperatureChartModal.update();
     rainChart.update();
     windChart.update();
     humidityChart.update();
