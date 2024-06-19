@@ -543,8 +543,7 @@ $(document).ready(function(){
     });
 
     $('#temperatureModal').on('shown.bs.modal', function (e) {
-//        const temperatureChartModal = new Chart(document.getElementById('currentTemperatureChartModal'), temperatureConfig);
-//        temperatureChartModal.update();
+        temperatureChartModal.resize();
     });
 });
 
