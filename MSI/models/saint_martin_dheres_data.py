@@ -20,7 +20,7 @@ class SaintMartinDheresData(db.Model):
             return cls.query.first() is None
 
         except Exception:
-            app.logger.exception("[table_is_empty] - Erreur lors de la vérification de l'état vide de la table.")
+            app.logger.exception("[SaintMartinDheresData - table_is_empty] - Erreur lors de la vérification de l'état vide de la table.")
 
     @classmethod
     def check_is_data_fresh(cls):
@@ -28,7 +28,7 @@ class SaintMartinDheresData(db.Model):
             return MeteoLiveUtils.get_check_is_data_fresh(cls)
 
         except Exception:
-            app.logger.exception("[check_reception] - Erreur lors de la vérification de la réception des données.")
+            app.logger.exception("[SaintMartinDheresData - check_reception] - Erreur lors de la vérification de la réception des données.")
 
     @classmethod
     def current_data(cls):
@@ -49,7 +49,7 @@ class SaintMartinDheresData(db.Model):
             return current_data
 
         except Exception:
-            app.logger.exception("[current_data] - Erreur lors de la récupération des données actuelles.")
+            app.logger.exception("[SaintMartinDheresData - current_data] - Erreur lors de la récupération des données actuelles.")
 
     @classmethod
     def temperature_extremes_today(cls):
@@ -57,7 +57,7 @@ class SaintMartinDheresData(db.Model):
             return MeteoLiveUtils.get_temperature_extremes_today(cls)
 
         except Exception:
-            app.logger.exception("[temperature_extremes_today] - Erreur lors de la récupération des températures extrêmes du jour.")
+            app.logger.exception("[SaintMartinDheresData - temperature_extremes_today] - Erreur lors de la récupération des températures extrêmes du jour.")
 
     @classmethod
     def cumulative_rain_today(cls):
@@ -65,7 +65,7 @@ class SaintMartinDheresData(db.Model):
             return MeteoLiveUtils.get_cumulative_rain_today(cls)
 
         except Exception:
-            app.logger.exception("[cumulative_rain_today] - Erreur lors de la récupération du cumul de pluie du jour.")
+            app.logger.exception("[SaintMartinDheresData - cumulative_rain_today] - Erreur lors de la récupération du cumul de pluie du jour.")
 
     @classmethod
     def rain(cls):
@@ -73,7 +73,7 @@ class SaintMartinDheresData(db.Model):
             return MeteoLiveUtils.get_rain_1h(cls)
 
         except Exception:
-            app.logger.exception("[rain] - Erreur lors de la récupération du cumul de pluie de l'heure précédente.")
+            app.logger.exception("[SaintMartinDheresData - rain] - Erreur lors de la récupération du cumul de pluie de l'heure précédente.")
 
     @classmethod
     def maximum_gust_today(cls):
@@ -81,7 +81,7 @@ class SaintMartinDheresData(db.Model):
             return MeteoLiveUtils.get_maximum_gust_today(cls)
 
         except Exception:
-            app.logger.exception("[maximum_gust_today] - Erreur lors de la récupération de la rafale maximale du jour.")
+            app.logger.exception("[SaintMartinDheresData - maximum_gust_today] - Erreur lors de la récupération de la rafale maximale du jour.")
 
     @classmethod
     def current_charts_data(cls, interval_duration):
@@ -102,4 +102,4 @@ class SaintMartinDheresData(db.Model):
             return current_chart_data_dict
 
         except Exception:
-            app.logger.exception("[current_charts_data] - Erreur lors de la récupération des données pour les graphiques.")
+            app.logger.exception("[SaintMartinDheresData - current_charts_data] - Erreur lors de la récupération des données pour les graphiques.")

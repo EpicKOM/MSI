@@ -14,11 +14,11 @@ class ForecastsApi:
                 return json.load(file)
 
         except FileNotFoundError:
-            app.logger.exception(f"[load_forecasts_data] - Erreur : Le fichier {cls.json_path} n'a pas été trouvé.")
+            app.logger.exception(f"[ForecastsApi - load_forecasts_data] - Erreur : Le fichier {cls.json_path} n'a pas été trouvé.")
         except json.JSONDecodeError:
-            app.logger.exception(f"[load_forecasts_data] - Erreur lors de la lecture du fichier JSON.")
+            app.logger.exception(f"[ForecastsApi - load_forecasts_data] - Erreur lors de la lecture du fichier JSON.")
         except Exception:
-            app.logger.exception(f"[load_forecasts_data] - Erreur inconnue lors de la récupération des prévisions.")
+            app.logger.exception(f"[ForecastsApi - load_forecasts_data] - Erreur inconnue lors de la récupération des prévisions.")
 
         return None
 
@@ -28,7 +28,7 @@ class ForecastsApi:
         forecasts_data = cls.load_forecasts_data()
 
         if not forecasts_data:
-            app.logger.warning("[get_forecasts_data] - Aucune donnée de prévision trouvée.")
+            app.logger.warning("[ForecastsApi - get_forecasts_data] - Aucune donnée de prévision trouvée.")
             return True, None, True, []
 
         current_time = datetime.datetime.now()
@@ -42,7 +42,7 @@ class ForecastsApi:
         if not all(key in forecasts_data for key in keys):
             missing_keys = [key for key in keys if key not in forecasts_data]
             for missing_key in missing_keys:
-                app.logger.error(f"[get_forecasts_data] - La clé attendue '{missing_key}' est manquante dans les données du fichier JSON")
+                app.logger.error(f"[ForecastsApi - get_forecasts_data] - La clé attendue '{missing_key}' est manquante dans les données du fichier JSON")
 
             raise KeyError("Une ou plusieurs clés attendues sont manquantes dans les données du fichier JSON")
 
@@ -80,7 +80,7 @@ class ForecastsApi:
         forecasts_data = cls.load_forecasts_data()
 
         if not forecasts_data:
-            app.logger.warning("[get_forecasts_data_by_index] - Aucune donnée de prévision trouvée.")
+            app.logger.warning("[ForecastsApi - get_forecasts_data_by_index] - Aucune donnée de prévision trouvée.")
             return {}
 
         keys = ["time", "pictocode", "predictability_class", "predictability", "temperature_min", "temperature_mean",
@@ -93,7 +93,7 @@ class ForecastsApi:
         if not all(key in forecasts_data for key in keys):
             missing_keys = [key for key in keys if key not in forecasts_data]
             for missing_key in missing_keys:
-                app.logger.error(f"[get_forecasts_data] - La clé attendue '{missing_key}' est manquante dans les données du fichier JSON")
+                app.logger.error(f"[ForecastsApi - get_forecasts_data] - La clé attendue '{missing_key}' est manquante dans les données du fichier JSON")
 
             raise KeyError("Une ou plusieurs clés attendues sont manquantes dans les données du fichier JSON")
 
@@ -141,10 +141,10 @@ class ForecastsApi:
             return results
 
         except IndexError:
-            app.logger.exception(f"[get_forecasts_data_by_index] - Index {index} hors limites.")
+            app.logger.exception(f"[ForecastsApi - get_forecasts_data_by_index] - Index {index} hors limites.")
             return {}
         except Exception:
-            app.logger.exception(f"[get_forecasts_data_by_index] - Erreur lors de la récupération des données de prévisions par index.")
+            app.logger.exception(f"[ForecastsApi - get_forecasts_data_by_index] - Erreur lors de la récupération des données de prévisions par index.")
             return {}
 
     @staticmethod

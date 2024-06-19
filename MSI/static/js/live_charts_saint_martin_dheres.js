@@ -509,6 +509,7 @@ const uvConfig = {
 
 //Chart Init
 const temperatureChart = new Chart(document.getElementById('currentTemperatureChart'), temperatureConfig);
+const temperatureChartModal = new Chart(document.getElementById('currentTemperatureChartModal'), temperatureConfig);
 const rainChart = new Chart(document.getElementById('currentRainChart'), rainConfig);
 const windChart = new Chart(document.getElementById('currentWindChart'), windConfig);
 const windDirectionChart = new Chart(document.getElementById('currentWindDirectionChart'), windDirectionConfig);
@@ -539,6 +540,11 @@ $(document).ready(function(){
             uvChart.update();
             windDirectionChart.update();
         }
+    });
+
+    $('#temperatureModal').on('shown.bs.modal', function (e) {
+//        const temperatureChartModal = new Chart(document.getElementById('currentTemperatureChartModal'), temperatureConfig);
+//        temperatureChartModal.update();
     });
 });
 
@@ -624,6 +630,7 @@ function updateLiveCharts(datetime, temperature, dew_point, wind, gust, humidity
 
     //Update charts
     temperatureChart.update();
+    temperatureChartModal.update();
     rainChart.update();
     windChart.update();
     humidityChart.update();

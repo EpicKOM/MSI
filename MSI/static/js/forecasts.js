@@ -2,8 +2,6 @@
 const tooltipPrecipitationProbability = document.getElementById('precipitation_probability');
 
 $(document).ready(function() {
-
-
     $('#forecasts-unavailable-alert').fadeIn(1000);
 
     $("#forecasts-unavailable-alert-button").click(function(){
