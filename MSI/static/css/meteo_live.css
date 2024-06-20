@@ -19,3 +19,11 @@
 option {
     background: #27272A;
 }
+
+.zoom-effect {
+    transition: transform 0.3s ease;
+}
+
+.zoom-effect:hover {
+    transform: scale(1.5);
+}

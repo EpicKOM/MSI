@@ -37,6 +37,11 @@ def meteo_live_saint_martin_dheres():
     return render_template("meteo_live_saint_martin_dheres.html", **context)
 
 
+@app.route("/meteo-live/lans-en-vercors/")
+def meteo_live_lans_en_vercors():
+    return render_template("meteo_live_lans_en_vercors.html")
+
+
 # ------------Requête AJAX Live Charts---------------------------------------------------------------------------
 @app.route('/data/saint-martin-d-heres/live-charts', methods=['POST'])
 def saint_martin_dheres_update_charts():

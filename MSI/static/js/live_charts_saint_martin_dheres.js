@@ -513,9 +513,13 @@ const temperatureChartModal = new Chart(document.getElementById('currentTemperat
 const rainChart = new Chart(document.getElementById('currentRainChart'), rainConfig);
 const rainChartModal = new Chart(document.getElementById('currentRainChartModal'), rainConfig);
 const windChart = new Chart(document.getElementById('currentWindChart'), windConfig);
+const windChartModal = new Chart(document.getElementById('currentWindChartModal'), windConfig);
 const windDirectionChart = new Chart(document.getElementById('currentWindDirectionChart'), windDirectionConfig);
+const windDirectionChartModal = new Chart(document.getElementById('currentWindDirectionChartModal'), windDirectionConfig);
 const humidityChart = new Chart(document.getElementById('currentHumidityChart'), humidityConfig);
+const humidityChartModal = new Chart(document.getElementById('currentHumidityChartModal'), humidityConfig);
 const uvChart = new Chart(document.getElementById('currentUvChart'), uvConfig);
+const uvChartModal = new Chart(document.getElementById('currentUvChartModal'), uvConfig);
 
 //------------------LOGIQUE---------------------------------------------------------------------------------------------
 $(document).ready(function(){
@@ -543,15 +547,12 @@ $(document).ready(function(){
         }
     });
 
-    $('#temperatureModal').on('shown.bs.modal', function (e) {
-        temperatureChartModal.update();
-        temperatureChartModal.resize();
-    });
-
-    $('#rainModal').on('shown.bs.modal', function (e) {
-        rainChartModal.update();
-        rainChartModal.resize();
-    });
+    updateAndResizeChartModal('#temperatureModal', temperatureChartModal);
+    updateAndResizeChartModal('#rainModal', rainChartModal);
+    updateAndResizeChartModal('#humidityModal', humidityChartModal);
+    updateAndResizeChartModal('#uvModal', uvChartModal);
+    updateAndResizeChartModal('#windModal', windChartModal);
+    updateAndResizeChartModal('#windDirectionModal', windDirectionChartModal);
 });
 
 //----------------Ajax request------------------------------------------------------------------------------------------
@@ -580,11 +581,15 @@ function ajaxRequest(interval_duration, interval_duration_chart_title) {
             $('#currentTemperatureChartTitle').text(`Température sur ${interval_duration_chart_title} (°C)`);
             $('#currentTemperatureChartModalTitle').text(`Température sur ${interval_duration_chart_title} (°C)`);
             $('#currentWindChartTitle').text(`Vent sur ${interval_duration_chart_title} (km/h)`);
+            $('#currentWindChartModalTitle').text(`Vent sur ${interval_duration_chart_title} (km/h)`);
             $('#currentHumidityChartTitle').text(`Humidité sur ${interval_duration_chart_title} (%)`);
+            $('#currentHumidityChartModalTitle').text(`Humidité sur ${interval_duration_chart_title} (%)`);
             $('#currentUvChartTitle').text(`Radiations sur ${interval_duration_chart_title} (W/m²)`);
+            $('#currentUvChartModalTitle').text(`Radiations sur ${interval_duration_chart_title} (W/m²)`);
             $('#currentRainChartTitle').text(`Pluie sur ${interval_duration_chart_title} (mm)`);
             $('#currentRainChartModalTitle').text(`Pluie sur ${interval_duration_chart_title} (mm)`);
             $('#currentWindDirectionChartTitle').text(`Rose des vents sur ${interval_duration_chart_title} (%)`);
+            $('#currentWindDirectionChartModalTitle').text(`Rose des vents sur ${interval_duration_chart_title} (%)`);
 
             $('#live-charts-message-errors').remove();
             $("#live_charts_container").show();
@@ -665,4 +670,11 @@ function convertSelectResponseToChartTitle(interval_duration_string) {
     };
 
     return durations_title[interval_duration_string] || "24h";
+}
+
+function updateAndResizeChartModal(modalId, chartModal) {
+    $(modalId).on('shown.bs.modal', function (e) {
+        chartModal.update();
+        chartModal.resize();
+    });
 }

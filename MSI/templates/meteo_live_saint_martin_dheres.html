@@ -250,7 +250,7 @@
                 <div class="col-lg-6">
                     <div class="card bg-primary-color p-3 border-chart-card">
                         <div>
-                            <a class="float-end text-light d-none d-lg-block"
+                            <a class="float-end text-light d-none d-lg-block zoom-effect"
                                role="button" data-mdb-tooltip-init title="Agrandir"
                                data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#temperatureModal">
                                 <i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -265,7 +265,7 @@
                 <div class="col-lg-6 mt-lg-0 mt-2">
                     <div class="card bg-primary-color p-3 border-chart-card">
                         <div>
-                            <a class="float-end text-light d-none d-lg-block"
+                            <a class="float-end text-light d-none d-lg-block zoom-effect"
                                role="button" data-mdb-tooltip-init title="Agrandir"
                                data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#rainModal">
                                 <i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -273,6 +273,7 @@
                             <h5 class="card-title text-center text-light" id="currentRainChartTitle">
                             </h5>
                         </div>
+
                         <canvas id="currentRainChart"></canvas>
                     </div>
                 </div>
@@ -281,16 +282,30 @@
             <div class="row mt-2">
                 <div class="col-lg-6">
                     <div class="card bg-primary-color p-3 border-chart-card">
-                        <h5 class="card-title text-center text-light" id="currentHumidityChartTitle">
-                        </h5>
+                        <div>
+                            <a class="float-end text-light d-none d-lg-block zoom-effect"
+                               role="button" data-mdb-tooltip-init title="Agrandir"
+                               data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#humidityModal">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                            </a>
+                            <h5 class="card-title text-center text-light" id="currentHumidityChartTitle">
+                            </h5>
+                        </div>
 
                         <canvas id="currentHumidityChart"></canvas>
                     </div>
                 </div>
                 <div class="col-lg-6 mt-lg-0 mt-2">
                     <div class="card bg-primary-color p-3 border-chart-card">
-                        <h5 class="card-title text-center text-light" id="currentUvChartTitle">
-                        </h5>
+                        <div>
+                            <a class="float-end text-light d-none d-lg-block zoom-effect"
+                               role="button" data-mdb-tooltip-init title="Agrandir"
+                               data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#uvModal">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                            </a>
+                            <h5 class="card-title text-center text-light" id="currentUvChartTitle">
+                            </h5>
+                        </div>
 
                         <canvas id="currentUvChart"></canvas>
                     </div>
@@ -299,16 +314,30 @@
             <div class="row mt-2">
                 <div class="col-lg-6">
                     <div class="card bg-primary-color p-3 border-chart-card">
-                        <h5 class="card-title text-center text-light" id="currentWindChartTitle">
-                        </h5>
+                        <div>
+                            <a class="float-end text-light d-none d-lg-block zoom-effect"
+                               role="button" data-mdb-tooltip-init title="Agrandir"
+                               data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#windModal">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                            </a>
+                            <h5 class="card-title text-center text-light" id="currentWindChartTitle">
+                            </h5>
+                        </div>
 
                         <canvas id="currentWindChart"></canvas>
                     </div>
                 </div>
                 <div class="col-lg-6 mt-lg-0 mt-2">
                     <div class="card bg-primary-color p-3 border-chart-card">
-                        <h5 class="card-title text-center text-light" id="currentWindDirectionChartTitle">
-                        </h5>
+                        <div>
+                            <a class="float-end text-light d-none d-lg-block zoom-effect"
+                               role="button" data-mdb-tooltip-init title="Agrandir"
+                               data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#windDirectionModal">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                            </a>
+                            <h5 class="card-title text-center text-light" id="currentWindDirectionChartTitle">
+                            </h5>
+                        </div>
 
                         <canvas id="currentWindDirectionChart"></canvas>
                     </div>
@@ -337,7 +366,7 @@
             </div>
         </div>
 
-        <!-- Modale Pluie -->
+        <!-- Modale Rain -->
         <div class="modal fade" id="rainModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content bg-primary-color msi-border">
@@ -352,6 +381,86 @@
                     </div>
                     <div class="modal-body">
                         <canvas id="currentRainChartModal"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modale Humidity -->
+        <div class="modal fade" id="humidityModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content bg-primary-color msi-border">
+                    <div class="p-3">
+                        <a class="float-end text-light"
+                           role="button"
+                            data-mdb-dismiss="modal">
+                            <i class="fas fa-xmark fa-lg"></i>
+                        </a>
+                        <h5 class="card-title text-center text-light" id="currentHumidityChartModalTitle">
+                        </h5>
+                    </div>
+                    <div class="modal-body">
+                        <canvas id="currentHumidityChartModal"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modale UV -->
+        <div class="modal fade" id="uvModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content bg-primary-color msi-border">
+                    <div class="p-3">
+                        <a class="float-end text-light"
+                           role="button"
+                            data-mdb-dismiss="modal">
+                            <i class="fas fa-xmark fa-lg"></i>
+                        </a>
+                        <h5 class="card-title text-center text-light" id="currentUvChartModalTitle">
+                        </h5>
+                    </div>
+                    <div class="modal-body">
+                        <canvas id="currentUvChartModal"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modale UV -->
+        <div class="modal fade" id="windModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content bg-primary-color msi-border">
+                    <div class="p-3">
+                        <a class="float-end text-light"
+                           role="button"
+                            data-mdb-dismiss="modal">
+                            <i class="fas fa-xmark fa-lg"></i>
+                        </a>
+                        <h5 class="card-title text-center text-light" id="currentWindChartModalTitle">
+                        </h5>
+                    </div>
+                    <div class="modal-body">
+                        <canvas id="currentWindChartModal"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modale UV -->
+        <div class="modal fade" id="windDirectionModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content bg-primary-color msi-border">
+                    <div class="p-3">
+                        <a class="float-end text-light"
+                           role="button"
+                            data-mdb-dismiss="modal">
+                            <i class="fas fa-xmark fa-lg"></i>
+                        </a>
+                        <h5 class="card-title text-center text-light" id="currentWindDirectionChartModalTitle">
+                        </h5>
+                    </div>
+                    <div class="modal-body">
+                        <canvas id="currentWindDirectionChartModal"></canvas>
                     </div>
                 </div>
             </div>
