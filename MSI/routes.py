@@ -1,6 +1,7 @@
 from MSI import app, db
 from flask import render_template, request, abort, jsonify
 from MSI.models.saint_martin_dheres_data import SaintMartinDheresData
+from MSI.models.lans_en_vercors_data import LansEnVercorsData
 from MSI.api.forecasts import ForecastsApi
 import datetime
 
@@ -39,7 +40,18 @@ def meteo_live_saint_martin_dheres():
 
 @app.route("/meteo-live/lans-en-vercors/")
 def meteo_live_lans_en_vercors():
-    return render_template("meteo_live_lans_en_vercors.html")
+    table_is_empty = LansEnVercorsData.table_is_empty()
+    context = {'table_is_empty': table_is_empty}
+
+    if not table_is_empty:
+        context.update(is_data_fresh=LansEnVercorsData.check_is_data_fresh(),
+                       current_data=LansEnVercorsData.current_data(),
+                       temperature_extremes_today=LansEnVercorsData.temperature_extremes_today(),
+                       cumulative_rain_today=LansEnVercorsData.cumulative_rain_today(),
+                       maximum_gust_today=LansEnVercorsData.maximum_gust_today(),
+                       rain=LansEnVercorsData.rain(),)
+
+    return render_template("meteo_live_lans_en_vercors.html", **context)
 
 
 # ------------Requête AJAX Live Charts---------------------------------------------------------------------------

@@ -1,0 +1,105 @@
+from MSI import db, app
+from MSI.models.meteo_live_utils import MeteoLiveUtils
+
+
+class LansEnVercorsData(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    date_time = db.Column(db.DateTime, index=True)
+    temperature = db.Column(db.Float)
+    humidity = db.Column(db.Integer)
+    dew_point = db.Column(db.Float)
+    wind = db.Column(db.Integer)
+    gust = db.Column(db.Float)
+    wind_angle = db.Column(db.Integer)
+    rain_1h = db.Column(db.Float)
+    pressure = db.Column(db.Integer)
+
+    @classmethod
+    def table_is_empty(cls):
+        try:
+            return cls.query.first() is None
+
+        except Exception:
+            app.logger.exception("[LansEnVercorsData - table_is_empty] - Erreur lors de la vérification de l'état vide de la table.")
+
+    @classmethod
+    def check_is_data_fresh(cls):
+        try:
+            return MeteoLiveUtils.get_check_is_data_fresh(cls)
+
+        except Exception:
+            app.logger.exception("[LansEnVercorsData - check_reception] - Erreur lors de la vérification de la réception des données.")
+
+    @classmethod
+    def current_data(cls):
+        try:
+            data = MeteoLiveUtils.get_last_record(cls)
+
+            current_data = {"update_datetime": data.date_time.strftime("%d/%m/%Y à %H:%M"),
+                            "temperature": round(data.temperature, 1) if data.temperature is not None else "-",
+                            "humidity": data.humidity if data.humidity is not None else "-",
+                            "dew_point": round(data.dew_point, 1) if data.dew_point is not None else "-",
+                            "wind": data.wind if data.wind is not None else "-",
+                            "gust": round(data.gust, 1) if data.gust is not None else "-",
+                            "wind_angle": data.wind_angle if data.wind_angle is not None else "-",
+                            "wind_direction": MeteoLiveUtils.get_wind_direction(data.wind_angle) if data.wind_angle is not None else "-",
+                            "pressure": data.pressure if data.pressure is not None else "-",
+                            }
+
+            return current_data
+
+        except Exception:
+            app.logger.exception("[LansEnVercorsData - current_data] - Erreur lors de la récupération des données actuelles.")
+
+    @classmethod
+    def temperature_extremes_today(cls):
+        try:
+            return MeteoLiveUtils.get_temperature_extremes_today(cls)
+
+        except Exception:
+            app.logger.exception("[LansEnVercorsData - temperature_extremes_today] - Erreur lors de la récupération des températures extrêmes du jour.")
+
+    @classmethod
+    def cumulative_rain_today(cls):
+        try:
+            return MeteoLiveUtils.get_cumulative_rain_today(cls)
+
+        except Exception:
+            app.logger.exception("[LansEnVercorsData - cumulative_rain_today] - Erreur lors de la récupération du cumul de pluie du jour.")
+
+    @classmethod
+    def rain(cls):
+        try:
+            return MeteoLiveUtils.get_rain_1h(cls)
+
+        except Exception:
+            app.logger.exception("[LansEnVercorsData - rain] - Erreur lors de la récupération du cumul de pluie de l'heure précédente.")
+
+    @classmethod
+    def maximum_gust_today(cls):
+        try:
+            return MeteoLiveUtils.get_maximum_gust_today(cls)
+
+        except Exception:
+            app.logger.exception("[LansEnVercorsData - maximum_gust_today] - Erreur lors de la récupération de la rafale maximale du jour.")
+
+    @classmethod
+    def current_charts_data(cls, interval_duration):
+        try:
+            current_chart_data = MeteoLiveUtils.get_current_charts_data(cls, interval_duration)
+
+            current_chart_data_dict = {"datetime": [data.date_time.strftime("%Y-%m-%d %H:%M:%S") for data in current_chart_data[0]],
+                                       "temperature": [data.temperature for data in current_chart_data[0]],
+                                       "dew_point": [data.dew_point for data in current_chart_data[0]],
+                                       "wind": [data.wind for data in current_chart_data[0]],
+                                       "gust": [data.gust for data in current_chart_data[0]],
+                                       "humidity": [data.humidity for data in current_chart_data[0]],
+                                       "pressure": [data.pressure for data in current_chart_data[0]],
+                                       "rain": [data.rain_1h for data in current_chart_data[1]],
+                                       "rain_datetime": [data.date_time.strftime("%Y-%m-%d %H:%M:%S") for data in current_chart_data[1]],
+                                       "wind_direction": current_chart_data[2]}
+
+            return current_chart_data_dict
+
+        except Exception:
+            app.logger.exception("[LansEnVercorsData - current_charts_data] - Erreur lors de la récupération des données pour les graphiques.")

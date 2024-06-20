@@ -1,1 +1,474 @@
 {% extends 'layout.html' %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/meteo_live.css') }}">
+{% endblock css %}
+
+{% block meteo_active %}
+    active-background active
+{% endblock %}
+
+{% block content %}
+    {% if table_is_empty %}
+        <div class="container mt-md-4 mt-2">
+            <h3 class="text-center text-danger">
+                <span class="fa-stack fa-2x">
+                    <i class="fas fa-database fa-stack-1x fa-inverse text-info"></i>
+                    <i class="fas fa-slash fa-stack-1x text-danger"></i>
+                </span><br>
+                Aucune donnée n'est actuellement disponible.<br>
+                veuillez réessayer ultérieurement.
+            </h3>
+        </div>
+    {% else %}
+        <div class="container mt-md-4 mt-2">
+            {% if not is_data_fresh %}
+                <div class="d-flex justify-content-md-center">
+                    <div class="alert alert-dismissible w-40 text-center text-light-red bg-dark-red border-error" role="alert" id="weather-station-unavailable-alert" style="display: none;">
+                        Station météorologique indisponible.
+                        <a role="button" class="position-absolute end-0 me-4 text-light-red" id="weather-station-unavailable-alert-button">
+                          <i class="fa-solid fa-xmark fa-lg"></i>
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="d-flex flex-column flex-md-row">
+                <div>
+                    <span class="badge p-3 {% if not is_data_fresh %}text-light-red bg-dark-red border-error{% else %}text-light-green bg-dark-green border-achievement{% endif %}">
+                        <i class="fa-solid fa-rotate-right me-2"></i>Dernière mise à jour : {{ current_data["update_datetime"] }}
+                    </span>
+                </div>
+                <div>
+                    <span class="badge p-3 text-light opacity-75">
+                        <i class="fa-solid fa-map-pin me-2"></i><span class="text-info">Lans-en-Vercors</span>
+                    </span>
+                </div>
+                <div>
+                    <span class="badge p-3 text-light opacity-75">
+                        <i class="fa-solid fa-mountain me-2"></i>1449 m
+                    </span>
+                </div>
+                <div>
+                    <span class="badge p-3 text-light opacity-75">
+                        <i class="fa-solid fa-diagram-project me-2"></i>Réseau StatIC
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-lg">
+                    <div class="card bg-primary-color weather-card p-3">
+                        <div class="d-flex align-items-start">
+                            <div class="flex-shrink-0">
+                                <div class="p-2 badge-primary bg-secondary-color rounded-4">
+                                    <span class="fa-stack fa-lg fa-fw">
+                                        <i class="fa-solid fa-temperature-three-quarters fa-stack-1x text-light"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-4">
+                                <p class="text-light opacity-50 mb-1">
+                                    Température
+                                </p>
+                                <h5 class="fw-bold mb-1 text-light">
+                                    {{ current_data["temperature"] }} °C
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-grow-1"></div>
+                        <div class="d-flex justify-content-between">
+                            {% if temperature_extremes_today["tmin"] != "-" %}
+                                <div class="text-light" data-mdb-tooltip-init title="{{ temperature_extremes_today['tmin_time'] }}">
+                                    <i class="fa-solid fa-arrow-down text-info me-2"></i>{{ temperature_extremes_today["tmin"] }} °C
+                                </div>
+                            {% else %}
+                                <div class="text-light">
+                                    <i class="fa-solid fa-arrow-down text-info me-2"></i>{{ temperature_extremes_today["tmin"] }} °C
+                                </div>
+                            {% endif %}
+
+                            {% if temperature_extremes_today["tmax"] != "-" %}
+                                <div class="text-light" data-mdb-tooltip-init title="{{ temperature_extremes_today['tmax_time'] }}">
+                                    <i class="fa-solid fa-arrow-up text-danger me-2"></i>{{ temperature_extremes_today["tmax"] }} °C
+                                </div>
+                            {% else %}
+                                <div class="text-light">
+                                    <i class="fa-solid fa-arrow-up text-danger me-2"></i>{{ temperature_extremes_today["tmax"] }} °C
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg mt-lg-0 mt-2">
+                    <div class="card bg-primary-color weather-card p-3">
+                        <div class="d-flex align-items-start">
+                            <div class="flex-shrink-0">
+                                <div class="p-2 badge-primary bg-secondary-color rounded-4">
+                                    <span class="fa-stack fa-lg fa-fw">
+                                        <i class="fa-solid fa-cloud-rain fa-stack-1x text-light"></i>
+                                        {% if rain['rain_1h']|float <= 0 or rain['rain_1h'] == "-" %}
+                                            <i class="fa-solid fa-slash fa-stack-1x text-danger"></i>
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-4">
+                                <p class="text-light opacity-50 mb-1">
+                                    Pluie
+                                </p>
+                                {% if rain['rain_1h'] != "-" %}
+                                    <h5 class="fw-bold mb-1 text-light" data-mdb-tooltip-init title="{{ rain['rain_1h_date'] }}">
+                                        {{ rain['rain_1h'] }} mm/1h
+                                    </h5>
+                                {% else %}
+                                    <h5 class="fw-bold mb-1 text-light">
+                                        {{ rain['rain_1h'] }} mm/1h
+                                    </h5>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="d-flex flex-grow-1"></div>
+                        <div class="d-flex justify-content-between">
+                            <p class="small mb-0">
+                                <span class="text-light opacity-75">Cumul du jour :</span> <span class="text-rain-color">{{ cumulative_rain_today }} mm</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl mt-xl-0 mt-2">
+                    <div class="card bg-primary-color weather-card p-3">
+                        <div class="d-flex align-items-start">
+                            <div class="flex-shrink-0">
+                                <div class="p-2 badge-primary bg-secondary-color rounded-4">
+                                    <span class="fa-stack fa-lg fa-fw">
+                                        <i class="fa-solid fa-wind fa-stack-1x text-light"></i>
+                                        {% if current_data["wind"]|float <= 0 or current_data["wind"] == "-" %}
+                                            <i class="fa-solid fa-slash fa-stack-1x text-danger"></i>
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-4">
+                                <p class="text-light opacity-50 mb-1">
+                                    Vent
+                                </p>
+                                <h5 class="fw-bold mb-1 text-light" data-mdb-tooltip-init title="raf: {{ current_data['gust'] }} km/h">
+                                    {{ current_data["wind"] }} km/h
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-grow-1"></div>
+                        <div class="d-flex justify-content-between">
+                            {% if maximum_gust_today['gust_max'] != "-" %}
+                                <div class="text-light" data-mdb-tooltip-init title="{{ maximum_gust_today['gust_max_time'] }}">
+                                    <i class="fa-solid fa-location-arrow text-danger me-2"></i>{{ maximum_gust_today['gust_max'] }} km/h
+                                </div>
+                            {% else %}
+                                <div class="text-light">
+                                    <i class="fa-solid fa-location-arrow text-danger me-2"></i>{{ maximum_gust_today['gust_max'] }} km/h
+                                </div>
+                            {% endif %}
+
+                            {% if current_data['wind_angle'] != "-" and (current_data["wind"] != 0 or current_data["gust"] != 0) %}
+                                <div class="text-light" data-mdb-tooltip-init title="Angle {{ current_data['wind_angle'] }} °">
+                                    <i class="fa-solid fa-compass text-light me-2"></i>{{ current_data["wind_direction"] }}
+                                </div>
+                            {% else %}
+                                <div class="text-light">
+                                    <i class="fa-solid fa-compass text-light me-2"></i>-
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg mt-xl-0 mt-2">
+                    <div class="card bg-primary-color weather-card p-3">
+                        <div class="d-flex align-items-start">
+                            <div class="flex-shrink-0">
+                                <div class="p-2 badge-primary bg-secondary-color rounded-4">
+                                    <span class="fa-stack fa-lg fa-fw">
+                                        <i class="fa-solid fa-droplet fa-stack-1x text-light"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-4">
+                                <p class="text-light opacity-50 mb-1">
+                                    Humidité
+                                </p>
+                                <h5 class="fw-bold mb-1 text-light">
+                                    {{ current_data["humidity"] }} %
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-grow-1"></div>
+                        <div class="d-flex justify-content-between">
+
+                            <p class="small mb-0">
+                                <span class="text-light opacity-75">Point de rosée :</span> <span class="text-dew-point-color">{{ current_data["dew_point"] }} °C</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg mt-xl-0 mt-2">
+                    <div class="card bg-primary-color weather-card p-3">
+                        <div class="d-flex align-items-start">
+                            <div class="flex-shrink-0">
+                                <div class="p-2 badge-primary bg-secondary-color rounded-4">
+                                    <span class="fa-stack fa-lg fa-fw">
+                                        <i class="fa-solid fa-gauge fa-stack-1x text-light"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-4">
+                                <p class="text-light opacity-50 mb-1">
+                                    Pression
+                                </p>
+                                <h5 class="fw-bold mb-1 text-light">
+                                    {{ current_data["pressure"] }} hPa
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-lg-3">
+                    <select class="form-select select-modern text-light" id="select_charts_duration">
+                        <option value="24 heures" selected>24 heures</option>
+                        <option value="48 heures">48 heures</option>
+                        <option value="72 heures">72 heures</option>
+                        <option value="7 jours">7 jours</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-4" id="live_charts_container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card bg-primary-color p-3 border-chart-card">
+                        <div>
+                            <a class="float-end text-light d-none d-lg-block zoom-effect"
+                               role="button" data-mdb-tooltip-init title="Agrandir"
+                               data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#temperatureModal">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                            </a>
+                            <h5 class="card-title text-center text-light" id="currentTemperatureChartTitle">
+                            </h5>
+                        </div>
+
+                        <canvas id="currentTemperatureChart"></canvas>
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-lg-0 mt-2">
+                    <div class="card bg-primary-color p-3 border-chart-card">
+                        <div>
+                            <a class="float-end text-light d-none d-lg-block zoom-effect"
+                               role="button" data-mdb-tooltip-init title="Agrandir"
+                               data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#rainModal">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                            </a>
+                            <h5 class="card-title text-center text-light" id="currentRainChartTitle">
+                            </h5>
+                        </div>
+
+                        <canvas id="currentRainChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <div class="col-lg-6">
+                    <div class="card bg-primary-color p-3 border-chart-card">
+                        <div>
+                            <a class="float-end text-light d-none d-lg-block zoom-effect"
+                               role="button" data-mdb-tooltip-init title="Agrandir"
+                               data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#humidityModal">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                            </a>
+                            <h5 class="card-title text-center text-light" id="currentHumidityChartTitle">
+                            </h5>
+                        </div>
+
+                        <canvas id="currentHumidityChart"></canvas>
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-lg-0 mt-2">
+                    <div class="card bg-primary-color p-3 border-chart-card">
+                        <div>
+                            <a class="float-end text-light d-none d-lg-block zoom-effect"
+                               role="button" data-mdb-tooltip-init title="Agrandir"
+                               data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#pressureModal">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                            </a>
+                            <h5 class="card-title text-center text-light" id="currentPressureChartTitle">
+                            </h5>
+                        </div>
+
+                        <canvas id="currentPressureChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-lg-6">
+                    <div class="card bg-primary-color p-3 border-chart-card">
+                        <div>
+                            <a class="float-end text-light d-none d-lg-block zoom-effect"
+                               role="button" data-mdb-tooltip-init title="Agrandir"
+                               data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#windModal">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                            </a>
+                            <h5 class="card-title text-center text-light" id="currentWindChartTitle">
+                            </h5>
+                        </div>
+
+                        <canvas id="currentWindChart"></canvas>
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-lg-0 mt-2">
+                    <div class="card bg-primary-color p-3 border-chart-card">
+                        <div>
+                            <a class="float-end text-light d-none d-lg-block zoom-effect"
+                               role="button" data-mdb-tooltip-init title="Agrandir"
+                               data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#windDirectionModal">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                            </a>
+                            <h5 class="card-title text-center text-light" id="currentWindDirectionChartTitle">
+                            </h5>
+                        </div>
+
+                        <canvas id="currentWindDirectionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modales -->
+        <!-- Modale Température -->
+        <div class="modal fade" id="temperatureModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content bg-primary-color msi-border">
+                    <div class="p-3">
+                        <a class="float-end text-light"
+                           role="button"
+                            data-mdb-dismiss="modal">
+                            <i class="fas fa-xmark fa-lg"></i>
+                        </a>
+                        <h5 class="card-title text-center text-light" id="currentTemperatureChartModalTitle">
+                        </h5>
+                    </div>
+                    <div class="modal-body">
+                        <canvas id="currentTemperatureChartModal"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modale Rain -->
+        <div class="modal fade" id="rainModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content bg-primary-color msi-border">
+                    <div class="p-3">
+                        <a class="float-end text-light"
+                           role="button"
+                            data-mdb-dismiss="modal">
+                            <i class="fas fa-xmark fa-lg"></i>
+                        </a>
+                        <h5 class="card-title text-center text-light" id="currentRainChartModalTitle">
+                        </h5>
+                    </div>
+                    <div class="modal-body">
+                        <canvas id="currentRainChartModal"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modale Humidity -->
+        <div class="modal fade" id="humidityModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content bg-primary-color msi-border">
+                    <div class="p-3">
+                        <a class="float-end text-light"
+                           role="button"
+                            data-mdb-dismiss="modal">
+                            <i class="fas fa-xmark fa-lg"></i>
+                        </a>
+                        <h5 class="card-title text-center text-light" id="currentHumidityChartModalTitle">
+                        </h5>
+                    </div>
+                    <div class="modal-body">
+                        <canvas id="currentHumidityChartModal"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modale Pressure -->
+        <div class="modal fade" id="pressureModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content bg-primary-color msi-border">
+                    <div class="p-3">
+                        <a class="float-end text-light"
+                           role="button"
+                            data-mdb-dismiss="modal">
+                            <i class="fas fa-xmark fa-lg"></i>
+                        </a>
+                        <h5 class="card-title text-center text-light" id="currentPressureChartModalTitle">
+                        </h5>
+                    </div>
+                    <div class="modal-body">
+                        <canvas id="currentPressureChartModal"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modale Wind -->
+        <div class="modal fade" id="windModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content bg-primary-color msi-border">
+                    <div class="p-3">
+                        <a class="float-end text-light"
+                           role="button"
+                            data-mdb-dismiss="modal">
+                            <i class="fas fa-xmark fa-lg"></i>
+                        </a>
+                        <h5 class="card-title text-center text-light" id="currentWindChartModalTitle">
+                        </h5>
+                    </div>
+                    <div class="modal-body">
+                        <canvas id="currentWindChartModal"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modale Wind Direction -->
+        <div class="modal fade" id="windDirectionModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content bg-primary-color msi-border">
+                    <div class="p-3">
+                        <a class="float-end text-light"
+                           role="button"
+                            data-mdb-dismiss="modal">
+                            <i class="fas fa-xmark fa-lg"></i>
+                        </a>
+                        <h5 class="card-title text-center text-light" id="currentWindDirectionChartModalTitle">
+                        </h5>
+                    </div>
+                    <div class="modal-body">
+                        <canvas id="currentWindDirectionChartModal"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block script %}
+    <script src="{{ url_for('static', filename='js/meteo_live.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/live_charts_lans_en_vercors.js') }}"></script>
+{% endblock %}
