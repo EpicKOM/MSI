@@ -67,6 +67,18 @@ def saint_martin_dheres_update_charts():
     return jsonify(live_charts=SaintMartinDheresData.current_charts_data(interval_duration)), 200
 
 
+@app.route('/data/lans-en-vercors/live-charts', methods=['POST'])
+def lans_en_vercors_update_charts():
+    interval_duration = request.form.get('interval_duration')
+
+    if interval_duration is None:
+        app.logger.error("[lans_en_vercors_update_charts] - Clé 'interval_duration' manquante dans la requête.")
+        abort(404)
+
+    interval_duration = int(interval_duration)
+    return jsonify(live_charts=LansEnVercorsData.current_charts_data(interval_duration)), 200
+
+
 @app.route("/previsions/")
 def forecasts():
     forecasts_data = ForecastsApi.get_forecasts_data()
