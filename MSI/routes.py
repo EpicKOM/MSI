@@ -107,6 +107,11 @@ def forecasts_update():
     return jsonify(forecasts_data=ForecastsApi.get_forecasts_data_by_index(day_number)), 200
 
 
+@app.route("/observations/")
+def observations():
+    return render_template('observations.html')
+
+
 @app.route("/test/")
 def test():
     return render_template("test.html")

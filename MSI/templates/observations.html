@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+<!--    <link rel="stylesheet" href="{{ url_for('static', filename='css/forecasts.css') }}">-->
+{% endblock css %}
+
+{% block observations_active %}
+    active-background active
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h3 class="text-light mb-3">
+            <i class="fa-solid fa-map text-light me-2"></i>Cartes Météo</h3>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card bg-primary-color weather-card p-3 msi-border">
+                    <h5 class="text-light fw-normal text-center mb-3">
+                        Cartes Météo
+                    </h5>
+                    <iframe src="https://www.meteoblue.com/fr/meteo/cartes/widget/grenoble_france_3014728?windAnimation=0&windAnimation=1&gust=0&gust=1&satellite=0&satellite=1&cloudsAndPrecipitation=0&cloudsAndPrecipitation=1&temperature=0&temperature=1&sunshine=0&sunshine=1&extremeForecastIndex=0&extremeForecastIndex=1&geoloc=fixed&tempunit=C&windunit=km%252Fh&lengthunit=metric&zoom=8&autowidth=auto"  frameborder="0" scrolling="NO" allowtransparency="true" style="width: 100%; height: 575px;" class="rounded" id="weather_map"></iframe>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card bg-primary-color weather-card p-3 msi-border">
+                    <h5 class="text-light fw-normal text-center mb-3">
+                        Radar des Précipitations
+                    </h5>
+                    <img class="rounded" src="https://www.meteo60.fr/radars/animation-radar-centre-est.gif" alt="Les données sont actuellement indisponibles." style="width: 100%; height: 575px;">
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+<!--    <script src="{{ url_for('static', filename='js/forecasts.js') }}"></script>-->
+<!--    <script src="{{ url_for('static', filename='js/forecasts_charts.js') }}"></script>-->
+{% endblock %}
