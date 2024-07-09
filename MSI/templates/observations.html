@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block css %}
-<!--    <link rel="stylesheet" href="{{ url_for('static', filename='css/forecasts.css') }}">-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/observations.css') }}">
 {% endblock css %}
 
 {% block observations_active %}
@@ -11,31 +11,148 @@
 {% block content %}
     <div class="container mt-4">
         <h3 class="text-light mb-3">
-            <i class="fa-solid fa-map text-light me-2"></i>Cartes Météo</h3>
+            <i class="fa-solid fa-map text-light me-2"></i>
+            Cartes Météo
+        </h3>
         <div class="row">
             <div class="col-lg-6">
-                <div class="card bg-primary-color weather-card p-3 msi-border">
-                    <h5 class="text-light fw-normal text-center mb-3">
-                        Cartes Météo
+                <div class="card bg-primary-color p-3 msi-border">
+                    <h5 class="text-light text-center fw-normal mb-0">
+                        Cartes météo
                     </h5>
-                    <iframe src="https://www.meteoblue.com/fr/meteo/cartes/widget/grenoble_france_3014728?windAnimation=0&windAnimation=1&gust=0&gust=1&satellite=0&satellite=1&cloudsAndPrecipitation=0&cloudsAndPrecipitation=1&temperature=0&temperature=1&sunshine=0&sunshine=1&extremeForecastIndex=0&extremeForecastIndex=1&geoloc=fixed&tempunit=C&windunit=km%252Fh&lengthunit=metric&zoom=8&autowidth=auto"  frameborder="0" scrolling="NO" allowtransparency="true" style="width: 100%; height: 575px;" class="rounded" id="weather_map"></iframe>
+                    <hr class="text-light mt-2 mb-3 opacity-25">
+                    <iframe src="https://www.meteoblue.com/fr/meteo/cartes/widget/grenoble_france_3014728?windAnimation=0&windAnimation=1&gust=0&gust=1&satellite=0&satellite=1&cloudsAndPrecipitation=0&cloudsAndPrecipitation=1&temperature=0&temperature=1&sunshine=0&sunshine=1&extremeForecastIndex=0&extremeForecastIndex=1&geoloc=fixed&tempunit=C&windunit=km%252Fh&lengthunit=metric&zoom=8&autowidth=auto"  frameborder="0" scrolling="NO" allowtransparency="true" style="width: 100%; height: 575px;" class="rounded"></iframe>
                 </div>
             </div>
 
             <div class="col-lg-6">
-                <div class="card bg-primary-color weather-card p-3 msi-border">
-                    <h5 class="text-light fw-normal text-center mb-3">
-                        Radar des Précipitations
+                <div class="card bg-primary-color p-3 msi-border">
+                    <h5 class="text-light text-center fw-normal mb-0">
+                        Cartes de chaleur urbaine
                     </h5>
-                    <img class="rounded" src="https://www.meteo60.fr/radars/animation-radar-centre-est.gif" alt="Les données sont actuellement indisponibles." style="width: 100%; height: 575px;">
+                    <hr class="text-light mt-2 mb-3 opacity-25">
+                    <iframe src="https://www.meteoblue.com/fr/products/cityclimate/widget/grenoble?wind_map=0&wind_map=1&heading=0&webcams=0&webcams=1&share=0&share=1&info=0&info=1&autowidth=auto"  frameborder="0" scrolling="NO" allowtransparency="true" sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox" style="width: 100%; height: 575px" class="rounded"></iframe>
                 </div>
             </div>
 
+        </div>
+        <h3 class="text-light mt-3 mb-3">
+            <i class="fa-solid fa-bell text-light me-2"></i>
+            Alertes Météo
+        </h3>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card bg-primary-color p-3 msi-border">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card bg-primary-color p-3 msi-border">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card bg-primary-color p-3 msi-border">
+                </div>
+            </div>
+        </div>
+
+        <h3 class="text-light mt-3 mb-3">
+            <i class="fa-solid fa-mountain text-light me-2"></i>
+            Météo Montagne
+        </h3>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card bg-primary-color p-3 msi-border">
+                    <!-- Tabs navs -->
+                    <ul class="nav mb-3 ms-auto me-auto" id="ex-with-icons" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a data-mdb-tab-init class="nav-link text-light opacity-50 active tab-active" id="snowTab" href="#snowTabContent" role="tab">
+                                <i class="fas fa-snowflake fa-fw me-2"></i>Enneigement
+                            </a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a data-mdb-tab-init class="nav-link text-light opacity-50" id="avalancheTab" href="#avalancheTabContent" role="tab">
+                                <i class="fas fa-hill-avalanche fa-fw me-2"></i>Risques-avalanche
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="row mt-3">
+                        <div class="col-lg-4">
+                            <h5 class="text-light text-center fw-bold">Isère (38)</h5>
+                            <hr class="text-light">
+                            <div class="text-center">
+                                <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button-hover" data-mdb-ripple-init data-mdb-ripple-color="dark">Belledonne</button>
+                                <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button-hover" data-mdb-ripple-init data-mdb-ripple-color="dark">Chartreuse</button>
+                                <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button-hover" data-mdb-ripple-init data-mdb-ripple-color="dark">Grande Rousses</button>
+                                <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button-hover" data-mdb-ripple-init data-mdb-ripple-color="dark">Oisans</button>
+                                <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button-hover" data-mdb-ripple-init data-mdb-ripple-color="dark">Vercors</button>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <h5 class="text-light text-center fw-bold">Savoie (73)</h5>
+                            <hr class="text-light">
+                            <div class="text-center">
+                                <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button-hover" data-mdb-ripple-init data-mdb-ripple-color="dark">Bauges</button>
+                                <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button-hover" data-mdb-ripple-init data-mdb-ripple-color="dark">Beaufortain</button>
+                                <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button-hover" data-mdb-ripple-init data-mdb-ripple-color="dark">Maurienne</button>
+                                <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button-hover" data-mdb-ripple-init data-mdb-ripple-color="dark">Haute-Maurienne</button>
+                                <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button-hover" data-mdb-ripple-init data-mdb-ripple-color="dark">Haute-Tarentaise</button>
+                                <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button-hover" data-mdb-ripple-init data-mdb-ripple-color="dark">Vanoise</button>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-4">
+                            <h5 class="text-light text-center fw-bold">Haute-Savoie (74)</h5>
+                            <hr class="text-light">
+                            <div class="text-center">
+                                <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button-hover" data-mdb-ripple-init data-mdb-ripple-color="dark">Aravis</button>
+                                <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button-hover" data-mdb-ripple-init data-mdb-ripple-color="dark">Chablais</button>
+                                <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button-hover" data-mdb-ripple-init data-mdb-ripple-color="dark">Mont-Blanc</button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <hr class="text-light">
+                        <!-- Tabs content -->
+                        <div class="tab-content" id="ex-with-icons-content">
+                            <!-- Tabs navs -->
+                            <div class="tab-pane fade show active" id="snowTabContent" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-lg-3 bg-info align-items-center pt-auto pb-auto">
+                                        <h5 class="text-light fw-bold pt-auto pb-auto align-self-center">Belledonne - Isère (38)</h5>
+                                    </div>
+                                    <div class="col-lg-3 bg-success" >
+                                        <select class="form-select select-modern text-light" id="">
+                                            <option value="semaine" selected>Semaine</option>
+                                            <option value="saison">Saison</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="col-lg-6">
+                                        <img class="img-fluid rounded" src="https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/AIGLES.gif" id="aigleton-img" alt="Les données sont actuellement indisponibles">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <img class="img-fluid rounded" src="https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/AIGLES.gif" id="aigleton-img" alt="Les données sont actuellement indisponibles">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="tab-pane fade" id="avalancheTabContent" role="tabpanel">
+                                Tab 2 content
+                            </div>
+                        </div>
+                        <!-- Tabs content -->
+
+
+
+
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
 
 {% block script %}
-<!--    <script src="{{ url_for('static', filename='js/forecasts.js') }}"></script>-->
-<!--    <script src="{{ url_for('static', filename='js/forecasts_charts.js') }}"></script>-->
+    <script src="{{ url_for('static', filename='js/observations.js') }}"></script>
 {% endblock %}
