@@ -1,5 +1,6 @@
 from MSI import app, db
 from flask import render_template, request, abort, jsonify
+from MSI.models.saint_ismier_data import SaintIsmierData
 from MSI.models.saint_martin_dheres_data import SaintMartinDheresData
 from MSI.models.lans_en_vercors_data import LansEnVercorsData
 from MSI.api.forecasts import ForecastsApi
@@ -19,6 +20,7 @@ def current_year():
 @app.route("/")
 @app.route("/meteo-live/saint-ismier/")
 def meteo_live_saint_ismier():
+    current_data = SaintIsmierData.current_data(),
     return render_template("meteo_live_saint_ismier.html")
 
 
