@@ -15,15 +15,71 @@ class SaintIsmierData(db.Model):
     temperature_trend = db.Column(db.String(6))
 
     @classmethod
+    def table_is_empty(cls):
+        try:
+            return cls.query.first() is None
+
+        except Exception:
+            app.logger.exception("[SaintIsmierData - table_is_empty] - Erreur lors de la vérification de l'état vide de la table.")
+
+    @classmethod
+    def check_is_data_fresh(cls):
+        try:
+            return MeteoLiveUtils.get_check_is_data_fresh(cls)
+
+        except Exception:
+            app.logger.exception("[SaintIsmierData - check_reception] - Erreur lors de la vérification de la réception des données.")
+
+    @classmethod
     def current_data(cls):
         try:
             data = MeteoLiveUtils.get_last_record(cls)
-            print(data)
-            temperature_trend = data.temperature_trend
-            print(temperature_trend)
-            print(type(temperature_trend))
 
-        except Exception as e:
-            print(e)
-            # app.logger.exception(
-            #     "[SaintMartinDheresData - current_data] - Erreur lors de la récupération des données actuelles.")
+            current_data = {"update_datetime": data.date_time.strftime("%d/%m/%Y à %H:%M"),
+                            "temperature": round(data.temperature, 1) if data.temperature is not None else "-",
+                            "humidity": data.humidity if data.humidity is not None else "-",
+                            "wind": data.wind if data.wind is not None else "-",
+                            "gust": round(data.gust, 1) if data.gust is not None else "-",
+                            "wind_angle": data.wind_angle if data.wind_angle is not None else "-",
+                            "wind_direction": MeteoLiveUtils.get_wind_direction(data.wind_angle) if data.wind_angle is not None else "-",
+                            "pressure": data.pressure if data.pressure is not None else "-",
+                            "temperature_trend": data.temperature_trend if data.temperature_trend is not None else "stable"
+                            }
+
+            return current_data
+
+        except Exception:
+            app.logger.exception("[SaintIsmierData - current_data] - Erreur lors de la récupération des données actuelles.")
+
+    @classmethod
+    def temperature_extremes_today(cls):
+        try:
+            return MeteoLiveUtils.get_temperature_extremes_today(cls)
+
+        except Exception:
+            app.logger.exception(
+                "[SaintIsmierData - temperature_extremes_today] - Erreur lors de la récupération des températures extrêmes du jour.")
+
+    @classmethod
+    def cumulative_rain_today(cls):
+        try:
+            return MeteoLiveUtils.get_cumulative_rain_today(cls)
+
+        except Exception:
+            app.logger.exception("[SaintIsmierData - cumulative_rain_today] - Erreur lors de la récupération du cumul de pluie du jour.")
+
+    @classmethod
+    def rain(cls):
+        try:
+            return MeteoLiveUtils.get_rain_1h(cls)
+
+        except Exception:
+            app.logger.exception("[SaintIsmierData - rain] - Erreur lors de la récupération du cumul de pluie de l'heure précédente.")
+
+    @classmethod
+    def maximum_gust_today(cls):
+        try:
+            return MeteoLiveUtils.get_maximum_gust_today(cls)
+
+        except Exception:
+            app.logger.exception("[SaintIsmierData - maximum_gust_today] - Erreur lors de la récupération de la rafale maximale du jour.")

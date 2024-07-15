@@ -9,180 +9,231 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container mt-md-4 mt-2">
-        <div class="d-flex flex-column flex-md-row">
-            <div>
-                <span class="badge p-3 text-light-green bg-dark-green border-achievement">
-                    <i class="fa-solid fa-rotate-right me-2"></i>Dernière mise à jour : 06/03/2023 à 02:53
-                </span>
-            </div>
-            <div>
-                <span class="badge p-3 text-light opacity-75">
-                    <i class="fa-solid fa-map-pin me-2"></i><span class="text-info">Saint-Ismier</span>
-                </span>
-            </div>
-            <div>
-                <span class="badge p-3 text-light opacity-75">
-                    <i class="fa-solid fa-mountain me-2"></i>377 m
-                </span>
-            </div>
-            <div>
-                <span class="badge p-3 text-light opacity-75">
-                    <i class="fa-solid fa-diagram-project me-2"></i>Réseau Amateur
-                </span>
-            </div>
+    {% if table_is_empty %}
+        <div class="container mt-md-4 mt-2">
+            <h3 class="text-center text-danger">
+                <span class="fa-stack fa-2x">
+                    <i class="fas fa-database fa-stack-1x fa-inverse text-info"></i>
+                    <i class="fas fa-slash fa-stack-1x text-danger"></i>
+                </span><br>
+                Aucune donnée n'est actuellement disponible.<br>
+                veuillez réessayer ultérieurement.
+            </h3>
         </div>
-    </div>
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-lg">
-                <div class="card bg-primary-color weather-card p-3">
-                    <div class="d-flex align-items-start">
-                        <div class="flex-shrink-0">
-                            <div class="p-2 badge-primary bg-secondary-color rounded-4">
-                                <span class="fa-stack fa-lg fa-fw">
-                                    <i class="fa-solid fa-temperature-three-quarters fa-stack-1x text-light"></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="flex-grow-1 ms-4">
-                            <p class="text-light opacity-50 mb-1">
-                                Température
-                            </p>
-                            <h5 class="fw-bold mb-1 text-light">
-                                15.6 °C
-                            </h5>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-grow-1"></div>
-                    <div class="d-flex justify-content-between">
-                        <div class="text-light"data-mdb-tooltip-init title="02:53">
-                            <i class="fa-solid fa-arrow-down text-info me-2"></i>-21.4 °C
-                        </div>
-                        <div class="text-light" data-mdb-tooltip-init title="16:53">
-                            <i class="fa-solid fa-arrow-up text-danger me-2"></i>40.8 °C
-                        </div>
+    {% else %}
+        <div class="container mt-md-4 mt-2">
+            {% if not is_data_fresh %}
+                <div class="d-flex justify-content-md-center">
+                    <div class="alert alert-dismissible w-40 text-center text-light-red bg-dark-red border-error" role="alert" id="weather-station-unavailable-alert" style="display: none;">
+                        Station météorologique indisponible.
+                        <a role="button" class="position-absolute end-0 me-4 text-light-red" id="weather-station-unavailable-alert-button">
+                          <i class="fa-solid fa-xmark fa-lg"></i>
+                        </a>
                     </div>
                 </div>
+            {% endif %}
+            <div class="d-flex flex-column flex-md-row">
+                <div>
+                    <span class="badge p-3 {% if not is_data_fresh %}text-light-red bg-dark-red border-error{% else %}text-light-green bg-dark-green border-achievement{% endif %}">
+                        <i class="fa-solid fa-rotate-right me-2"></i>Dernière mise à jour : {{ current_data["update_datetime"] }}
+                    </span>
+                </div>
+                <div>
+                    <span class="badge p-3 text-light opacity-75">
+                        <i class="fa-solid fa-map-pin me-2"></i><span class="text-info">Saint-Ismier</span>
+                    </span>
+                </div>
+                <div>
+                    <span class="badge p-3 text-light opacity-75">
+                        <i class="fa-solid fa-mountain me-2"></i>377 m
+                    </span>
+                </div>
+                <div>
+                    <span class="badge p-3 text-light opacity-75">
+                        <i class="fa-solid fa-diagram-project me-2"></i>Réseau Amateur
+                    </span>
+                </div>
             </div>
-            <div class="col-lg mt-lg-0 mt-2">
-                <div class="card bg-primary-color weather-card p-3">
-                    <div class="d-flex align-items-start">
-                        <div class="flex-shrink-0">
-                            <div class="p-2 badge-primary bg-secondary-color rounded-4">
-                                <span class="fa-stack fa-lg fa-fw">
-                                    <i class="fa-solid fa-cloud-rain fa-stack-1x text-light"></i>
-                                    <i class="fa-solid fa-slash fa-stack-1x text-danger"></i>
-                                </span>
+        </div>
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-lg">
+                    <div class="card bg-primary-color weather-card p-3">
+                        <div class="d-flex align-items-start">
+                            <div class="flex-shrink-0">
+                                <div class="p-2 badge-primary bg-secondary-color rounded-4">
+                                    <span class="fa-stack fa-lg fa-fw">
+                                        <i class="fa-solid fa-temperature-three-quarters fa-stack-1x text-light"></i>
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex-grow-1 ms-4">
-                            <p class="text-light opacity-50 mb-1">
-                                Pluie
-                            </p>
-                            <h5 class="fw-bold mb-1 text-light">
-                                5.6 mm/1h
-                            </h5>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-grow-1"></div>
-                    <div class="d-flex justify-content-between">
+                            <div class="flex-grow-1 ms-4">
+                                <p class="text-light opacity-50 mb-1">
+                                    Température
+                                </p>
+                                <h5 class="fw-bold mb-1 text-light">
+                                    {{ current_data["temperature"] }} °C<i class="fa-solid fa-arrow-turn-down text-info ms-3 opacity-75 fs-6"></i>
+                                </h5>
 
-                        <p class="small mb-0">
-                            <span class="text-light opacity-75">Cumul du jour :</span> <span class="text-info">12.9 mm</span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl mt-xl-0 mt-2">
-                <div class="card bg-primary-color weather-card p-3">
-                    <div class="d-flex align-items-start">
-                        <div class="flex-shrink-0">
-                            <div class="p-2 badge-primary bg-secondary-color rounded-4">
-                                <span class="fa-stack fa-lg fa-fw">
-                                    <i class="fa-solid fa-wind fa-stack-1x text-light"></i>
-                                    <i class="fa-solid fa-slash fa-stack-1x text-danger"></i>
-                                </span>
                             </div>
                         </div>
-                        <div class="flex-grow-1 ms-4">
-                            <p class="text-light opacity-50 mb-1">
-                                Vent
-                            </p>
-                            <h5 class="fw-bold mb-1 text-light">
-                                22 km/h
-                            </h5>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-grow-1"></div>
-                    <div class="d-flex justify-content-between">
-                        <div class="text-light">
-                            <i class="fa-solid fa-location-arrow text-danger me-2"></i>157 km/h
-                        </div>
-                        <div class="text-light">
-                            <i class="fa-solid fa-compass text-light me-2"></i>NNE
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg mt-xl-0 mt-2">
-                <div class="card bg-primary-color weather-card p-3">
-                    <div class="d-flex align-items-start">
-                        <div class="flex-shrink-0">
-                            <div class="p-2 badge-primary bg-secondary-color rounded-4">
-                                <span class="fa-stack fa-lg fa-fw">
-                                    <i class="fa-solid fa-droplet fa-stack-1x text-light"></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="flex-grow-1 ms-4">
-                            <p class="text-light opacity-50 mb-1">
-                                Humidité
-                            </p>
-                            <h5 class="fw-bold mb-1 text-light">
-                                79 %
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg mt-xl-0 mt-2">
-                <div class="card bg-primary-color weather-card p-3">
-                    <div class="d-flex align-items-start">
-                        <div class="flex-shrink-0">
-                            <div class="p-2 badge-primary bg-secondary-color rounded-4">
-                                <span class="fa-stack fa-lg fa-fw">
-                                    <i class="fa-solid fa-gauge fa-stack-1x text-light"></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="flex-grow-1 ms-4">
-                            <p class="text-light opacity-50 mb-1">
-                                Pression
-                            </p>
-                            <h5 class="fw-bold mb-1 text-light">
-                                1033 hPa
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-lg-3">
-                <select class="form-select select-modern text-light">
-                    <option value="24 heures" selected>24 heures</option>
-                    <option value="48 heures">48 heures</option>
-                    <option value="72 heures">72 heures</option>
-                    <option value="1 semaine">1 semaine</option>
-                </select>
-            </div>
-        </div>
-    </div>
+                        <div class="d-flex flex-grow-1"></div>
+                        <div class="d-flex justify-content-between">
+                            {% if temperature_extremes_today["tmin"] != "-" %}
+                                <div class="text-light" data-mdb-tooltip-init title="{{ temperature_extremes_today['tmin_time'] }}">
+                                    <i class="fa-solid fa-arrow-down text-info me-2"></i>{{ temperature_extremes_today["tmin"] }} °C
+                                </div>
+                            {% else %}
+                                <div class="text-light">
+                                    <i class="fa-solid fa-arrow-down text-info me-2"></i>{{ temperature_extremes_today["tmin"] }} °C
+                                </div>
+                            {% endif %}
 
+                            {% if temperature_extremes_today["tmax"] != "-" %}
+                                <div class="text-light" data-mdb-tooltip-init title="{{ temperature_extremes_today['tmax_time'] }}">
+                                    <i class="fa-solid fa-arrow-up text-danger me-2"></i>{{ temperature_extremes_today["tmax"] }} °C
+                                </div>
+                            {% else %}
+                                <div class="text-light">
+                                    <i class="fa-solid fa-arrow-up text-danger me-2"></i>{{ temperature_extremes_today["tmax"] }} °C
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg mt-lg-0 mt-2">
+                    <div class="card bg-primary-color weather-card p-3">
+                        <div class="d-flex align-items-start">
+                            <div class="flex-shrink-0">
+                                <div class="p-2 badge-primary bg-secondary-color rounded-4">
+                                    <span class="fa-stack fa-lg fa-fw">
+                                        <i class="fa-solid fa-cloud-rain fa-stack-1x text-light"></i>
+                                        {% if rain['rain_1h']|float <= 0 or rain['rain_1h'] == "-" %}
+                                            <i class="fa-solid fa-slash fa-stack-1x text-danger"></i>
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-4">
+                                <p class="text-light opacity-50 mb-1">
+                                    Pluie
+                                </p>
+                                {% if rain['rain_1h'] != "-" %}
+                                    <h5 class="fw-bold mb-1 text-light" data-mdb-tooltip-init title="{{ rain['rain_1h_date'] }}">
+                                        {{ rain['rain_1h'] }} mm/1h
+                                    </h5>
+                                {% else %}
+                                    <h5 class="fw-bold mb-1 text-light">
+                                        {{ rain['rain_1h'] }} mm/1h
+                                    </h5>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="d-flex flex-grow-1"></div>
+                        <div class="d-flex justify-content-between">
+                            <p class="small mb-0">
+                                <span class="text-light opacity-75">Cumul du jour :</span> <span class="text-rain-color">{{ cumulative_rain_today }} mm</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl mt-xl-0 mt-2">
+                    <div class="card bg-primary-color weather-card p-3">
+                        <div class="d-flex align-items-start">
+                            <div class="flex-shrink-0">
+                                <div class="p-2 badge-primary bg-secondary-color rounded-4">
+                                    <span class="fa-stack fa-lg fa-fw">
+                                        <i class="fa-solid fa-wind fa-stack-1x text-light"></i>
+                                        {% if current_data["wind"]|float <= 0 or current_data["wind"] == "-" %}
+                                            <i class="fa-solid fa-slash fa-stack-1x text-danger"></i>
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-4">
+                                <p class="text-light opacity-50 mb-1">
+                                    Vent
+                                </p>
+                                <h5 class="fw-bold mb-1 text-light" data-mdb-tooltip-init title="raf: {{ current_data['gust'] }} km/h">
+                                    {{ current_data["wind"] }} km/h
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-grow-1"></div>
+                        <div class="d-flex justify-content-between">
+                            {% if maximum_gust_today['gust_max'] != "-" %}
+                                <div class="text-light" data-mdb-tooltip-init title="{{ maximum_gust_today['gust_max_time'] }}">
+                                    <i class="fa-solid fa-location-arrow text-danger me-2"></i>{{ maximum_gust_today['gust_max'] }} km/h
+                                </div>
+                            {% else %}
+                                <div class="text-light">
+                                    <i class="fa-solid fa-location-arrow text-danger me-2"></i>{{ maximum_gust_today['gust_max'] }} km/h
+                                </div>
+                            {% endif %}
+
+                            {% if current_data['wind_angle'] != "-" and (current_data["wind"] != 0 or current_data["gust"] != 0) %}
+                                <div class="text-light" data-mdb-tooltip-init title="Angle {{ current_data['wind_angle'] }} °">
+                                    <i class="fa-solid fa-compass text-light me-2"></i>{{ current_data["wind_direction"] }}
+                                </div>
+                            {% else %}
+                                <div class="text-light">
+                                    <i class="fa-solid fa-compass text-light me-2"></i>-
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg mt-xl-0 mt-2">
+                    <div class="card bg-primary-color weather-card p-3">
+                        <div class="d-flex align-items-start">
+                            <div class="flex-shrink-0">
+                                <div class="p-2 badge-primary bg-secondary-color rounded-4">
+                                    <span class="fa-stack fa-lg fa-fw">
+                                        <i class="fa-solid fa-droplet fa-stack-1x text-light"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-4">
+                                <p class="text-light opacity-50 mb-1">
+                                    Humidité
+                                </p>
+                                <h5 class="fw-bold mb-1 text-light">
+                                    {{ current_data["humidity"] }} %
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-grow-1"></div>
+                        <div class="d-flex justify-content-between">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg mt-xl-0 mt-2">
+                    <div class="card bg-primary-color weather-card p-3">
+                        <div class="d-flex align-items-start">
+                            <div class="flex-shrink-0">
+                                <div class="p-2 badge-primary bg-secondary-color rounded-4">
+                                    <span class="fa-stack fa-lg fa-fw">
+                                        <i class="fa-solid fa-gauge fa-stack-1x text-light"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-4">
+                                <p class="text-light opacity-50 mb-1">
+                                    Pression
+                                </p>
+                                <h5 class="fw-bold mb-1 text-light">
+                                    {{ current_data["pressure"] }} hPa
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% block script %}
+    <script src="{{ url_for('static', filename='js/meteo_live.js') }}"></script>
+<!--    <script src="{{ url_for('static', filename='js/live_charts_saint_martin_dheres.js') }}"></script>-->
 {% endblock %}

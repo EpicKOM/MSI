@@ -20,8 +20,18 @@ def current_year():
 @app.route("/")
 @app.route("/meteo-live/saint-ismier/")
 def meteo_live_saint_ismier():
-    current_data = SaintIsmierData.current_data(),
-    return render_template("meteo_live_saint_ismier.html")
+    table_is_empty = SaintIsmierData.table_is_empty()
+    context = {'table_is_empty': table_is_empty}
+
+    if not table_is_empty:
+        context.update(is_data_fresh=SaintIsmierData.check_is_data_fresh(),
+                       current_data=SaintIsmierData.current_data(),
+                       temperature_extremes_today=SaintIsmierData.temperature_extremes_today(),
+                       cumulative_rain_today=SaintIsmierData.cumulative_rain_today(),
+                       rain=SaintIsmierData.rain(),
+                       maximum_gust_today=SaintIsmierData.maximum_gust_today(),)
+
+    return render_template("meteo_live_saint_ismier.html", **context)
 
 
 @app.route("/meteo-live/saint-martin-d-heres/")
@@ -34,8 +44,8 @@ def meteo_live_saint_martin_dheres():
                        current_data=SaintMartinDheresData.current_data(),
                        temperature_extremes_today=SaintMartinDheresData.temperature_extremes_today(),
                        cumulative_rain_today=SaintMartinDheresData.cumulative_rain_today(),
-                       maximum_gust_today=SaintMartinDheresData.maximum_gust_today(),
-                       rain=SaintMartinDheresData.rain(),)
+                       rain=SaintMartinDheresData.rain(),
+                       maximum_gust_today=SaintMartinDheresData.maximum_gust_today(),)
 
     return render_template("meteo_live_saint_martin_dheres.html", **context)
 
@@ -50,8 +60,8 @@ def meteo_live_lans_en_vercors():
                        current_data=LansEnVercorsData.current_data(),
                        temperature_extremes_today=LansEnVercorsData.temperature_extremes_today(),
                        cumulative_rain_today=LansEnVercorsData.cumulative_rain_today(),
-                       maximum_gust_today=LansEnVercorsData.maximum_gust_today(),
-                       rain=LansEnVercorsData.rain(),)
+                       rain=LansEnVercorsData.rain(),
+                       maximum_gust_today=LansEnVercorsData.maximum_gust_today(),)
 
     return render_template("meteo_live_lans_en_vercors.html", **context)
 
