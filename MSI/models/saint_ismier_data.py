@@ -83,3 +83,23 @@ class SaintIsmierData(db.Model):
 
         except Exception:
             app.logger.exception("[SaintIsmierData - maximum_gust_today] - Erreur lors de la récupération de la rafale maximale du jour.")
+
+    @classmethod
+    def current_charts_data(cls, interval_duration):
+        try:
+            current_chart_data = MeteoLiveUtils.get_current_charts_data(cls, interval_duration)
+
+            current_chart_data_dict = {"datetime": [data.date_time.strftime("%Y-%m-%d %H:%M:%S") for data in current_chart_data[0]],
+                                       "temperature": [data.temperature for data in current_chart_data[0]],
+                                       "wind": [data.wind for data in current_chart_data[0]],
+                                       "gust": [data.gust for data in current_chart_data[0]],
+                                       "humidity": [data.humidity for data in current_chart_data[0]],
+                                       "pressure": [data.pressure for data in current_chart_data[0]],
+                                       "rain": [data.rain_1h for data in current_chart_data[1]],
+                                       "rain_datetime": [data.date_time.strftime("%Y-%m-%d %H:%M:%S") for data in current_chart_data[1]],
+                                       "wind_direction": current_chart_data[2]}
+
+            return current_chart_data_dict
+
+        except Exception:
+            app.logger.exception("[LansEnVercorsData - current_charts_data] - Erreur lors de la récupération des données pour les graphiques.")
