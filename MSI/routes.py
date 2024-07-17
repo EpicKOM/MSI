@@ -136,6 +136,19 @@ def observations():
     return render_template('observations.html')
 
 
+# ------------Requête AJAX Observations---------------------------------------------------------------------------
+@app.route('/data/observations', methods=['POST'])
+def observations_update():
+    massif_name = request.form.get("massif_name")
+    print(massif_name)
+
+    # if day_number is None:
+    #     app.logger.error("[forecasts_update] - Clé 'day_number' manquante dans la requête.")
+    #     abort(404)
+
+    return jsonify(), 200
+
+
 @app.route("/test/")
 def test():
     return render_template("test.html")

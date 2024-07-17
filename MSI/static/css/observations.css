@@ -3,11 +3,15 @@
     opacity: 1!important;
 }
 
-.mountain-button-hover {
+.mountain-button {
     transition: background-color 0.3s;
 }
 
-.mountain-button-hover:hover {
+.mountain-button:hover {
+    background-color: rgba(80, 180, 211, 0.2); /* Couleur de fond lors du survol */
+}
+
+.mountain-button-active {
     background-color: rgba(80, 180, 211, 0.2); /* Couleur de fond lors du survol */
 }
 
