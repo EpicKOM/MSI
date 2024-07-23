@@ -236,40 +236,64 @@
                 </div>
             </div>
         </div>
-        <div class="container mt-4">
+        <div class="container mt-4" id="live_charts_container">
             <div class="row">
-                <div class="col-lg-12 ">
-                    <div class="card bg-primary-color msi-border p-3">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-3">
-                                    <select class="form-select select-modern text-light" id="select_charts_duration">
-                                        <option value="24 heures" selected>24 heures</option>
-                                        <option value="48 heures">48 heures</option>
-                                        <option value="72 heures">72 heures</option>
-                                        <option value="7 jours">7 jours</option>
-                                    </select>
-                                </div>
-                            </div>
+                <div class="col-lg-9">
+                    <div class="card bg-primary-color p-3 msi-border">
+                        <div>
+                            <a class="float-end text-light d-none d-lg-block zoom-effect"
+                               role="button" data-mdb-tooltip-init title="Agrandir"
+                               data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#temperatureModal">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                            </a>
+                            <h5 class="card-title text-center text-light" id="currentTemperatureChartTitle">
+                            </h5>
                         </div>
-                        <div class="container mt-4" id="live_charts_container">
-                            <div class="row">
-                                <div class="col-lg-12 ms-auto me-auto">
-                                    <div class="card bg-primary-color p-3 border-chart-card">
-                                        <div>
-                                            <a class="float-end text-light d-none d-lg-block zoom-effect"
-                                               role="button" data-mdb-tooltip-init title="Agrandir"
-                                               data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#temperatureModal">
-                                                <i class="fa-solid fa-magnifying-glass-plus"></i>
-                                            </a>
-                                            <h5 class="card-title text-center text-light" id="currentTemperatureChartTitle">
-                                            </h5>
-                                        </div>
 
-                                        <canvas id="currentTemperatureChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
+                        <canvas id="currentTemperatureChart"></canvas>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <select class="form-select select-modern text-light" id="select_charts_duration">
+                        <option value="24 heures" selected>24 heures</option>
+                        <option value="48 heures">48 heures</option>
+                        <option value="72 heures">72 heures</option>
+                        <option value="7 jours">7 jours</option>
+                    </select>
+                    <div class="card bg-primary-color p-3 msi-border mt-3">
+                        <div class="d-flex align-items-center rounded-3 p-3 bg-active-color border-active">
+                            <i class="fa-solid fa-chart-line text-light fa-lg me-4"></i>
+                            <h6 class="text-light fw-normal mb-0">
+                                Température
+                            </h6>
+                        </div>
+                        <hr class="mt-1 mb-1">
+                        <div class="d-flex align-items-center rounded-3 p-3">
+                            <i class="fa-solid fa-chart-column text-light fa-lg me-4"></i>
+                            <h6 class="text-light fw-normal mb-0">
+                                Pluie
+                            </h6>
+                        </div>
+                        <hr class="mt-1 mb-1">
+                        <div class="d-flex align-items-center rounded-3 p-3">
+                            <i class="fa-solid fa-chart-line text-light fa-lg me-4"></i>
+                            <h6 class="text-light fw-normal mb-0">
+                                Vent
+                            </h6>
+                        </div>
+                        <hr class="mt-1 mb-1">
+                        <div class="d-flex align-items-center rounded-3 p-3">
+                            <i class="fa-solid fa-chart-line text-light fa-lg me-4"></i>
+                            <h6 class="text-light fw-normal mb-0 opacity-75">
+                                Humidité
+                            </h6>
+                        </div>
+                        <hr class="mt-1 mb-1">
+                        <div class="d-flex align-items-center rounded-3 p-3">
+                            <i class="fa-solid fa-chart-area fa-lg me-4 text-light"></i>
+                            <h6 class="text-light fw-normal mb-0">
+                                Pression
+                            </h6>
                         </div>
                     </div>
                 </div>
