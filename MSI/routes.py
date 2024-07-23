@@ -4,6 +4,7 @@ from MSI.models.saint_ismier_data import SaintIsmierData
 from MSI.models.saint_martin_dheres_data import SaintMartinDheresData
 from MSI.models.lans_en_vercors_data import LansEnVercorsData
 from MSI.api.forecasts import ForecastsApi
+from MSI.pages.observations import Observations
 import datetime
 
 
@@ -140,13 +141,12 @@ def observations():
 @app.route('/data/observations', methods=['POST'])
 def observations_update():
     massif_name = request.form.get("massif_name")
-    print(massif_name)
 
-    # if day_number is None:
-    #     app.logger.error("[forecasts_update] - Clé 'day_number' manquante dans la requête.")
-    #     abort(404)
+    if massif_name is None:
+        app.logger.error("[observations_update] - Clé 'massif_name' manquante dans la requête.")
+        abort(404)
 
-    return jsonify(), 200
+    return jsonify(observations_data=Observations.get_massif_snow_coverage(massif_name)), 200
 
 
 @app.route("/test/")

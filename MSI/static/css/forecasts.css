@@ -1,7 +1,7 @@
 .forecast-items {cursor: pointer;}
 
 .forecast-items:hover {
-    background-color: rgba(39, 39, 42, 1);
+    background-color: rgba(80, 180, 211, 0.2);
 }
 
 .table-outline{
@@ -14,12 +14,13 @@ th, td {
 }
 
 .collapseButton {
-    border: 1px solid rgba(251, 251, 251, .4);
-    background-color: rgba(39, 39, 42, 1);
+    border: 1px solid rgba(84, 180, 211, 1);
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .collapseButton:hover {
-    background-color: rgba(46, 67, 110, 1);
+    border: 1px solid rgba(84, 180, 211, 1);
+    background-color: rgba(80, 180, 211, 0.2);
 }
 
 .forecasts-progress {

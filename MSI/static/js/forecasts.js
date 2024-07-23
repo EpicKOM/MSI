@@ -16,8 +16,8 @@ $(document).ready(function() {
     ajaxRequest(0);
 
     $('.forecast-items').on('click', function() {
-        $('.forecast-items').removeClass('bg-secondary-color');
-        $(this).addClass('bg-secondary-color');
+        $('.forecast-items').removeClass('bg-active-color border-active');
+        $(this).addClass('bg-active-color border-active');
 
         let dayNumber = parseInt($(this).data('value'), 10);
 
@@ -29,14 +29,16 @@ $(document).ready(function() {
 
         if (tableIsCollapsed) {
             $("#forecasts-table").attr("data-value", "false");
-            $("tr.collapsable").fadeIn();
-            $("#collapseButtonIcon").removeClass('fa-angles-down').addClass('fa-angles-up');
+            $("tr.collapsable").fadeIn(function() {
+                $("#collapseButtonIcon").removeClass('fa-angles-down').addClass('fa-angles-up');
+            });
         }
+        
         else{
             $("#forecasts-table").attr("data-value", "true");
-            $("tr.collapsable").fadeOut();
-
-            $("#collapseButtonIcon").removeClass('fa-angles-up').addClass('fa-angles-down');
+            $("tr.collapsable").fadeOut(function() {
+                $("#collapseButtonIcon").removeClass('fa-angles-up').addClass('fa-angles-down');
+            });
         }
     })
 })

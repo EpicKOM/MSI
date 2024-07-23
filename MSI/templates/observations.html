@@ -112,41 +112,32 @@
                         </div>
                     </div>
                     <hr class="text-light">
-                        <!-- Tabs content -->
-                        <div class="tab-content" id="ex-with-icons-content">
-                            <!-- Tabs navs -->
-                            <div class="tab-pane fade show active" id="snowTabContent" role="tabpanel">
-                                <div class="row">
-                                    <div class="col-lg-3 d-flex align-items-center">
-                                        <h5 class="text-light fw-bold">Belledonne - Isère (38)</h5>
-                                    </div>
-                                    <div class="col-lg-3 ms-auto">
-                                        <select class="form-select select-modern text-light" id="">
-                                            <option value="semaine" selected>Semaine</option>
-                                            <option value="saison">Saison</option>
-                                        </select>
-                                    </div>
+                    <!-- Tabs content -->
+                    <div class="tab-content" id="ex-with-icons-content">
+                        <!-- Tabs navs -->
+                        <div class="tab-pane fade show active" id="snowTabContent" role="tabpanel">
+                            <div class="row">
+                                <div class="col-lg-3 d-flex align-items-center">
+                                    <h5 class="text-light fw-bold" id="snowCoverageTitle"></h5>
                                 </div>
+                                <div class="col-lg-3 ms-auto">
+                                    <select class="form-select select-modern text-light" id="snowCoverageSelect">
+                                        <option value="semaine" selected>Semaine</option>
+                                        <option value="saison">Saison</option>
+                                    </select>
+                                </div>
+                            </div>
 
-                                <div class="row mt-3">
-                                    <div class="col-lg-6 text-center">
-                                        <img class="img-fluid rounded" src="https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/AIGLES.gif" id="aigleton-img" alt="Les données sont actuellement indisponibles">
-                                    </div>
-                                    <div class="col-lg-6 text-center">
-                                        <img class="img-fluid rounded" src="https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/AIGLES.gif" alt="Les données sont actuellement indisponibles">
-                                    </div>
-                                </div>
+                            <div class="row mt-3" id="snowCoverageContainer">
 
                             </div>
-                            <div class="tab-pane fade" id="avalancheTabContent" role="tabpanel">
-                                Tab 2 content
-                            </div>
+
                         </div>
-                        <!-- Tabs content -->
-
-
-
-
+                        <div class="tab-pane fade" id="avalancheTabContent" role="tabpanel">
+                            Tab 2 content
+                        </div>
+                    </div>
+                    <!-- Tabs content -->
                 </div>
             </div>
         </div>

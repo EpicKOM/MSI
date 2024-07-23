@@ -78,7 +78,7 @@
 
                     <!-- Left links -->
                     <ul class="navbar-nav me-auto mt-2 mt-lg-0 mb-2 mb-lg-0">
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown me-2">
                             <a  data-mdb-dropdown-init
                                 class="nav-link dropdown-toggle pe-2 ps-2 {% block meteo_active %}{% endblock %}"
                                 href="#"
@@ -101,7 +101,7 @@
                             </ul>
                         </li>
 
-                        <li class="nav-item">
+                        <li class="nav-item me-2">
                             <a class="nav-link pe-2 ps-2 {% block previsions_active %}{% endblock %}" href="{{ url_for('forecasts') }}">Prévisions</a>
                         </li>
 

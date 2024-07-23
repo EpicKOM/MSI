@@ -63,7 +63,7 @@
                             {% if data["index"] > 0 %}
                                 <hr class="mt-1 mb-1">
                             {% endif %}
-                            <div class="d-flex align-items-start p-1 rounded-3 align-items-center forecast-items {% if data['index'] == 0 %} bg-secondary-color {% endif %}" data-value="{{ data['index'] }}">
+                            <div class="d-flex align-items-start p-1 rounded-3 align-items-center forecast-items {% if data['index'] == 0 %} bg-active-color border-active {% endif %}" data-value="{{ data['index'] }}">
                                 <div class="flex-shrink-0">
                                     <img class="img-fluid" src="https://static.meteoblue.com/assets/images/picto/{{ data['pictocode'] }}_iday.svg" alt="weather-icon" style="width: 60px; height: 60px;">
                                 </div>
@@ -130,7 +130,7 @@
                                             <td class="text-light"><span id="temperature_mean"></span> <sup><span class="opacity-75">°C</span></sup></td>
                                             <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-danger"></i><span id="temperature_max"></span> <sup><span class="opacity-75">°C</span></sup></td>
                                         </tr>
-                                        <tr class="bg-secondary-color">
+                                        <tr class="bg-active-color">
                                             <th class="text-light fw-bold opacity-75" scope="row">Température ressentie :</th>
                                             <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i><span id="felttemperature_min"></span> <sup><span class="opacity-75">°C</span></sup></td>
                                             <td class="text-light"><span id="felttemperature_mean"></span> <sup><span class="opacity-75">°C</span></sup></td>
@@ -142,7 +142,7 @@
                                             <td class="text-light"><i class="fa-solid fa-clock me-2"></i><span id="precipitation_hours"></span> <sup><span class="opacity-75">h</span></sup></td>
                                             <td></td>
                                         </tr>
-                                        <tr class="bg-secondary-color">
+                                        <tr class="bg-active-color">
                                             <th class="text-light fw-bold opacity-75" scope="row">Probabilité de précipitation :</th>
                                             <td colspan="2">
                                                 <div class="progress forecasts-progress bg-light">
@@ -164,7 +164,7 @@
                                             <td></td>
                                             <td></td>
                                         </tr>
-                                        <tr class="bg-secondary-color">
+                                        <tr class="bg-active-color">
                                             <th class="text-light fw-bold opacity-75" scope="row">Fraction de neige :</th>
                                             <td class="text-light"><i class="fa-solid fa-snowflake me-2"></i><span id="snow_fraction"></span> <sup><span class="opacity-75">%</span></sup></td>
                                             <td class="text-light"><i class="fa-solid fa-droplet text-rain-color me-2"></i><span id="rain_fraction"></span> <sup><span class="opacity-75">%</span></sup></td>
@@ -176,7 +176,7 @@
                                             <td class="text-light"><span id="windspeed_mean"></span> <sup><span class="opacity-75">km/h</span></sup></td>
                                             <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-danger"></i><span id="windspeed_max"></span> <sup><span class="opacity-75">km/h</span></sup></td>
                                         </tr>
-                                        <tr class="collapsable bg-secondary-color">
+                                        <tr class="collapsable bg-active-color">
                                             <th class="text-light fw-bold opacity-75" scope="row">Direction du vent :</th>
                                             <td class="text-light"><i class="fa-solid fa-arrow-up-long me-2" id="windDirectionArrow"></i><span id="wind_direction"></span></td>
                                             <td></td>
@@ -188,7 +188,7 @@
                                             <td class="text-light"><span id="sealevelpressure_mean"></span> <sup><span class="opacity-75">hPa</span></sup></td>
                                             <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-danger"></i><span id="sealevelpressure_max"></span> <sup><span class="opacity-75">hPa</span></sup></td>
                                         </tr>
-                                        <tr class="collapsable bg-secondary-color">
+                                        <tr class="collapsable bg-active-color">
                                             <th class="text-light fw-bold opacity-75" scope="row">Humidité :</th>
                                             <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i><span id="relativehumidity_min"></span> <sup><span class="opacity-75">%</span></sup></td>
                                             <td class="text-light"><span id="relativehumidity_mean"></span> <sup><span class="opacity-75">%</span></sup></td>
@@ -200,7 +200,7 @@
                                             <td class="text-light"><i class="fa-solid fa-sun me-2 text-amber-color"><sup><span class="opacity-75">&nbsp;&nbsp;<i class="fa-solid fa-caret-down text-light"></i></span></sup></i><span id="sunset"></span></td>
                                             <td class="text-light"><i class="fa-regular fa-sun me-2 text-amber-color"></i><span id="uvindex"></span></td>
                                         </tr>
-                                        <tr class="collapsable bg-secondary-color">
+                                        <tr class="collapsable bg-active-color">
                                             <th class="text-light fw-bold opacity-75" scope="row">Lune :</th>
                                             <td class="text-light"><i class="fa-solid fa-moon me-2"><sup><span class="opacity-75">&nbsp;&nbsp;<i class="fa-solid fa-caret-up text-light"></i></span></sup></i><span id="moonrise"></span></td>
                                             <td class="text-light"><i class="fa-solid fa-moon me-2"><sup><span class="opacity-75">&nbsp;&nbsp;<i class="fa-solid fa-caret-down text-light"></i></span></sup></i><span id="moonset"></span></td>
