@@ -151,7 +151,18 @@ def observations_update():
 
 @app.route("/test/")
 def test():
-    return render_template("test.html")
+    table_is_empty = SaintIsmierData.table_is_empty()
+    context = {'table_is_empty': table_is_empty}
+
+    if not table_is_empty:
+        context.update(is_data_fresh=SaintIsmierData.check_is_data_fresh(),
+                       current_data=SaintIsmierData.current_data(),
+                       temperature_extremes_today=SaintIsmierData.temperature_extremes_today(),
+                       cumulative_rain_today=SaintIsmierData.cumulative_rain_today(),
+                       rain=SaintIsmierData.rain(),
+                       maximum_gust_today=SaintIsmierData.maximum_gust_today(),)
+
+    return render_template("test.html", **context)
 
 
 # -------GESTION DES ERREURS--------------------------------------------------------------------------------------------
