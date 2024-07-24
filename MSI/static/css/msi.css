@@ -84,3 +84,13 @@ main
 .border-error {border: 1px solid rgba(227, 112, 102, .6);}
 .msi-border {border: 1px solid rgba(251, 251, 251, .3);}
 .border-active {border: 1px solid rgba(84, 180, 211, 1);}
+
+/* --- action-item -------------------------------- */
+.action-item {
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.action-item:hover {
+    background-color: rgba(80, 180, 211, 0.2);
+}

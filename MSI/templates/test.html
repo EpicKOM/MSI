@@ -10,7 +10,7 @@
 
 {% block content %}
     {% if table_is_empty %}
-        <div class="container mt-md-4 mt-2">
+        <div class="container mt-3">
             <h3 class="text-center text-danger">
                 <span class="fa-stack fa-2x">
                     <i class="fas fa-database fa-stack-1x fa-inverse text-info"></i>
@@ -21,7 +21,7 @@
             </h3>
         </div>
     {% else %}
-        <div class="container mt-md-4 mt-2">
+        <div class="container mt-3">
             {% if not is_data_fresh %}
                 <div class="d-flex justify-content-md-center">
                     <div class="alert alert-dismissible w-40 text-center text-light-red bg-dark-red border-error" role="alert" id="weather-station-unavailable-alert" style="display: none;">
@@ -55,7 +55,7 @@
                 </div>
             </div>
         </div>
-        <div class="container mt-4">
+        <div class="container mt-3">
             <div class="row">
                 <div class="col-lg">
                     <div class="card bg-primary-color weather-card p-3">
@@ -107,7 +107,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg mt-lg-0 mt-2">
+                <div class="col-lg mt-lg-0 mt-3">
                     <div class="card bg-primary-color weather-card p-3">
                         <div class="d-flex align-items-start">
                             <div class="flex-shrink-0">
@@ -143,7 +143,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl mt-xl-0 mt-2">
+                <div class="col-xl mt-xl-0 mt-3">
                     <div class="card bg-primary-color weather-card p-3">
                         <div class="d-flex align-items-start">
                             <div class="flex-shrink-0">
@@ -189,7 +189,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg mt-xl-0 mt-2">
+                <div class="col-lg mt-xl-0 mt-3">
                     <div class="card bg-primary-color weather-card p-3">
                         <div class="d-flex align-items-start">
                             <div class="flex-shrink-0">
@@ -213,7 +213,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg mt-xl-0 mt-2">
+                <div class="col-lg mt-xl-0 mt-3">
                     <div class="card bg-primary-color weather-card p-3">
                         <div class="d-flex align-items-start">
                             <div class="flex-shrink-0">
@@ -236,185 +236,65 @@
                 </div>
             </div>
         </div>
-        <div class="container mt-4" id="live_charts_container">
+        <div class="container mt-3" id="live_charts_container">
             <div class="row">
-                <div class="col-lg-9">
+                <div class="col-lg-9 mt-lg-0 mt-3 order-2 order-lg-1">
                     <div class="card bg-primary-color p-3 msi-border">
-                        <div>
-                            <a class="float-end text-light d-none d-lg-block zoom-effect"
-                               role="button" data-mdb-tooltip-init title="Agrandir"
-                               data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#temperatureModal">
-                                <i class="fa-solid fa-magnifying-glass-plus"></i>
-                            </a>
-                            <h5 class="card-title text-center text-light" id="currentTemperatureChartTitle">
-                            </h5>
-                        </div>
+                        <h5 class="card-title text-center text-light" id="currentChartTitle">
+                        </h5>
 
-                        <canvas id="currentTemperatureChart"></canvas>
+                        <canvas id="currentChart"></canvas>
                     </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-3 order-1 order-lg-2">
                     <select class="form-select select-modern text-light" id="select_charts_duration">
                         <option value="24 heures" selected>24 heures</option>
                         <option value="48 heures">48 heures</option>
                         <option value="72 heures">72 heures</option>
                         <option value="7 jours">7 jours</option>
                     </select>
-                    <div class="card bg-primary-color p-3 msi-border mt-3">
-                        <div class="d-flex align-items-center rounded-3 p-3 bg-active-color border-active">
-                            <i class="fa-solid fa-chart-line text-light fa-lg me-4"></i>
+                    <div class="card bg-primary-color p-2 msi-border mt-3">
+                        <div class="d-flex align-items-center rounded-3 p-3 bg-active-color border-active action-item chart-data-selector" data-value="temperature">
+                            <i class="fa-solid fa-chart-line text-light fa-lg me-3"></i>
                             <h6 class="text-light fw-normal mb-0">
                                 Température
                             </h6>
                         </div>
                         <hr class="mt-1 mb-1">
-                        <div class="d-flex align-items-center rounded-3 p-3">
-                            <i class="fa-solid fa-chart-column text-light fa-lg me-4"></i>
+                        <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector" data-value="rain">
+                            <i class="fa-solid fa-chart-column text-light fa-lg me-3"></i>
                             <h6 class="text-light fw-normal mb-0">
                                 Pluie
                             </h6>
                         </div>
                         <hr class="mt-1 mb-1">
-                        <div class="d-flex align-items-center rounded-3 p-3">
-                            <i class="fa-solid fa-chart-line text-light fa-lg me-4"></i>
+                        <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector">
+                            <i class="fa-solid fa-chart-line text-light fa-lg me-3"></i>
                             <h6 class="text-light fw-normal mb-0">
                                 Vent
                             </h6>
                         </div>
                         <hr class="mt-1 mb-1">
-                        <div class="d-flex align-items-center rounded-3 p-3">
-                            <i class="fa-solid fa-chart-line text-light fa-lg me-4"></i>
-                            <h6 class="text-light fw-normal mb-0 opacity-75">
+                        <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector">
+                            <i class="fa-solid fa-chart-area text-light fa-lg me-3"></i>
+                            <h6 class="text-light fw-normal mb-0">
+                                Direction du vent
+                            </h6>
+                        </div>
+                        <hr class="mt-1 mb-1">
+                        <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector">
+                            <i class="fa-solid fa-chart-line text-light fa-lg me-3"></i>
+                            <h6 class="text-light fw-normal mb-0">
                                 Humidité
                             </h6>
                         </div>
                         <hr class="mt-1 mb-1">
-                        <div class="d-flex align-items-center rounded-3 p-3">
-                            <i class="fa-solid fa-chart-area fa-lg me-4 text-light"></i>
+                        <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector" data-value="pressure">
+                            <i class="fa-solid fa-chart-line text-light fa-lg me-3"></i>
                             <h6 class="text-light fw-normal mb-0">
                                 Pression
                             </h6>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modales -->
-        <!-- Modale Température -->
-        <div class="modal fade" id="temperatureModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content bg-primary-color msi-border">
-                    <div class="p-3">
-                        <a class="float-end text-light"
-                           role="button"
-                            data-mdb-dismiss="modal">
-                            <i class="fas fa-xmark fa-lg"></i>
-                        </a>
-                        <h5 class="card-title text-center text-light" id="currentTemperatureChartModalTitle">
-                        </h5>
-                    </div>
-                    <div class="modal-body">
-                        <canvas id="currentTemperatureChartModal"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modale Rain -->
-        <div class="modal fade" id="rainModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content bg-primary-color msi-border">
-                    <div class="p-3">
-                        <a class="float-end text-light"
-                           role="button"
-                            data-mdb-dismiss="modal">
-                            <i class="fas fa-xmark fa-lg"></i>
-                        </a>
-                        <h5 class="card-title text-center text-light" id="currentRainChartModalTitle">
-                        </h5>
-                    </div>
-                    <div class="modal-body">
-                        <canvas id="currentRainChartModal"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modale Humidity -->
-        <div class="modal fade" id="humidityModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content bg-primary-color msi-border">
-                    <div class="p-3">
-                        <a class="float-end text-light"
-                           role="button"
-                            data-mdb-dismiss="modal">
-                            <i class="fas fa-xmark fa-lg"></i>
-                        </a>
-                        <h5 class="card-title text-center text-light" id="currentHumidityChartModalTitle">
-                        </h5>
-                    </div>
-                    <div class="modal-body">
-                        <canvas id="currentHumidityChartModal"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modale Pressure -->
-        <div class="modal fade" id="pressureModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content bg-primary-color msi-border">
-                    <div class="p-3">
-                        <a class="float-end text-light"
-                           role="button"
-                            data-mdb-dismiss="modal">
-                            <i class="fas fa-xmark fa-lg"></i>
-                        </a>
-                        <h5 class="card-title text-center text-light" id="currentPressureChartModalTitle">
-                        </h5>
-                    </div>
-                    <div class="modal-body">
-                        <canvas id="currentPressureChartModal"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modale Wind -->
-        <div class="modal fade" id="windModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content bg-primary-color msi-border">
-                    <div class="p-3">
-                        <a class="float-end text-light"
-                           role="button"
-                            data-mdb-dismiss="modal">
-                            <i class="fas fa-xmark fa-lg"></i>
-                        </a>
-                        <h5 class="card-title text-center text-light" id="currentWindChartModalTitle">
-                        </h5>
-                    </div>
-                    <div class="modal-body">
-                        <canvas id="currentWindChartModal"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modale Wind Direction -->
-        <div class="modal fade" id="windDirectionModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content bg-primary-color msi-border">
-                    <div class="p-3">
-                        <a class="float-end text-light"
-                           role="button"
-                            data-mdb-dismiss="modal">
-                            <i class="fas fa-xmark fa-lg"></i>
-                        </a>
-                        <h5 class="card-title text-center text-light" id="currentWindDirectionChartModalTitle">
-                        </h5>
-                    </div>
-                    <div class="modal-body">
-                        <canvas id="currentWindDirectionChartModal"></canvas>
                     </div>
                 </div>
             </div>
@@ -424,5 +304,5 @@
 
 {% block script %}
     <script src="{{ url_for('static', filename='js/meteo_live.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/live_charts_saint_ismier.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/test.js') }}"></script>
 {% endblock %}
