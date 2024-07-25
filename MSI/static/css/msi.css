@@ -94,3 +94,7 @@ main
 .action-item:hover {
     background-color: rgba(80, 180, 211, 0.2);
 }
+
+.disabled {
+    pointer-events: none; /* Désactive les clics */
+}

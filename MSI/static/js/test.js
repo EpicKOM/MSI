@@ -499,63 +499,76 @@ const pressureConfig = {
     }
 }
 
-//Chart Init
-let currentChart = new Chart(document.getElementById('currentChart'));
+// Chart Init
+let liveChart = new Chart(document.getElementById('liveChart'));
+let dataName = "temperature";
+let intervalDuration = 1;
 
 
 //------------------LOGIQUE---------------------------------------------------------------------------------------------
 $(document).ready(function(){
-//    $('#select_charts_duration').change(function() {
-//        let interval_duration_string = $(this).val();
-//        let interval_duration_chart_title = convertSelectResponseToChartTitle(interval_duration_string);
-//        let interval_duration = convertSelectResponseToDays(interval_duration_string);
-//
-//        ajaxRequest(interval_duration, interval_duration_chart_title);
-//    });
 
+    // Select Action
+    $('#select_charts_duration').change(function() {
+        let intervalDurationString = $(this).val();
+        intervalDuration = convertSelectResponseToDays(intervalDurationString);
+
+        ajaxRequest(dataName, intervalDuration);
+    });
+
+    // Chart Data selector action
     $('.chart-data-selector').on('click', function() {
-        $('.chart-data-selector').removeClass('bg-active-color border-active');
-        $(this).addClass('bg-active-color border-active');
-        let dataName = $(this).data('value');
-        ajaxRequest(1, dataName, "24h");
+        if (!$(this).hasClass('disabled')) {
+            $('.chart-data-selector').removeClass('bg-active-color border-active disabled');
+            $(this).addClass('bg-active-color border-active disabled');
+
+            dataName = $(this).data('value');
+
+            ajaxRequest(dataName, intervalDuration);
+        }
     });
 
     // Initial AJAX request
-    ajaxRequest(1, "temperature", "24h");
+    ajaxRequest(dataName, 1);
 
     //  Refreshes the charts when the tab becomes active again (ChartJS issue ?)
     document.addEventListener("visibilitychange", event => {
         if (document.visibilityState === "visible") {
-            currentChart.update();
+            liveChart.update();
         }
     });
 });
 
 //----------------Ajax request------------------------------------------------------------------------------------------
-function ajaxRequest(interval_duration, dataName, interval_duration_chart_title) {
+function ajaxRequest(_dataName, _intervalDuration) {
     $.ajax({
         type : 'POST',
         url : '/data/saint-ismier/live-charts',
-        data : {'interval_duration': interval_duration},
+        data : {'data_name': _dataName,
+                'interval_duration': _intervalDuration},
 
         success:function(results)
         {
-            let datetime = results["live_charts"]["datetime"];
-            let data = results["live_charts"][dataName];
+            // Recup data
+            let data = results["live_charts"];
 
-            currentChart.destroy();
-            if (dataName === "temperature"){
-                currentChart = new Chart(document.getElementById('currentChart'), temperatureConfig);
+            //update chart config
+            liveChart.destroy();
+            let config = getChartConfig(_dataName);
+
+            if (config) {
+                liveChart = new Chart(document.getElementById('liveChart'), config);
+
+                // update chart data
+                updateLiveCharts(_dataName, data, _intervalDuration);
+
+                // update chart title
+                let chartTitle = getChartTitle(_dataName, _intervalDuration);
+                $('#liveChartTitle').text(chartTitle);
+
+            } else {
+                alert("caca");
             }
-
-            else if (dataName === "pressure"){
-                currentChart = new Chart(document.getElementById('currentChart'), pressureConfig);
-            }
-
-
-            updateLiveCharts(datetime, data, interval_duration);
-
-            $('#currentChartTitle').text(`Température sur ${interval_duration_chart_title} (°C)`);
 
             $('#live-charts-message-errors').remove();
             $("#live_charts_container").show();
@@ -575,18 +588,52 @@ function ajaxRequest(interval_duration, dataName, interval_duration_chart_title)
 }
 
 //----------------Update Charts-----------------------------------------------------------------------------------------
-function updateLiveCharts(datetime, data, interval_duration)
+function updateLiveCharts(_dataName, _data, _interval_duration)
 {
-    //Temperature chart
-    currentChart.data.labels = datetime;
-    currentChart.data.datasets[0].data = data;
-    currentChart.options.scales.x.ticks.stepSize = 2 * interval_duration;
+    const updateFunctions = {
+        "wind_direction": () => {
+            liveChart.data.datasets[0].data = _data["wind_direction"];
+        },
+        "wind": () => {
+            liveChart.data.labels = _data["datetime"];
+            liveChart.data.datasets[0].data = _data["wind"];
+            liveChart.data.datasets[1].data = _data["gust"];
+            liveChart.options.scales.x.ticks.stepSize = 2 * _interval_duration;
+        },
+        "rain": () => {
+            liveChart.data.labels = _data["datetime"];
+            liveChart.data.datasets[0].data = _data["rain_1h"];
+            liveChart.options.scales.x.ticks.stepSize = 2 * _interval_duration;
+        },
+        "temperature": () => {
+            liveChart.data.labels = _data["datetime"];
+            liveChart.data.datasets[0].data = _data["temperature"];
+            liveChart.options.scales.x.ticks.stepSize = 2 * _interval_duration;
+        },
+        "humidity": () => {
+            liveChart.data.labels = _data["datetime"];
+            liveChart.data.datasets[0].data = _data["humidity"];
+            liveChart.options.scales.x.ticks.stepSize = 2 * _interval_duration;
+        },
+        "pressure": () => {
+            liveChart.data.labels = _data["datetime"];
+            liveChart.data.datasets[0].data = _data["pressure"];
+            liveChart.options.scales.x.ticks.stepSize = 2 * _interval_duration;
+        },
+        "default": () => {
+            liveChart.data.labels = _data["datetime"];
+            liveChart.data.datasets[0].data = _data[dataName];
+            liveChart.options.scales.x.ticks.stepSize = 2 * _interval_duration;
+        }
+    };
+
+    (updateFunctions[_dataName] || updateFunctions["default"])();
 
     //Update charts
-    currentChart.update();
+    liveChart.update();
 }
 
-function convertSelectResponseToDays(interval_duration_string) {
+function convertSelectResponseToDays(intervalDurationString) {
     const durations = {
         "24 heures": 1,
         "48 heures": 2,
@@ -594,16 +641,47 @@ function convertSelectResponseToDays(interval_duration_string) {
         "7 jours": 7
     };
 
-    return durations[interval_duration_string] || 1;
+    return durations[intervalDurationString] || 1;
 }
 
-function convertSelectResponseToChartTitle(interval_duration_string) {
-    const durations_title = {
-        "24 heures": "24h",
-        "48 heures": "48h",
-        "72 heures": "72h",
-        "7 jours": "7 jours"
+function getChartConfig(_dataName) {
+    const chartConfig = {
+        "temperature": temperatureConfig,
+        "rain": rainConfig,
+        "wind": windConfig,
+        "wind_direction": windDirectionConfig,
+        "humidity": humidityConfig,
+        "pressure": pressureConfig,
     };
 
-    return durations_title[interval_duration_string] || "24h";
+    return chartConfig[_dataName] || null;
+}
+
+function getChartTitle(_dataName, _intervalDuration) {
+    const dataNameTitle = {
+        "temperature": "Température",
+        "rain": "Pluie",
+        "wind": "Vent",
+        "wind_direction": "Rose des vents",
+        "humidity": "Humidité",
+        "pressure": "Pression",
+    };
+
+    const unity = {
+        "temperature": "°C",
+        "rain": "mm",
+        "wind": "km/h",
+        "wind_direction": "%",
+        "humidity": "%",
+        "pressure": "hPa",
+    };
+
+    const durationsTitle = {
+        1: "24h",
+        2: "48h",
+        3: "72h",
+        7: "7 jours"
+    };
+
+    return `${dataNameTitle[_dataName]} sur ${durationsTitle[_intervalDuration]} (${unity[_dataName]})` || "-";
 }

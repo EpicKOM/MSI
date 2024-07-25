@@ -17,13 +17,6 @@
 }
 
 option {
-    background: #27272A;
+    background: rgb(0, 0, 0);
 }
 
-.zoom-effect {
-    transition: transform 0.3s ease;
-}
-
-.zoom-effect:hover {
-    transform: scale(1.5);
-}

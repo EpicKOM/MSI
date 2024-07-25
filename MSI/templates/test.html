@@ -240,10 +240,10 @@
             <div class="row">
                 <div class="col-lg-9 mt-lg-0 mt-3 order-2 order-lg-1">
                     <div class="card bg-primary-color p-3 msi-border">
-                        <h5 class="card-title text-center text-light" id="currentChartTitle">
+                        <h5 class="card-title text-center text-light" id="liveChartTitle">
                         </h5>
 
-                        <canvas id="currentChart"></canvas>
+                        <canvas id="liveChart"></canvas>
                     </div>
                 </div>
                 <div class="col-lg-3 order-1 order-lg-2">
@@ -254,7 +254,7 @@
                         <option value="7 jours">7 jours</option>
                     </select>
                     <div class="card bg-primary-color p-2 msi-border mt-3">
-                        <div class="d-flex align-items-center rounded-3 p-3 bg-active-color border-active action-item chart-data-selector" data-value="temperature">
+                        <div class="d-flex align-items-center rounded-3 p-3 bg-active-color border-active action-item chart-data-selector disabled" data-value="temperature">
                             <i class="fa-solid fa-chart-line text-light fa-lg me-3"></i>
                             <h6 class="text-light fw-normal mb-0">
                                 Température
@@ -268,21 +268,21 @@
                             </h6>
                         </div>
                         <hr class="mt-1 mb-1">
-                        <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector">
+                        <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector" data-value="wind">
                             <i class="fa-solid fa-chart-line text-light fa-lg me-3"></i>
                             <h6 class="text-light fw-normal mb-0">
                                 Vent
                             </h6>
                         </div>
                         <hr class="mt-1 mb-1">
-                        <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector">
+                        <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector" data-value="wind_direction">
                             <i class="fa-solid fa-chart-area text-light fa-lg me-3"></i>
                             <h6 class="text-light fw-normal mb-0">
                                 Direction du vent
                             </h6>
                         </div>
                         <hr class="mt-1 mb-1">
-                        <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector">
+                        <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector" data-value="humidity">
                             <i class="fa-solid fa-chart-line text-light fa-lg me-3"></i>
                             <h6 class="text-light fw-normal mb-0">
                                 Humidité

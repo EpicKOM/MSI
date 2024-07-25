@@ -121,14 +121,31 @@ class MeteoLiveUtils:
         return maximum_gust_today
 
     @staticmethod
-    def get_current_charts_data(cls, interval_duration):
+    def get_current_charts_data(cls, data_name, interval_duration, column_mapping):
         data_start_date = MeteoLiveUtils.get_last_record_datetime(cls) - datetime.timedelta(interval_duration)
 
-        current_charts_data = cls.query.filter(cls.date_time >= data_start_date).all()
-        current_rain_chart_data = cls.query.with_entities(cls.rain_1h, cls.date_time).filter(cls.date_time >= data_start_date, cls.rain_1h.isnot(None)).all()
-        current_wind_direction_chart_data = MeteoLiveUtils.get_wind_direction_chart_data(cls, data_start_date)
+        if data_name in column_mapping:
+            if data_name == "rain":
+                query = cls.query.filter(cls.date_time >= data_start_date, cls.rain_1h.isnot(None))
+                columns = column_mapping["rain"]
 
-        return [current_charts_data, current_rain_chart_data, current_wind_direction_chart_data]
+            elif data_name == "wind_direction":
+                return {"wind_direction": MeteoLiveUtils.get_wind_direction_chart_data(cls, data_start_date)}
+
+            else:
+                query = cls.query.filter(cls.date_time >= data_start_date)
+                columns = column_mapping[data_name]
+
+            current_charts_data = query.with_entities(*columns).all()
+
+            response = {"datetime": [data.date_time.strftime("%Y-%m-%d %H:%M:%S") for data in current_charts_data]}
+            for col in columns[1:]:
+                response[col.name] = [getattr(data, col.name) for data in current_charts_data]
+
+            return response
+
+        else:
+            app.logger.exception(f"[get_current_charts_data] : {data_name} est introuvable dans le column mapping.")
 
     @staticmethod
     def get_wind_direction_chart_data(cls, data_start_date):
@@ -163,7 +180,7 @@ class MeteoLiveUtils:
             return 100 * part / total
 
         except ZeroDivisionError:
-            logging.error(f"[wind_direction_percentage] : Division par zéro impossible. Total = {total}")
+            app.logger.error(f"[wind_direction_percentage] : Division par zéro impossible. Total = {total}")
 
         except Exception:
             app.logger.exception("[wind_direction_percentage] : Erreur lors du calcul du pourcentage de la direction du vent.")

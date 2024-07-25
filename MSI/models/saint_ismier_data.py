@@ -20,7 +20,8 @@ class SaintIsmierData(db.Model):
             return cls.query.first() is None
 
         except Exception:
-            app.logger.exception("[SaintIsmierData - table_is_empty] - Erreur lors de la vérification de l'état vide de la table.")
+            app.logger.exception(
+                "[SaintIsmierData - table_is_empty] - Erreur lors de la vérification de l'état vide de la table.")
 
     @classmethod
     def check_is_data_fresh(cls):
@@ -28,7 +29,8 @@ class SaintIsmierData(db.Model):
             return MeteoLiveUtils.get_check_is_data_fresh(cls)
 
         except Exception:
-            app.logger.exception("[SaintIsmierData - check_reception] - Erreur lors de la vérification de la réception des données.")
+            app.logger.exception(
+                "[SaintIsmierData - check_reception] - Erreur lors de la vérification de la réception des données.")
 
     @classmethod
     def current_data(cls):
@@ -41,7 +43,8 @@ class SaintIsmierData(db.Model):
                             "wind": data.wind if data.wind is not None else "-",
                             "gust": round(data.gust, 1) if data.gust is not None else "-",
                             "wind_angle": data.wind_angle if data.wind_angle is not None else "-",
-                            "wind_direction": MeteoLiveUtils.get_wind_direction(data.wind_angle) if data.wind_angle is not None else "-",
+                            "wind_direction": MeteoLiveUtils.get_wind_direction(
+                                data.wind_angle) if data.wind_angle is not None else "-",
                             "pressure": data.pressure if data.pressure is not None else "-",
                             "temperature_trend": data.temperature_trend if data.temperature_trend is not None else "stable"
                             }
@@ -49,7 +52,8 @@ class SaintIsmierData(db.Model):
             return current_data
 
         except Exception:
-            app.logger.exception("[SaintIsmierData - current_data] - Erreur lors de la récupération des données actuelles.")
+            app.logger.exception(
+                "[SaintIsmierData - current_data] - Erreur lors de la récupération des données actuelles.")
 
     @classmethod
     def temperature_extremes_today(cls):
@@ -66,7 +70,8 @@ class SaintIsmierData(db.Model):
             return MeteoLiveUtils.get_cumulative_rain_today(cls)
 
         except Exception:
-            app.logger.exception("[SaintIsmierData - cumulative_rain_today] - Erreur lors de la récupération du cumul de pluie du jour.")
+            app.logger.exception(
+                "[SaintIsmierData - cumulative_rain_today] - Erreur lors de la récupération du cumul de pluie du jour.")
 
     @classmethod
     def rain(cls):
@@ -74,7 +79,8 @@ class SaintIsmierData(db.Model):
             return MeteoLiveUtils.get_rain_1h(cls)
 
         except Exception:
-            app.logger.exception("[SaintIsmierData - rain] - Erreur lors de la récupération du cumul de pluie de l'heure précédente.")
+            app.logger.exception(
+                "[SaintIsmierData - rain] - Erreur lors de la récupération du cumul de pluie de l'heure précédente.")
 
     @classmethod
     def maximum_gust_today(cls):
@@ -82,24 +88,24 @@ class SaintIsmierData(db.Model):
             return MeteoLiveUtils.get_maximum_gust_today(cls)
 
         except Exception:
-            app.logger.exception("[SaintIsmierData - maximum_gust_today] - Erreur lors de la récupération de la rafale maximale du jour.")
+            app.logger.exception(
+                "[SaintIsmierData - maximum_gust_today] - Erreur lors de la récupération de la rafale maximale du jour.")
 
     @classmethod
-    def current_charts_data(cls, interval_duration):
+    def current_charts_data(cls, data_name, interval_duration):
         try:
-            current_chart_data = MeteoLiveUtils.get_current_charts_data(cls, interval_duration)
+            column_mapping = {
+                "temperature": [cls.date_time, cls.temperature],
+                "wind": [cls.date_time, cls.wind, cls.gust],
+                "humidity": [cls.date_time, cls.humidity],
+                "pressure": [cls.date_time, cls.pressure],
+                "rain": [cls.date_time, cls.rain_1h],
+                "wind_direction": []
+            }
 
-            current_chart_data_dict = {"datetime": [data.date_time.strftime("%Y-%m-%d %H:%M:%S") for data in current_chart_data[0]],
-                                       "temperature": [data.temperature for data in current_chart_data[0]],
-                                       "wind": [data.wind for data in current_chart_data[0]],
-                                       "gust": [data.gust for data in current_chart_data[0]],
-                                       "humidity": [data.humidity for data in current_chart_data[0]],
-                                       "pressure": [data.pressure for data in current_chart_data[0]],
-                                       "rain": [data.rain_1h for data in current_chart_data[1]],
-                                       "rain_datetime": [data.date_time.strftime("%Y-%m-%d %H:%M:%S") for data in current_chart_data[1]],
-                                       "wind_direction": current_chart_data[2]}
+            current_chart_data = MeteoLiveUtils.get_current_charts_data(cls, data_name, interval_duration, column_mapping)
 
-            return current_chart_data_dict
+            return current_chart_data
 
         except Exception:
-            app.logger.exception("[LansEnVercorsData - current_charts_data] - Erreur lors de la récupération des données pour les graphiques.")
+            app.logger.exception("[SaintIsmierData - current_charts_data] - Erreur lors de la récupération des données pour les graphiques.")

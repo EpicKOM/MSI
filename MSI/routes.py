@@ -70,14 +70,19 @@ def meteo_live_lans_en_vercors():
 # ------------Requête AJAX Live Charts---------------------------------------------------------------------------
 @app.route('/data/saint-ismier/live-charts', methods=['POST'])
 def saint_ismier_update_charts():
+    data_name = request.form.get('data_name')
     interval_duration = request.form.get('interval_duration')
 
-    if interval_duration is None:
+    if not data_name:
+        app.logger.error("[saint_ismier_update_charts] - Clé 'data_name' manquante dans la requête.")
+        abort(400, description="Clé 'data_name' manquante dans la requête.")
+
+    if not interval_duration:
         app.logger.error("[saint_ismier_update_charts] - Clé 'interval_duration' manquante dans la requête.")
-        abort(404)
+        abort(400, description="Clé 'interval_duration' manquante dans la requête.")
 
     interval_duration = int(interval_duration)
-    return jsonify(live_charts=SaintIsmierData.current_charts_data(interval_duration)), 200
+    return jsonify(live_charts=SaintIsmierData.current_charts_data(data_name, interval_duration)), 200
 
 
 @app.route('/data/saint-martin-d-heres/live-charts', methods=['POST'])
