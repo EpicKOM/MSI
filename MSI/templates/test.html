@@ -9,6 +9,23 @@
 {% endblock %}
 
 {% block content %}
+    <div class="dropdown mt-5">
+        <button
+            class="btn btn-primary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-mdb-dropdown-init
+            data-mdb-ripple-init
+            aria-expanded="false">
+        Interval de temps
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li><a class="dropdown-item" href="#">24h</a></li>
+            <li><a class="dropdown-item" href="#">48h</a></li>
+            <li><a class="dropdown-item" href="#">72h</a></li>
+            <li><a class="dropdown-item" href="#">7 jours</a></li>
+        </ul>
+    </div>
 
 {% endblock %}
 

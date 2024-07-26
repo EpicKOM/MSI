@@ -16,12 +16,14 @@ $(document).ready(function() {
     ajaxRequest(0);
 
     $('.forecast-items').on('click', function() {
-        $('.forecast-items').removeClass('bg-active-color border-active');
-        $(this).addClass('bg-active-color border-active');
+        if (!$(this).hasClass('disabled')) {
+            $('.forecast-items').removeClass('bg-active-color border-active disabled');
+            $(this).addClass('bg-active-color border-active disabled');
 
-        let dayNumber = parseInt($(this).data('value'), 10);
+            let dayNumber = parseInt($(this).data('value'), 10);
 
-        ajaxRequest(dayNumber);
+            ajaxRequest(dayNumber);
+        }
     });
 
     $('#collapseButton').click(function() {

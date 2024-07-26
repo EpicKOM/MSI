@@ -3,18 +3,6 @@
     opacity: 1!important;
 }
 
-.mountain-button {
-    transition: background-color 0.3s;
-}
-
-.mountain-button:hover {
-    background-color: rgba(80, 180, 211, 0.2); /* Couleur de fond lors du survol */
-}
-
-.mountain-button-active {
-    background-color: rgba(80, 180, 211, 0.2); /* Couleur de fond lors du survol */
-}
-
 .select-modern {
     background-color: rgba(255, 255, 255, 0);
     border: 1px solid rgba(251, 251, 251, .3);

@@ -13,9 +13,11 @@ $(document).ready(function() {
     })
 
     $('.mountain-button').on('click', function() {
-        $('.mountain-button').removeClass('mountain-button-active');
-        $(this).addClass('mountain-button-active');
+        $('.mountain-button').removeClass('bg-active-color');
+        $(this).addClass('bg-active-color');
+
         let massifName = $(this).data('value');
+
         ajaxRequest(massifName)
     });
 
