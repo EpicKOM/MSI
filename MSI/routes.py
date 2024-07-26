@@ -87,26 +87,36 @@ def saint_ismier_update_charts():
 
 @app.route('/data/saint-martin-d-heres/live-charts', methods=['POST'])
 def saint_martin_dheres_update_charts():
+    data_name = request.form.get('data_name')
     interval_duration = request.form.get('interval_duration')
 
-    if interval_duration is None:
+    if not data_name:
+        app.logger.error("[saint_martin_dheres_update_charts] - Clé 'data_name' manquante dans la requête.")
+        abort(400, description="Clé 'data_name' manquante dans la requête.")
+
+    if not interval_duration:
         app.logger.error("[saint_martin_dheres_update_charts] - Clé 'interval_duration' manquante dans la requête.")
-        abort(404)
+        abort(400, description="Clé 'interval_duration' manquante dans la requête.")
 
     interval_duration = int(interval_duration)
-    return jsonify(live_charts=SaintMartinDheresData.current_charts_data(interval_duration)), 200
+    return jsonify(live_charts=SaintMartinDheresData.current_charts_data(data_name, interval_duration)), 200
 
 
 @app.route('/data/lans-en-vercors/live-charts', methods=['POST'])
 def lans_en_vercors_update_charts():
+    data_name = request.form.get('data_name')
     interval_duration = request.form.get('interval_duration')
 
-    if interval_duration is None:
+    if not data_name:
+        app.logger.error("[lans_en_vercors_update_charts] - Clé 'data_name' manquante dans la requête.")
+        abort(400, description="Clé 'data_name' manquante dans la requête.")
+
+    if not interval_duration:
         app.logger.error("[lans_en_vercors_update_charts] - Clé 'interval_duration' manquante dans la requête.")
-        abort(404)
+        abort(400, description="Clé 'interval_duration' manquante dans la requête.")
 
     interval_duration = int(interval_duration)
-    return jsonify(live_charts=LansEnVercorsData.current_charts_data(interval_duration)), 200
+    return jsonify(live_charts=LansEnVercorsData.current_charts_data(data_name, interval_duration)), 200
 
 
 @app.route("/previsions/")
@@ -156,18 +166,7 @@ def observations_update():
 
 @app.route("/test/")
 def test():
-    table_is_empty = SaintIsmierData.table_is_empty()
-    context = {'table_is_empty': table_is_empty}
-
-    if not table_is_empty:
-        context.update(is_data_fresh=SaintIsmierData.check_is_data_fresh(),
-                       current_data=SaintIsmierData.current_data(),
-                       temperature_extremes_today=SaintIsmierData.temperature_extremes_today(),
-                       cumulative_rain_today=SaintIsmierData.cumulative_rain_today(),
-                       rain=SaintIsmierData.rain(),
-                       maximum_gust_today=SaintIsmierData.maximum_gust_today(),)
-
-    return render_template("test.html", **context)
+    return render_template("test.html")
 
 
 # -------GESTION DES ERREURS--------------------------------------------------------------------------------------------

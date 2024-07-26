@@ -6,14 +6,14 @@ const temperatureData = {
     datasets: [{
         label: 'Température',
         data:[],
-        borderColor: 'rgba(255, 26, 104, 1)',
+        borderColor: 'rgba(250, 250, 250, 1)',
         tension: 0,
         borderWidth: 2,
         pointStyle: 'circle',
         pointBorderColor: 'rgba(0, 0, 0, 0)',
         pointBackgroundColor: 'rgba(0, 0, 0, 0)',
-        pointHoverBorderColor: 'rgba(255, 26, 104, 1)',
-        pointHoverBackgroundColor: 'rgba(255, 26, 104, 1)',
+        pointHoverBorderColor: 'rgba(250, 250, 250, 1)',
+        pointHoverBackgroundColor: 'rgba(250, 250, 250, 1)',
     },
     {
         label: 'Point de rosée',
@@ -513,89 +513,73 @@ const pressureConfig = {
     }
 }
 
-//Chart Init
-const temperatureChart = new Chart(document.getElementById('currentTemperatureChart'), temperatureConfig);
-const temperatureChartModal = new Chart(document.getElementById('currentTemperatureChartModal'), temperatureConfig);
-const rainChart = new Chart(document.getElementById('currentRainChart'), rainConfig);
-const rainChartModal = new Chart(document.getElementById('currentRainChartModal'), rainConfig);
-const windChart = new Chart(document.getElementById('currentWindChart'), windConfig);
-const windChartModal = new Chart(document.getElementById('currentWindChartModal'), windConfig);
-const windDirectionChart = new Chart(document.getElementById('currentWindDirectionChart'), windDirectionConfig);
-const windDirectionChartModal = new Chart(document.getElementById('currentWindDirectionChartModal'), windDirectionConfig);
-const humidityChart = new Chart(document.getElementById('currentHumidityChart'), humidityConfig);
-const humidityChartModal = new Chart(document.getElementById('currentHumidityChartModal'), humidityConfig);
-const pressureChart = new Chart(document.getElementById('currentPressureChart'), pressureConfig);
-const pressureChartModal = new Chart(document.getElementById('currentPressureChartModal'), pressureConfig);
+// Chart Init
+let liveChart = new Chart(document.getElementById('liveChart'));
+let dataName = "temperature";
+let intervalDuration = 1;
+
 
 //------------------LOGIQUE---------------------------------------------------------------------------------------------
 $(document).ready(function(){
 
+    // Select Action
     $('#select_charts_duration').change(function() {
-        let interval_duration_string = $(this).val();
-        let interval_duration_chart_title = convertSelectResponseToChartTitle(interval_duration_string);
-        let interval_duration = convertSelectResponseToDays(interval_duration_string);
+        let intervalDurationString = $(this).val();
+        intervalDuration = convertSelectResponseToDays(intervalDurationString);
 
-        ajaxRequest(interval_duration, interval_duration_chart_title);
+        ajaxRequest(dataName, intervalDuration);
+    });
+
+    // Chart Data selector action
+    $('.chart-data-selector').on('click', function() {
+        if (!$(this).hasClass('disabled')) {
+            $('.chart-data-selector').removeClass('bg-active-color border-active disabled');
+            $(this).addClass('bg-active-color border-active disabled');
+
+            dataName = $(this).data('value');
+
+            ajaxRequest(dataName, intervalDuration);
+        }
     });
 
     // Initial AJAX request
-    ajaxRequest(1, "24h");
+    ajaxRequest(dataName, 1);
 
     //  Refreshes the charts when the tab becomes active again (ChartJS issue ?)
     document.addEventListener("visibilitychange", event => {
         if (document.visibilityState === "visible") {
-            temperatureChart.update();
-            rainChart.update();
-            windChart.update();
-            humidityChart.update();
-            pressureChart.update();
-            windDirectionChart.update();
+            liveChart.update();
         }
     });
-
-    updateAndResizeChartModal('#temperatureModal', temperatureChartModal);
-    updateAndResizeChartModal('#rainModal', rainChartModal);
-    updateAndResizeChartModal('#humidityModal', humidityChartModal);
-    updateAndResizeChartModal('#pressureModal', pressureChartModal);
-    updateAndResizeChartModal('#windModal', windChartModal);
-    updateAndResizeChartModal('#windDirectionModal', windDirectionChartModal);
 });
 
 //----------------Ajax request------------------------------------------------------------------------------------------
-function ajaxRequest(interval_duration, interval_duration_chart_title) {
+function ajaxRequest(_dataName, _intervalDuration) {
     $.ajax({
         type : 'POST',
         url : '/data/lans-en-vercors/live-charts',
-        data : {'interval_duration': interval_duration},
+        data : {'data_name': _dataName,
+                'interval_duration': _intervalDuration},
 
         success:function(results)
         {
-            let datetime = results["live_charts"]["datetime"];
-            let temperature = results["live_charts"]["temperature"];
-            let dew_point = results["live_charts"]["dew_point"];
-            let wind = results["live_charts"]["wind"];
-            let gust = results["live_charts"]["gust"];
-            let humidity = results["live_charts"]["humidity"];
-            let pressure = results["live_charts"]["pressure"];
-            let rain = results["live_charts"]["rain"];
-            let rain_datetime = results["live_charts"]["rain_datetime"];
-            let wind_direction = results["live_charts"]["wind_direction"];
+            // Recup data
+            let data = results["live_charts"];
 
-            updateLiveCharts(datetime, temperature, dew_point, wind, gust, humidity, pressure, rain, rain_datetime,
-            wind_direction, interval_duration);
+            //update chart config
+            liveChart.destroy();
+            let config = getChartConfig(_dataName);
 
-            $('#currentTemperatureChartTitle').text(`Température sur ${interval_duration_chart_title} (°C)`);
-            $('#currentTemperatureChartModalTitle').text(`Température sur ${interval_duration_chart_title} (°C)`);
-            $('#currentWindChartTitle').text(`Vent sur ${interval_duration_chart_title} (km/h)`);
-            $('#currentWindChartModalTitle').text(`Vent sur ${interval_duration_chart_title} (km/h)`);
-            $('#currentHumidityChartTitle').text(`Humidité sur ${interval_duration_chart_title} (%)`);
-            $('#currentHumidityChartModalTitle').text(`Humidité sur ${interval_duration_chart_title} (%)`);
-            $('#currentPressureChartTitle').text(`Pression sur ${interval_duration_chart_title} (hPa)`);
-            $('#currentPressureChartModalTitle').text(`Pression sur ${interval_duration_chart_title} (hPa)`);
-            $('#currentRainChartTitle').text(`Pluie sur ${interval_duration_chart_title} (mm)`);
-            $('#currentRainChartModalTitle').text(`Pluie sur ${interval_duration_chart_title} (mm)`);
-            $('#currentWindDirectionChartTitle').text(`Rose des vents sur ${interval_duration_chart_title} (%)`);
-            $('#currentWindDirectionChartModalTitle').text(`Rose des vents sur ${interval_duration_chart_title} (%)`);
+            if (config) {
+                liveChart = new Chart(document.getElementById('liveChart'), config);
+
+                // update chart data
+                updateLiveCharts(_dataName, data, _intervalDuration);
+
+                // update chart title
+                let chartTitle = getChartTitle(_dataName, _intervalDuration);
+                $('#liveChartTitle').text(chartTitle);
+            }
 
             $('#live-charts-message-errors').remove();
             $("#live_charts_container").show();
@@ -615,48 +599,53 @@ function ajaxRequest(interval_duration, interval_duration_chart_title) {
 }
 
 //----------------Update Charts-----------------------------------------------------------------------------------------
-function updateLiveCharts(datetime, temperature, dew_point, wind, gust, humidity, pressure, rain, rain_datetime, wind_direction, interval_duration)
+function updateLiveCharts(_dataName, _data, _interval_duration)
 {
-    //Temperature chart
-    temperatureChart.data.labels = datetime;
-    temperatureChart.data.datasets[0].data = temperature;
-    temperatureChart.data.datasets[1].data = dew_point;
-    temperatureChart.options.scales.x.ticks.stepSize = 2 * interval_duration;
+    const updateFunctions = {
+        "wind_direction": () => {
+            liveChart.data.datasets[0].data = _data["wind_direction"];
+        },
+        "wind": () => {
+            liveChart.data.labels = _data["datetime"];
+            liveChart.data.datasets[0].data = _data["wind"];
+            liveChart.data.datasets[1].data = _data["gust"];
+            liveChart.options.scales.x.ticks.stepSize = 2 * _interval_duration;
+        },
+        "rain": () => {
+            liveChart.data.labels = _data["datetime"];
+            liveChart.data.datasets[0].data = _data["rain_1h"];
+            liveChart.options.scales.x.ticks.stepSize = 2 * _interval_duration;
+        },
+        "temperature": () => {
+            liveChart.data.labels = _data["datetime"];
+            liveChart.data.datasets[0].data = _data["temperature"];
+            liveChart.data.datasets[1].data = _data["dew_point"];
+            liveChart.options.scales.x.ticks.stepSize = 2 * _interval_duration;
+        },
+        "humidity": () => {
+            liveChart.data.labels = _data["datetime"];
+            liveChart.data.datasets[0].data = _data["humidity"];
+            liveChart.options.scales.x.ticks.stepSize = 2 * _interval_duration;
+        },
+        "pressure": () => {
+            liveChart.data.labels = _data["datetime"];
+            liveChart.data.datasets[0].data = _data["pressure"];
+            liveChart.options.scales.x.ticks.stepSize = 2 * _interval_duration;
+        },
+        "default": () => {
+            liveChart.data.labels = _data["datetime"];
+            liveChart.data.datasets[0].data = _data[dataName];
+            liveChart.options.scales.x.ticks.stepSize = 2 * _interval_duration;
+        }
+    };
 
-    //Rain Chart
-    rainChart.data.labels = rain_datetime;
-    rainChart.data.datasets[0].data = rain;
-    rainChart.options.scales.x.ticks.stepSize = 2 * interval_duration;
-
-    //Wind chart
-    windChart.data.labels = datetime;
-    windChart.data.datasets[0].data = wind;
-    windChart.data.datasets[1].data = gust;
-    windChart.options.scales.x.ticks.stepSize = 2 * interval_duration;
-
-    //Humidity chart
-    humidityChart.data.labels = datetime;
-    humidityChart.data.datasets[0].data = humidity;
-    humidityChart.options.scales.x.ticks.stepSize = 2 * interval_duration;
-
-    //Pressure chart
-    pressureChart.data.labels = datetime;
-    pressureChart.data.datasets[0].data = pressure;
-    pressureChart.options.scales.x.ticks.stepSize = 2 * interval_duration;
-
-    //Wind Direction Chart
-    windDirectionChart.data.datasets[0].data = wind_direction;
+    (updateFunctions[_dataName] || updateFunctions["default"])();
 
     //Update charts
-    temperatureChart.update();
-    rainChart.update();
-    windChart.update();
-    humidityChart.update();
-    pressureChart.update();
-    windDirectionChart.update();
+    liveChart.update();
 }
 
-function convertSelectResponseToDays(interval_duration_string) {
+function convertSelectResponseToDays(intervalDurationString) {
     const durations = {
         "24 heures": 1,
         "48 heures": 2,
@@ -664,23 +653,47 @@ function convertSelectResponseToDays(interval_duration_string) {
         "7 jours": 7
     };
 
-    return durations[interval_duration_string] || 1;
+    return durations[intervalDurationString] || 1;
 }
 
-function convertSelectResponseToChartTitle(interval_duration_string) {
-    const durations_title = {
-        "24 heures": "24h",
-        "48 heures": "48h",
-        "72 heures": "72h",
-        "7 jours": "7 jours"
+function getChartConfig(_dataName) {
+    const chartConfig = {
+        "temperature": temperatureConfig,
+        "rain": rainConfig,
+        "wind": windConfig,
+        "wind_direction": windDirectionConfig,
+        "humidity": humidityConfig,
+        "pressure": pressureConfig,
     };
 
-    return durations_title[interval_duration_string] || "24h";
+    return chartConfig[_dataName] || null;
 }
 
-function updateAndResizeChartModal(modalId, chartModal) {
-    $(modalId).on('shown.bs.modal', function (e) {
-        chartModal.update();
-        chartModal.resize();
-    });
+function getChartTitle(_dataName, _intervalDuration) {
+    const dataNameTitle = {
+        "temperature": "Température",
+        "rain": "Pluie",
+        "wind": "Vent",
+        "wind_direction": "Rose des vents",
+        "humidity": "Humidité",
+        "pressure": "Pression",
+    };
+
+    const unity = {
+        "temperature": "°C",
+        "rain": "mm",
+        "wind": "km/h",
+        "wind_direction": "%",
+        "humidity": "%",
+        "pressure": "hPa",
+    };
+
+    const durationsTitle = {
+        1: "24h",
+        2: "48h",
+        3: "72h",
+        7: "7 jours"
+    };
+
+    return `${dataNameTitle[_dataName]} sur ${durationsTitle[_intervalDuration]} (${unity[_dataName]})` || "-";
 }

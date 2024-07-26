@@ -84,22 +84,20 @@ class LansEnVercorsData(db.Model):
             app.logger.exception("[LansEnVercorsData - maximum_gust_today] - Erreur lors de la récupération de la rafale maximale du jour.")
 
     @classmethod
-    def current_charts_data(cls, interval_duration):
+    def current_charts_data(cls, data_name, interval_duration):
         try:
-            current_chart_data = MeteoLiveUtils.get_current_charts_data(cls, interval_duration)
+            column_mapping = {
+                "temperature": [cls.date_time, cls.temperature, cls.dew_point],
+                "wind": [cls.date_time, cls.wind, cls.gust],
+                "humidity": [cls.date_time, cls.humidity],
+                "pressure": [cls.date_time, cls.pressure],
+                "rain": [cls.date_time, cls.rain_1h],
+                "wind_direction": []
+            }
 
-            current_chart_data_dict = {"datetime": [data.date_time.strftime("%Y-%m-%d %H:%M:%S") for data in current_chart_data[0]],
-                                       "temperature": [data.temperature for data in current_chart_data[0]],
-                                       "dew_point": [data.dew_point for data in current_chart_data[0]],
-                                       "wind": [data.wind for data in current_chart_data[0]],
-                                       "gust": [data.gust for data in current_chart_data[0]],
-                                       "humidity": [data.humidity for data in current_chart_data[0]],
-                                       "pressure": [data.pressure for data in current_chart_data[0]],
-                                       "rain": [data.rain_1h for data in current_chart_data[1]],
-                                       "rain_datetime": [data.date_time.strftime("%Y-%m-%d %H:%M:%S") for data in current_chart_data[1]],
-                                       "wind_direction": current_chart_data[2]}
+            current_chart_data = MeteoLiveUtils.get_current_charts_data(cls, data_name, interval_duration, column_mapping)
 
-            return current_chart_data_dict
+            return current_chart_data
 
         except Exception:
             app.logger.exception("[LansEnVercorsData - current_charts_data] - Erreur lors de la récupération des données pour les graphiques.")
