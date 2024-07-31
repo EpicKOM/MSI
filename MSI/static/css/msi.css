@@ -98,3 +98,7 @@ main
 .disabled {
     pointer-events: none; /* Désactive les clics */
 }
+
+.custom-dropdown .dropdown-toggle::after {
+    display: none; /* Hide the default arrow */
+}
