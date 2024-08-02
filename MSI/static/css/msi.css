@@ -36,11 +36,23 @@ main
 }
 
 /* --- Navbar ------------------------------------------ */
+.navbar {
+    background: rgba(9, 9, 11, 0.6) !important;; /* Couleur de fond avec opacité */
+    backdrop-filter: blur(10px); /* Effet de flou */
+    -webkit-backdrop-filter: blur(5px); /* Support pour Safari */
+    border-bottom: 1px solid rgba(251, 251, 251, .3);
+}
+
 .menu-button-hov-bgcolor:hover {
     background-color:rgba(68, 69, 74, 1);
 }
 
 .dropdown-border {border: 1px solid rgba(251, 251, 251, .3);}
+
+/* --- Footer ------------------------------------------ */
+footer {
+    border-top: 1px solid rgba(251, 251, 251, .3);
+}
 
 /* --- Website Scrollbar -------------------------------- */
 ::-webkit-scrollbar
@@ -88,7 +100,7 @@ main
     background-color: rgba(80, 180, 211, 0.2);
 }
 
-.disabled {
+.action-item-disabled {
     pointer-events: none; /* Désactive les clics */
 }
 

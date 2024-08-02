@@ -63,7 +63,7 @@
                             {% if data["index"] > 0 %}
                                 <hr class="mt-1 mb-1">
                             {% endif %}
-                            <div class="d-flex p-1 rounded-3 align-items-center action-item forecast-items {% if data['index'] == 0 %} bg-active-color border-active disabled{% endif %}" data-value="{{ data['index'] }}">
+                            <div class="d-flex p-1 rounded-3 align-items-center action-item forecast-items {% if data['index'] == 0 %} bg-active-color border-active action-item-disabled{% endif %}" data-value="{{ data['index'] }}">
                                 <div class="flex-shrink-0">
                                     <img class="img-fluid" src="https://static.meteoblue.com/assets/images/picto/{{ data['pictocode'] }}_iday.svg" alt="weather-icon" style="width: 60px; height: 60px;">
                                 </div>

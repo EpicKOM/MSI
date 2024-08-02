@@ -519,9 +519,9 @@ $(document).ready(function(){
 
     // Chart Data selector action
     $('.chart-data-selector').on('click', function() {
-        if (!$(this).hasClass('disabled')) {
-            $('.chart-data-selector').removeClass('bg-active-color border-active disabled');
-            $(this).addClass('bg-active-color border-active disabled');
+        if (!$(this).hasClass('action-item-disabled')) {
+            $('.chart-data-selector').removeClass('bg-active-color border-active action-item-disabled');
+            $(this).addClass('bg-active-color border-active action-item-disabled');
 
             dataName = $(this).data('value');
 

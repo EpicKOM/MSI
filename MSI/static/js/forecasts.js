@@ -16,9 +16,9 @@ $(document).ready(function() {
     ajaxRequest(0);
 
     $('.forecast-items').on('click', function() {
-        if (!$(this).hasClass('disabled')) {
-            $('.forecast-items').removeClass('bg-active-color border-active disabled');
-            $(this).addClass('bg-active-color border-active disabled');
+        if (!$(this).hasClass('action-item-disabled')) {
+            $('.forecast-items').removeClass('bg-active-color border-active action-item-disabled');
+            $(this).addClass('bg-active-color border-active action-item-disabled');
 
             let dayNumber = parseInt($(this).data('value'), 10);
 
