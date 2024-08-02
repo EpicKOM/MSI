@@ -36,16 +36,9 @@ main
 }
 
 /* --- Navbar ------------------------------------------ */
-.active-background {
-    background-color: rgba(68, 69, 74, 1);
-    border-radius: 4px;
-}
-
 .menu-button-hov-bgcolor:hover {
     background-color:rgba(68, 69, 74, 1);
 }
-
-.dropdown-hov-bgcolor:hover{background-color:rgba(46, 67, 110, 1);}
 
 .dropdown-border {border: 1px solid rgba(251, 251, 251, .3);}
 
@@ -99,6 +92,16 @@ main
     pointer-events: none; /* Désactive les clics */
 }
 
+/* --- Dropdown-Select -------------------------------- */
 .custom-dropdown .dropdown-toggle::after {
     display: none; /* Hide the default arrow */
 }
+
+.btn-hover {
+    transition: border 0.3s;
+}
+
+.btn-hover:hover {
+    border: 1px solid rgba(251, 251, 251, 1);
+}
+

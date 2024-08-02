@@ -5,12 +5,12 @@
 {% endblock css %}
 
 {% block previsions_active %}
-    active-background active
+    active
 {% endblock %}
 
 {% block content %}
     {% if forecasts_is_empty %}
-        <div class="container mt-3">
+        <div class="container mt-4">
             <h3 class="text-center text-danger">
                 <span class="fa-stack fa-2x">
                     <i class="fas fa-database fa-stack-1x fa-inverse text-info"></i>
@@ -21,7 +21,7 @@
             </h3>
         </div>
     {% else %}
-        <div class="container mt-3">
+        <div class="container mt-4">
             {% if not is_data_fresh %}
                 <div class="d-flex justify-content-md-center">
                     <div class="alert alert-dismissible w-40 text-center text-light-red bg-dark-red border-error" role="alert" id="forecasts-unavailable-alert" style="display: none;">

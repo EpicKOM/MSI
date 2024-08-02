@@ -5,7 +5,7 @@
 {% endblock css %}
 
 {% block meteo_active %}
-    active-background active
+    active
 {% endblock %}
 
 {% block content %}
@@ -14,20 +14,19 @@
             <div class="col-lg-3">
                 <div class="dropdown custom-dropdown w-100 mt-5">
                     <button
-                        class="btn bg-primary-color msi-border text-light dropdown-toggle w-100 d-flex justify-content-between align-items-center"
+                        class="btn btn-hover bg-primary-color msi-border text-light dropdown-toggle w-100 d-flex justify-content-between align-items-center"
                         type="button"
-                        id="dropdownMenuButton"
                         data-mdb-dropdown-init
                         data-mdb-ripple-init
                         aria-expanded="false">
-                        <span>7 jours</span>
-                        <i class="fa-solid fa-sort opacity-50"></i> <!-- Custom icon -->
+                        <span id="dropdownTitle">24h</span>
+                        <i class="fa-solid fa-sort opacity-50"></i>
                     </button>
                     <ul class="dropdown-menu bg-primary-color msi-border w-100" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item text-light d-flex justify-content-between align-items-center disabled" href="#">24h<i class="fa-solid fa-check text-success"></i></a></li>
-                        <li><a class="dropdown-item text-light" href="#">48h</a></li>
-                        <li><a class="dropdown-item text-light" href="#">72h</a></li>
-                        <li><a class="dropdown-item text-light" href="#">7 jours</a></li>
+                        <li><a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item" data-value="1">24h<i class="fa-solid fa-check text-success"></i></a></li>
+                        <li><a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item" data-value="2">48h</a></li>
+                        <li><a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item" data-value="3">72h</a></li>
+                        <li><a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item" data-value="7">7 jours</a></li>
                     </ul>
                 </div>
             </div>

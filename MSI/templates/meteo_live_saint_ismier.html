@@ -5,12 +5,12 @@
 {% endblock css %}
 
 {% block meteo_active %}
-    active-background active
+    active
 {% endblock %}
 
 {% block content %}
     {% if table_is_empty %}
-        <div class="container mt-3">
+        <div class="container mt-4">
             <h3 class="text-center text-danger">
                 <span class="fa-stack fa-2x">
                     <i class="fas fa-database fa-stack-1x fa-inverse text-info"></i>
@@ -21,7 +21,7 @@
             </h3>
         </div>
     {% else %}
-        <div class="container mt-3">
+        <div class="container mt-4">
             {% if not is_data_fresh %}
                 <div class="d-flex justify-content-md-center">
                     <div class="alert alert-dismissible w-40 text-center text-light-red bg-dark-red border-error" role="alert" id="weather-station-unavailable-alert" style="display: none;">
@@ -247,12 +247,23 @@
                     </div>
                 </div>
                 <div class="col-lg-3 order-1 order-lg-2">
-                    <select class="form-select select-modern text-light" id="select_charts_duration">
-                        <option value="24 heures" selected>24 heures</option>
-                        <option value="48 heures">48 heures</option>
-                        <option value="72 heures">72 heures</option>
-                        <option value="7 jours">7 jours</option>
-                    </select>
+                    <div class="dropdown custom-dropdown w-100">
+                        <button
+                            class="btn btn-hover bg-primary-color msi-border text-light dropdown-toggle w-100 d-flex justify-content-between align-items-center"
+                            type="button"
+                            data-mdb-dropdown-init
+                            data-mdb-ripple-init
+                            aria-expanded="false">
+                            <span id="chartPeriodSelectorTitle">24h</span>
+                            <i class="fa-solid fa-sort opacity-50"></i>
+                        </button>
+                        <ul class="dropdown-menu bg-primary-color msi-border w-100" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item chart-period-selector" data-value="1">24h<i class="fa-solid fa-check text-success"></i></a></li>
+                            <li><a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item chart-period-selector" data-value="2">48h</a></li>
+                            <li><a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item chart-period-selector" data-value="3">72h</a></li>
+                            <li><a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item chart-period-selector" data-value="7">7 jours</a></li>
+                        </ul>
+                    </div>
                     <div class="card bg-primary-color p-2 msi-border mt-3">
                         <div class="d-flex align-items-center rounded-3 p-3 bg-active-color border-active action-item chart-data-selector disabled" data-value="temperature">
                             <i class="fa-solid fa-chart-line text-light fa-lg me-3"></i>

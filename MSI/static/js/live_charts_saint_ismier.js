@@ -507,13 +507,14 @@ let intervalDuration = 1;
 
 //------------------LOGIQUE---------------------------------------------------------------------------------------------
 $(document).ready(function(){
-
     // Select Action
-    $('#select_charts_duration').change(function() {
-        let intervalDurationString = $(this).val();
-        intervalDuration = convertSelectResponseToDays(intervalDurationString);
-
+    $('.chart-period-selector').click(function(e) {
+        intervalDuration = $(this).data('value');
         ajaxRequest(dataName, intervalDuration);
+
+        $('.chart-period-selector').find('i.fa-check').remove();
+        $(this).append('<i class="fa-solid fa-check text-success"></i>');
+        $('#chartPeriodSelectorTitle').text($(this).text());
     });
 
     // Chart Data selector action

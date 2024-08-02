@@ -1,5 +1,6 @@
 let url_week = [];
 let url_season = [];
+let interval_duration = "semaine";
 
 $(document).ready(function() {
     $('#snowTab').on('click', function() {
@@ -21,8 +22,13 @@ $(document).ready(function() {
         ajaxRequest(massifName)
     });
 
-    $('#snowCoverageSelect').change(function() {
+    $('.snow-coverage-selector').click(function(e) {
+        interval_duration = $(this).data('value');
         updateSnowCoverageColumn();
+
+        $('.snow-coverage-selector').find('i.fa-check').remove();
+        $(this).append('<i class="fa-solid fa-check text-success"></i>');
+        $('#snowCoveragePeriodSelectTitle').text($(this).text());
     });
 
     ajaxRequest("belledonne");
@@ -54,7 +60,6 @@ function ajaxRequest(massifName) {
 function updateSnowCoverageColumn() {
     $('#snowCoverageContainer').empty();
 
-    let interval_duration = $('#snowCoverageSelect').val();
     let urls;
 
     if (interval_duration === "saison") {
