@@ -14,21 +14,27 @@ $(document).ready(function() {
     })
 
     $('.mountain-button').on('click', function() {
-        $('.mountain-button').removeClass('bg-active-color');
-        $(this).addClass('bg-active-color');
+        if (!$(this).hasClass('action-item-disabled')) {
+            $('.mountain-button').removeClass('bg-active-color action-item-disabled');
+            $(this).addClass('bg-active-color action-item-disabled');
 
-        let massifName = $(this).data('value');
+            let massifName = $(this).data('value');
 
-        ajaxRequest(massifName)
+            ajaxRequest(massifName)
+        }
     });
 
     $('.snow-coverage-selector').click(function(e) {
-        interval_duration = $(this).data('value');
-        updateSnowCoverageColumn();
+        if (!$(this).hasClass('action-item-disabled')) {
+            interval_duration = $(this).data('value');
+            updateSnowCoverageColumn();
 
-        $('.snow-coverage-selector').find('i.fa-check').remove();
-        $(this).append('<i class="fa-solid fa-check text-success"></i>');
-        $('#snowCoveragePeriodSelectTitle').text($(this).text());
+            $('.snow-coverage-selector').removeClass('action-item-disabled');
+            $('.snow-coverage-selector').find('i.fa-check').remove();
+            $(this).append('<i class="fa-solid fa-check text-success"></i>');
+            $(this).addClass('action-item-disabled');
+            $('#snowCoveragePeriodSelectTitle').text($(this).text());
+        }
     });
 
     ajaxRequest("belledonne");

@@ -523,12 +523,16 @@ let intervalDuration = 1;
 $(document).ready(function(){
     // Select Action
     $('.chart-period-selector').click(function(e) {
-        intervalDuration = $(this).data('value');
-        ajaxRequest(dataName, intervalDuration);
+        if (!$(this).hasClass('action-item-disabled')) {
+            intervalDuration = $(this).data('value');
+            ajaxRequest(dataName, intervalDuration);
 
-        $('.chart-period-selector').find('i.fa-check').remove();
-        $(this).append('<i class="fa-solid fa-check text-success"></i>');
-        $('#chartPeriodSelectorTitle').text($(this).text());
+            $('.chart-period-selector').removeClass('action-item-disabled');
+            $('.chart-period-selector').find('i.fa-check').remove();
+            $(this).append('<i class="fa-solid fa-check text-success"></i>');
+            $(this).addClass('action-item-disabled');
+            $('#chartPeriodSelectorTitle').text($(this).text());
+        }
     });
 
     // Chart Data selector action
