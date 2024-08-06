@@ -79,9 +79,12 @@ class MeteoLiveUtils:
 
     @staticmethod
     def get_cumulative_rain_today(cls):
-        date_beginning_day = MeteoLiveUtils.get_last_record_datetime(cls).date()
+        current_date = MeteoLiveUtils.get_last_record_datetime(cls).date()
+        date_beginning = datetime.datetime.combine(current_date, datetime.datetime.min.time())
+        date_end = date_beginning + datetime.timedelta(days=1)
 
-        data_rain_today = cls.query.with_entities(cls.rain_1h).filter(db.func.DATE(cls.date_time) == date_beginning_day,
+        data_rain_today = cls.query.with_entities(cls.rain_1h).filter(cls.date_time > date_beginning,
+                                                                      cls.date_time <= date_end,
                                                                       cls.rain_1h.isnot(None)).all()
 
         data_rain_today_list = [x[0] for x in data_rain_today]
