@@ -19,7 +19,6 @@ handler.setFormatter(logging.Formatter("[%(asctime)s] - %(levelname)s - %(messag
 handler.setLevel(logging.INFO)
 app.logger.setLevel(logging.INFO)
 app.logger.addHandler(handler)
-# app.logger.info("MSI startup")
 
 
 from MSI import routes
