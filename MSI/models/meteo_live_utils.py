@@ -186,6 +186,7 @@ class MeteoLiveUtils:
             app.logger.error(f"[wind_direction_percentage] : Division par zéro impossible. Total = {total}")
 
         except Exception:
-            app.logger.exception("[wind_direction_percentage] : Erreur lors du calcul du pourcentage de la direction du vent.")
+            app.logger.exception("[wind_direction_percentage] : Erreur lors du calcul du pourcentage de la direction "
+                                 "du vent.")
 
         return 0.0

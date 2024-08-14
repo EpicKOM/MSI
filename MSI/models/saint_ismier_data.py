@@ -62,7 +62,8 @@ class SaintIsmierData(db.Model):
 
         except Exception:
             app.logger.exception(
-                "[SaintIsmierData - temperature_extremes_today] - Erreur lors de la récupération des températures extrêmes du jour.")
+                "[SaintIsmierData - temperature_extremes_today] - Erreur lors de la récupération des températures "
+                "extrêmes du jour.")
 
     @classmethod
     def cumulative_rain_today(cls):
@@ -108,4 +109,5 @@ class SaintIsmierData(db.Model):
             return current_chart_data
 
         except Exception:
-            app.logger.exception("[SaintIsmierData - current_charts_data] - Erreur lors de la récupération des données pour les graphiques.")
+            app.logger.exception("[SaintIsmierData - current_charts_data] - Erreur lors de la récupération des "
+                                 "données pour les graphiques.")
