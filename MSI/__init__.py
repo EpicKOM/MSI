@@ -3,22 +3,25 @@ from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_compress import Compress
 from logging.handlers import SysLogHandler
+
 import logging
 
 app = Flask(__name__)
 app.config.from_object(Config)
 
-
 # Initialize Flask modules
-Config()
 db = SQLAlchemy(app)
 compress = Compress(app)
 
+# Initialize Flask logs
 handler = SysLogHandler(address=(app.config.get('PAPERTRAIL_HOST'), app.config.get('PAPERTRAIL_PORT')))
 handler.setFormatter(logging.Formatter("[%(asctime)s] - %(levelname)s - %(message)s"))
 handler.setLevel(logging.INFO)
 app.logger.setLevel(logging.INFO)
 app.logger.addHandler(handler)
 
+from MSI.api import bp as api_bp
+app.register_blueprint(api_bp, url_prefix='/api')
 
-from MSI import routes
+from MSI import routes, errors
+

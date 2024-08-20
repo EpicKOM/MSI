@@ -3,7 +3,7 @@ from flask import render_template, request, abort, jsonify
 from MSI.models.saint_ismier_data import SaintIsmierData
 from MSI.models.saint_martin_dheres_data import SaintMartinDheresData
 from MSI.models.lans_en_vercors_data import LansEnVercorsData
-from MSI.api.forecasts import ForecastsApi
+from MSI.api_2.forecasts import ForecastsApi
 from MSI.pages.observations import Observations
 import datetime
 
@@ -167,52 +167,3 @@ def observations_update():
 @app.route("/test/")
 def test():
     return render_template("test.html")
-
-
-# -------GESTION DES ERREURS--------------------------------------------------------------------------------------------
-@app.errorhandler(400)
-def error_400(error):
-    app.logger.warning(f"Erreur 400 : {error}")
-    return render_template('error.html',
-                           error_code=400,
-                           title="Erreur 400 - Mauvaise requête"), 400
-
-
-@app.errorhandler(403)
-def error_403(error):
-    app.logger.warning(f"Erreur 403 : {error}")
-    return render_template('error.html',
-                           error_code=403,
-                           title="Erreur 403 - Accès interdit"), 403
-
-
-@app.errorhandler(404)
-def error_404(error):
-    app.logger.warning(f"Erreur 404 : {error}")
-    return render_template('error.html',
-                           error_code=404,
-                           title="Erreur 404 - Page non trouvée"), 404
-
-
-@app.errorhandler(405)
-def error_405(error):
-    app.logger.warning(f"Erreur 405 : {error}")
-    return render_template('error.html',
-                           error_code=405,
-                           title="Erreur 405 - Méthode non autorisée"), 405
-
-
-@app.errorhandler(410)
-def error_410(error):
-    app.logger.warning(f"Erreur 410 : {error}")
-    return render_template('error.html',
-                           error_code=410,
-                           title="Erreur 410 - Ressource supprimée"), 410
-
-
-@app.errorhandler(500)
-def error_500(error):
-    app.logger.error(f"Erreur 500 : {error}")
-    return render_template('error.html',
-                           error_code=500,
-                           title="Erreur 500 - Erreur interne du serveur"), 500

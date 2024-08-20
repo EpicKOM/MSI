@@ -23,3 +23,6 @@ class Config:
 
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'flask-secret-key'
     ENV = os.environ.get('ENV') or 'development'
+    TESTING = os.environ.get('TESTING') or True
+    API_PATH_PREFIX = os.environ.get('API_PATH_PREFIX') or '/api/'
+
