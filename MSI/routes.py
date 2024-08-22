@@ -1,9 +1,7 @@
 from MSI import app, db
 from flask import render_template, request, abort, jsonify
-from MSI.models.saint_ismier_data import SaintIsmierData
-from MSI.models.saint_martin_dheres_data import SaintMartinDheresData
-from MSI.models.lans_en_vercors_data import LansEnVercorsData
-from MSI.api_2.forecasts import ForecastsApi
+from MSI.models import SaintIsmierData, SaintMartinDheresData, LansEnVercorsData
+from MSI.data_loaders.forecasts import ForecastsApi
 from MSI.pages.observations import Observations
 import datetime
 

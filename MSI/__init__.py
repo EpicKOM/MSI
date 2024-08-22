@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_marshmallow import Marshmallow
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_compress import Compress
@@ -12,6 +13,7 @@ app.config.from_object(Config)
 # Initialize Flask modules
 db = SQLAlchemy(app)
 compress = Compress(app)
+ma = Marshmallow(app)
 
 # Initialize Flask logs
 handler = SysLogHandler(address=(app.config.get('PAPERTRAIL_HOST'), app.config.get('PAPERTRAIL_PORT')))
