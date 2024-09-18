@@ -1,1 +1,1 @@
-from .meteo_live import LiveChartsSchema
+from .meteo_live import InputLiveChartsSchema, SaintIsmierSchema

@@ -1,4 +1,5 @@
 from MSI.models import SaintIsmierData, SaintMartinDheresData, LansEnVercorsData
+from MSI.shemas import SaintIsmierSchema
 
 
 def get_model_class(station_name):
@@ -8,6 +9,6 @@ def get_model_class(station_name):
             }.get(station_name, None)
 
 
-# def get_schema(station_name):
-#     return {"saint-ismier": MeteoLiveSaintIsmierSchema,
-#             }.get(station_name, None)
+def get_schema(station_name):
+    return {"saint-ismier": SaintIsmierSchema,
+            }.get(station_name, None)

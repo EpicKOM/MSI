@@ -1,10 +1,10 @@
 from flask import Flask
-from flask_marshmallow import Marshmallow
-from config import Config
-from flask_sqlalchemy import SQLAlchemy
+from apifairy import APIFairy
 from flask_compress import Compress
+from flask_marshmallow import Marshmallow
+from flask_sqlalchemy import SQLAlchemy
+from config import Config
 from logging.handlers import SysLogHandler
-
 import logging
 
 app = Flask(__name__)
@@ -14,6 +14,7 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 compress = Compress(app)
 ma = Marshmallow(app)
+apifairy = APIFairy(app)
 
 # Initialize Flask logs
 handler = SysLogHandler(address=(app.config.get('PAPERTRAIL_HOST'), app.config.get('PAPERTRAIL_PORT')))

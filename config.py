@@ -21,8 +21,12 @@ class Config:
     PAPERTRAIL_HOST = os.environ.get('PAPERTRAIL_HOST')
     PAPERTRAIL_PORT = int(os.getenv('PAPERTRAIL_PORT'))
 
+    # Configure the API documentation
+    APIFAIRY_TITLE = os.environ.get('APIFAIRY_TITLE') or 'MSI API'
+    APIFAIRY_VERSION = os.environ.get('APIFAIRY_VERSION')
+
+    API_PATH_PREFIX = os.environ.get('API_PATH_PREFIX') or '/api/'
+
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'flask-secret-key'
     ENV = os.environ.get('ENV') or 'development'
     TESTING = os.environ.get('TESTING') or True
-    API_PATH_PREFIX = os.environ.get('API_PATH_PREFIX') or '/api/'
-

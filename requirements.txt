@@ -1,3 +1,5 @@
 flask~=3.0.3
 python-dotenv~=1.0.1
 werkzeug~=3.0.2
+marshmallow~=3.22.0
+apifairy~=1.4.0
