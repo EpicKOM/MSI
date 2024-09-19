@@ -101,9 +101,9 @@ class MeteoLiveUtils:
         data_rain_1h = cls.query.with_entities(cls.rain_1h).filter(cls.date_time == rain_measurement_end_date,
                                                                    cls.rain_1h.isnot(None)).scalar()
 
-        rain_1h = {"rain_1h": round(data_rain_1h, 1) if data_rain_1h is not None else "-",
+        rain_1h = {"rain_1h": round(data_rain_1h, 1) if data_rain_1h is not None else None,
                    "rain_1h_date": f"Mesure effectuée entre {rain_measurement_start_date.strftime('%H:%M')} et "
-                                   f"{rain_measurement_end_date.strftime('%H:%M')}" if data_rain_1h is not None else "-"
+                                   f"{rain_measurement_end_date.strftime('%H:%M')}" if data_rain_1h is not None else None
                    }
 
         return rain_1h

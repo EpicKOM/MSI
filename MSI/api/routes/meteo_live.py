@@ -3,24 +3,34 @@ from apifairy import response, other_responses, body
 from marshmallow import ValidationError
 from MSI.models import SaintIsmierData, SaintMartinDheresData, LansEnVercorsData
 from MSI.schemas import InputLiveChartsSchema, SaintIsmierSchema
-from MSI.api.utils.functions import get_model_class, get_schema
+from MSI.api.utils.functions import get_model_and_schema
 from MSI.api import bp
 from MSI import app
 
 
 @bp.route('/meteo-live/<string:station_name>', methods=['GET'])
+@other_responses({404: "Weather station not found"})
 def get_meteo_live(station_name: str):
-    model_class = get_model_class(station_name)
-    schema = get_schema(station_name)
+    model_class, schema = get_model_and_schema(station_name)
+
     if not model_class or not schema:
         abort(404)
 
-    current_data = model_class.current_data()
+    is_table_empty = model_class.table_is_empty()
+    data_status = {"is_table_empty": is_table_empty}
+    context = {"data_status": data_status}
 
-    @response(schema)
-    def test():
-        return current_data
-    return test()
+    if not is_table_empty:
+        data_status["is_data_fresh"] = model_class.check_is_data_fresh()
+        rain_24h = {"rain_24h": model_class.cumulative_rain_today()}
+        current_weather_data = model_class.current_data() | model_class.rain() | rain_24h
+
+        context.update(data_status=data_status,
+                       current_weather_data=current_weather_data,
+                       temperature_extremes_today=model_class.temperature_extremes_today(),
+                       maximum_gust_today=model_class.maximum_gust_today())
+
+    return jsonify(schema.dump(context))
 
 # @bp.route('/meteo-live/<string:station_name>', methods=['GET'])
 # def get_meteo_live(station_name: str):
