@@ -1,5 +1,5 @@
 from MSI.models import SaintIsmierData, SaintMartinDheresData, LansEnVercorsData
-from MSI.shemas import SaintIsmierSchema
+from MSI.schemas import SaintIsmierSchema, SaintMartinDheresSchema, LansEnVercorsSchema
 
 
 def get_model_class(station_name):
@@ -11,4 +11,6 @@ def get_model_class(station_name):
 
 def get_schema(station_name):
     return {"saint-ismier": SaintIsmierSchema,
+            "saint-martin-d-heres": SaintMartinDheresSchema,
+            "lans-en-vercors": LansEnVercorsSchema
             }.get(station_name, None)

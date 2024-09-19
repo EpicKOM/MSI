@@ -2,18 +2,25 @@ from flask import jsonify, abort, request
 from apifairy import response, other_responses, body
 from marshmallow import ValidationError
 from MSI.models import SaintIsmierData, SaintMartinDheresData, LansEnVercorsData
-from MSI.shemas import InputLiveChartsSchema, SaintIsmierSchema
+from MSI.schemas import InputLiveChartsSchema, SaintIsmierSchema
 from MSI.api.utils.functions import get_model_class, get_schema
 from MSI.api import bp
 from MSI import app
 
 
 @bp.route('/meteo-live/<string:station_name>', methods=['GET'])
-@response(SaintIsmierSchema, 200)
 def get_meteo_live(station_name: str):
     model_class = get_model_class(station_name)
+    schema = get_schema(station_name)
+    if not model_class or not schema:
+        abort(404)
+
     current_data = model_class.current_data()
-    return current_data
+
+    @response(schema)
+    def test():
+        return current_data
+    return test()
 
 # @bp.route('/meteo-live/<string:station_name>', methods=['GET'])
 # def get_meteo_live(station_name: str):
