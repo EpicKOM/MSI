@@ -15,7 +15,7 @@ class SaintIsmierData(db.Model):
     temperature_trend = db.Column(db.String(6))
 
     @classmethod
-    def table_is_empty(cls):
+    def is_table_empty(cls):
         try:
             return cls.query.first() is None
 

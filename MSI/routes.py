@@ -19,7 +19,8 @@ def current_year():
 @app.route("/")
 @app.route("/meteo-live/saint-ismier/")
 def meteo_live_saint_ismier():
-    table_is_empty = SaintIsmierData.table_is_empty()
+    table_is_empty = SaintIsmierData.is_table_empty()
+
     context = {'table_is_empty': table_is_empty}
 
     if not table_is_empty:

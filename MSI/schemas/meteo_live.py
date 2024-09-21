@@ -69,6 +69,11 @@ class LansEnVercorsSchema(ma.Schema):
     maximum_gust_today = ma.Nested(MaximumGustTodaySchema)
 
 
+class TestSchema(ma.Schema):
+    temperature = ma.Float(dump_only=True)
+    humidity = ma.Integer(dump_only=True)
+
+
 class InputLiveChartsSchema(ma.Schema):
     data_name = ma.String(required=True)
     interval_duration = ma.Integer(required=True)
