@@ -9,7 +9,6 @@ from MSI import app
 
 
 @bp.route('/meteo-live/<string:station_name>', methods=['GET'])
-@response(lambda station_name: get_station_schema(station_name)())
 @other_responses({404: "Weather station not found"})
 def get_meteo_live(station_name: str):
     model_class, schema = get_model_and_schema(station_name)
@@ -17,46 +16,21 @@ def get_meteo_live(station_name: str):
     if not model_class or not schema:
         abort(404)
 
-    print(schema)
+    is_table_empty = model_class.is_table_empty()
+    data_status = {"is_table_empty": is_table_empty}
+    context = {"data_status": data_status}
 
-    @response(schema)
-    def formated_response():
-        data = {"temperature": 26.8,
-                "humidity": 56}
-        return data
+    if not is_table_empty:
+        data_status["is_data_fresh"] = model_class.check_is_data_fresh()
+        rain_24h = {"rain_24h": model_class.cumulative_rain_today()}
+        current_weather_data = model_class.current_data() | model_class.rain() | rain_24h
 
-    return formated_response
+        context.update(data_status=data_status,
+                       current_weather_data=current_weather_data,
+                       temperature_extremes_today=model_class.temperature_extremes_today(),
+                       maximum_gust_today=model_class.maximum_gust_today())
 
-
-
-
-
-
-
-
-# @bp.route('/meteo-live/<string:station_name>', methods=['GET'])
-# @other_responses({404: "Weather station not found"})
-# def get_meteo_live(station_name: str):
-#     model_class, schema = get_model_and_schema(station_name)
-#
-#     if not model_class or not schema:
-#         abort(404)
-#
-#     is_table_empty = model_class.is_table_empty()
-#     data_status = {"is_table_empty": is_table_empty}
-#     context = {"data_status": data_status}
-#
-#     if not is_table_empty:
-#         data_status["is_data_fresh"] = model_class.check_is_data_fresh()
-#         rain_24h = {"rain_24h": model_class.cumulative_rain_today()}
-#         current_weather_data = model_class.current_data() | model_class.rain() | rain_24h
-#
-#         context.update(data_status=data_status,
-#                        current_weather_data=current_weather_data,
-#                        temperature_extremes_today=model_class.temperature_extremes_today(),
-#                        maximum_gust_today=model_class.maximum_gust_today())
-#
-#     return jsonify(schema.dump(context))
+    return jsonify(schema.dump(context))
 
 # @bp.route('/meteo-live/<string:station_name>', methods=['GET'])
 # def get_meteo_live(station_name: str):

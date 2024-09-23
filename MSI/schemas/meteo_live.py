@@ -5,19 +5,19 @@ from MSI import ma
 
 class BaseCurrentWeatherDataSchema(ma.Schema):
     update_datetime = ma.String(dump_only=True)
-    temperature = ma.Float(dump_only=True)
-    humidity = ma.Integer(dump_only=True)
-    wind = ma.Integer(dump_only=True)
-    gust = ma.Integer(dump_only=True)
-    wind_angle = ma.Integer(dump_only=True)
-    wind_direction = ma.String(dump_only=True)
+    temperature = ma.Float(dump_only=True, allow_none=True)
+    humidity = ma.Integer(dump_only=True, allow_none=True)
+    wind_speed = ma.Integer(dump_only=True, allow_none=True)
+    gust_speed = ma.Integer(dump_only=True, allow_none=True)
+    wind_angle = ma.Integer(dump_only=True, allow_none=True)
+    wind_direction = ma.String(dump_only=True, allow_none=True)
     rain_1h = ma.Float(dump_only=True, allow_none=True)
     rain_1h_date = ma.String(dump_only=True)
     rain_24h = ma.Float(dump_only=True)
 
 
 class SaintIsmierCurrentWeatherDataSchema(BaseCurrentWeatherDataSchema):
-    pressure = ma.Float(dump_only=True)
+    pressure = ma.Float(dump_only=True, allow_none=True)
     temperature_trend = ma.String(dump_only=True)
 
 

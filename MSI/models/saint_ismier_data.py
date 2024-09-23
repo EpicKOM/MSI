@@ -15,38 +15,37 @@ class SaintIsmierData(db.Model):
     temperature_trend = db.Column(db.String(6))
 
     @classmethod
-    def is_table_empty(cls):
+    def get_data_status(cls):
         try:
-            return cls.query.first() is None
+            is_table_empty = cls.query.first() is None
+            data_status = {"is_table_empty": is_table_empty,
+                           "is_data_fresh": False}
+
+            if not is_table_empty:
+                data_status["is_data_fresh"] = MeteoLiveUtils.is_data_fresh(cls)
+
+            return data_status
 
         except Exception:
             app.logger.exception(
-                "[SaintIsmierData - table_is_empty] - Erreur lors de la vérification de l'état vide de la table.")
+                "[SaintIsmierData - get_data_status] - Erreur lors de la récupération du status des données de la table.")
 
     @classmethod
-    def check_is_data_fresh(cls):
-        try:
-            return MeteoLiveUtils.get_check_is_data_fresh(cls)
-
-        except Exception:
-            app.logger.exception(
-                "[SaintIsmierData - check_reception] - Erreur lors de la vérification de la réception des données.")
-
-    @classmethod
-    def current_data(cls):
+    def get_current_weather_data(cls):
         try:
             data = MeteoLiveUtils.get_last_record(cls)
 
             current_data = {"update_datetime": data.date_time.strftime("%d/%m/%Y à %H:%M"),
-                            "temperature": round(data.temperature, 1) if data.temperature is not None else "-",
-                            "humidity": data.humidity if data.humidity is not None else "-",
-                            "wind": data.wind if data.wind is not None else "-",
-                            "gust": round(data.gust, 1) if data.gust is not None else "-",
-                            "wind_angle": data.wind_angle if data.wind_angle is not None else "-",
+                            "temperature": round(data.temperature, 1) if data.temperature else None,
+                            "humidity": data.humidity if data.humidity else None,
+                            "wind_speed": data.wind if data.wind else None,
+                            "gust_speed": round(data.gust, 1) if data.gust else None,
+                            "wind_angle": data.wind_angle if data.wind_angle else None,
                             "wind_direction": MeteoLiveUtils.get_wind_direction(
-                                data.wind_angle) if data.wind_angle is not None else "-",
-                            "pressure": data.pressure if data.pressure is not None else "-",
-                            "temperature_trend": data.temperature_trend if data.temperature_trend is not None else "stable"
+                                data.wind_angle) if data.wind_angle else None,
+                            "rain_24h": MeteoLiveUtils.get_rain_24h(),
+                            "pressure": data.pressure if data.pressure else None,
+                            "temperature_trend": data.temperature_trend if data.temperature_trend else "stable"
                             }
 
             return current_data

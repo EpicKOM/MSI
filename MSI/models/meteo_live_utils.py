@@ -6,7 +6,7 @@ class MeteoLiveUtils:
 
     # ------------METEO LIVE--------------------------------------------------------------------------------------------
     @staticmethod
-    def get_check_is_data_fresh(cls):
+    def is_data_fresh(cls):
         """
         Checks if there has been a reception error based on the time elapsed
         since the last record was received.
@@ -78,7 +78,7 @@ class MeteoLiveUtils:
         return temperature_extremes_today
 
     @staticmethod
-    def get_cumulative_rain_today(cls):
+    def get_rain_24h(cls):
         current_date = MeteoLiveUtils.get_last_record_datetime(cls).date()
         date_beginning = datetime.datetime.combine(current_date, datetime.datetime.min.time())
         date_end = date_beginning + datetime.timedelta(days=1)
