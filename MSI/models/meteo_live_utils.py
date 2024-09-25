@@ -32,6 +32,10 @@ class MeteoLiveUtils:
         return cls.query.order_by(cls.id.desc()).first()
 
     @staticmethod
+    def get_last_record_datetime(cls):
+        return cls.query.with_entities(db.func.max(cls.date_time)).scalar()
+
+    @staticmethod
     def get_wind_direction(wind_angle):
         """
         Determines the wind direction based on the given wind angle.
@@ -52,73 +56,71 @@ class MeteoLiveUtils:
         return directions.get(compass_rose_angle)
 
     @staticmethod
-    def get_last_record_datetime(cls):
-        return cls.query.with_entities(db.func.max(cls.date_time)).scalar()
-
-    @staticmethod
-    def get_temperature_extremes_today(cls):
-        date_beginning_day = MeteoLiveUtils.get_last_record_datetime(cls).date()
-
-        temperature_extremes = cls.query.with_entities(db.func.min(cls.temperature).label("t_min"),
-                                                       db.func.max(cls.temperature).label("t_max")) \
-            .filter(db.func.DATE(cls.date_time) == date_beginning_day, cls.temperature.isnot(None)).first()
-
-        t_max = temperature_extremes.t_max
-        t_min = temperature_extremes.t_min
-
-        t_max_time = cls.query.with_entities(db.func.max(cls.date_time)).filter_by(temperature=t_max).scalar()
-        t_min_time = cls.query.with_entities(db.func.max(cls.date_time)).filter_by(temperature=t_min).scalar()
-
-        temperature_extremes_today = {"tmax": round(t_max, 1) if t_max is not None else "-",
-                                      "tmin": round(t_min, 1) if t_min is not None else "-",
-                                      "tmax_time": t_max_time.strftime("%H:%M") if t_max is not None else "-",
-                                      "tmin_time": t_min_time.strftime("%H:%M") if t_min is not None else "-"
-                                      }
-
-        return temperature_extremes_today
-
-    @staticmethod
-    def get_rain_24h(cls):
-        current_date = MeteoLiveUtils.get_last_record_datetime(cls).date()
-        date_beginning = datetime.datetime.combine(current_date, datetime.datetime.min.time())
-        date_end = date_beginning + datetime.timedelta(days=1)
-
-        data_rain_today = cls.query.with_entities(cls.rain_1h).filter(cls.date_time > date_beginning,
-                                                                      cls.date_time <= date_end,
-                                                                      cls.rain_1h.isnot(None)).all()
-
-        data_rain_today_list = [x[0] for x in data_rain_today]
-
-        cumulative_rain_today = round(sum(data_rain_today_list), 1)
-
-        return cumulative_rain_today
-
-    @staticmethod
     def get_rain_1h(cls):
-        rain_measurement_end_date = MeteoLiveUtils.get_last_record_datetime(cls).replace(minute=0)
-        rain_measurement_start_date = rain_measurement_end_date - datetime.timedelta(hours=1)
+        end_datetime = MeteoLiveUtils.get_last_record_datetime(cls).replace(minute=0)
+        start_datetime = end_datetime - datetime.timedelta(hours=1)
 
-        data_rain_1h = cls.query.with_entities(cls.rain_1h).filter(cls.date_time == rain_measurement_end_date,
-                                                                   cls.rain_1h.isnot(None)).scalar()
+        rain_1h_value = cls.query.with_entities(cls.rain_1h).filter(cls.date_time == end_datetime,
+                                                                    cls.rain_1h.isnot(None)).scalar()
 
-        rain_1h = {"rain_1h": round(data_rain_1h, 1) if data_rain_1h is not None else None,
-                   "rain_1h_date": f"Mesure effectuée entre {rain_measurement_start_date.strftime('%H:%M')} et "
-                                   f"{rain_measurement_end_date.strftime('%H:%M')}" if data_rain_1h is not None else None
+        rain_1h = {"rain_1h": round(rain_1h_value, 1) if rain_1h_value is not None else None,
+                   "rain_1h_date": f"Mesure effectuée entre {start_datetime.strftime('%H:%M')} et "
+                                   f"{end_datetime.strftime('%H:%M')}" if rain_1h_value is not None else None
                    }
 
         return rain_1h
 
     @staticmethod
-    def get_maximum_gust_today(cls):
-        date_beginning_day = MeteoLiveUtils.get_last_record_datetime(cls).date()
+    def get_rain_24h(cls):
+        last_record_date = MeteoLiveUtils.get_last_record_datetime(cls).date()
+        start_datetime = datetime.datetime.combine(last_record_date, datetime.datetime.min.time())
+
+        rain_data_today = cls.query.with_entities(cls.rain_1h).filter(cls.date_time > start_datetime,
+                                                                      cls.rain_1h.isnot(None)).all()
+
+        rain_values_today = [x[0] for x in rain_data_today]
+
+        rain_24h = round(sum(rain_values_today), 1) if rain_values_today else 0
+
+        return rain_24h
+
+    @staticmethod
+    def get_daily_temperature_extremes(cls):
+        today = MeteoLiveUtils.get_last_record_datetime(cls).date()
+
+        extremes = cls.query.with_entities(db.func.min(cls.temperature).label("tmin"),
+                                           db.func.max(cls.temperature).label("tmax")).filter(
+            db.func.DATE(cls.date_time) == today, cls.temperature.isnot(None)).first()
+
+        tmax, tmin = extremes.tmax, extremes.tmin
+
+        extreme_times = cls.query.with_entities(
+            db.func.max(cls.date_time).filter(cls.temperature == tmin).label("tmin_time"),
+            db.func.max(cls.date_time).filter(cls.temperature == tmax).label("tmax_time")).filter(
+            db.func.DATE(cls.date_time) == today).first()
+
+        tmax_time, tmin_time = extreme_times.tmax_time, extreme_times.tmin_time
+
+        daily_temperature_extremes = {"tmax": round(tmax, 1) if tmax is not None else None,
+                                      "tmin": round(tmin, 1) if tmin is not None else None,
+                                      "tmax_time": tmax_time.strftime("%H:%M") if tmax is not None else None,
+                                      "tmin_time": tmin_time.strftime("%H:%M") if tmin is not None else None
+                                      }
+
+        return daily_temperature_extremes
+
+    @staticmethod
+    def get_daily_max_gust(cls):
+        today = MeteoLiveUtils.get_last_record_datetime(cls).date()
 
         gust_max = cls.query.with_entities(db.func.max(cls.gust)).filter(
-            db.func.DATE(cls.date_time) == date_beginning_day,
+            db.func.DATE(cls.date_time) == today,
             cls.gust.isnot(None)).scalar()
+
         gust_max_time = cls.query.with_entities(db.func.max(cls.date_time)).filter_by(gust=gust_max).scalar()
 
-        maximum_gust_today = {"gust_max": round(gust_max, 1) if gust_max is not None else "-",
-                              "gust_max_time": gust_max_time.strftime("%H:%M") if gust_max is not None else "-"
+        maximum_gust_today = {"gust_max": round(gust_max, 1) if gust_max is not None else None,
+                              "gust_max_time": gust_max_time.strftime("%H:%M") if gust_max is not None else None
                               }
 
         return maximum_gust_today
@@ -170,7 +172,9 @@ class MeteoLiveUtils:
 
         if total != 0:
             results = [round(MeteoLiveUtils.wind_direction_percentage(wind_direction_counts[direction], total), 1)
-                       for direction in ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSO", "SO", "OSO", "O", "ONO", "NO", "NNO"]]
+                       for direction in
+                       ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSO", "SO", "OSO", "O", "ONO", "NO",
+                        "NNO"]]
 
         else:
             results = [0] * 16

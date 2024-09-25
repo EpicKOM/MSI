@@ -19,17 +19,13 @@ def current_year():
 @app.route("/")
 @app.route("/meteo-live/saint-ismier/")
 def meteo_live_saint_ismier():
-    table_is_empty = SaintIsmierData.is_table_empty()
+    data_status = SaintIsmierData.get_data_status()
 
-    context = {'table_is_empty': table_is_empty}
+    context = {"data_status": data_status}
 
-    if not table_is_empty:
-        context.update(is_data_fresh=SaintIsmierData.check_is_data_fresh(),
-                       current_data=SaintIsmierData.current_data(),
-                       temperature_extremes_today=SaintIsmierData.temperature_extremes_today(),
-                       cumulative_rain_today=SaintIsmierData.cumulative_rain_today(),
-                       rain=SaintIsmierData.rain(),
-                       maximum_gust_today=SaintIsmierData.maximum_gust_today(),)
+    if not data_status["is_table_empty"]:
+        context.update(current_weather_data=SaintIsmierData.get_current_weather_data(),
+                       daily_extremes=SaintIsmierData.get_daily_extremes())
 
     return render_template("meteo_live_saint_ismier.html", **context)
 
