@@ -57,32 +57,43 @@ class MeteoLiveUtils:
 
     @staticmethod
     def get_rain_1h(cls):
-        end_datetime = MeteoLiveUtils.get_last_record_datetime(cls).replace(minute=0)
-        start_datetime = end_datetime - datetime.timedelta(hours=1)
+        try:
+            end_datetime = MeteoLiveUtils.get_last_record_datetime(cls).replace(minute=0)
+            start_datetime = end_datetime - datetime.timedelta(hours=1)
 
-        rain_1h_value = cls.query.with_entities(cls.rain_1h).filter(cls.date_time == end_datetime,
-                                                                    cls.rain_1h.isnot(None)).scalar()
+            rain_1h_value = cls.query.with_entities(cls.rain_1h).filter(cls.date_time == end_datetime,
+                                                                        cls.rain_1h.isnot(None)).scalar()
 
-        rain_1h = {"rain_1h": round(rain_1h_value, 1) if rain_1h_value is not None else None,
-                   "rain_1h_date": f"Mesure effectuée entre {start_datetime.strftime('%H:%M')} et "
-                                   f"{end_datetime.strftime('%H:%M')}" if rain_1h_value is not None else None
-                   }
+            rain_1h = {"rain_1h": round(rain_1h_value, 1) if rain_1h_value is not None else None,
+                       "rain_1h_date": f"Mesure effectuée entre {start_datetime.strftime('%H:%M')} et "
+                                       f"{end_datetime.strftime('%H:%M')}" if rain_1h_value is not None else None
+                       }
 
-        return rain_1h
+            return rain_1h
+
+        except Exception:
+            app.logger.exception("[MeteoLiveUtils - get_rain_1h] - Erreur lors de la récupération du cumul de pluie sur 1h.")
+            return {"rain_1h": None, "rain_1h_date": None}
 
     @staticmethod
     def get_rain_24h(cls):
-        last_record_date = MeteoLiveUtils.get_last_record_datetime(cls).date()
-        start_datetime = datetime.datetime.combine(last_record_date, datetime.datetime.min.time())
+        try:
+            last_record_date = MeteoLiveUtils.get_last_record_datetime(cls).date()
+            start_datetime = datetime.datetime.combine(last_record_date, datetime.datetime.min.time())
 
-        rain_data_today = cls.query.with_entities(cls.rain_1h).filter(cls.date_time > start_datetime,
-                                                                      cls.rain_1h.isnot(None)).all()
+            rain_data_today = cls.query.with_entities(cls.rain_1h).filter(cls.date_time > start_datetime,
+                                                                          cls.rain_1h.isnot(None)).all()
 
-        rain_values_today = [x[0] for x in rain_data_today]
+            rain_values_today = [x[0] for x in rain_data_today]
 
-        rain_24h = round(sum(rain_values_today), 1) if rain_values_today else 0
+            rain_24h = round(sum(rain_values_today), 1) if rain_values_today else 0
 
-        return rain_24h
+            return rain_24h
+
+        except Exception:
+            app.logger.exception(
+                "[MeteoLiveUtils - get_rain_24h] - Erreur lors de la récupération du cumul de pluie sur 24h.")
+            return None
 
     @staticmethod
     def get_daily_temperature_extremes(cls):
