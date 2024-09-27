@@ -20,7 +20,6 @@ def current_year():
 @app.route("/meteo-live/saint-ismier/")
 def meteo_live_saint_ismier():
     data_status = SaintIsmierData.get_data_status()
-
     context = {"data_status": data_status}
 
     if not data_status["is_table_empty"]:
@@ -32,32 +31,24 @@ def meteo_live_saint_ismier():
 
 @app.route("/meteo-live/saint-martin-d-heres/")
 def meteo_live_saint_martin_dheres():
-    table_is_empty = SaintMartinDheresData.table_is_empty()
-    context = {'table_is_empty': table_is_empty}
+    data_status = SaintMartinDheresData.get_data_status()
+    context = {"data_status": data_status}
 
-    if not table_is_empty:
-        context.update(is_data_fresh=SaintMartinDheresData.check_is_data_fresh(),
-                       current_data=SaintMartinDheresData.current_data(),
-                       temperature_extremes_today=SaintMartinDheresData.temperature_extremes_today(),
-                       cumulative_rain_today=SaintMartinDheresData.cumulative_rain_today(),
-                       rain=SaintMartinDheresData.rain(),
-                       maximum_gust_today=SaintMartinDheresData.maximum_gust_today(),)
+    if not data_status["is_table_empty"]:
+        context.update(current_weather_data=SaintMartinDheresData.get_current_weather_data(),
+                       daily_extremes=SaintMartinDheresData.get_daily_extremes())
 
     return render_template("meteo_live_saint_martin_dheres.html", **context)
 
 
 @app.route("/meteo-live/lans-en-vercors/")
 def meteo_live_lans_en_vercors():
-    table_is_empty = LansEnVercorsData.table_is_empty()
-    context = {'table_is_empty': table_is_empty}
+    data_status = LansEnVercorsData.get_data_status()
+    context = {"data_status": data_status}
 
-    if not table_is_empty:
-        context.update(is_data_fresh=LansEnVercorsData.check_is_data_fresh(),
-                       current_data=LansEnVercorsData.current_data(),
-                       temperature_extremes_today=LansEnVercorsData.temperature_extremes_today(),
-                       cumulative_rain_today=LansEnVercorsData.cumulative_rain_today(),
-                       rain=LansEnVercorsData.rain(),
-                       maximum_gust_today=LansEnVercorsData.maximum_gust_today(),)
+    if not data_status["is_table_empty"]:
+        context.update(current_weather_data=LansEnVercorsData.get_current_weather_data(),
+                       daily_extremes=LansEnVercorsData.get_daily_extremes())
 
     return render_template("meteo_live_lans_en_vercors.html", **context)
 

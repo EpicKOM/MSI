@@ -24,6 +24,7 @@ class Config:
     # Configure the API documentation
     APIFAIRY_TITLE = os.environ.get('APIFAIRY_TITLE') or 'MSI API'
     APIFAIRY_VERSION = os.environ.get('APIFAIRY_VERSION')
+    APIFAIRY_UI = 'elements'
 
     API_PATH_PREFIX = os.environ.get('API_PATH_PREFIX') or '/api/'
 

@@ -1,0 +1,7 @@
+{% macro format_weather_value(value) %}
+    {% if value is not none %}
+        {{ value }}
+    {% else %}
+        -
+    {% endif %}
+{% endmacro %}

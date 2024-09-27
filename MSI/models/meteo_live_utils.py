@@ -33,6 +33,15 @@ class MeteoLiveUtils:
 
     @staticmethod
     def get_last_record_datetime(cls):
+        """
+        Retrieves the date and time of the last recorded entry in the database for the given class.
+
+        This method performs an SQL query on the table associated with the `cls` class and returns
+        the maximum value of the `date_time` field, corresponding to the most recent record.
+
+        Returns:
+            datetime: The date and time of the last record in the table, or `None` if no records are present.
+        """
         return cls.query.with_entities(db.func.max(cls.date_time)).scalar()
 
     @staticmethod
@@ -57,6 +66,14 @@ class MeteoLiveUtils:
 
     @staticmethod
     def get_rain_1h(cls):
+        """
+        Retrieves the rain accumulation for the last recorded hour and formats the results for output.
+
+        Returns:
+            dict: A dictionary containing two fields:
+                - "rain_1h": The rounded rain accumulation for the last hour (if available) or `None`.
+                - "rain_1h_date": A formatted string showing the time range of the measurement, or `None` if no data is available.
+        """
         try:
             end_datetime = MeteoLiveUtils.get_last_record_datetime(cls).replace(minute=0)
             start_datetime = end_datetime - datetime.timedelta(hours=1)
@@ -73,10 +90,18 @@ class MeteoLiveUtils:
 
         except Exception:
             app.logger.exception("[MeteoLiveUtils - get_rain_1h] - Erreur lors de la récupération du cumul de pluie sur 1h.")
+
             return {"rain_1h": None, "rain_1h_date": None}
 
     @staticmethod
     def get_rain_24h(cls):
+        """
+        Retrieves the total rain accumulation for the current day (last 24 hours).
+
+        Returns:
+            float: The total rain accumulation over the last 24 hours, rounded to 1 decimal place.
+                   Returns 0 if no data is found, or `None` if an exception occurs.
+        """
         try:
             last_record_date = MeteoLiveUtils.get_last_record_datetime(cls).date()
             start_datetime = datetime.datetime.combine(last_record_date, datetime.datetime.min.time())
@@ -93,10 +118,21 @@ class MeteoLiveUtils:
         except Exception:
             app.logger.exception(
                 "[MeteoLiveUtils - get_rain_24h] - Erreur lors de la récupération du cumul de pluie sur 24h.")
+
             return None
 
     @staticmethod
     def get_daily_temperature_extremes(cls):
+        """
+        Retrieves the daily temperature extremes (minimum and maximum) and their corresponding times for the current day.
+
+        Returns:
+            dict: A dictionary containing the following keys:
+                - "tmax" (float or None): The maximum temperature of the day, rounded to 1 decimal place, or `None` if unavailable.
+                - "tmin" (float or None): The minimum temperature of the day, rounded to 1 decimal place, or `None` if unavailable.
+                - "tmax_time" (str or None): The time when the maximum temperature was recorded, in `HH:MM` format, or `None`.
+                - "tmin_time" (str or None): The time when the minimum temperature was recorded, in `HH:MM` format, or `None`.
+        """
         today = MeteoLiveUtils.get_last_record_datetime(cls).date()
 
         extremes = cls.query.with_entities(db.func.min(cls.temperature).label("tmin"),
@@ -122,6 +158,14 @@ class MeteoLiveUtils:
 
     @staticmethod
     def get_daily_max_gust(cls):
+        """
+        Retrieves the maximum gust of wind recorded for the current day and the time it occurred.
+
+        Returns:
+            dict: A dictionary with two keys:
+                - "gust_max" (float or None): The maximum gust speed of the day, rounded to 1 decimal place. Returns `None` if no data is available.
+                - "gust_max_time" (str or None): The time when the maximum gust occurred, formatted as `HH:MM`. Returns `None` if no data is available.
+        """
         today = MeteoLiveUtils.get_last_record_datetime(cls).date()
 
         gust_max = cls.query.with_entities(db.func.max(cls.gust)).filter(

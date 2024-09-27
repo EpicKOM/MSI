@@ -15,73 +15,64 @@ class LansEnVercorsData(db.Model):
     pressure = db.Column(db.Integer)
 
     @classmethod
-    def table_is_empty(cls):
+    def get_data_status(cls):
         try:
-            return cls.query.first() is None
+            is_table_empty = cls.query.first() is None
+            data_status = {"is_table_empty": is_table_empty,
+                           "is_data_fresh": False}
+
+            if not is_table_empty:
+                data_status["is_data_fresh"] = MeteoLiveUtils.is_data_fresh(cls)
+
+            return data_status
 
         except Exception:
-            app.logger.exception("[LansEnVercorsData - table_is_empty] - Erreur lors de la vérification de l'état vide de la table.")
+            app.logger.exception(
+                "[LansEnVercorsData - get_data_status] - Erreur lors de la récupération du status des données de la table "
+                "lans_en_vercors_data.")
 
     @classmethod
-    def check_is_data_fresh(cls):
+    def get_current_weather_data(cls):
         try:
-            return MeteoLiveUtils.get_check_is_data_fresh(cls)
+            last_record = MeteoLiveUtils.get_last_record(cls)
+
+            base_weather_data = {"update_datetime": last_record.date_time.strftime("%d/%m/%Y à %H:%M"),
+                                 "temperature": round(last_record.temperature, 1) if last_record.temperature is not None else None,
+                                 "humidity": last_record.humidity if last_record.humidity is not None else None,
+                                 "dew_point": round(last_record.dew_point, 1) if last_record.dew_point is not None else None,
+                                 "wind_speed": last_record.wind if last_record.wind is not None else None,
+                                 "gust_speed": round(last_record.gust, 1) if last_record.gust is not None else None,
+                                 "wind_angle": last_record.wind_angle if last_record.wind_angle is not None else None,
+                                 "wind_direction": MeteoLiveUtils.get_wind_direction(
+                                     last_record.wind_angle) if last_record.wind_angle is not None else None,
+                                 "rain_24h": MeteoLiveUtils.get_rain_24h(cls),
+                                 "pressure": last_record.pressure if last_record.pressure is not None else None,
+                                 }
+
+            rain_data = MeteoLiveUtils.get_rain_1h(cls)
+
+            current_weather_data = base_weather_data | rain_data
+
+            return current_weather_data
 
         except Exception:
-            app.logger.exception("[LansEnVercorsData - check_reception] - Erreur lors de la vérification de la réception des données.")
+            app.logger.exception(
+                "[LansEnVercorsData - current_data] - Erreur lors de la récupération des données actuelles.")
 
     @classmethod
-    def current_data(cls):
+    def get_daily_extremes(cls):
         try:
-            data = MeteoLiveUtils.get_last_record(cls)
+            daily_temperature_extremes = MeteoLiveUtils.get_daily_temperature_extremes(cls)
+            daily_max_gust = MeteoLiveUtils.get_daily_max_gust(cls)
 
-            current_data = {"update_datetime": data.date_time.strftime("%d/%m/%Y à %H:%M"),
-                            "temperature": round(data.temperature, 1) if data.temperature is not None else "-",
-                            "humidity": data.humidity if data.humidity is not None else "-",
-                            "dew_point": round(data.dew_point, 1) if data.dew_point is not None else "-",
-                            "wind": data.wind if data.wind is not None else "-",
-                            "gust": round(data.gust, 1) if data.gust is not None else "-",
-                            "wind_angle": data.wind_angle if data.wind_angle is not None else "-",
-                            "wind_direction": MeteoLiveUtils.get_wind_direction(data.wind_angle) if data.wind_angle is not None else "-",
-                            "pressure": data.pressure if data.pressure is not None else "-",
-                            }
+            daily_extremes = daily_temperature_extremes | daily_max_gust
 
-            return current_data
+            return daily_extremes
 
         except Exception:
-            app.logger.exception("[LansEnVercorsData - current_data] - Erreur lors de la récupération des données actuelles.")
-
-    @classmethod
-    def temperature_extremes_today(cls):
-        try:
-            return MeteoLiveUtils.get_temperature_extremes_today(cls)
-
-        except Exception:
-            app.logger.exception("[LansEnVercorsData - temperature_extremes_today] - Erreur lors de la récupération des températures extrêmes du jour.")
-
-    @classmethod
-    def cumulative_rain_today(cls):
-        try:
-            return MeteoLiveUtils.get_cumulative_rain_today(cls)
-
-        except Exception:
-            app.logger.exception("[LansEnVercorsData - cumulative_rain_today] - Erreur lors de la récupération du cumul de pluie du jour.")
-
-    @classmethod
-    def rain(cls):
-        try:
-            return MeteoLiveUtils.get_rain_1h(cls)
-
-        except Exception:
-            app.logger.exception("[LansEnVercorsData - rain] - Erreur lors de la récupération du cumul de pluie de l'heure précédente.")
-
-    @classmethod
-    def maximum_gust_today(cls):
-        try:
-            return MeteoLiveUtils.get_maximum_gust_today(cls)
-
-        except Exception:
-            app.logger.exception("[LansEnVercorsData - maximum_gust_today] - Erreur lors de la récupération de la rafale maximale du jour.")
+            app.logger.exception(
+                "[LansEnVercorsData - get_daily_extremes] - Erreur lors de la récupération des températures et des rafales "
+                "extrêmes du jour.")
 
     @classmethod
     def current_charts_data(cls, data_name, interval_duration):
@@ -95,9 +86,11 @@ class LansEnVercorsData(db.Model):
                 "wind_direction": []
             }
 
-            current_chart_data = MeteoLiveUtils.get_current_charts_data(cls, data_name, interval_duration, column_mapping)
+            current_chart_data = MeteoLiveUtils.get_current_charts_data(cls, data_name, interval_duration,
+                                                                        column_mapping)
 
             return current_chart_data
 
         except Exception:
-            app.logger.exception("[LansEnVercorsData - current_charts_data] - Erreur lors de la récupération des données pour les graphiques.")
+            app.logger.exception(
+                "[LansEnVercorsData - current_charts_data] - Erreur lors de la récupération des données pour les graphiques.")

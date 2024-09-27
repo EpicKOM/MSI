@@ -1,4 +1,5 @@
 {% extends 'layout.html' %}
+{% from "macros/meteo_live_macros.html" import format_weather_value %}
 
 {% block css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/meteo_live.css') }}">
@@ -9,7 +10,7 @@
 {% endblock %}
 
 {% block content %}
-    {% if table_is_empty %}
+    {% if data_status["is_table_empty"] %}
         <div class="container mt-4">
             <h3 class="text-center text-danger">
                 <span class="fa-stack fa-2x">
@@ -22,7 +23,7 @@
         </div>
     {% else %}
         <div class="container mt-4">
-            {% if not is_data_fresh %}
+            {% if not data_status["is_data_fresh"] %}
                 <div class="d-flex justify-content-md-center">
                     <div class="alert alert-dismissible w-40 text-center text-light-red bg-dark-red border-error" role="alert" id="weather-station-unavailable-alert" style="display: none;">
                         Station météorologique indisponible.
@@ -34,8 +35,8 @@
             {% endif %}
             <div class="d-flex flex-column flex-md-row">
                 <div>
-                    <span class="badge p-3 {% if not is_data_fresh %}text-light-red bg-dark-red border-error{% else %}text-light-green bg-dark-green border-achievement{% endif %}">
-                        <i class="fa-solid fa-rotate-right me-2"></i>Dernière mise à jour : {{ current_data["update_datetime"] }}
+                    <span class="badge p-3 {% if not data_status['is_data_fresh'] %}text-light-red bg-dark-red border-error{% else %}text-light-green bg-dark-green border-achievement{% endif %}">
+                        <i class="fa-solid fa-rotate-right me-2"></i>Dernière mise à jour : {{ current_weather_data["update_datetime"] }}
                     </span>
                 </div>
                 <div>
@@ -72,29 +73,29 @@
                                     Température
                                 </p>
                                 <h5 class="fw-bold mb-1 text-light">
-                                    {{ current_data["temperature"] }} °C
+                                    {{ format_weather_value(current_weather_data['temperature']) }} °C
                                 </h5>
                             </div>
                         </div>
                         <div class="d-flex flex-grow-1"></div>
                         <div class="d-flex justify-content-between">
-                            {% if temperature_extremes_today["tmin"] != "-" %}
-                                <div class="text-light" data-mdb-tooltip-init title="{{ temperature_extremes_today['tmin_time'] }}">
-                                    <i class="fa-solid fa-arrow-down text-info me-2"></i>{{ temperature_extremes_today["tmin"] }} °C
+                            {% if daily_extremes["tmin"] is not none %}
+                                <div class="text-light" data-mdb-tooltip-init title="{{ daily_extremes['tmin_time'] }}">
+                                    <i class="fa-solid fa-arrow-down text-info me-2"></i>{{ daily_extremes['tmin'] }} °C
                                 </div>
                             {% else %}
                                 <div class="text-light">
-                                    <i class="fa-solid fa-arrow-down text-info me-2"></i>{{ temperature_extremes_today["tmin"] }} °C
+                                    <i class="fa-solid fa-arrow-down text-info me-2"></i>- °C
                                 </div>
                             {% endif %}
 
-                            {% if temperature_extremes_today["tmax"] != "-" %}
-                                <div class="text-light" data-mdb-tooltip-init title="{{ temperature_extremes_today['tmax_time'] }}">
-                                    <i class="fa-solid fa-arrow-up text-danger me-2"></i>{{ temperature_extremes_today["tmax"] }} °C
+                            {% if daily_extremes["tmax"] is not none %}
+                                <div class="text-light" data-mdb-tooltip-init title="{{ daily_extremes['tmax_time'] }}">
+                                    <i class="fa-solid fa-arrow-up text-danger me-2"></i>{{ daily_extremes['tmax'] }} °C
                                 </div>
                             {% else %}
                                 <div class="text-light">
-                                    <i class="fa-solid fa-arrow-up text-danger me-2"></i>{{ temperature_extremes_today["tmax"] }} °C
+                                    <i class="fa-solid fa-arrow-up text-danger me-2"></i>- °C
                                 </div>
                             {% endif %}
                         </div>
@@ -107,7 +108,7 @@
                                 <div class="p-2 badge-primary bg-secondary-color rounded-4">
                                     <span class="fa-stack fa-lg fa-fw">
                                         <i class="fa-solid fa-cloud-rain fa-stack-1x text-light"></i>
-                                        {% if rain['rain_1h']|float <= 0 or rain['rain_1h'] == "-" %}
+                                        {% if current_weather_data['rain_1h']|float <= 0 or current_weather_data['rain_1h'] is none %}
                                             <i class="fa-solid fa-slash fa-stack-1x text-danger"></i>
                                         {% endif %}
                                     </span>
@@ -117,13 +118,13 @@
                                 <p class="text-light opacity-50 mb-1">
                                     Pluie
                                 </p>
-                                {% if rain['rain_1h'] != "-" %}
-                                    <h5 class="fw-bold mb-1 text-light" data-mdb-tooltip-init title="{{ rain['rain_1h_date'] }}">
-                                        {{ rain['rain_1h'] }} mm/1h
+                                {% if current_weather_data['rain_1h'] is not none %}
+                                    <h5 class="fw-bold mb-1 text-light" data-mdb-tooltip-init title="{{ current_weather_data['rain_1h_date'] }}">
+                                        {{ current_weather_data['rain_1h'] }} mm/1h
                                     </h5>
                                 {% else %}
                                     <h5 class="fw-bold mb-1 text-light">
-                                        {{ rain['rain_1h'] }} mm/1h
+                                        - mm/1h
                                     </h5>
                                 {% endif %}
                             </div>
@@ -131,7 +132,7 @@
                         <div class="d-flex flex-grow-1"></div>
                         <div class="d-flex justify-content-between">
                             <p class="small mb-0">
-                                <span class="text-light opacity-75">Cumul du jour :</span> <span class="text-rain-color">{{ cumulative_rain_today }} mm</span>
+                                <span class="text-light opacity-75">Cumul du jour :</span> <span class="text-rain-color">{{ format_weather_value(current_weather_data['rain_24h']) }} mm</span>
                             </p>
                         </div>
                     </div>
@@ -143,7 +144,7 @@
                                 <div class="p-2 badge-primary bg-secondary-color rounded-4">
                                     <span class="fa-stack fa-lg fa-fw">
                                         <i class="fa-solid fa-wind fa-stack-1x text-light"></i>
-                                        {% if current_data["wind"]|float <= 0 or current_data["wind"] == "-" %}
+                                        {% if current_weather_data["wind_speed"]|float <= 0 or current_weather_data["wind_speed"] is none %}
                                             <i class="fa-solid fa-slash fa-stack-1x text-danger"></i>
                                         {% endif %}
                                     </span>
@@ -153,26 +154,26 @@
                                 <p class="text-light opacity-50 mb-1">
                                     Vent
                                 </p>
-                                <h5 class="fw-bold mb-1 text-light" data-mdb-tooltip-init title="raf: {{ current_data['gust'] }} km/h">
-                                    {{ current_data["wind"] }} km/h
+                                <h5 class="fw-bold mb-1 text-light" data-mdb-tooltip-init title="raf: {{ format_weather_value(current_weather_data['gust_speed']) }} km/h">
+                                    {{ format_weather_value(current_weather_data['wind_speed']) }} km/h
                                 </h5>
                             </div>
                         </div>
                         <div class="d-flex flex-grow-1"></div>
                         <div class="d-flex justify-content-between">
-                            {% if maximum_gust_today['gust_max'] != "-" %}
-                                <div class="text-light" data-mdb-tooltip-init title="{{ maximum_gust_today['gust_max_time'] }}">
-                                    <i class="fa-solid fa-location-arrow text-danger me-2"></i>{{ maximum_gust_today['gust_max'] }} km/h
+                            {% if daily_extremes['gust_max'] is not none %}
+                                <div class="text-light" data-mdb-tooltip-init title="{{ daily_extremes['gust_max_time'] }}">
+                                    <i class="fa-solid fa-location-arrow text-danger me-2"></i>{{ daily_extremes['gust_max'] }} km/h
                                 </div>
                             {% else %}
                                 <div class="text-light">
-                                    <i class="fa-solid fa-location-arrow text-danger me-2"></i>{{ maximum_gust_today['gust_max'] }} km/h
+                                    <i class="fa-solid fa-location-arrow text-danger me-2"></i>- km/h
                                 </div>
                             {% endif %}
 
-                            {% if current_data['wind_angle'] != "-" and (current_data["wind"] != 0 or current_data["gust"] != 0) %}
-                                <div class="text-light" data-mdb-tooltip-init title="Angle {{ current_data['wind_angle'] }} °">
-                                    <i class="fa-solid fa-compass text-light me-2"></i>{{ current_data["wind_direction"] }}
+                            {% if current_weather_data['wind_angle'] is not none and (current_weather_data["wind_speed"] != 0 or current_weather_data["gust_speed"] != 0) %}
+                                <div class="text-light" data-mdb-tooltip-init title="Angle {{ current_weather_data['wind_angle'] }} °">
+                                    <i class="fa-solid fa-compass text-light me-2"></i>{{ current_weather_data["wind_direction"] }}
                                 </div>
                             {% else %}
                                 <div class="text-light">
@@ -197,7 +198,7 @@
                                     Humidité
                                 </p>
                                 <h5 class="fw-bold mb-1 text-light">
-                                    {{ current_data["humidity"] }} %
+                                    {{ format_weather_value(current_weather_data['humidity']) }} %
                                 </h5>
                             </div>
                         </div>
@@ -205,7 +206,7 @@
                         <div class="d-flex justify-content-between">
 
                             <p class="small mb-0">
-                                <span class="text-light opacity-75">Point de rosée :</span> <span class="text-dew-point-color">{{ current_data["dew_point"] }} °C</span>
+                                <span class="text-light opacity-75">Point de rosée :</span> <span class="text-dew-point-color">{{ format_weather_value(current_weather_data['dew_point']) }} °C</span>
                             </p>
                         </div>
                     </div>
@@ -225,7 +226,7 @@
                                     Radiations
                                 </p>
                                 <h5 class="fw-bold mb-1 text-light">
-                                    {{ current_data["uv"] }} W/m²
+                                    {{ format_weather_value(current_weather_data['uv']) }} W/m²
                                 </h5>
                             </div>
                         </div>
@@ -250,6 +251,7 @@
                             type="button"
                             data-mdb-dropdown-init
                             data-mdb-ripple-init
+                            data-mdb-dropdown-animation="off"
                             aria-expanded="false">
                             <span id="chartPeriodSelectorTitle">24h</span>
                             <i class="fa-solid fa-sort fa-sm opacity-50"></i>

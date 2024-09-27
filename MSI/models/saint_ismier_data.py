@@ -37,15 +37,15 @@ class SaintIsmierData(db.Model):
             last_record = MeteoLiveUtils.get_last_record(cls)
 
             base_weather_data = {"update_datetime": last_record.date_time.strftime("%d/%m/%Y à %H:%M"),
-                                 "temperature": round(last_record.temperature, 1) if last_record.temperature else None,
-                                 "humidity": last_record.humidity if last_record.humidity else None,
-                                 "wind_speed": last_record.wind if last_record.wind else None,
-                                 "gust_speed": round(last_record.gust, 1) if last_record.gust else None,
-                                 "wind_angle": last_record.wind_angle if last_record.wind_angle else None,
+                                 "temperature": round(last_record.temperature, 1) if last_record.temperature is not None else None,
+                                 "humidity": last_record.humidity if last_record.humidity is not None else None,
+                                 "wind_speed": last_record.wind if last_record.wind is not None else None,
+                                 "gust_speed": round(last_record.gust, 1) if last_record.gust is not None else None,
+                                 "wind_angle": last_record.wind_angle if last_record.wind_angle is not None else None,
                                  "wind_direction": MeteoLiveUtils.get_wind_direction(
-                                     last_record.wind_angle) if last_record.wind_angle else None,
+                                     last_record.wind_angle) if last_record.wind_angle is not None else None,
                                  "rain_24h": MeteoLiveUtils.get_rain_24h(cls),
-                                 "pressure": round(last_record.pressure, 1) if last_record.pressure else None,
+                                 "pressure": round(last_record.pressure, 1) if last_record.pressure is not None else None,
                                  "temperature_trend": last_record.temperature_trend if last_record.temperature_trend else "stable"
                                  }
 
