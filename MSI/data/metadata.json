@@ -1,0 +1,60 @@
+{
+  "stations": {
+    "saint-ismier": {
+      "city": "Saint-Ismier",
+      "latitude": 45.248,
+      "longitude": 5.826,
+      "elevation": 377,
+      "type": "amateur"
+    },
+    "saint_martin_dheres": {
+      "city": "Saint-Martin-d'Hères",
+      "latitude": 45.167,
+      "longitude": 5.767,
+      "elevation": 220,
+      "type": "static"
+    },
+    "lans_en_vercors": {
+      "city": "Lans-en-Vercors",
+      "latitude": 45.095,
+      "longitude": 5.6,
+      "elevation": 1449,
+      "type": "static"
+    }
+  },
+
+  "units": {
+    "saint-ismier": {
+      "temperature": "temperature,degC",
+      "humidity": "relative humidity,%",
+      "pressure": "mean sea level pressure,hPa",
+      "rain_1h": "precipitation over 1h,mm",
+      "rain_24h": "precipitation of the day since midnight,mm",
+      "wind_speed": "mean wind speed,km/h",
+      "gust_speed": "wind gust,km/h",
+      "wind_angle": "wind angle,deg"
+    },
+    "saint_martin_dheres": {
+      "temperature": "temperature,degC",
+      "humidity": "relative humidity,%",
+      "uv": "solar irradiance,W/m²",
+      "dew_point": "dewpoint,degC",
+      "rain_1h": "precipitation over 1h,mm",
+      "rain_24h": "precipitation of the day since midnight,mm",
+      "wind_speed": "mean wind speed,km/h",
+      "gust_speed": "wind gust,km/h",
+      "wind_angle": "wind angle,deg"
+    },
+    "lans_en_vercors": {
+      "temperature": "temperature,degC",
+      "humidity": "relative humidity,%",
+      "pressure": "mean sea level pressure,hPa",
+      "dew_point": "dewpoint,degC",
+      "rain_1h": "precipitation over 1h,mm",
+      "rain_24h": "precipitation of the day since midnight,mm",
+      "wind_speed": "mean wind speed,km/h",
+      "gust_speed": "wind gust,km/h",
+      "wind_angle": "wind angle,deg"
+    }
+  }
+}

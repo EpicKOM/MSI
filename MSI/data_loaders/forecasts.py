@@ -1,46 +1,31 @@
 from MSI import app
+from .utils import load_json
 import json
 import datetime
 
 
 class ForecastsApi:
     json_path = app.config.get('JSON_FORECASTS_PATH')
-
-    @classmethod
-    def load_forecasts_data(cls):
-        """Charge les données du fichier JSON une seule fois."""
-        try:
-            with open(cls.json_path, "r") as file:
-                return json.load(file)
-
-        except FileNotFoundError:
-            app.logger.exception(f"[ForecastsApi - load_forecasts_data] - Erreur : Le fichier {cls.json_path} n'a pas été trouvé.")
-        except json.JSONDecodeError:
-            app.logger.exception(f"[ForecastsApi - load_forecasts_data] - Erreur lors de la lecture du fichier JSON.")
-        except Exception:
-            app.logger.exception(f"[ForecastsApi - load_forecasts_data] - Erreur inconnue lors de la récupération des prévisions.")
-
-        return None
+    forecasts_data = load_json(json_path)
 
     @classmethod
     def get_forecasts_data(cls):
         """Récupère les données du fichier JSON spécifié."""
-        forecasts_data = cls.load_forecasts_data()
 
-        if not forecasts_data:
+        if not cls.forecasts_data:
             app.logger.warning("[ForecastsApi - get_forecasts_data] - Aucune donnée de prévision trouvée.")
             return True, None, True, []
 
         current_time = datetime.datetime.now()
-        update_datetime = datetime.datetime.strptime(forecasts_data.get("update_datetime"), "%Y-%m-%d %H:%M:%S.%f")
+        update_datetime = datetime.datetime.strptime(cls.forecasts_data.get("update_datetime"), "%Y-%m-%d %H:%M:%S.%f")
         delta_time = current_time - update_datetime
         deadline = datetime.timedelta(days=1)
 
         is_data_fresh = delta_time < deadline
 
         keys = ["time", "pictocode", "temperature_min", "temperature_mean", "temperature_max", "precipitation"]
-        if not all(key in forecasts_data for key in keys):
-            missing_keys = [key for key in keys if key not in forecasts_data]
+        if not all(key in cls.forecasts_data for key in keys):
+            missing_keys = [key for key in keys if key not in cls.forecasts_data]
             for missing_key in missing_keys:
                 app.logger.error(f"[ForecastsApi - get_forecasts_data] - La clé attendue '{missing_key}' est manquante dans les données du fichier JSON")
 
@@ -62,12 +47,12 @@ class ForecastsApi:
             for index, (date, pictocode, temperature_min, temperature_max, temperature_mean, precipitation) in
             enumerate(
                 zip(
-                    forecasts_data["time"],
-                    forecasts_data["pictocode"],
-                    forecasts_data["temperature_min"],
-                    forecasts_data["temperature_max"],
-                    forecasts_data["temperature_mean"],
-                    forecasts_data["precipitation"]
+                    cls.forecasts_data["time"],
+                    cls.forecasts_data["pictocode"],
+                    cls.forecasts_data["temperature_min"],
+                    cls.forecasts_data["temperature_max"],
+                    cls.forecasts_data["temperature_mean"],
+                    cls.forecasts_data["precipitation"]
                 )
             )
         ]
@@ -77,9 +62,8 @@ class ForecastsApi:
     @classmethod
     def get_forecasts_data_by_index(cls, index):
         """Récupère les données du fichier JSON spécifié."""
-        forecasts_data = cls.load_forecasts_data()
 
-        if not forecasts_data:
+        if not cls.forecasts_data:
             app.logger.warning("[ForecastsApi - get_forecasts_data_by_index] - Aucune donnée de prévision trouvée.")
             return {}
 
@@ -90,53 +74,53 @@ class ForecastsApi:
                 "sealevelpressure_mean", "sealevelpressure_max", "relativehumidity_min", "relativehumidity_mean",
                 "relativehumidity_max", "sunrise", "sunset", "uvindex", "moonrise", "moonset", "moonphasename"]
 
-        if not all(key in forecasts_data for key in keys):
-            missing_keys = [key for key in keys if key not in forecasts_data]
+        if not all(key in cls.forecasts_data for key in keys):
+            missing_keys = [key for key in keys if key not in cls.forecasts_data]
             for missing_key in missing_keys:
                 app.logger.error(f"[ForecastsApi - get_forecasts_data] - La clé attendue '{missing_key}' est manquante dans les données du fichier JSON")
 
             raise KeyError("Une ou plusieurs clés attendues sont manquantes dans les données du fichier JSON")
 
         try:
-            date = forecasts_data["time"][index]
-            snow_fraction = forecasts_data["snowfraction"][index]
-            wind_angle = forecasts_data["winddirection"][index]
+            date = cls.forecasts_data["time"][index]
+            snow_fraction = cls.forecasts_data["snowfraction"][index]
+            wind_angle = cls.forecasts_data["winddirection"][index]
 
             results = {
                 "date": ForecastsApi.get_date_french_format(date),
                 "day_name": ForecastsApi.get_french_day_name(date),
-                "pictocode": f"{forecasts_data['pictocode'][index]:02d}",
-                "predictability_label": ForecastsApi.get_predictability_label(forecasts_data["predictability_class"][index]),
-                "predictability": forecasts_data["predictability"][index],
-                "temperature_min": round(forecasts_data["temperature_min"][index]),
-                "temperature_mean": round(forecasts_data["temperature_mean"][index]),
-                "temperature_max": round(forecasts_data["temperature_max"][index]),
-                "felttemperature_min": round(forecasts_data["felttemperature_min"][index]),
-                "felttemperature_mean": round(forecasts_data["felttemperature_mean"][index]),
-                "felttemperature_max": round(forecasts_data["felttemperature_max"][index]),
-                "precipitation": round(forecasts_data["precipitation"][index]),
-                "precipitation_hours": forecasts_data["precipitation_hours"][index],
-                "precipitation_probability": forecasts_data["precipitation_probability"][index],
-                "convective_precipitation": round(forecasts_data["convective_precipitation"][index]),
+                "pictocode": f"{cls.forecasts_data['pictocode'][index]:02d}",
+                "predictability_label": ForecastsApi.get_predictability_label(cls.forecasts_data["predictability_class"][index]),
+                "predictability": cls.forecasts_data["predictability"][index],
+                "temperature_min": round(cls.forecasts_data["temperature_min"][index]),
+                "temperature_mean": round(cls.forecasts_data["temperature_mean"][index]),
+                "temperature_max": round(cls.forecasts_data["temperature_max"][index]),
+                "felttemperature_min": round(cls.forecasts_data["felttemperature_min"][index]),
+                "felttemperature_mean": round(cls.forecasts_data["felttemperature_mean"][index]),
+                "felttemperature_max": round(cls.forecasts_data["felttemperature_max"][index]),
+                "precipitation": round(cls.forecasts_data["precipitation"][index]),
+                "precipitation_hours": cls.forecasts_data["precipitation_hours"][index],
+                "precipitation_probability": cls.forecasts_data["precipitation_probability"][index],
+                "convective_precipitation": round(cls.forecasts_data["convective_precipitation"][index]),
                 "snow_fraction": ForecastsApi.get_precipitation_fraction(snow_fraction, "snow"),
                 "rain_fraction": ForecastsApi.get_precipitation_fraction(snow_fraction, "rain"),
-                "windspeed_min": round(forecasts_data["windspeed_min"][index] * 3.6),
-                "windspeed_mean": round(forecasts_data["windspeed_mean"][index] * 3.6),
-                "windspeed_max": round(forecasts_data["windspeed_max"][index] * 3.6),
+                "windspeed_min": round(cls.forecasts_data["windspeed_min"][index] * 3.6),
+                "windspeed_mean": round(cls.forecasts_data["windspeed_mean"][index] * 3.6),
+                "windspeed_max": round(cls.forecasts_data["windspeed_max"][index] * 3.6),
                 "wind_angle": (wind_angle + 180) % 360,
                 "wind_direction": ForecastsApi.get_wind_direction(wind_angle),
-                "sealevelpressure_min": forecasts_data["sealevelpressure_min"][index],
-                "sealevelpressure_mean": forecasts_data["sealevelpressure_mean"][index],
-                "sealevelpressure_max": forecasts_data["sealevelpressure_max"][index],
-                "relativehumidity_min": forecasts_data["relativehumidity_min"][index],
-                "relativehumidity_mean": forecasts_data["relativehumidity_mean"][index],
-                "relativehumidity_max": forecasts_data["relativehumidity_max"][index],
-                "sunrise": forecasts_data["sunrise"][index],
-                "sunset": forecasts_data["sunset"][index],
-                "uvindex": forecasts_data["uvindex"][index],
-                "moonrise": forecasts_data["moonrise"][index],
-                "moonset": forecasts_data["moonset"][index],
-                "moonphasename": ForecastsApi.get_moon_phase_frname(forecasts_data["moonphasename"][index]),
+                "sealevelpressure_min": cls.forecasts_data["sealevelpressure_min"][index],
+                "sealevelpressure_mean": cls.forecasts_data["sealevelpressure_mean"][index],
+                "sealevelpressure_max": cls.forecasts_data["sealevelpressure_max"][index],
+                "relativehumidity_min": cls.forecasts_data["relativehumidity_min"][index],
+                "relativehumidity_mean": cls.forecasts_data["relativehumidity_mean"][index],
+                "relativehumidity_max": cls.forecasts_data["relativehumidity_max"][index],
+                "sunrise": cls.forecasts_data["sunrise"][index],
+                "sunset": cls.forecasts_data["sunset"][index],
+                "uvindex": cls.forecasts_data["uvindex"][index],
+                "moonrise": cls.forecasts_data["moonrise"][index],
+                "moonset": cls.forecasts_data["moonset"][index],
+                "moonphasename": ForecastsApi.get_moon_phase_frname(cls.forecasts_data["moonphasename"][index]),
             }
             return results
 
