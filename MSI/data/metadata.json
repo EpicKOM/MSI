@@ -1,6 +1,6 @@
 {
   "stations": {
-    "saint-ismier": {
+    "saint_ismier": {
       "city": "Saint-Ismier",
       "latitude": 45.248,
       "longitude": 5.826,
@@ -24,7 +24,7 @@
   },
 
   "units": {
-    "saint-ismier": {
+    "saint_ismier": {
       "temperature": "temperature,degC",
       "humidity": "relative humidity,%",
       "pressure": "mean sea level pressure,hPa",

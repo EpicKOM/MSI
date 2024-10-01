@@ -1,56 +1,32 @@
 from flask import jsonify, abort, request
 from apifairy import response, other_responses, body
-from marshmallow import ValidationError
 from MSI.models import SaintIsmierData, SaintMartinDheresData, LansEnVercorsData
 from MSI.schemas import SaintIsmierDataSchema, SaintMartinDheresDataSchema, LansEnVercorsDataSchema, \
     InputLiveChartsSchema
 from MSI.api import bp
 from MSI import app
-from MSI.data_loaders import Metadata
+from MSI.api.utils.functions import get_meteo_live
 
 
 @bp.route('/meteo-live/saint-ismier', methods=['GET'])
 @response(SaintIsmierDataSchema)
 @other_responses({404: "Weather station not found"})
 def get_meteo_live_saint_ismier():
-    data_status = SaintIsmierData.get_data_status()
-    context = {"station": Metadata.get_station_data("saint-ismier"),
-               "units": Metadata.get_units_data("saint-ismier"),
-               "data_status": data_status}
-
-    if not data_status["is_table_empty"]:
-        context.update(current_weather_data=SaintIsmierData.get_current_weather_data(),
-                       daily_extremes=SaintIsmierData.get_daily_extremes())
-
-    return context
+    return get_meteo_live("saint_ismier", SaintIsmierData)
 
 
 @bp.route('/meteo-live/saint-martin-d-heres', methods=['GET'])
 @response(SaintMartinDheresDataSchema)
 @other_responses({404: "Weather station not found"})
 def get_meteo_live_saint_martin_dheres():
-    data_status = SaintMartinDheresData.get_data_status()
-    context = {"data_status": data_status}
-
-    if not data_status["is_table_empty"]:
-        context.update(current_weather_data=SaintMartinDheresData.get_current_weather_data(),
-                       daily_extremes=SaintMartinDheresData.get_daily_extremes())
-
-    return context
+    return get_meteo_live("saint_martin_dheres", SaintMartinDheresData)
 
 
 @bp.route('/meteo-live/lans-en-vercors', methods=['GET'])
 @response(LansEnVercorsDataSchema)
 @other_responses({404: "Weather station not found"})
 def get_meteo_live_lans_en_vercors():
-    data_status = LansEnVercorsData.get_data_status()
-    context = {"data_status": data_status}
-
-    if not data_status["is_table_empty"]:
-        context.update(current_weather_data=LansEnVercorsData.get_current_weather_data(),
-                       daily_extremes=LansEnVercorsData.get_daily_extremes())
-
-    return context
+    return get_meteo_live("lans_en_vercors", LansEnVercorsData)
 
 
 # ------------Requête AJAX Live Charts---------------------------------------------------------------------------
