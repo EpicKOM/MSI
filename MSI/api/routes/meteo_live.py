@@ -1,8 +1,7 @@
 from flask import jsonify, abort, request
 from apifairy import response, other_responses, body
 from MSI.models import SaintIsmierData, SaintMartinDheresData, LansEnVercorsData
-from MSI.schemas import SaintIsmierDataSchema, SaintMartinDheresDataSchema, LansEnVercorsDataSchema, \
-    InputLiveChartsSchema
+from MSI.api.schemas import *
 from MSI.api import bp
 from MSI import app
 from MSI.api.utils.functions import get_meteo_live
@@ -12,6 +11,9 @@ from MSI.api.utils.functions import get_meteo_live
 @response(SaintIsmierDataSchema)
 @other_responses({404: "Weather station not found"})
 def get_meteo_live_saint_ismier():
+    """
+    Je mange de la TErre
+    """
     return get_meteo_live("saint_ismier", SaintIsmierData)
 
 

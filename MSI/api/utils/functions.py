@@ -1,10 +1,10 @@
-from MSI.data_loaders import Metadata
+from MSI.data_loaders import get_station_data, get_units_data
 
 
 def get_meteo_live(station_name, DataClass):
     data_status = DataClass.get_data_status()
-    context = {"station": Metadata.get_station_data(station_name),
-               "units": Metadata.get_units_data(station_name),
+    context = {"station": get_station_data(station_name),
+               "units": get_units_data(station_name),
                "data_status": data_status}
 
     if not data_status["is_table_empty"]:
