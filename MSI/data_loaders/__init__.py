@@ -1,1 +1,1 @@
-from .metadata import get_station_data, get_units_data
+from .metadata import get_station_metadata, get_units_metadata

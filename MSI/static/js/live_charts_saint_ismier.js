@@ -547,13 +547,12 @@ $(document).ready(function(){
 //----------------Ajax request------------------------------------------------------------------------------------------
 function ajaxRequest(_dataName, _intervalDuration) {
     $.ajax({
-        type : 'POST',
+        type : 'GET',
         url : '/api/meteo-live/live-charts/saint-ismier',
-        contentType: 'application/json',
-        data: JSON.stringify({
-            'data_name': _dataName,
+        data: {
+            'data_name': _dataName,  // Paramètres à inclure dans l'URL
             'interval_duration': _intervalDuration
-        }),
+        },
 
         success:function(results)
         {

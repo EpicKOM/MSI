@@ -1,7 +1,8 @@
 from MSI import ma
+from marshmallow import validate
 
 
-# ----------Station Info Schema---------------------
+# Station Metadata Schema-----------------------------------------------------------------------------------------------
 class StationSchema(ma.Schema):
     city = ma.String(dump_only=True)
     latitude = ma.Float(dump_only=True)
@@ -10,7 +11,7 @@ class StationSchema(ma.Schema):
     type = ma.String(dump_only=True)
 
 
-# ----------Units Schema---------------------
+# Units Metadata Schema-------------------------------------------------------------------------------------------------
 class BaseUnitsSchema(ma.Schema):
     temperature = ma.String(dump_only=True)
     humidity = ma.String(dump_only=True)
@@ -35,13 +36,13 @@ class SaintMartinDheresUnitsSchema(BaseUnitsSchema):
     dew_point = ma.String(dump_only=True)
 
 
-# ----------Status Schema---------------------
+# Status Schema---------------------------------------------------------------------------------------------------------
 class DataStatusSchema(ma.Schema):
     is_table_empty = ma.Boolean(dump_only=True)
     is_data_fresh = ma.Boolean(dump_only=True)
 
 
-# ----------Current Weather Data Schema---------------------
+# Current Weather Data Schema-------------------------------------------------------------------------------------------
 class BaseWeatherDataSchema(ma.Schema):
     update_datetime = ma.String(dump_only=True)
     temperature = ma.Float(dump_only=True, allow_none=True)
@@ -70,7 +71,7 @@ class SaintMartinDheresWeatherDataSchema(BaseWeatherDataSchema):
     dew_point = ma.Float(dump_only=True, allow_none=True)
 
 
-# ----------Daily Extremes Data Schema---------------------
+# Daily Extremes Data Schema--------------------------------------------------------------------------------------------
 class DailyExtremesSchema(ma.Schema):
     tmax = ma.Float(dump_only=True, allow_none=True)
     tmin = ma.Float(dump_only=True, allow_none=True)
@@ -80,6 +81,7 @@ class DailyExtremesSchema(ma.Schema):
     gust_max_time = ma.String(dump_only=True)
 
 
+# Complete Data Schema--------------------------------------------------------------------------------------------------
 class SaintIsmierDataSchema(ma.Schema):
     station = ma.Nested(StationSchema)
     units = ma.Nested(SaintIsmierUnitsSchema)
@@ -104,7 +106,7 @@ class LansEnVercorsDataSchema(ma.Schema):
     daily_extremes = ma.Nested(DailyExtremesSchema)
 
 
-class InputLiveChartsSchema(ma.Schema):
+class LiveChartsInputSchema(ma.Schema):
     data_name = ma.String(required=True)
-    interval_duration = ma.Integer(required=True)
+    interval_duration = ma.Integer(required=True, validate=validate.Range(min=1, max=10))
 

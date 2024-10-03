@@ -1,5 +1,5 @@
 from MSI import app
-from .utils import load_json
+from .data_loaders_utils import load_json
 import json
 import datetime
 
