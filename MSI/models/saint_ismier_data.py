@@ -88,7 +88,8 @@ class SaintIsmierData(db.Model):
 
             current_chart_data = MeteoLiveUtils.get_current_charts_data(cls, data_name, interval_duration,
                                                                         column_mapping)
-
+            print("caca")
+            print(current_chart_data)
             return current_chart_data
 
         except Exception:

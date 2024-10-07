@@ -195,13 +195,20 @@ class MeteoLiveUtils:
             else:
                 query = cls.query.filter(cls.date_time >= data_start_date)
                 columns = column_mapping[data_name]
+                print(data_name)
+                print(columns)
 
             current_charts_data = query.with_entities(*columns).all()
+            print(current_charts_data)
 
             response = {"datetime": [data.date_time.strftime("%Y-%m-%d %H:%M:%S") for data in current_charts_data]}
+            print(response)
             for col in columns[1:]:
                 response[col.name] = [getattr(data, col.name) for data in current_charts_data]
+                print(col.name)
+                print(response)
 
+            print(response)
             return response
 
         else:
@@ -233,6 +240,8 @@ class MeteoLiveUtils:
 
         else:
             results = [0] * 16
+        print(results)
+        print(type(results))
 
         return results
 

@@ -557,7 +557,7 @@ function ajaxRequest(_dataName, _intervalDuration) {
         success:function(results)
         {
             // Recup data
-            let data = results["live_charts"];
+            let data = results;
 
             //update chart config
             liveChart.destroy();

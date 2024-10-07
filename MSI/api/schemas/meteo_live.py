@@ -45,7 +45,7 @@ class DataStatusSchema(ma.Schema):
 # Current Weather Data Schema-------------------------------------------------------------------------------------------
 class BaseWeatherDataSchema(ma.Schema):
     update_datetime = ma.String(dump_only=True)
-    temperature = ma.Float(dump_only=True, allow_none=True)
+    temperature = ma.Float(required=True, dump_only=True, allow_none=True)
     humidity = ma.Integer(dump_only=True, allow_none=True)
     wind_speed = ma.Integer(dump_only=True, allow_none=True)
     gust_speed = ma.Integer(dump_only=True, allow_none=True)
@@ -106,7 +106,21 @@ class LansEnVercorsDataSchema(ma.Schema):
     daily_extremes = ma.Nested(DailyExtremesSchema)
 
 
+# Live Charts Input Schema--------------------------------------------------------------------------------------------------
 class LiveChartsInputSchema(ma.Schema):
-    data_name = ma.String(required=True)
-    interval_duration = ma.Integer(required=True, validate=validate.Range(min=1, max=10))
+    data_name = ma.String(required=True, validate=validate.OneOf(["temperature", "rain", "wind", "wind_direction",
+                                                                  "humidity", "pressure", "uv"]))
+    interval_duration = ma.Integer(required=True, validate=validate.OneOf([1, 2, 3, 7]))
 
+
+class LiveChartsDataSchema(ma.Schema):
+    datetime = ma.List(ma.String())
+    temperature = ma.List(ma.Float())
+    dew_point = ma.List(ma.Float())
+    rain_1h = ma.List(ma.Float())
+    wind = ma.List(ma.Integer())
+    gust = ma.List(ma.Integer())
+    wind_direction = ma.List(ma.Float())
+    humidity = ma.List(ma.Integer())
+    pressure = ma.List(ma.Float())
+    uv = ma.List(ma.Integer())

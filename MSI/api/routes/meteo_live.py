@@ -41,16 +41,17 @@ def get_meteo_live_lans_en_vercors():
 
 
 # ------------Requête AJAX Live Charts---------------------------------------------------------------------------
-@bp.route('/meteo-live/live-charts/saint-ismier', methods=['GET'])
+@bp.route('/meteo-live/live-charts/<station_name>', methods=['GET'])
 @arguments(LiveChartsInputSchema)
+@response(LiveChartsDataSchema)
 @other_responses({404: "Weather station not found"})
-def update_live_charts(data):
+def update_live_charts(data, station_name: str):
     try:
         # Récupérer les paramètres depuis l'URL (request.args)
         data_name = data["data_name"]
         interval_duration = data["interval_duration"]
 
-        return jsonify(live_charts=SaintIsmierData.current_charts_data(data_name, interval_duration)), 200
+        return SaintIsmierData.current_charts_data(data_name, interval_duration)
 
     except ValidationError as e:
         app.logger.error(f"[update_live_charts - {station_name}] {e.messages}")
