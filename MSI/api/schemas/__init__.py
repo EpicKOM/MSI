@@ -1,10 +1,5 @@
-from .meteo_live import SaintIsmierDataSchema, SaintMartinDheresDataSchema, LansEnVercorsDataSchema,\
-    LiveChartsInputSchema, LiveChartsDataSchema
+from .meteo_live import CurrentWeatherOutputSchema, LiveChartsInputSchema, LiveChartsOutputSchema
 
-__all__ = [
-    "SaintIsmierDataSchema",
-    "SaintMartinDheresDataSchema",
-    "LansEnVercorsDataSchema",
-    "LiveChartsInputSchema",
-    "LiveChartsDataSchema"
-]
+__all__ = ["CurrentWeatherOutputSchema",
+           "LiveChartsInputSchema",
+           "LiveChartsOutputSchema"]

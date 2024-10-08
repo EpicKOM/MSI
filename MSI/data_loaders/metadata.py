@@ -1,5 +1,5 @@
-from MSI import app
 from .data_loaders_utils import load_json
+from MSI import app
 
 json_path = app.config.get('JSON_METADATA_PATH')
 metadata = load_json(json_path)

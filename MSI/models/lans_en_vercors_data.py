@@ -8,11 +8,11 @@ class LansEnVercorsData(db.Model):
     temperature = db.Column(db.Float)
     humidity = db.Column(db.Integer)
     dew_point = db.Column(db.Float)
-    wind = db.Column(db.Integer)
-    gust = db.Column(db.Float)
+    wind_speed = db.Column(db.Integer)
+    gust_speed = db.Column(db.Integer)
     wind_angle = db.Column(db.Integer)
     rain_1h = db.Column(db.Float)
-    pressure = db.Column(db.Integer)
+    pressure = db.Column(db.Float)
 
     @classmethod
     def get_data_status(cls):
@@ -40,13 +40,13 @@ class LansEnVercorsData(db.Model):
                                  "temperature": round(last_record.temperature, 1) if last_record.temperature is not None else None,
                                  "humidity": last_record.humidity if last_record.humidity is not None else None,
                                  "dew_point": round(last_record.dew_point, 1) if last_record.dew_point is not None else None,
-                                 "wind_speed": last_record.wind if last_record.wind is not None else None,
-                                 "gust_speed": round(last_record.gust, 1) if last_record.gust is not None else None,
+                                 "wind_speed": last_record.wind_speed if last_record.wind_speed is not None else None,
+                                 "gust_speed": last_record.gust_speed if last_record.gust_speed is not None else None,
                                  "wind_angle": last_record.wind_angle if last_record.wind_angle is not None else None,
                                  "wind_direction": MeteoLiveUtils.get_wind_direction(
                                      last_record.wind_angle) if last_record.wind_angle is not None else None,
                                  "rain_24h": MeteoLiveUtils.get_rain_24h(cls),
-                                 "pressure": last_record.pressure if last_record.pressure is not None else None,
+                                 "pressure": round(last_record.pressure, 1) if last_record.pressure is not None else None,
                                  }
 
             rain_data = MeteoLiveUtils.get_rain_1h(cls)
@@ -79,7 +79,7 @@ class LansEnVercorsData(db.Model):
         try:
             column_mapping = {
                 "temperature": [cls.date_time, cls.temperature, cls.dew_point],
-                "wind": [cls.date_time, cls.wind, cls.gust],
+                "wind": [cls.date_time, cls.wind_speed, cls.gust_speed],
                 "humidity": [cls.date_time, cls.humidity],
                 "pressure": [cls.date_time, cls.pressure],
                 "rain": [cls.date_time, cls.rain_1h],

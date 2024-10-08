@@ -1,12 +1,28 @@
 """
 ## API Overview
 
-This **Weather API** provides real-time weather data for various towns and regions.
-This API allows users to retrieve up-to-date meteorological information.
+This API provides easy access to weather information from various weather stations located in the French Alps,
+particularly in the Isère department.
 
-### Features:
-- **Real-time weather data**: Get live weather updates for supported towns.
-- **Multiple locations**: Data available for different regions, including small towns and large cities.
+What can you do with this API?
+
+Get Current Weather Data
+
+Quickly retrieve up-to-date weather information for a specific location.
+Access details like temperature, humidity, wind speed, and more.
+
+Generate Live Weather Charts
+
+Create dynamic charts showing how weather conditions change over time.
+Customize charts based on different weather metrics and time intervals.
+
+Why use this API?
+
+Real-time Information: Always get the latest weather data.
+Customizable: Choose the weather stations and metrics you're interested in.
+Easy Integration: Perfect for weather apps, websites, or any project needing weather data.
+
+Whether you're building a weather app, planning outdoor activities, or just curious about current conditions, this API provides the weather data you need, when you need it.
 """
 from flask import Flask
 from apifairy import APIFairy

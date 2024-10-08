@@ -168,11 +168,11 @@ class MeteoLiveUtils:
         """
         today = MeteoLiveUtils.get_last_record_datetime(cls).date()
 
-        gust_max = cls.query.with_entities(db.func.max(cls.gust)).filter(
+        gust_max = cls.query.with_entities(db.func.max(cls.gust_speed)).filter(
             db.func.DATE(cls.date_time) == today,
-            cls.gust.isnot(None)).scalar()
+            cls.gust_speed.isnot(None)).scalar()
 
-        gust_max_time = cls.query.with_entities(db.func.max(cls.date_time)).filter_by(gust=gust_max).scalar()
+        gust_max_time = cls.query.with_entities(db.func.max(cls.date_time)).filter_by(gust_speed=gust_max).scalar()
 
         maximum_gust_today = {"gust_max": round(gust_max, 1) if gust_max is not None else None,
                               "gust_max_time": gust_max_time.strftime("%H:%M") if gust_max is not None else None
@@ -195,20 +195,14 @@ class MeteoLiveUtils:
             else:
                 query = cls.query.filter(cls.date_time >= data_start_date)
                 columns = column_mapping[data_name]
-                print(data_name)
-                print(columns)
 
             current_charts_data = query.with_entities(*columns).all()
-            print(current_charts_data)
 
             response = {"datetime": [data.date_time.strftime("%Y-%m-%d %H:%M:%S") for data in current_charts_data]}
-            print(response)
+
             for col in columns[1:]:
                 response[col.name] = [getattr(data, col.name) for data in current_charts_data]
-                print(col.name)
-                print(response)
 
-            print(response)
             return response
 
         else:
@@ -216,7 +210,7 @@ class MeteoLiveUtils:
 
     @staticmethod
     def get_wind_direction_chart_data(cls, data_start_date):
-        wind_angle_data = cls.query.with_entities(cls.wind_angle).filter(cls.date_time >= data_start_date, cls.wind > 0,
+        wind_angle_data = cls.query.with_entities(cls.wind_angle).filter(cls.date_time >= data_start_date, cls.wind_speed > 0,
                                                                          cls.wind_angle.isnot(None)).all()
 
         wind_direction_counts = {
@@ -240,8 +234,6 @@ class MeteoLiveUtils:
 
         else:
             results = [0] * 16
-        print(results)
-        print(type(results))
 
         return results
 

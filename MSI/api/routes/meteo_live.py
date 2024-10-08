@@ -1,57 +1,58 @@
 from flask import jsonify, abort, request
 from apifairy import response, other_responses, arguments
+from MSI.data_loaders import get_station_metadata, get_units_metadata
 from MSI.api.schemas import *
-from MSI.models import *
-from MSI.api.utils import get_meteo_live
+from MSI.api.utils import get_data_class
 from MSI.api import bp
 from MSI import app
 
 
-@bp.route('/meteo-live/saint-ismier', methods=['GET'])
-@response(SaintIsmierDataSchema)
+@bp.route('/meteo-live/<station_name>', methods=['GET'])
+@response(CurrentWeatherOutputSchema)
 @other_responses({404: "Weather station not found"})
-def get_meteo_live_saint_ismier():
-    """Returns real-time weather data for Saint-Ismier.
+def get_meteo_live(station_name: str):
+    """Return current weather data
 
-    This endpoint retrieves the latest weather information for Saint-Ismier.
+    This endpoint returns current weather data for a specific weather station.
     """
-    return get_meteo_live("saint_ismier", SaintIsmierData)
+    data_class = get_data_class(station_name)
 
+    if data_class is None:
+        abort(404)
 
-@bp.route('/meteo-live/saint-martin-d-heres', methods=['GET'])
-@response(SaintMartinDheresDataSchema)
-@other_responses({404: "Weather station not found"})
-def get_meteo_live_saint_martin_dheres():
-    """Returns real-time weather data for Saint-Martin-d'Hères.
+    data_status = data_class.get_data_status()
+    context = {"station": get_station_metadata(station_name),
+               "units": get_units_metadata(station_name),
+               "data_status": data_status}
 
-    This endpoint retrieves the latest weather information for Saint-Martin-d'Hères.
-    """
-    return get_meteo_live("saint_martin_dheres", SaintMartinDheresData)
+    if not data_status["is_table_empty"]:
+        context.update(current_weather_data=data_class.get_current_weather_data(),
+                       daily_extremes=data_class.get_daily_extremes())
 
-
-@bp.route('/meteo-live/lans-en-vercors', methods=['GET'])
-@response(LansEnVercorsDataSchema)
-@other_responses({404: "Weather station not found"})
-def get_meteo_live_lans_en_vercors():
-    """Returns real-time weather data for Lans-en-Vercors.
-
-    This endpoint retrieves the latest weather information for Lans-en-Vercors.
-    """
-    return get_meteo_live("lans_en_vercors", LansEnVercorsData)
+    return context
 
 
 # ------------Requête AJAX Live Charts---------------------------------------------------------------------------
 @bp.route('/meteo-live/live-charts/<station_name>', methods=['GET'])
 @arguments(LiveChartsInputSchema)
-@response(LiveChartsDataSchema)
-@other_responses({404: "Weather station not found"})
-def update_live_charts(data, station_name: str):
+@response(LiveChartsOutputSchema)
+@other_responses({404: "Weather station not found", 400: "Bad request", 500: "Internal server error"})
+def get_live_charts(data, station_name: str):
+    """Return live charts data
+
+    This endpoint returns live charts data for a specific weather station,
+    based on the provided weather metric and interval duration.
+    """
     try:
-        # Récupérer les paramètres depuis l'URL (request.args)
         data_name = data["data_name"]
         interval_duration = data["interval_duration"]
 
-        return SaintIsmierData.current_charts_data(data_name, interval_duration)
+        data_class = get_data_class(station_name)
+
+        if data_class is None:
+            abort(404)
+
+        return data_class.current_charts_data(data_name, interval_duration)
 
     except ValidationError as e:
         app.logger.error(f"[update_live_charts - {station_name}] {e.messages}")

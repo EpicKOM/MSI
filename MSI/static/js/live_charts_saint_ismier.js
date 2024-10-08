@@ -600,8 +600,8 @@ function updateLiveCharts(_dataName, _data, _interval_duration)
         },
         "wind": () => {
             liveChart.data.labels = _data["datetime"];
-            liveChart.data.datasets[0].data = _data["wind"];
-            liveChart.data.datasets[1].data = _data["gust"];
+            liveChart.data.datasets[0].data = _data["wind_speed"];
+            liveChart.data.datasets[1].data = _data["gust_speed"];
             liveChart.options.scales.x.ticks.stepSize = 2 * _interval_duration;
         },
         "rain": () => {

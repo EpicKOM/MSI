@@ -7,8 +7,8 @@ class SaintIsmierData(db.Model):
     date_time = db.Column(db.DateTime, index=True)
     temperature = db.Column(db.Float)
     humidity = db.Column(db.Integer)
-    wind = db.Column(db.Integer)
-    gust = db.Column(db.Integer)
+    wind_speed = db.Column(db.Integer)
+    gust_speed = db.Column(db.Integer)
     wind_angle = db.Column(db.Integer)
     rain_1h = db.Column(db.Float)
     pressure = db.Column(db.Float)
@@ -39,8 +39,8 @@ class SaintIsmierData(db.Model):
             base_weather_data = {"update_datetime": last_record.date_time.strftime("%d/%m/%Y à %H:%M"),
                                  "temperature": round(last_record.temperature, 1) if last_record.temperature is not None else None,
                                  "humidity": last_record.humidity if last_record.humidity is not None else None,
-                                 "wind_speed": last_record.wind if last_record.wind is not None else None,
-                                 "gust_speed": round(last_record.gust, 1) if last_record.gust is not None else None,
+                                 "wind_speed": last_record.wind_speed if last_record.wind_speed is not None else None,
+                                 "gust_speed": last_record.gust_speed if last_record.gust_speed is not None else None,
                                  "wind_angle": last_record.wind_angle if last_record.wind_angle is not None else None,
                                  "wind_direction": MeteoLiveUtils.get_wind_direction(
                                      last_record.wind_angle) if last_record.wind_angle is not None else None,
@@ -79,7 +79,7 @@ class SaintIsmierData(db.Model):
         try:
             column_mapping = {
                 "temperature": [cls.date_time, cls.temperature],
-                "wind": [cls.date_time, cls.wind, cls.gust],
+                "wind": [cls.date_time, cls.wind_speed, cls.gust_speed],
                 "humidity": [cls.date_time, cls.humidity],
                 "pressure": [cls.date_time, cls.pressure],
                 "rain": [cls.date_time, cls.rain_1h],
@@ -88,8 +88,7 @@ class SaintIsmierData(db.Model):
 
             current_chart_data = MeteoLiveUtils.get_current_charts_data(cls, data_name, interval_duration,
                                                                         column_mapping)
-            print("caca")
-            print(current_chart_data)
+
             return current_chart_data
 
         except Exception:

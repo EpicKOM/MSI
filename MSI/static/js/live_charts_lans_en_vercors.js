@@ -561,15 +561,15 @@ $(document).ready(function(){
 //----------------Ajax request------------------------------------------------------------------------------------------
 function ajaxRequest(_dataName, _intervalDuration) {
     $.ajax({
-        type : 'POST',
-        url : '/data/lans-en-vercors/live-charts',
+        type : 'GET',
+        url : '/api/meteo-live/live-charts/lans-en-vercors',
         data : {'data_name': _dataName,
                 'interval_duration': _intervalDuration},
 
         success:function(results)
         {
             // Recup data
-            let data = results["live_charts"];
+            let data = results;
 
             //update chart config
             liveChart.destroy();
@@ -612,8 +612,8 @@ function updateLiveCharts(_dataName, _data, _interval_duration)
         },
         "wind": () => {
             liveChart.data.labels = _data["datetime"];
-            liveChart.data.datasets[0].data = _data["wind"];
-            liveChart.data.datasets[1].data = _data["gust"];
+            liveChart.data.datasets[0].data = _data["wind_speed"];
+            liveChart.data.datasets[1].data = _data["gust_speed"];
             liveChart.options.scales.x.ticks.stepSize = 2 * _interval_duration;
         },
         "rain": () => {

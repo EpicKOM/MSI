@@ -1,1 +1,1 @@
-from .functions import get_meteo_live
+from .functions import get_data_class
