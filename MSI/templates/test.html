@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block css %}
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/observations.css') }}">
 {% endblock css %}
 
 {% block meteo_active %}
@@ -9,25 +9,65 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div class="container mt-4">
+        <h3 class="text-light mt-3 mb-3">
+            <i class="fa-solid fa-bell text-light me-2"></i>
+            Alertes Météo
+        </h3>
         <div class="row">
-            <div class="col-lg-3">
-                <div class="dropdown custom-dropdown w-100 mt-5">
-                    <button
-                        class="btn btn-hover bg-primary-color msi-border text-light dropdown-toggle w-100 d-flex justify-content-between align-items-center"
-                        type="button"
-                        data-mdb-dropdown-init
-                        data-mdb-ripple-init
-                        aria-expanded="false">
-                        <span id="dropdownTitle">24h</span>
-                        <i class="fa-solid fa-sort opacity-50"></i>
-                    </button>
-                    <ul class="dropdown-menu bg-primary-color msi-border w-100" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item" data-value="1">24h<i class="fa-solid fa-check text-success"></i></a></li>
-                        <li><a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item" data-value="2">48h</a></li>
-                        <li><a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item" data-value="3">72h</a></li>
-                        <li><a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item" data-value="7">7 jours</a></li>
+            <div class="col-lg-4">
+                <div class="card bg-primary-color p-3 msi-border">
+                </div>
+            </div>
+            <div class="col-lg-4 mt-lg-0 mt-3">
+                <div class="card bg-primary-color p-3 msi-border">
+                </div>
+            </div>
+            <div class="col-lg-4 mt-lg-0 mt-3">
+                <div class="card bg-primary-color p-3 msi-border">
+                </div>
+            </div>
+        </div>
+
+        <h3 class="text-light mt-3 mb-3">
+            <i class="fa-solid fa-bell text-light me-2"></i>
+            Alertes Météo
+        </h3>
+        <div class="row">
+            <div class="col-lg-4 mt-lg-0 mt-3">
+                <div class="card bg-primary-color p-3 msi-border">
+
+                    <h5 class="text-light text-center">
+                        Vigilance Météorologique
+                    </h5>
+                    <hr class="mt-1 text-light">
+                    <!-- Tabs navs -->
+                    <ul class="nav mb-3 ms-auto me-auto" id="ex-with-icons" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a data-mdb-tab-init class="nav-link text-light opacity-50 active tab-active" id="1" href="" role="tab">
+                                Aujourd'hui
+                            </a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a data-mdb-tab-init class="nav-link text-light opacity-50" id="2" href="" role="tab">
+                                Demain
+                            </a>
+                        </li>
                     </ul>
+                    <div class="mt-4 tab-pane fade show active" id="snowTabContent" role="tabpanel">
+                        <h6 class="text-light">Phénomènes :</h6>
+                        <hr class="mt-1">
+                        <h6 class="text-light">Chronologie :</h6>
+                        <hr class="mt-1">
+                        <h6 class="text-light">Situation actuelle :</h6>
+                        <p>
+                          "Faits nouveaux : Néant",
+                          "",
+                          "Situation générale : au passage de la dépression \"Kirk\" le vent se renforce sur la région pour l'après-midi de mercredi et la première partie de nuit de mercredi à jeudi.",
+                          "",
+                          "Observations notables : le vent s'est partout orienté au sud et commence à se renforcer (111 km/h à St Chamond, 96km/h à Bron, 100 km/h à Voiron, 138km/h à Villard-de-Lans)</p>
+                        <hr class="mt-1">
+                    </div>
                 </div>
             </div>
         </div>
