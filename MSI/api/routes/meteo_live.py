@@ -2,7 +2,7 @@ from flask import jsonify, abort, request
 from apifairy import response, other_responses, arguments
 from MSI.data_loaders import get_station_metadata, get_units_metadata
 from MSI.api.schemas import *
-from MSI.api.utils import get_data_class
+from MSI.utils import get_data_class
 from MSI.api import bp
 from MSI import app
 

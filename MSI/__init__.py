@@ -31,6 +31,7 @@ from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
 from config import Config
 from logging.handlers import SysLogHandler
+from MSI.sse import SSEBroadcaster
 import logging
 
 app = Flask(__name__)
@@ -41,6 +42,7 @@ db = SQLAlchemy(app)
 compress = Compress(app)
 ma = Marshmallow(app)
 apifairy = APIFairy(app)
+sse_broadcaster = SSEBroadcaster()
 
 # Initialize Flask logs
 handler = SysLogHandler(address=(app.config.get('PAPERTRAIL_HOST'), app.config.get('PAPERTRAIL_PORT')))
