@@ -1,4 +1,4 @@
-from MSI import db, app
+from MSI import db, app, sse_broadcaster
 from MSI.models import *
 from datetime import datetime
 import random
@@ -9,7 +9,7 @@ def insert_data():
         try:
             trend = ["stable", "up", "down"]
 
-            date_time = datetime(2024, 10, 12, 19, 20, 0, 0)
+            date_time = datetime(2024, 10, 18, 11, 00, 0, 0)
             temperature = random.randint(-20, 40)
             humidity = random.randint(0, 100)
             wind_speed = random.randint(0, 50)
@@ -38,4 +38,5 @@ def insert_data():
 
 if __name__ == "__main__":
     insert_data()
+    print(sse_broadcaster.subscribers)
 

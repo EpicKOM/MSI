@@ -1,9 +1,10 @@
-from MSI import app, db
-from flask import render_template, request, abort, jsonify
+from MSI import app, db, sse_broadcaster
+from flask import render_template, request, abort, jsonify, Response
 from MSI.data_loaders.forecasts import ForecastsApi
 from MSI.pages.observations import Observations
 from MSI.models import *
 import datetime
+import random
 
 
 @app.before_request
@@ -51,6 +52,22 @@ def meteo_live_lans_en_vercors():
                        daily_extremes=LansEnVercorsData.get_daily_extremes())
 
     return render_template("meteo_live_lans_en_vercors.html", **context)
+
+
+@app.route("/stream/meteo-live/saint-ismier", methods=['GET'])
+def subscribe_sse_saint_ismier():
+    def event_stream():
+        print("Le client s'abonne")
+        # S'abonner pour recevoir les événements SSE
+        subscriber = sse_broadcaster.subscribe()  # returns a queue.Queue
+        print(len(sse_broadcaster.subscribers))
+        while True:
+            # Récupérer un nouveau message du flux (bloque jusqu'à l'arrivée d'un message)
+            message = subscriber.get()
+            yield message  # Envoie le message SSE au client
+
+        # Retourner le flux d'événements avec le type MIME correct
+    return Response(event_stream(), mimetype='text/event-stream')
 
 
 @app.route("/previsions/")

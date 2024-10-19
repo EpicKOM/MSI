@@ -1,13 +1,18 @@
 $(document).ready(function() {
-    // Récupère la valeur sélectionnée
-    $('.dropdown-item').click(function(e) {
-        var selectedValue = $(this).data('value');
-        $('.dropdown-item').find('i.fa-check').remove();
-        $(this).append('<i class="fa-solid fa-check text-success"></i>');
+    const eventSource = new EventSource("/stream/meteo-live/saint-ismier");
 
-
-        // Afficher la valeur sélectionnée dans le bouton
-        $('#dropdownTitle').text($(this).text());
-
+    eventSource.onmessage = (event) => {
+    alert("bite");
+//        const data = JSON.parse(event.data);
+//        $('testTemperature').text = data.current_weather_data.temperature;
+    }
+        // Gestion des erreurs
+    eventSource.onerror = (error) => {
+        console.error("EventSource failed: ", error);
+        // Optionnel : afficher un message d'erreur à l'utilisateur ou tenter une reconnexion
+    };
+        // Fermer la connexion SSE lorsque l'utilisateur quitte la page
+    $(window).on("beforeunload", function() {
+        eventSource.close(); // Ferme la connexion SSE
     });
 });

@@ -2,7 +2,7 @@ import json
 from typing import Any, Optional
 
 
-def test_sse(data: Any, event: Optional[str] = "") -> str:
+def format_sse(data: Any, event: Optional[str] = "") -> str:
     """
     Format data as a Server-Sent Events (SSE) message.
     """
