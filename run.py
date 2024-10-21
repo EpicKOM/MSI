@@ -13,4 +13,4 @@ if __name__ == "__main__":
     except:
         debug = True
 
-    app.run(debug=debug)
+    app.run(debug=debug, host="192.168.1.38")
