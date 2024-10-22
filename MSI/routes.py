@@ -58,6 +58,7 @@ def meteo_live_lans_en_vercors():
 
 @app.route('/ping')
 def ping():
+    print(len(sse_broadcaster.subscribers))
     data = 12
     message = format_sse(data=data, event="meteo")
     sse_broadcaster.broadcast(message=message)
@@ -71,11 +72,13 @@ def subscribe_sse_saint_ismier():
         # S'abonner pour recevoir les événements SSE
         subscriber = sse_broadcaster.subscribe()  # returns a queue.Queue
         print(len(sse_broadcaster.subscribers))
-        while True:
-            # Récupérer un nouveau message du flux (bloque jusqu'à l'arrivée d'un message)
-            message = subscriber.get()
-            print(message)
-            yield message
+        try:
+            while True:
+                # Récupérer un nouveau message du flux (bloque jusqu'à l'arrivée d'un message)
+                message = subscriber.get()
+                yield message
+        except GeneratorExit:
+            sse_broadcaster.unsubscribe(subscriber)
 
         # Retourner le flux d'événements avec le type MIME correct
     return Response(event_stream(), mimetype='text/event-stream')
