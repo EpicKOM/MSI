@@ -55,4 +55,3 @@ from MSI.api import bp as api_bp
 app.register_blueprint(api_bp, url_prefix='/api')
 
 from MSI import routes, errors
-from MSI.models import events

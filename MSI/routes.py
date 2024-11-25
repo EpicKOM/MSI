@@ -56,29 +56,29 @@ def meteo_live_lans_en_vercors():
     return render_template("meteo_live_lans_en_vercors.html", **context)
 
 
-@app.route('/ping')
-def ping():
-    print(len(sse_broadcaster.subscribers))
-    data = 12
+@app.route('/ping/<station_id>')
+def ping(station_id):
+    print(len(sse_broadcaster.subscribers[station_id]))
+    data = "Vincent suce une qqqqqqqqqqquueeuuu"
     message = format_sse(data=data, event="meteo")
-    sse_broadcaster.broadcast(message=message)
+    sse_broadcaster.broadcast(station_id=station_id, message=message)
     return {}, 200
 
 
-@app.route("/stream/meteo-live/saint-ismier", methods=['GET'])
-def subscribe_sse_saint_ismier():
+@app.route("/stream/meteo-live/<station_id>", methods=['GET'])
+def stream_meteo_live(station_id):
     def event_stream():
-        print("Le client s'abonne")
+        print(f"Le client s'abonne au stream {station_id}")
         # S'abonner pour recevoir les événements SSE
-        subscriber = sse_broadcaster.subscribe()  # returns a queue.Queue
-        print(len(sse_broadcaster.subscribers))
+        subscriber = sse_broadcaster.subscribe(station_id)  # returns a queue.Queue
+        print(len(sse_broadcaster.subscribers[station_id]))
         try:
             while True:
                 # Récupérer un nouveau message du flux (bloque jusqu'à l'arrivée d'un message)
                 message = subscriber.get()
                 yield message
         except GeneratorExit:
-            sse_broadcaster.unsubscribe(subscriber)
+            sse_broadcaster.unsubscribe(station_id, subscriber)
 
         # Retourner le flux d'événements avec le type MIME correct
     return Response(event_stream(), mimetype='text/event-stream')
