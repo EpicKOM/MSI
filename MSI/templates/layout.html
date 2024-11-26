@@ -68,7 +68,7 @@
                 <!-- Collapsible wrapper -->
                 <div class="collapse navbar-collapse" id="nav-collapse">
                     <!-- Navbar brand -->
-                    <a class="navbar-brand mt-2 mt-lg-0 pe-1 ps-1" href="{{ url_for('meteo_live_saint_ismier') }}">
+                    <a class="navbar-brand mt-2 mt-lg-0 pe-1 ps-1" href="{{ url_for('meteo_live', station_name='saint-ismier') }}">
                         <img
                           src="{{ url_for('static', filename='img/logo.png') }}"
                           height="35"
@@ -89,14 +89,14 @@
                             </a>
                             <ul class="dropdown-menu bg-primary-color dropdown-border" aria-labelledby="meteoLiveDropdownMenu">
                                 <li>
-                                    <a class="dropdown-item text-light action-item" href="{{ url_for('meteo_live_saint_ismier') }}">Saint-Ismier | <span class="text-info">Amateur</span></a>
+                                    <a class="dropdown-item text-light action-item" href="{{ url_for('meteo_live', station_name='saint-ismier') }}">Saint-Ismier | <span class="text-info">Amateur</span></a>
                                 </li>
                                 <li><hr class="dropdown-divider mt-0 mb-0 msi-border"/></li>
                                 <li>
-                                    <a class="dropdown-item text-light action-item" href="{{ url_for('meteo_live_lans_en_vercors') }}">Lans-en-Vercors | <span class="text-info">Réseau StatIC</span></a>
+                                    <a class="dropdown-item text-light action-item" href="{{ url_for('meteo_live', station_name='lans-en-vercors') }}">Lans-en-Vercors | <span class="text-info">Réseau StatIC</span></a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item text-light action-item" href="{{ url_for('meteo_live_saint_martin_dheres') }}">Saint-Martin-d'Hères | <span class="text-info">Réseau StatIC</span></a>
+                                    <a class="dropdown-item text-light action-item" href="{{ url_for('meteo_live', station_name='saint-martin-d-heres') }}">Saint-Martin-d'Hères | <span class="text-info">Réseau StatIC</span></a>
                                 </li>
                             </ul>
                         </li>

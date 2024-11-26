@@ -3,26 +3,25 @@ import queue
 
 class SSEBroadcaster:
     def __init__(self):
-        self.subscribers = {}
+        self.subscribers = {"saint-ismier": [],
+                            "saint-martin-d-heres": [],
+                            "lans-en-vercors": []}
 
-    def subscribe(self, station_id):
-        if station_id not in self.subscribers:
-            self.subscribers[station_id] = []
-        subscriber = queue.Queue(maxsize=5)
-        self.subscribers[station_id].append(subscriber)
-        return subscriber
+    def subscribe(self, station_name):
+        if station_name in self.subscribers:
+            subscriber = queue.Queue(maxsize=5)
+            self.subscribers[station_name].append(subscriber)
+            return subscriber
 
-    def unsubscribe(self, station_id, subscriber):
-        if station_id in self.subscribers:
-            self.subscribers[station_id].remove(subscriber)
-            # if not self.subscribers[station_id]:
-            #     del self.subscribers[station_id]
+    def unsubscribe(self, station_name, subscriber):
+        if station_name in self.subscribers:
+            self.subscribers[station_name].remove(subscriber)
 
-    def broadcast(self, station_id, message):
+    def broadcast(self, station_name, message):
         dead_subscribers = []
 
-        if station_id in self.subscribers:
-            for subscriber in self.subscribers[station_id]:
+        if station_name in self.subscribers:
+            for subscriber in self.subscribers[station_name]:
                 try:
                     subscriber.put_nowait(message)
 
@@ -30,4 +29,4 @@ class SSEBroadcaster:
                     dead_subscribers.append(subscriber)
 
         for dead_subscriber in dead_subscribers:
-            self.unsubscribe(station_id, dead_subscriber)
+            self.unsubscribe(station_name, dead_subscriber)

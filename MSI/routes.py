@@ -4,6 +4,7 @@ from MSI.data_loaders.forecasts import ForecastsApi
 from MSI.pages.observations import Observations
 from MSI.sse import format_sse
 from MSI.models import *
+from MSI.utils import *
 import datetime
 import random
 import time
@@ -20,65 +21,52 @@ def current_year():
 
 
 @app.route("/")
-@app.route("/meteo-live/saint-ismier/")
-def meteo_live_saint_ismier():
-    data_status = SaintIsmierData.get_data_status()
+@app.route("/meteo-live/<station_name>/")
+def meteo_live(station_name="saint-ismier"):
+    station_class = get_station_class(station_name)
+    station_template = get_station_template(station_name)
+
+    data_status = station_class.get_data_status()
     context = {"data_status": data_status}
 
     if not data_status["is_table_empty"]:
-        context.update(current_weather_data=SaintIsmierData.get_current_weather_data(),
-                       daily_extremes=SaintIsmierData.get_daily_extremes())
+        context.update(current_weather_data=station_class.get_current_weather_data(),
+                       daily_extremes=station_class.get_daily_extremes())
 
-    return render_template("meteo_live_saint_ismier.html", **context)
-
-
-@app.route("/meteo-live/saint-martin-d-heres/")
-def meteo_live_saint_martin_dheres():
-    data_status = SaintMartinDheresData.get_data_status()
-    context = {"data_status": data_status}
-
-    if not data_status["is_table_empty"]:
-        context.update(current_weather_data=SaintMartinDheresData.get_current_weather_data(),
-                       daily_extremes=SaintMartinDheresData.get_daily_extremes())
-
-    return render_template("meteo_live_saint_martin_dheres.html", **context)
+    return render_template(station_template, **context)
 
 
-@app.route("/meteo-live/lans-en-vercors/")
-def meteo_live_lans_en_vercors():
-    data_status = LansEnVercorsData.get_data_status()
-    context = {"data_status": data_status}
+# ------------SSE---------------------------------------------------------------------------
+@app.route('/notify/<station_name>/')
+def notify(station_name):
+    print(len(sse_broadcaster.subscribers[station_name]))
+    if station_name in sse_broadcaster.subscribers and sse_broadcaster.subscribers[station_name]:
+        station_class = get_station_class(station_name)
+        context = {"current_weather_data": station_class.get_current_weather_data(),
+                   "daily_extremes": station_class.get_daily_extremes()}
 
-    if not data_status["is_table_empty"]:
-        context.update(current_weather_data=LansEnVercorsData.get_current_weather_data(),
-                       daily_extremes=LansEnVercorsData.get_daily_extremes())
-
-    return render_template("meteo_live_lans_en_vercors.html", **context)
-
-
-@app.route('/ping/<station_id>')
-def ping(station_id):
-    print(len(sse_broadcaster.subscribers[station_id]))
-    data = "Vincent suce une qqqqqqqqqqquueeuuu"
-    message = format_sse(data=data, event="meteo")
-    sse_broadcaster.broadcast(station_id=station_id, message=message)
-    return {}, 200
+        message = format_sse(data=context, event=f"meteo-live-{station_name}")
+        print(message)
+        sse_broadcaster.broadcast(station_name=station_name, message=message)
+        print(f"SSE notifié - {station_name}")
+        return {}, 200
 
 
-@app.route("/stream/meteo-live/<station_id>", methods=['GET'])
-def stream_meteo_live(station_id):
+@app.route("/stream/meteo-live/<station_name>", methods=['GET'])
+def stream_meteo_live(station_name):
     def event_stream():
-        print(f"Le client s'abonne au stream {station_id}")
+        print(f"Le client s'abonne au stream {station_name}")
         # S'abonner pour recevoir les événements SSE
-        subscriber = sse_broadcaster.subscribe(station_id)  # returns a queue.Queue
-        print(len(sse_broadcaster.subscribers[station_id]))
+        subscriber = sse_broadcaster.subscribe(station_name)
+        print(len(sse_broadcaster.subscribers[station_name]))
         try:
             while True:
                 # Récupérer un nouveau message du flux (bloque jusqu'à l'arrivée d'un message)
                 message = subscriber.get()
                 yield message
         except GeneratorExit:
-            sse_broadcaster.unsubscribe(station_id, subscriber)
+            print("La connexion n'existe plus !")
+            sse_broadcaster.unsubscribe(station_name, subscriber)
 
         # Retourner le flux d'événements avec le type MIME correct
     return Response(event_stream(), mimetype='text/event-stream')
