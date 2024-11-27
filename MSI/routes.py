@@ -45,11 +45,13 @@ def notify(station_name):
         context = {"current_weather_data": station_class.get_current_weather_data(),
                    "daily_extremes": station_class.get_daily_extremes()}
 
-        message = format_sse(data=context, event=f"meteo-live-{station_name}")
+        message = format_sse(data=context, event=f"meteo")
         print(message)
         sse_broadcaster.broadcast(station_name=station_name, message=message)
         print(f"SSE notifié - {station_name}")
         return {}, 200
+
+    return {}, 404
 
 
 @app.route("/stream/meteo-live/<station_name>", methods=['GET'])
