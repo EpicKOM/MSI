@@ -39,19 +39,26 @@ def meteo_live(station_name="saint-ismier"):
 # ------------SSE---------------------------------------------------------------------------
 @app.route('/notify/<station_name>/')
 def notify(station_name):
+    # Vérifie si la station existe
+    if station_name not in sse_broadcaster.subscribers:
+        return {"error": f"Station {station_name} not found"}, 404
+
+    # Vérifie si la station a des abonnés
+    if not sse_broadcaster.subscribers[station_name]:
+        return {"message": "No subscribers to notify"}, 204
+
+    # Récupère les données et diffuse le message
     print(len(sse_broadcaster.subscribers[station_name]))
-    if station_name in sse_broadcaster.subscribers and sse_broadcaster.subscribers[station_name]:
-        station_class = get_station_class(station_name)
-        context = {"current_weather_data": station_class.get_current_weather_data(),
-                   "daily_extremes": station_class.get_daily_extremes()}
+    station_class = get_station_class(station_name)
+    context = {
+        "current_weather_data": station_class.get_current_weather_data(),
+        "daily_extremes": station_class.get_daily_extremes()
+    }
+    message = format_sse(data=context)
+    sse_broadcaster.broadcast(station_name=station_name, message=message)
 
-        message = format_sse(data=context, event=f"meteo")
-        print(message)
-        sse_broadcaster.broadcast(station_name=station_name, message=message)
-        print(f"SSE notifié - {station_name}")
-        return {}, 200
-
-    return {}, 404
+    print(f"SSE notifié - {station_name}")
+    return {"message": f"SSE notification sent for station {station_name}"}, 200
 
 
 @app.route("/stream/meteo-live/<station_name>", methods=['GET'])

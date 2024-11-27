@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    const eventSource = new EventSource("/stream/meteo-live/saint-ismier");
+    const eventSource = new EventSource("/stream/meteo-live/saint-martin-d-heres");
 
     // Écouter les messages par défaut
     eventSource.onmessage = (event) => {
@@ -7,9 +7,6 @@ $(document).ready(function() {
 
     };
 
-    eventSource.addEventListener("meteo", (event) => {
-    console.log("Météo Event: ", event.data);
-    });
     // Gestion des erreurs
     eventSource.onerror = (error) => {
         console.error("EventSource failed: ", error);

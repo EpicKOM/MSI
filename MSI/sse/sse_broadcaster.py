@@ -39,7 +39,7 @@ class SSEBroadcaster:
                     dead_subscribers.append(subscriber)
 
                 except Exception as e:
-                    print("Logger erreur")
+                    print("Logger erreur...")
                     dead_subscribers.append(subscriber)
 
         for dead_subscriber in dead_subscribers:
