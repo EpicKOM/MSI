@@ -72,7 +72,7 @@
                                 <p class="text-light opacity-50 mb-1">
                                     Température
                                 </p>
-                                <h5 class="fw-bold mb-1 text-light">
+                                <h5 class="fw-bold mb-1 text-light" id="liveTemperature">
                                     {{ format_weather_value(current_weather_data['temperature']) }} °C
                                     {% if current_weather_data["temperature_trend"] == "down" %}
                                         <i class="fa-solid fa-arrow-turn-down text-info ms-2 ms-xl-1 ms-xxl-2 opacity-75 fs-6"></i>
