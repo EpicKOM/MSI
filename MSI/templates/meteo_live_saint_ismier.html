@@ -35,7 +35,7 @@
             {% endif %}
             <div class="d-flex flex-column flex-md-row">
                 <div>
-                    <span class="badge p-3 {% if not data_status['is_data_fresh'] %}text-light-red bg-dark-red border-error{% else %}text-light-green bg-dark-green border-achievement{% endif %}">
+                    <span class="badge p-3 {% if not data_status['is_data_fresh'] %}text-light-red bg-dark-red border-error{% else %}text-light-green bg-dark-green border-achievement{% endif %}" id="liveDateTime">
                         <i class="fa-solid fa-rotate-right me-2"></i>Dernière mise à jour : {{ current_weather_data["update_datetime"] }}
                     </span>
                 </div>
@@ -74,10 +74,10 @@
                                 </p>
                                 <h5 class="fw-bold mb-1 text-light" id="liveTemperature">
                                     {{ format_weather_value(current_weather_data['temperature']) }} °C
-                                    {% if current_weather_data["temperature_trend"] == "down" %}
+                                    {%- if current_weather_data["temperature_trend"] == "down" -%}
                                         <i class="fa-solid fa-arrow-turn-down text-info ms-2 ms-xl-1 ms-xxl-2 opacity-75 fs-6"></i>
 
-                                    {% elif current_weather_data["temperature_trend"] == "up" %}
+                                    {%- elif current_weather_data["temperature_trend"] == "up" -%}
                                         <i class="fa-solid fa-arrow-turn-up text-danger ms-2 ms-xl-1 ms-xxl-2 opacity-75 fs-6"></i>
                                     {% endif %}
                                 </h5>
