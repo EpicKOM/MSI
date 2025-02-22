@@ -7,13 +7,12 @@ $(document).ready(function() {
         const weatherData = data.current_weather_data;
         const dailyExtremes = data.daily_extremes;
 
-        console.log(weatherData);
         const updateDatetime = weatherData.update_datetime;
-        const temperature = weatherData.temperature?.toFixed(1) || "-";
+        const temperature = weatherData.temperature?.toFixed(1) ?? "-";
         const temperatureTrend = weatherData.temperature_trend;
-        const rain_1h = weatherData.rain_1h?.toFixed(1) || "-";
-//        let rain_24h = currentWeatherData.rain_24h.toFixed(1);
-//        let wind_speed = currentWeatherData.wind_speed;
+        const rain_1h = weatherData.rain_1h?.toFixed(1) ?? "-";
+        const rain_24h = weatherData.rain_24h?.toFixed(1) ?? "-";
+        const windSpeed = weatherData.wind_speed ?? "-";
 //        let gust_speed = currentWeatherData.gust_speed;
 //        let wind_angle = currentWeatherData.wind_angle;
 //        let wind_direction = currentWeatherData.wind_direction;
@@ -24,21 +23,33 @@ $(document).ready(function() {
         $("#liveDateTime").text(`Dernière mise à jour : ${updateDatetime}`);
 
         // Mise à jour section température
-        let iconTemperature = "";
+        let temperatureIcon = "";
 
         if (temperatureTrend === "down") {
-            iconTemperature = '<i class="fa-solid fa-arrow-turn-down text-info ms-2 opacity-75 fs-6"></i>';
-        } else if (temperatureTrend === "up") {
-            iconTemperature = '<i class="fa-solid fa-arrow-turn-up text-danger ms-2 opacity-75 fs-6"></i>';
+            temperatureIcon = '<i class="fa-solid fa-arrow-turn-down text-info ms-2 opacity-75 fs-6"></i>';
+        }
+        else if (temperatureTrend === "up") {
+            temperatureIcon = '<i class="fa-solid fa-arrow-turn-up text-danger ms-2 opacity-75 fs-6"></i>';
         }
 
-        $("#liveTemperature").html(`${temperature} °C ${iconTemperature}`);
+        $("#liveTemperature").html(`${temperature} °C ${temperatureIcon}`);
 
+        // Mise à jour section Rain
         let rainIcon = '<i class="fa-solid fa-cloud-rain fa-stack-1x text-light"></i>';
         if (rain_1h <= 0 || rain_1h === "-") {
             rainIcon += '<i class="fa-solid fa-slash fa-stack-1x text-danger"></i>';
         }
-        $("#test").html(rainIcon);
+        $("#liveRainIcon").html(rainIcon);
+        $("#liveRain1h").text(`${rain_1h} mm/1h`);
+        $("#liveRain24h").text(`${rain_24h} mm`);
+
+        // Mise à jour section Wind
+        let windIcon = '<i class="fa-solid fa-wind fa-stack-1x text-light"></i>';
+        if (windSpeed <= 0 || windSpeed === "-") {
+            windIcon += '<i class="fa-solid fa-slash fa-stack-1x text-danger"></i>';
+        }
+        $("#liveWindIcon").html(windIcon);
+        $("#liveWind").text(`${windSpeed} km/h`);
 
     };
 
