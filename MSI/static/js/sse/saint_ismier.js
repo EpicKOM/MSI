@@ -13,11 +13,11 @@ $(document).ready(function() {
         const rain_1h = weatherData.rain_1h?.toFixed(1) ?? "-";
         const rain_24h = weatherData.rain_24h?.toFixed(1) ?? "-";
         const windSpeed = weatherData.wind_speed ?? "-";
-//        let gust_speed = currentWeatherData.gust_speed;
-//        let wind_angle = currentWeatherData.wind_angle;
-//        let wind_direction = currentWeatherData.wind_direction;
-//        let humidity = currentWeatherData.humidity;
-//        let pressure = currentWeatherData.pressure.toFixed(1);
+        const gustSpeed = weatherData.gust_speed ?? "-";
+        const windAngle = weatherData.wind_angle ?? "-";
+        const windDirection = weatherData.wind_direction ?? "-";
+        const humidity = weatherData.humidity ?? "-";
+        const pressure = weatherData.pressure?.toFixed(1) ?? "-";
 
         // Mise à jour section datetime
         $("#liveDateTime").text(`Dernière mise à jour : ${updateDatetime}`);
@@ -50,6 +50,26 @@ $(document).ready(function() {
         }
         $("#liveWindIcon").html(windIcon);
         $("#liveWind").text(`${windSpeed} km/h`);
+
+        if (windSpeed !== 0 || gustSpeed !==0) {
+            $("#liveWindDirection").find("span").text(windDirection);
+            $("#liveWindDirection").attr("title", `Angle: ${windAngle}°`).removeAttr("data-mdb-original-title");
+
+            if (windAngle !== "-") {
+                new mdb.Tooltip(document.getElementById("liveWindDirection"));
+            }
+
+        }
+        else {
+            $("#liveWindDirection").find("span").text("-");
+            $("#liveWindDirection").removeAttr("data-mdb-original-title");
+        }
+
+        // Mise à jour section Humidity
+        $("#liveHumidity").text(`${humidity} %`);
+
+        // Mise à jour section Pressure
+        $("#livePressure").text(`${pressure} hPa`);
 
     };
 
