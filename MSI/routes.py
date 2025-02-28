@@ -30,7 +30,7 @@ def meteo_live(station_name="saint-ismier"):
     context = {"data_status": data_status}
 
     if not data_status["is_table_empty"]:
-        print(station_class.get_current_weather_data())
+        print(station_class.get_daily_extremes())
         context.update(current_weather_data=station_class.get_current_weather_data(),
                        daily_extremes=station_class.get_daily_extremes())
 

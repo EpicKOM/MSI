@@ -86,25 +86,25 @@
                         </div>
                         <div class="d-flex flex-grow-1"></div>
                         <div class="d-flex justify-content-between">
-                            {% if daily_extremes["tmin"] is not none %}
-                                <div class="text-light" data-mdb-tooltip-init title="{{ daily_extremes['tmin_time'] }}">
-                                    <i class="fa-solid fa-arrow-down text-info me-2"></i>{{ daily_extremes["tmin"] }} °C
-                                </div>
-                            {% else %}
-                                <div class="text-light">
-                                    <i class="fa-solid fa-arrow-down text-info me-2"></i>- °C
-                                </div>
-                            {% endif %}
+                            <div id="temperatureMin"
+                                 class="text-light"
+                                 data-mdb-tooltip-init
+                                 title="{%- if daily_extremes['tmin_time'] is not none -%}{{ daily_extremes['tmin_time'] }}{% endif %}">
+                                <i class="fa-solid fa-arrow-down text-info me-2"></i>
+                                <span>
+                                    {{ format_weather_value(daily_extremes['tmin']) }} °C
+                                </span>
+                            </div>
 
-                            {% if daily_extremes["tmax"] is not none %}
-                                <div class="text-light" data-mdb-tooltip-init title="{{ daily_extremes['tmax_time'] }}">
-                                    <i class="fa-solid fa-arrow-up text-danger me-2"></i>{{ daily_extremes["tmax"] }} °C
-                                </div>
-                            {% else %}
-                                <div class="text-light">
-                                    <i class="fa-solid fa-arrow-up text-danger me-2"></i>- °C
-                                </div>
-                            {% endif %}
+                            <div id="temperatureMax"
+                                 class="text-light"
+                                 data-mdb-tooltip-init
+                                 title="{%- if daily_extremes['tmax_time'] is not none -%}{{ daily_extremes['tmax_time'] }}{% endif %}">
+                                <i class="fa-solid fa-arrow-up text-danger me-2"></i>
+                                <span>
+                                    {{ format_weather_value(daily_extremes['tmax']) }} °C
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
