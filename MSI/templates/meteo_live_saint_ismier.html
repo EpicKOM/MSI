@@ -170,16 +170,15 @@
                         </div>
                         <div class="d-flex flex-grow-1"></div>
                         <div class="d-flex justify-content-between">
-                            {% if daily_extremes["gust_max"] is not none %}
-                            <div class="text-light" data-mdb-tooltip-init
-                                 title="{% if daily_extremes['gust_max_time'] is not none %}{{ daily_extremes['gust_max_time'] }}{% endif %}">
-                                <i class="fa-solid fa-location-arrow text-danger me-2"></i>{{ daily_extremes["gust_max"] }} km/h
+                            <div id="gustMax"
+                                 class="text-light"
+                                 data-mdb-tooltip-init
+                                 title="{%- if daily_extremes['gust_max_time'] is not none -%}{{ daily_extremes['gust_max_time'] }}{% endif %}">
+                                <i class="fa-solid fa-location-arrow text-danger me-2"></i>
+                                <span>
+                                    {{ format_weather_value(daily_extremes['gust_max']) }} km/h
+                                </span>
                             </div>
-                            {% else %}
-                            <div class="text-light">
-                                <i class="fa-solid fa-location-arrow text-danger me-2"></i>- km/h
-                            </div>
-                            {% endif %}
 
                             <div id="liveWindDirection"
                                  class="text-light"
@@ -322,5 +321,5 @@
 {% block script %}
     <script src="{{ url_for('static', filename='js/page/meteo_live.js') }}"></script>
     <script src="{{ url_for('static', filename='js/charts/saint_ismier_live.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/sse/saint_ismier.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/sse/saint_ismier.js') }}"></script>
 {% endblock %}

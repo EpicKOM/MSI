@@ -6,11 +6,15 @@ $(document).ready(function() {
     $('#snowTab').on('click', function() {
         $('.nav-link').removeClass('tab-active');
         $(this).addClass('tab-active');
+        $('#avalancheTabContent').hide();
+        $('#snowTabContent').show();
     })
 
     $('#avalancheTab').on('click', function() {
         $('.nav-link').removeClass('tab-active');
         $(this).addClass('tab-active');
+        $('#snowTabContent').hide();
+        $('#avalancheTabContent').show();
     })
 
     $('.mountain-button').on('click', function() {
