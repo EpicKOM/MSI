@@ -68,7 +68,7 @@ class CurrentWeatherOutputSchema(ma.Schema):
     daily_extremes = ma.Nested(DailyExtremesSchema)
 
 
-# Live Charts Input Schema--------------------------------------------------------------------------------------------------
+# Live Charts Input Schema----------------------------------------------------------------------------------------------
 class LiveChartsInputSchema(ma.Schema):
     data_name = ma.String(required=True, validate=validate.OneOf(["temperature", "rain", "wind", "wind_direction",
                                                                   "humidity", "pressure", "uv"]))

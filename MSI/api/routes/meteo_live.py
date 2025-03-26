@@ -1,10 +1,9 @@
-from flask import jsonify, abort, request
+from flask import abort
 from apifairy import response, other_responses, arguments
 from MSI.data_loaders import get_station_metadata, get_units_metadata
 from MSI.api.schemas import *
 from MSI.utils import get_station_class
 from MSI.api import bp
-from MSI import app
 
 
 @bp.route('/meteo-live/<station_name>', methods=['GET'])
@@ -43,17 +42,13 @@ def get_live_charts(data, station_name: str):
     This endpoint returns live charts data for a specific weather station,
     based on the provided weather metric and interval duration.
     """
-    try:
-        data_name = data["data_name"]
-        interval_duration = data["interval_duration"]
 
-        station_class = get_station_class(station_name)
+    data_name = data["data_name"]
+    interval_duration = data["interval_duration"]
 
-        if station_class is None:
-            abort(404)
+    station_class = get_station_class(station_name)
 
-        return station_class.current_charts_data(data_name, interval_duration)
+    if station_class is None:
+        abort(404)
 
-    except ValidationError as e:
-        app.logger.error(f"[update_live_charts - {station_name}] {e.messages}")
-        abort(400)
+    return station_class.current_charts_data(data_name, interval_duration)
