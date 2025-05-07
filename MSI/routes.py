@@ -1,7 +1,6 @@
 from MSI import app, db, sse_broadcaster
 from flask import render_template, request, abort, jsonify, Response
 from MSI.data_loaders.forecasts import ForecastsApi
-from MSI.pages.observations import Observations
 from MSI.sse import format_sse
 from MSI.models import *
 from MSI.utils import *

@@ -25,5 +25,124 @@
       ]
     },
     "bra": "https://skitour.fr/neige/bulletin_avalanche_7.pdf"
+  },
+
+  "grandes_rousses": {
+    "title": "Grandes-Rousses - Isère (38)",
+    "snow_cover": {
+      "week": [
+        "https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/GALIBS.gif"
+      ],
+      "season": [
+        "https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/GALIB.gif"
+      ]
+    },
+    "bra": "https://skitour.fr/neige/bulletin_avalanche_12.pdf"
+  },
+
+  "oisans": {
+    "title": "Oisans - Isère (38)",
+    "snow_cover": {
+      "week": [
+        "https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/ECRINS.gif",
+        "https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/MEIJES.gif"
+      ],
+      "season": [
+        "https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/ECRIN.gif",
+        "https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/MEIJE.gif"
+      ]
+    },
+    "bra": "https://skitour.fr/neige/bulletin_avalanche_15.pdf"
+  },
+
+  "vercors": {
+    "title": "Vercors - Isère (38)",
+    "snow_cover": {
+      "week": [
+        "https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/LEGUAS.gif"
+      ],
+      "season": [
+        "https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/LEGUA.gif"
+      ]
+    },
+    "bra": "https://skitour.fr/neige/bulletin_avalanche_14.pdf"
+  },
+
+  "bauges": {
+    "title": "Bauges - Savoie (73)",
+    "snow_cover": {
+      "week": [
+        "https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/ALLANS.gif"
+      ],
+      "season": [
+        "https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/ALLAN.gif"
+      ]
+    },
+    "bra": "https://skitour.fr/neige/bulletin_avalanche_4.pdf"
+  },
+
+  "beaufortain": {
+    "title": "Beaufortain - Savoie (73)",
+    "snow_cover": {
+      "week": [
+        "https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/PAREIS.gif"
+      ],
+      "season": [
+        "https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/PAREI.gif"
+      ]
+    },
+    "bra": "https://skitour.fr/neige/bulletin_avalanche_5.pdf"
+  },
+
+  "haute_maurienne": {
+    "title": "Haute-Maurienne - Savoie (73)",
+    "snow_cover": {
+      "week": [
+        "https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/BONNES.gif"
+      ],
+      "season": [
+        "https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/BONNE.gif"
+      ]
+    },
+    "bra": "https://skitour.fr/neige/bulletin_avalanche_11.pdf"
+  },
+
+  "haute_tarentaise": {
+    "title": "Haute-Tarentaise - Savoie (73)",
+    "snow_cover": {
+      "week": [
+        "https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/CHEVRS.gif"
+      ],
+      "season": [
+        "https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/CHEVR.gif"
+      ]
+    },
+    "bra": "https://skitour.fr/neige/bulletin_avalanche_6.pdf"
+  },
+
+  "vanoise": {
+    "title": "Vanoise - Savoie (73)",
+    "snow_cover": {
+      "week": [
+        "https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/BELLES.gif"
+      ],
+      "season": [
+        "https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/BELLE.gif"
+      ]
+    },
+    "bra": "https://skitour.fr/neige/bulletin_avalanche_10.pdf"
+  },
+
+  "mont_blanc": {
+    "title": "Mont-Blanc - Haute-Savoie (74)",
+    "snow_cover": {
+      "week": [
+        "https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/AIGRGS.gif"
+      ],
+      "season": [
+        "https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/AIGRG.gif"
+      ]
+    },
+    "bra": "https://skitour.fr/neige/bulletin_avalanche_3.pdf"
   }
 }

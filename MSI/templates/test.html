@@ -9,125 +9,104 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container mt-4">
-        <h3 class="text-light mt-3 mb-3">
-            <i class="fa-solid fa-bell text-light me-2"></i>
-            Alertes Météo
-        </h3>
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="card bg-primary-color p-3 msi-border">
-                </div>
-            </div>
-            <div class="col-lg-4 mt-lg-0 mt-3">
-                <div class="card bg-primary-color p-3 msi-border">
-                </div>
-            </div>
-            <div class="col-lg-4 mt-lg-0 mt-3">
-                <div class="card bg-primary-color p-3 msi-border">
-                </div>
-            </div>
-        </div>
-
-        <h3 class="text-light mt-3 mb-3">
-            <i class="fa-solid fa-bell text-light me-2"></i>
-            Alertes Météo
-        </h3>
-        <div class="row">
-            <div class="col-lg-4 mt-lg-0 mt-3">
-                <div class="card bg-primary-color p-3 msi-border">
-
-                    <h5 class="text-light text-center">
-                        Vigilance Météorologique
-                    </h5>
-                    <hr class="mt-1 text-light">
-                    <!-- Tabs navs -->
-                    <ul class="nav mb-3 ms-auto me-auto" id="ex-with-icons" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <a data-mdb-tab-init class="nav-link text-light opacity-50 active tab-active" id="1" href="" role="tab">
-                                Aujourd'hui
-                            </a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a data-mdb-tab-init class="nav-link text-light opacity-50" id="2" href="" role="tab">
-                                Demain
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="mt-4 tab-pane fade show active" id="snowTabContent" role="tabpanel">
-                        <h6 class="text-light">Phénomènes :</h6>
-                        <div>
-                            <ul class="list-group list-group-light">
-                              <li class="list-group-item d-flex justify-content-between align-items-center">
-                                Vent
-                                <span class="badge badge-primary rounded-pill">2/4</span>
-                              </li>
-                              <li class="list-group-item d-flex justify-content-between align-items-center">
-                                Pluie-inondation
-                                <span class="badge badge-primary rounded-pill bg-success text-dark">1/4</span>
-                              </li>
-                              <li class="list-group-item d-flex justify-content-between align-items-center">
-                                Orages
-                                <span class="badge badge-primary rounded-pill">3/4</span>
-                              </li>
-                            </ul>
+<div class="container mt-4">
+    <h3 class="text-light mt-3 mb-3">
+        <i class="fa-solid fa-mountain text-light me-2"></i>
+        Météo Montagne
+    </h3>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card bg-primary-color p-3 msi-border">
+                <!-- Tabs navs -->
+                <ul class="nav mb-3 ms-auto me-auto" id="ex-with-icons" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a data-mdb-tab-init class="nav-link text-light opacity-50 active tab-active" id="snowTab" href="#snowTabContent" role="tab">
+                            <i class="fas fa-snowflake fa-fw me-2"></i>Enneigement
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a data-mdb-tab-init class="nav-link text-light opacity-50" id="avalancheTab" href="#avalancheTabContent" role="tab">
+                            <i class="fas fa-hill-avalanche fa-fw me-2"></i>Risques-avalanche
+                        </a>
+                    </li>
+                </ul>
+                <!-- Tabs navs -->
+                <div class="row mt-3">
+                    <div class="col-lg-4">
+                        <h5 class="text-light text-center fw-bold">Isère (38)</h5>
+                        <hr class="text-light">
+                        <div class="text-center">
+                            <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item bg-active-color action-item-disabled" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="belledonne">Belledonne</button>
+                            <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="chartreuse">Chartreuse</button>
+                            <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="grandes_rousses">Grandes Rousses</button>
+                            <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="oisans">Oisans</button>
+                            <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="vercors">Vercors</button>
                         </div>
-                        <hr class="mt-1">
-                        <h6 class="text-light">Chronologie :</h6>
-                        <hr class="mt-1">
-                        <h6 class="text-light">Situation actuelle :</h6>
-                        <hr class="mt-1">
+                    </div>
+                    <div class="col-lg-4 mt-lg-0 mt-3">
+                        <h5 class="text-light text-center fw-bold">Savoie (73)</h5>
+                        <hr class="text-light">
+                        <div class="text-center">
+                            <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="bauges">Bauges</button>
+                            <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="beaufortain">Beaufortain</button>
+                            <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="haute_maurienne">Haute-Maurienne</button>
+                            <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="haute_tarentaise">Haute-Tarentaise</button>
+                            <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="vanoise">Vanoise</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mt-lg-0 mt-3">
+                        <h5 class="text-light text-center fw-bold">Haute-Savoie (74)</h5>
+                        <hr class="text-light">
+                        <div class="text-center">
+                            <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="mont_blanc">Mont-Blanc</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-             <div class="col-lg-4 mt-lg-0 mt-3">
-                <div class="card bg-primary-color p-3 msi-border">
-
-                    <h5 class="text-light text-center">
-                        Exemple SSE
-                    </h5>
-                    <hr class="mt-1 text-light">
-                    <div class="d-flex align-items-start">
-                        <div class="flex-shrink-0">
-                            <div class="p-2 badge-primary bg-secondary-color rounded-4">
-                                <span class="fa-stack fa-lg fa-fw">
-                                    <i class="fa-solid fa-clock fa-stack-1x text-light"></i>
-                                </span>
+                <hr class="text-light">
+                <!-- Tabs content -->
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="snowTabContent" role="tabpanel">
+                        <div class="row">
+                            <div class="col-lg-3 d-flex align-items-center">
+                                <h5 class="text-light fw-bold" id="snowCoverageTitle"></h5>
+                            </div>
+                            <div class="col-lg-3 ms-auto">
+                                <div class="dropdown custom-dropdown w-100">
+                                    <button
+                                        class="btn btn-hover bg-primary-color msi-border text-light dropdown-toggle w-100 d-flex justify-content-between align-items-center"
+                                        type="button"
+                                        data-mdb-dropdown-init
+                                        data-mdb-ripple-init
+                                        data-mdb-dropdown-animation="off"
+                                        aria-expanded="false">
+                                        <span id="snowCoveragePeriodSelectTitle">Semaine</span>
+                                        <i class="fa-solid fa-sort fa-sm opacity-50"></i>
+                                    </button>
+                                    <ul class="dropdown-menu bg-primary-color msi-border w-100" aria-labelledby="dropdownMenuButton">
+                                        <li><a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item snow-coverage-selector action-item-disabled" data-value="semaine">Semaine<i class="fa-solid fa-check text-success"></i></a></li>
+                                        <li><a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item snow-coverage-selector" data-value="saison">Saison</a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                        <div class="flex-grow-1 ms-4">
-                            <p class="text-light opacity-50 mb-1">
-                                Mise à jour
-                            </p>
-                            <h5 class="fw-bold mb-1 text-light" id="testDateTime">
-                            </h5>
-
+                        <div class="row mt-3" id="snowCoverageContainer">
                         </div>
                     </div>
-                    <hr class="mt-3 mb-3">
-                    <div class="d-flex align-items-start">
-                        <div class="flex-shrink-0">
-                            <div class="p-2 badge-primary bg-secondary-color rounded-4">
-                                <span class="fa-stack fa-lg fa-fw">
-                                    <i class="fa-solid fa-temperature-three-quarters fa-stack-1x text-light"></i>
-                                </span>
+                    <div class="tab-pane fade" id="avalancheTabContent" role="tabpanel" style="display: none">
+                        <div class="row mt-3">
+                            <div class="col-lg-9 ms-auto me-auto">
+                                <iframe class="rounded" src="https://skitour.fr/neige/bulletin_avalanche_8.pdf"  style="height: 75vh;" width="100%" frameborder="0"></iframe>
                             </div>
-                        </div>
-                        <div class="flex-grow-1 ms-4">
-                            <p class="text-light opacity-50 mb-1">
-                                Température
-                            </p>
-                            <h5 class="fw-bold mb-1 text-light" id="testTemperature">
-                            </h5>
-
                         </div>
                     </div>
                 </div>
+                <!-- Tabs content -->
             </div>
         </div>
     </div>
+</div>
 {% endblock %}
 
 {% block script %}
-    <script src="{{ url_for('static', filename='js/page/test.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/page/observations.js') }}"></script>
 {% endblock %}

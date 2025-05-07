@@ -43,10 +43,51 @@
         <div class="row">
             <div class="col-lg-4">
                 <div class="card bg-primary-color p-3 msi-border">
+                    <h5 class="text-light text-center">Isère (38)</h5>
+                    <div class="text-light ms-auto me-auto">
+                        <i class="fa-solid fa-circle fa-fw text-danger me-2"></i>
+                        Soyez Attentif
+                    </div>
+                    <hr class="text-light">
+                    <ul class="nav mb-3 ms-auto me-auto" role="tablist">
+                        <li class="nav-item me-3" role="presentation">
+                            <a data-mdb-tab-init class="nav-link text-light opacity-50 active tab-active" role="tab">
+                                Aujourd'hui
+                            </a>
+                        </li>
+                        <li class="nav-item ms-3" role="presentation">
+                            <a data-mdb-tab-init class="nav-link text-light opacity-50" role="tab">
+                                Demain
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="list-group list-group-light" style="border: None;">
+                        <li class="list-group-item d-flex justify-content-between align-items-center" style="border-bottom: 1px solid rgba(255, 255, 255, .3);">
+                            <div>
+                                <div class="text-light">Avalanches</div>
+
+
+                            </div>
+                            <i class="fa-solid fa-circle fa-fw text-danger"></i>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <div class="text-light">Vent</div>
+                            </div>
+                            <i class="fa-solid fa-circle fa-fw text-warning"></i>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="col-lg-4 mt-lg-0 mt-3">
                 <div class="card bg-primary-color p-3 msi-border">
+                    <ul class="list-group list-group-light">
+                  <li class="list-group-item">An item</li>
+                  <li class="list-group-item">A second item</li>
+                  <li class="list-group-item">A third item</li>
+                  <li class="list-group-item">A fourth item</li>
+                  <li class="list-group-item">And a fifth one</li>
+                </ul>
                 </div>
             </div>
             <div class="col-lg-4 mt-lg-0 mt-3">
@@ -54,7 +95,6 @@
                 </div>
             </div>
         </div>
-
         <h3 class="text-light mt-3 mb-3">
             <i class="fa-solid fa-mountain text-light me-2"></i>
             Météo Montagne
@@ -63,123 +103,93 @@
             <div class="col-lg-12">
                 <div class="card bg-primary-color p-3 msi-border">
                     <!-- Tabs navs -->
-                    <ul class="nav mb-3 ms-auto me-auto" id="ex-with-icons" role="tablist">
-                        <li class="nav-item" role="presentation">
+                    <ul class="nav mb-3 ms-auto me-auto" role="tablist">
+                        <li class="nav-item me-3" role="presentation">
                             <a data-mdb-tab-init class="nav-link text-light opacity-50 active tab-active" id="snowTab" href="#snowTabContent" role="tab">
                                 <i class="fas fa-snowflake fa-fw me-2"></i>Enneigement
                             </a>
                         </li>
-                        <li class="nav-item" role="presentation">
+                        <li class="nav-item ms-3" role="presentation">
                             <a data-mdb-tab-init class="nav-link text-light opacity-50" id="avalancheTab" href="#avalancheTabContent" role="tab">
                                 <i class="fas fa-hill-avalanche fa-fw me-2"></i>Risques-avalanche
                             </a>
                         </li>
                     </ul>
+                    <!-- Tabs navs -->
+                    <div class="row mt-3">
+                        <div class="col-lg-4">
+                            <h5 class="text-light text-center fw-bold">Isère (38)</h5>
+                            <hr class="text-light">
+                            <div class="text-center">
+                                <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item bg-active-color action-item-disabled" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="belledonne">Belledonne</button>
+                                <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="chartreuse">Chartreuse</button>
+                                <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="grandes_rousses">Grandes Rousses</button>
+                                <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="oisans">Oisans</button>
+                                <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="vercors">Vercors</button>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mt-lg-0 mt-3">
+                            <h5 class="text-light text-center fw-bold">Savoie (73)</h5>
+                            <hr class="text-light">
+                            <div class="text-center">
+                                <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="bauges">Bauges</button>
+                                <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="beaufortain">Beaufortain</button>
+                                <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="haute_maurienne">Haute-Maurienne</button>
+                                <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="haute_tarentaise">Haute-Tarentaise</button>
+                                <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="vanoise">Vanoise</button>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mt-lg-0 mt-3">
+                            <h5 class="text-light text-center fw-bold">Haute-Savoie (74)</h5>
+                            <hr class="text-light">
+                            <div class="text-center">
+                                <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="mont_blanc">Mont-Blanc</button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="text-light">
                     <!-- Tabs content -->
                     <div class="tab-content">
-                    <!-- Tabs navs -->
                         <div class="tab-pane fade show active" id="snowTabContent" role="tabpanel">
-                            <div class="row mt-3">
-                                <div class="col-lg-4">
-                                    <h5 class="text-light text-center fw-bold">Isère (38)</h5>
-                                    <hr class="text-light">
-                                    <div class="text-center">
-                                        <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item bg-active-color action-item-disabled" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="belledonne">Belledonne</button>
-                                        <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="chartreuse">Chartreuse</button>
-                                        <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="grandes_rousses">Grandes Rousses</button>
-                                        <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="oisans">Oisans</button>
-                                        <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="vercors">Vercors</button>
-                                    </div>
+                            <div class="row">
+                                <div class="col-lg-4 d-flex align-items-center">
+                                    <h5 class="text-light fw-bold" id="massifTitle"></h5>
                                 </div>
-                                <div class="col-lg-4 mt-lg-0 mt-3">
-                                    <h5 class="text-light text-center fw-bold">Savoie (73)</h5>
-                                    <hr class="text-light">
-                                    <div class="text-center">
-                                        <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="bauges">Bauges</button>
-                                        <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="beaufortain">Beaufortain</button>
-                                        <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="haute_maurienne">Haute-Maurienne</button>
-                                        <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="haute_tarentaise">Haute-Tarentaise</button>
-                                        <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="vanoise">Vanoise</button>
-                                    </div>
-
-                                </div>
-                                <div class="col-lg-4 mt-lg-0 mt-3">
-                                    <h5 class="text-light text-center fw-bold">Haute-Savoie (74)</h5>
-                                    <hr class="text-light">
-                                    <div class="text-center">
-                                        <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="mont_blanc">Mont-Blanc</button>
+                                <div class="col-lg-3 ms-auto">
+                                    <div class="dropdown custom-dropdown w-100">
+                                        <button
+                                            class="btn btn-hover bg-primary-color msi-border text-light dropdown-toggle w-100 d-flex justify-content-between align-items-center"
+                                            type="button"
+                                            data-mdb-dropdown-init
+                                            data-mdb-ripple-init
+                                            data-mdb-dropdown-animation="off"
+                                            aria-expanded="false">
+                                            <span id="snowCoveragePeriodSelectTitle">Semaine</span>
+                                            <i class="fa-solid fa-sort fa-sm opacity-50"></i>
+                                        </button>
+                                        <ul class="dropdown-menu bg-primary-color msi-border w-100" aria-labelledby="dropdownMenuButton">
+                                            <li><a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item snow-coverage-selector action-item-disabled" data-value="week">Semaine<i class="fa-solid fa-check text-success"></i></a></li>
+                                            <li><a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item snow-coverage-selector" data-value="season">Saison</a></li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
-                            <hr class="text-light">
-                            <!-- Tabs content -->
-                                <div class="row">
-                                    <div class="col-lg-3 d-flex align-items-center">
-                                        <h5 class="text-light fw-bold" id="snowCoverageTitle"></h5>
-                                    </div>
-                                    <div class="col-lg-3 ms-auto">
-                                        <div class="dropdown custom-dropdown w-100">
-                                            <button
-                                                class="btn btn-hover bg-primary-color msi-border text-light dropdown-toggle w-100 d-flex justify-content-between align-items-center"
-                                                type="button"
-                                                data-mdb-dropdown-init
-                                                data-mdb-ripple-init
-                                                data-mdb-dropdown-animation="off"
-                                                aria-expanded="false">
-                                                <span id="snowCoveragePeriodSelectTitle">Semaine</span>
-                                                <i class="fa-solid fa-sort fa-sm opacity-50"></i>
-                                            </button>
-                                            <ul class="dropdown-menu bg-primary-color msi-border w-100" aria-labelledby="dropdownMenuButton">
-                                                <li><a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item snow-coverage-selector action-item-disabled" data-value="semaine">Semaine<i class="fa-solid fa-check text-success"></i></a></li>
-                                                <li><a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item snow-coverage-selector" data-value="saison">Saison</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
+                            <div>
                                 <div class="row mt-3" id="snowCoverageContainer">
-
                                 </div>
+                                <p class="text-danger text-center" id="snowCoverageErrorMessage" style="display: none;">Données indisponibles</p>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="avalancheTabContent" role="tabpanel" style="display: none">
                             <div class="row mt-3">
-                                <div class="col-lg-4">
-                                    <h5 class="text-light text-center fw-bold">Isère (38)</h5>
-                                    <hr class="text-light">
-                                    <div class="text-center">
-                                        <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item bg-active-color action-item-disabled" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="belledonne">Belledonne</button>
-                                        <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="chartreuse">Chartreuse</button>
-                                        <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="grandes_rousses">Grandes Rousses</button>
-                                        <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="oisans">Oisans</button>
-                                        <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="vercors">Vercors</button>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 mt-lg-0 mt-3">
-                                    <h5 class="text-light text-center fw-bold">Savoie (73)</h5>
-                                    <hr class="text-light">
-                                    <div class="text-center">
-                                        <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="bauges">Bauges</button>
-                                        <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="beaufortain">Beaufortain</button>
-                                        <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="haute_maurienne">Haute-Maurienne</button>
-                                        <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="haute_tarentaise">Haute-Tarentaise</button>
-                                        <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="vanoise">Vanoise</button>
-                                    </div>
-
-                                </div>
-                                <div class="col-lg-4 mt-lg-0 mt-3">
-                                    <h5 class="text-light text-center fw-bold">Haute-Savoie (74)</h5>
-                                    <hr class="text-light">
-                                    <div class="text-center">
-                                        <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="mont_blanc">Mont-Blanc</button>
-                                    </div>
+                                <div class="col-lg-9 ms-auto me-auto" id="avalancheContainer">
+                                    <iframe class="rounded" id="braFrame" src="https://skitour.fr/neige/bulletin_avalanche_8.pdf"  style="height: 75vh;" width="100%" frameborder="0"></iframe>
+                                    <p class="text-danger text-center" id="braErrorMessage" style="display: none;">Données indisponibles</p>
                                 </div>
                             </div>
-                            <hr class="text-light">
-                            <iframe class="bg-light" src="https://skitour.fr/neige/bulletin_avalanche_12.pdf"  style="height: 75vh;" width="100%" frameborder="0"></iframe>
                         </div>
-                    <!-- Tabs content -->
                     </div>
+                    <!-- Tabs content -->
                 </div>
             </div>
         </div>
