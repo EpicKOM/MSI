@@ -1,6 +1,7 @@
 from MSI import app, db, sse_broadcaster
 from flask import render_template, request, abort, jsonify, Response
 from MSI.data_loaders.forecasts import ForecastsApi
+from MSI.data_loaders.weather_alert import weather_alert
 from MSI.sse import format_sse
 from MSI.models import *
 from MSI.utils import *
@@ -110,6 +111,7 @@ def forecasts_update():
 
 @app.route("/observations/")
 def observations():
+    weather_alert = None
     return render_template('observations.html')
 
 

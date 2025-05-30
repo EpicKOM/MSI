@@ -43,15 +43,12 @@
         <div class="row">
             <div class="col-lg-4">
                 <div class="card bg-primary-color p-3 msi-border">
-                    <h5 class="text-light text-center">Isère (38)</h5>
-                    <div class="text-light ms-auto me-auto">
-                        <i class="fa-solid fa-circle fa-fw text-danger me-2"></i>
-                        Soyez Attentif
-                    </div>
+                    <h5 class="text-light text-center">Vigilance Isère (38)</h5>
+                    <div class="text-danger text-center text-small"><i class="fa-solid fa-circle fa-fw me-2"></i>Vigilance Absolue</div>
                     <hr class="text-light">
                     <ul class="nav mb-3 ms-auto me-auto" role="tablist">
                         <li class="nav-item me-3" role="presentation">
-                            <a data-mdb-tab-init class="nav-link text-light opacity-50 active tab-active" role="tab">
+                            <a data-mdb-tab-init class="nav-link text-info opacity-50 active tab-active" role="tab">
                                 Aujourd'hui
                             </a>
                         </li>
@@ -65,16 +62,20 @@
                         <li class="list-group-item d-flex justify-content-between align-items-center" style="border-bottom: 1px solid rgba(255, 255, 255, .3);">
                             <div>
                                 <div class="text-light">Avalanches</div>
-
-
                             </div>
-                            <i class="fa-solid fa-circle fa-fw text-danger"></i>
+                            <span class="badge rounded-pill bg-danger text-dark">Vigilance absolue</span>
                         </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <li class="list-group-item d-flex justify-content-between align-items-center" style="border-bottom: 1px solid rgba(255, 255, 255, .3);">
                             <div>
                                 <div class="text-light">Vent</div>
                             </div>
-                            <i class="fa-solid fa-circle fa-fw text-warning"></i>
+                            <span class="badge rounded-pill bg-warning text-dark">Soyez très vigilant</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <div class="text-light">Neige / Verglas</div>
+                            </div>
+                            <span class="badge rounded-pill text-dark" style="background-color: #FFFF00;">Soyez attentif</span>
                         </li>
                     </ul>
                 </div>
@@ -183,7 +184,7 @@
                         <div class="tab-pane fade" id="avalancheTabContent" role="tabpanel" style="display: none">
                             <div class="row mt-3">
                                 <div class="col-lg-9 ms-auto me-auto" id="avalancheContainer">
-                                    <iframe class="rounded" id="braFrame" src="https://skitour.fr/neige/bulletin_avalanche_8.pdf"  style="height: 75vh;" width="100%" frameborder="0"></iframe>
+                                    <iframe class="rounded" id="braFrame" style="height: 75vh;" width="100%" frameborder="0"></iframe>
                                     <p class="text-danger text-center" id="braErrorMessage" style="display: none;">Données indisponibles</p>
                                 </div>
                             </div>
