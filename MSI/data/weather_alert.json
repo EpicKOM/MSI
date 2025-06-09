@@ -8,23 +8,36 @@
       "domain_id": "38",
       "echeance": "J",
       "phenomenon_id": 3,
-      "phenomenon": "orages",
-      "color_id": 2,
-      "color": "jaune",
+      "phenomenon": "Orages",
+      "color_id": 4,
       "begin_time": "2025-05-30T04:00:00+00:00",
       "end_time": "2025-05-30T22:00:00+00:00",
-      "product_datetime": "2025-05-30T04:00:00+00:00"
+      "product_datetime": "2025-05-30T04:00:00+00:00",
+      "alert_message": "Soyez attentif"
     },
     {
       "domain_id": "38",
       "echeance": "J",
       "phenomenon_id": 2,
-      "phenomenon": "vent",
+      "phenomenon": "Vent",
       "color_id": 2,
       "color": "jaune",
       "begin_time": "2025-05-30T04:00:00+00:00",
       "end_time": "2025-05-30T22:00:00+00:00",
-      "product_datetime": "2025-05-30T04:00:00+00:00"
+      "product_datetime": "2025-05-30T04:00:00+00:00",
+      "alert_message": "Soyez attentif"
+    },
+        {
+      "domain_id": "38",
+      "echeance": "J",
+      "phenomenon_id": 2,
+      "phenomenon": "Pluie / Verglas",
+      "color_id": 2,
+      "color": "jaune",
+      "begin_time": "2025-05-30T04:00:00+00:00",
+      "end_time": "2025-05-30T22:00:00+00:00",
+      "product_datetime": "2025-05-30T04:00:00+00:00",
+      "alert_message": "Soyez attentif"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{% macro bg_color_class(color_id) %}
+    {% set bg_color_map = {
+        1: "bg-success text-dark",
+        2: "bg-light-warning text-dark",
+        3: "bg-warning text-dark",
+        4: "bg-danger text-dark"
+    } %}
+    {{ bg_color_map.get(color_id, "bg-light") }}
+
+{% endmacro %}
+
+{% macro text_color_class(color_id) %}
+    {% set text_color_map = {
+        1: "text-success",
+        2: "text-light-warning",
+        3: "text-warning",
+        4: "text-danger"
+    } %}
+    {{ text_color_map.get(color_id, "text-light") }}
+
+{% endmacro %}

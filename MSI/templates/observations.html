@@ -1,4 +1,5 @@
 {% extends 'layout.html' %}
+{% import "macros/observations_macros.html" as macros %}
 
 {% block css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/observations.css') }}">
@@ -38,61 +39,151 @@
         </div>
         <h3 class="text-light mt-3 mb-3">
             <i class="fa-solid fa-bell text-light me-2"></i>
-            Alertes Météo
+            Alertes
         </h3>
         <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <div class="card bg-primary-color p-3 msi-border">
                     <h5 class="text-light text-center">Vigilance Isère (38)</h5>
-                    <div class="text-danger text-center text-small"><i class="fa-solid fa-circle fa-fw me-2"></i>Vigilance Absolue</div>
+                    <div class="text-center {{ macros.text_color_class(weather_alert['max_color_id']) }}">
+                        <i class="fa-solid fa-circle fa-fw me-2"></i>{{ weather_alert["max_alert_message"] }}
+                    </div>
                     <hr class="text-light">
                     <ul class="nav mb-3 ms-auto me-auto" role="tablist">
                         <li class="nav-item me-3" role="presentation">
-                            <a data-mdb-tab-init class="nav-link text-info opacity-50 active tab-active" role="tab">
+                            <a data-mdb-tab-init class="nav-link nav-weather-alert text-light opacity-50 active tab-active" id="todayTab" href="#todayTabContent" role="tab">
                                 Aujourd'hui
                             </a>
                         </li>
                         <li class="nav-item ms-3" role="presentation">
+                            <a data-mdb-tab-init class="nav-link nav-weather-alert text-light opacity-50" id="tomorrowTab" href="#tomorrowTabContent" role="tab">
+                                Demain
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- Tabs content -->
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="todayTabContent" role="tabpanel">
+                            <ul class="list-group list-group-light weather-alerts" style="border: None;">
+                                {% for item in weather_alert["results"] %}
+                                    <li class="list-group-item d-flex justify-content-between align-items-center ms-4 me-4 alert-item-border">
+                                        <div>
+                                            <div class="text-light">{{ item['phenomenon'] }}</div>
+                                        </div>
+                                        <span class="badge rounded-pill {{ macros.bg_color_class(item['color_id']) }}">{{ item['alert_message'] }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="tab-pane fade" id="tomorrowTabContent" role="tabpanel" style="display: none">
+                            <ul class="list-group list-group-light weather-alerts" style="border: None;">
+                                <li class="list-group-item d-flex justify-content-between align-items-center ms-4 me-4 alert-item-border">
+                                    <div>
+                                        <div class="text-light">Avalanches</div>
+                                    </div>
+                                    <span class="badge rounded-pill bg-danger text-dark">Vigilance absolue</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-lg-0 mt-3">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 mt-3">
+                <div class="card bg-primary-color p-3 msi-border">
+                    <h5 class="text-light text-center">Qualité de l'air à Grenoble</h5>
+                    <ul class="nav ms-auto me-auto mt-2 mb-2" role="tablist">
+                        <li class="nav-item me-1" role="presentation">
+                            <a data-mdb-tab-init class="nav-link text-light active opacity-50 tab-active" role="tab">
+                                Aujourd'hui
+                            </a>
+                        </li>
+                        <li class="nav-item ms-1" role="presentation">
                             <a data-mdb-tab-init class="nav-link text-light opacity-50" role="tab">
                                 Demain
                             </a>
                         </li>
                     </ul>
-                    <ul class="list-group list-group-light" style="border: None;">
-                        <li class="list-group-item d-flex justify-content-between align-items-center" style="border-bottom: 1px solid rgba(255, 255, 255, .3);">
-                            <div>
-                                <div class="text-light">Avalanches</div>
+                    <div class="mt-3">
+                        <span class="badge p-3 text-light bg-dark-green border-achievement">
+                            <i class="fa-solid fa-info me-2"></i>Données pour le 09/06/2025
+                        </span>
+                    </div>
+                    <hr class="text-light">
+                    <div class="row">
+                        <div class="col-12 col-lg-6 col-xl-4">
+                            <img src="{{ url_for('static', filename='img/atmo_indice_1.svg') }}" class="img-fluid" alt="Wild Landscape" />
+                        </div>
+                        <div class="col-12 col-lg-6 col-xl-5">
+                            <div class="row m-2">
+                                <div class="col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4 text-center mb-5">
+                                    <div class="d-md-flex flex-md-column">
+                                        <p class="text-light bold">Multi-polluants</p>
+                                        <i class="fa-solid fa-circle text-success fa-2x mb-2"></i>
+                                        <span class="text-light small">BON</span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4 text-center">
+                                    <div class="d-md-flex flex-md-column">
+                                        <p class="text-light bold">Dioxyde d'azote</p>
+                                        <i class="fa-solid fa-circle text-success fa-2x mb-2"></i>
+                                        <span class="text-light small">BON</span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4 text-center">
+                                    <div class="d-md-flex flex-md-column">
+                                        <p class="text-light bold">Ozone</p>
+                                        <i class="fa-solid fa-circle text-success fa-2x mb-2"></i>
+                                        <span class="text-light small">BON</span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4 text-center">
+                                    <div class="d-md-flex flex-md-column">
+                                        <p class="text-light bold">Dioxyde de soufre</p>
+                                        <i class="fa-solid fa-circle text-success fa-2x mb-2"></i>
+                                        <span class="text-light small">BON</span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4 text-center">
+                                    <div class="d-md-flex flex-md-column">
+                                        <p class="text-light bold">Particules fines, diamètre < 10 µm</p>
+                                        <i class="fa-solid fa-circle text-success fa-2x mb-2"></i>
+                                        <span class="text-light small">BON</span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4 text-center">
+                                    <div class="d-md-flex flex-md-column">
+                                        <p class="text-light bold">Particules fines, diamètre < 2.5 µm</p>
+                                        <i class="fa-solid fa-circle text-success fa-2x mb-2"></i>
+                                        <span class="text-light small">BON</span>
+                                    </div>
+                                </div>
                             </div>
-                            <span class="badge rounded-pill bg-danger text-dark">Vigilance absolue</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center" style="border-bottom: 1px solid rgba(255, 255, 255, .3);">
-                            <div>
-                                <div class="text-light">Vent</div>
+                        </div>
+                        <div class="col-12 col-xl-3">
+                            <div class="m-2">
+                                <p class="text-light bold">Légende</p>
+                                <div class="text-light">
+                                    <i class="fa-solid fa-circle text-success me-2"></i>Indisponible
+                                </div>
+                                <div class="text-light">
+                                    <i class="fa-solid fa-circle text-success me-2"></i>Indisponible
+                                </div>
+                                <div class="text-light">
+                                    <i class="fa-solid fa-circle text-success me-2"></i>Indisponible
+                                </div>
+                                <div class="text-light">
+                                    <i class="fa-solid fa-circle text-success me-2"></i>Indisponible
+                                </div>
+                                <div class="text-light">
+                                    <i class="fa-solid fa-circle text-success me-2"></i>Indisponible
+                                </div>
                             </div>
-                            <span class="badge rounded-pill bg-warning text-dark">Soyez très vigilant</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <div>
-                                <div class="text-light">Neige / Verglas</div>
-                            </div>
-                            <span class="badge rounded-pill text-dark" style="background-color: #FFFF00;">Soyez attentif</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-4 mt-lg-0 mt-3">
-                <div class="card bg-primary-color p-3 msi-border">
-                    <ul class="list-group list-group-light">
-                  <li class="list-group-item">An item</li>
-                  <li class="list-group-item">A second item</li>
-                  <li class="list-group-item">A third item</li>
-                  <li class="list-group-item">A fourth item</li>
-                  <li class="list-group-item">And a fifth one</li>
-                </ul>
-                </div>
-            </div>
-            <div class="col-lg-4 mt-lg-0 mt-3">
-                <div class="card bg-primary-color p-3 msi-border">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -106,12 +197,12 @@
                     <!-- Tabs navs -->
                     <ul class="nav mb-3 ms-auto me-auto" role="tablist">
                         <li class="nav-item me-3" role="presentation">
-                            <a data-mdb-tab-init class="nav-link text-light opacity-50 active tab-active" id="snowTab" href="#snowTabContent" role="tab">
+                            <a data-mdb-tab-init class="nav-link nav-mountain-weather text-light opacity-50 active tab-active" id="snowTab" href="#snowTabContent" role="tab">
                                 <i class="fas fa-snowflake fa-fw me-2"></i>Enneigement
                             </a>
                         </li>
                         <li class="nav-item ms-3" role="presentation">
-                            <a data-mdb-tab-init class="nav-link text-light opacity-50" id="avalancheTab" href="#avalancheTabContent" role="tab">
+                            <a data-mdb-tab-init class="nav-link nav-mountain-weather text-light opacity-50" id="avalancheTab" href="#avalancheTabContent" role="tab">
                                 <i class="fas fa-hill-avalanche fa-fw me-2"></i>Risques-avalanche
                             </a>
                         </li>
@@ -177,6 +268,9 @@
                             </div>
                             <div>
                                 <div class="row mt-3" id="snowCoverageContainer">
+                                    <div class="col-lg-6 ms-auto me-auto text-center">
+                                        <img class="img-fluid rounded" src="https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/AIGLES.gif" alt="Les données sont actuellement indisponibles">
+                                    </div>
                                 </div>
                                 <p class="text-danger text-center" id="snowCoverageErrorMessage" style="display: none;">Données indisponibles</p>
                             </div>
@@ -184,7 +278,7 @@
                         <div class="tab-pane fade" id="avalancheTabContent" role="tabpanel" style="display: none">
                             <div class="row mt-3">
                                 <div class="col-lg-9 ms-auto me-auto" id="avalancheContainer">
-                                    <iframe class="rounded" id="braFrame" style="height: 75vh;" width="100%" frameborder="0"></iframe>
+                                    <iframe class="rounded" src="https://skitour.fr/neige/bulletin_avalanche_8.pdf" id="braFrame" style="height: 75vh;" width="100%" frameborder="0"></iframe>
                                     <p class="text-danger text-center" id="braErrorMessage" style="display: none;">Données indisponibles</p>
                                 </div>
                             </div>

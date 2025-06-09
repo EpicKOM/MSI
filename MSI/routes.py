@@ -1,13 +1,11 @@
 from MSI import app, db, sse_broadcaster
 from flask import render_template, request, abort, jsonify, Response
 from MSI.data_loaders.forecasts import ForecastsApi
-from MSI.data_loaders.weather_alert import weather_alert
+from MSI.data_loaders.weather_alert import get_weather_alert
 from MSI.sse import format_sse
 from MSI.models import *
 from MSI.utils import *
 import datetime
-import random
-import time
 
 
 @app.before_request
@@ -111,20 +109,10 @@ def forecasts_update():
 
 @app.route("/observations/")
 def observations():
-    weather_alert = None
-    return render_template('observations.html')
-
-
-# ------------Requête AJAX Observations---------------------------------------------------------------------------
-@app.route('/data/observations', methods=['POST'])
-def observations_update():
-    massif_name = request.form.get("massif_name")
-
-    if massif_name is None:
-        app.logger.error("[observations_update] - Clé 'massif_name' manquante dans la requête.")
-        abort(404)
-
-    return jsonify(observations_data=Observations.get_massif_snow_coverage(massif_name)), 200
+    weather_alert = get_weather_alert()
+    print(weather_alert)
+    return render_template('observations.html',
+                           weather_alert=weather_alert)
 
 
 @app.route("/test/")

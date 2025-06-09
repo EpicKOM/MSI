@@ -1,22 +1,39 @@
-let snowCoverUrlWeek = [];
-let snowCoverUrlSeason = [];
-let intervalDuration = "week";
+//let snowCoverUrlWeek = ["https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/AIGLES.gif"];
+//let snowCoverUrlSeason = ["https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/AIGLE.gif"];
+//let intervalDuration = "week";
+const snowCoverageState = {
+    intervalDuration: 'week',
+    urls: {
+        week: ["https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/AIGLES.gif"],
+        season: ["https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/AIGLE.gif"]
+    }
+};
 
 $(document).ready(function() {
-    tabsManagement();
+    mountainTabsManagement();
+    alertTabsManagement();
     mountainButtonsManagement();
     snowCoverageSelectorsManagement();
-    fetchMountainData("belledonne");
 });
 
 // Gestion des onglets
-function tabsManagement() {
+function mountainTabsManagement() {
     $('#snowTab, #avalancheTab').on('click', function () {
         const isSnowTab = $(this).attr('id') === 'snowTab';
-        $('.nav-link').removeClass('tab-active');
+        $('.nav-mountain-weather').removeClass('tab-active');
         $(this).addClass('tab-active');
         $('#snowTabContent').toggle(isSnowTab);
         $('#avalancheTabContent').toggle(!isSnowTab);
+    });
+}
+
+function alertTabsManagement() {
+    $('#todayTab, #tomorrowTab').on('click', function () {
+        const isTodayTab = $(this).attr('id') === 'todayTab';
+        $('.nav-weather-alert').removeClass('tab-active');
+        $(this).addClass('tab-active');
+        $('#todayTabContent').toggle(isTodayTab);
+        $('#tomorrowTabContent').toggle(!isTodayTab);
     });
 }
 
@@ -25,7 +42,7 @@ function snowCoverageSelectorsManagement() {
     $('.snow-coverage-selector').on('click', function () {
         if ($(this).hasClass('action-item-disabled')) return;
 
-        intervalDuration = $(this).data('value');
+        snowCoverageState.intervalDuration = $(this).data('value');
         updateSnowCoverage();
 
         $('.snow-coverage-selector')
@@ -66,8 +83,8 @@ function fetchMountainData(massifName) {
             $('#braErrorMessage').hide();
             $('#snowCoverageErrorMessage').hide();
 
-            snowCoverUrlWeek = snow_cover["week"];
-            snowCoverUrlSeason = snow_cover["season"];
+            snowCoverageState.urls.week = snow_cover["week"];
+            snowCoverageState.urls.season = snow_cover["season"];
 
             $('#massifTitle').text(title);
             $('#braFrame').attr("src", bra);
@@ -93,7 +110,7 @@ function fetchMountainData(massifName) {
 function updateSnowCoverage() {
     $('#snowCoverageContainer').empty();
 
-    const urls = intervalDuration === "season" ? snowCoverUrlSeason : snowCoverUrlWeek;
+    const urls = snowCoverageState.intervalDuration === "season" ? snowCoverageState.urls.season : snowCoverageState.urls.week;
 
     urls.forEach(url => {
         $('#snowCoverageContainer').append(`

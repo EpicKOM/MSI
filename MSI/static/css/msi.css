@@ -117,3 +117,8 @@ footer {
     border: 1px solid rgba(251, 251, 251, 1);
 }
 
+/* --- Typography -------------------------------- */
+
+.bold {
+    font-weight: bold;
+}
