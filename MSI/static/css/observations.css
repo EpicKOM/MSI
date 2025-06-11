@@ -23,3 +23,17 @@ option {
 .weather-alerts .alert-item-border:not(:last-child) {
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
+
+.status-circle {
+    width: 50px;
+    height: 50px;
+}
+
+/* Ajustement si nécessaire pour les textes de plusieurs lignes */
+.card-text-container {
+    min-height: 70px; /* Ajuster cette valeur selon le nombre max de lignes pour les textes du haut */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centre verticalement le texte dans son conteneur */
+    align-items: center; /* Centre horizontalement le texte */
+}

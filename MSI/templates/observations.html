@@ -94,7 +94,7 @@
         <div class="row">
             <div class="col-lg-12 mt-3">
                 <div class="card bg-primary-color p-3 msi-border">
-                    <h5 class="text-light text-center">Qualité de l'air à Grenoble</h5>
+                    <h5 class="text-light text-center">Indice Qualité de l'Air</h5>
                     <ul class="nav ms-auto me-auto mt-2 mb-2" role="tablist">
                         <li class="nav-item me-1" role="presentation">
                             <a data-mdb-tab-init class="nav-link text-light active opacity-50 tab-active" role="tab">
@@ -114,73 +114,67 @@
                     </div>
                     <hr class="text-light">
                     <div class="row">
-                        <div class="col-12 col-lg-6 col-xl-4">
-                            <img src="{{ url_for('static', filename='img/atmo_indice_1.svg') }}" class="img-fluid" alt="Wild Landscape" />
-                        </div>
-                        <div class="col-12 col-lg-6 col-xl-5">
-                            <div class="row m-2">
-                                <div class="col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4 text-center mb-5">
-                                    <div class="d-md-flex flex-md-column">
-                                        <p class="text-light bold">Multi-polluants</p>
-                                        <i class="fa-solid fa-circle text-success fa-2x mb-2"></i>
-                                        <span class="text-light small">BON</span>
+<!--                        <div class="col-12 col-lg-6 col-xl-4">-->
+<!--                            <img src="{{ url_for('static', filename='img/atmo_indice_1.svg') }}" class="img-fluid" alt="Wild Landscape" />-->
+<!--                        </div>-->
+                        <div class="col-8">
+                            <div class="row">
+                                 <div class="col-xl-4 mb-4 bg-danger">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa-solid fa-circle fa-2x text-success"></i>
+                                      <div class="ms-3">
+                                        <p class="fw-bold mb-1">Dioxyde d'azote</p>
+                                        <p class="text-muted mb-0">14 µg/m3</p>
+                                      </div>
                                     </div>
-                                </div>
-                                <div class="col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4 text-center">
-                                    <div class="d-md-flex flex-md-column">
-                                        <p class="text-light bold">Dioxyde d'azote</p>
-                                        <i class="fa-solid fa-circle text-success fa-2x mb-2"></i>
-                                        <span class="text-light small">BON</span>
+                                  </div>
+                                 <div class="col-xl-4 mb-4 bg-danger">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa-solid fa-circle fa-2x text-success"></i>
+                                      <div class="ms-3">
+                                        <p class="fw-bold mb-1">Ozone</p>
+                                        <p class="text-muted mb-0">115 µg/m3</p>
+                                      </div>
                                     </div>
-                                </div>
-                                <div class="col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4 text-center">
-                                    <div class="d-md-flex flex-md-column">
-                                        <p class="text-light bold">Ozone</p>
-                                        <i class="fa-solid fa-circle text-success fa-2x mb-2"></i>
-                                        <span class="text-light small">BON</span>
+                                  </div>
+                                 <div class="col-xl-4 mb-4 bg-danger">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa-solid fa-circle fa-2x text-success"></i>
+                                      <div class="ms-3">
+                                        <p class="fw-bold mb-1">Dioxyde de soufre</p>
+                                        <p class="text-muted mb-0">14 µg/m3</p>
+                                      </div>
                                     </div>
-                                </div>
-                                <div class="col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4 text-center">
-                                    <div class="d-md-flex flex-md-column">
-                                        <p class="text-light bold">Dioxyde de soufre</p>
-                                        <i class="fa-solid fa-circle text-success fa-2x mb-2"></i>
-                                        <span class="text-light small">BON</span>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4 text-center">
-                                    <div class="d-md-flex flex-md-column">
-                                        <p class="text-light bold">Particules fines, diamètre < 10 µm</p>
-                                        <i class="fa-solid fa-circle text-success fa-2x mb-2"></i>
-                                        <span class="text-light small">BON</span>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4 text-center">
-                                    <div class="d-md-flex flex-md-column">
-                                        <p class="text-light bold">Particules fines, diamètre < 2.5 µm</p>
-                                        <i class="fa-solid fa-circle text-success fa-2x mb-2"></i>
-                                        <span class="text-light small">BON</span>
-                                    </div>
-                                </div>
+                                  </div>
                             </div>
-                        </div>
-                        <div class="col-12 col-xl-3">
-                            <div class="m-2">
-                                <p class="text-light bold">Légende</p>
-                                <div class="text-light">
-                                    <i class="fa-solid fa-circle text-success me-2"></i>Indisponible
-                                </div>
-                                <div class="text-light">
-                                    <i class="fa-solid fa-circle text-success me-2"></i>Indisponible
-                                </div>
-                                <div class="text-light">
-                                    <i class="fa-solid fa-circle text-success me-2"></i>Indisponible
-                                </div>
-                                <div class="text-light">
-                                    <i class="fa-solid fa-circle text-success me-2"></i>Indisponible
-                                </div>
-                                <div class="text-light">
-                                    <i class="fa-solid fa-circle text-success me-2"></i>Indisponible
-                                </div>
+                            <div class="row align-items-center">
+                                 <div class="col-xl-4 col-lg-6 mb-4 ">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa-solid fa-circle fa-2x text-success"></i>
+                                      <div class="ms-3 text-light">
+                                        <p class="fw-bold mb-1">PM10</p>
+                                        <p class="text-light mb-0">14 µg/m3</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                 <div class="col-xl-4 col-lg-6 mb-4 ">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa-solid fa-circle fa-2x text-success"></i>
+                                      <div class="ms-3 text-light">
+                                        <p class="fw-bold mb-1">Ozone</p>
+                                        <p class="text-light mb-0">115 µg/m3</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                 <div class="col-xl-4 col-lg-6 mb-4 ">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa-solid fa-circle fa-2x text-success"></i>
+                                      <div class="ms-3 text-light">
+                                        <p class="fw-bold mb-1">PM2.5</p>
+                                        <p class="text-light mb-0">14 µg/m3</p>
+                                      </div>
+                                    </div>
+                                  </div>
                             </div>
                         </div>
                     </div>
