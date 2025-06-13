@@ -89,13 +89,9 @@
                 </div>
             </div>
             <div class="col-lg-6 mt-lg-0 mt-3">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 mt-3">
                 <div class="card bg-primary-color p-3 msi-border">
                     <h5 class="text-light text-center">Indice Qualité de l'Air</h5>
-                    <ul class="nav ms-auto me-auto mt-2 mb-2" role="tablist">
+                    <ul class="nav ms-auto me-auto mt-2 mb-4" role="tablist">
                         <li class="nav-item me-1" role="presentation">
                             <a data-mdb-tab-init class="nav-link text-light active opacity-50 tab-active" role="tab">
                                 Aujourd'hui
@@ -107,53 +103,51 @@
                             </a>
                         </li>
                     </ul>
-                    <!-- Flex container -->
-                    <div class="d-flex justify-content-center gap-3 align-items-center mt-4 mb-4">
-
-                        <!-- Icône 1 -->
-                        <div data-mdb-toggle="tooltip" title="Très bon">
-                            <img src="{{ url_for('static', filename='img/atmo_indice_1.svg') }}" alt="Très bon" width="100" height="100">
-                        </div>
-
-                        <!-- Icône 2 -->
-                        <div data-mdb-toggle="tooltip" title="Bon">
-                            <img src="{{ url_for('static', filename='img/atmo_indice_2.svg') }}" alt="Bon" width="60" height="60">
-                        </div>
-
-                        <!-- Icône 3 -->
-                        <div data-mdb-toggle="tooltip" title="Moyen">
-                            <img src="{{ url_for('static', filename='img/atmo_indice_3.svg') }}" alt="Moyen" width="60" height="60">
-                        </div>
-
-                        <!-- Icône 4 (Actif) -->
-                        <div data-mdb-toggle="tooltip" title="Mauvais">
-                            <img src="{{ url_for('static', filename='img/atmo_indice_4.svg') }}" alt="Mauvais" width="60" height="60" class="active-icon">
-                        </div>
-
-                        <!-- Icône 5 -->
-                        <div data-mdb-toggle="tooltip" title="Très mauvais">
-                            <img src="{{ url_for('static', filename='img/atmo_indice_5.svg') }}" alt="Très mauvais" width="60" height="60">
-                        </div>
-
-                        <!-- Icône 6 -->
-                        <div data-mdb-toggle="tooltip" title="Dangereux">
-                            <img src="{{ url_for('static', filename='img/atmo_indice_6.svg') }}" alt="Dangereux" width="60" height="60">
-                        </div>
-                    </div>
-                    <h6 class="text-danger text-center">BON</h6>
-
-                    <hr class="text-light mt-3 mb-3">
-
-                    <div class="">
+                    <hr class="text-light mb-3">
+                    <div class="mb-3">
                         <span class="badge p-3 bg-active-color border-active text-info">
                             <i class="fa-solid fa-info me-2"></i>Données pour le 09/06/2025
                         </span>
                     </div>
+                    <!-- Flex container -->
+                    <div class="d-flex justify-content-center gap-1 align-items-center">
 
-                    <div class="row mt-4">
-                        <div class="col-lg-8">
+                        <!-- Icône 1 -->
+                        <div data-mdb-tooltip-init title="Bon">
+                            <img src="{{ url_for('static', filename='img/atmo_indice_1.svg') }}" alt="Bon" width="90" height="90">
+                        </div>
+
+                        <!-- Icône 2 -->
+                        <div data-mdb-tooltip-init title="Moyen">
+                            <img src="{{ url_for('static', filename='img/atmo_indice_2.svg') }}" alt="Moyen" width="60" height="60">
+                        </div>
+
+                        <!-- Icône 3 -->
+                        <div data-mdb-tooltip-init title="Dégradé">
+                            <img src="{{ url_for('static', filename='img/atmo_indice_3.svg') }}" alt="Dégradé" width="60" height="60">
+                        </div>
+
+                        <!-- Icône 4 (Actif) -->
+                        <div data-mdb-tooltip-init title="Mauvais">
+                            <img src="{{ url_for('static', filename='img/atmo_indice_4.svg') }}" alt="Mauvais" width="60" height="60" class="active-icon">
+                        </div>
+
+                        <!-- Icône 5 -->
+                        <div data-mdb-tooltip-init title="Très mauvais">
+                            <img src="{{ url_for('static', filename='img/atmo_indice_5.svg') }}" alt="Très mauvais" width="60" height="60">
+                        </div>
+
+                        <!-- Icône 6 -->
+                        <div data-mdb-tooltip-init title="Extrêmement mauvais">
+                            <img src="{{ url_for('static', filename='img/atmo_indice_6.svg') }}" alt="Extrêmement mauvais" width="60" height="60">
+                        </div>
+                    </div>
+                    <H5 class="text-light fw-bold mt-3 text-center">Extrêmement mauvais</H5>
+<!--                    <hr class="text-light mt-3">-->
+                    <div class="row mt-5">
+                        <div class="col-12">
                             <div class="row">
-                                <div class="col-xl-4 col-md-6 col-sm-6 col-12 mb-4">
+                                <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-4 col-sm-6 col-6 mb-4">
                                     <div class="d-flex align-items-center">
                                         <i class="fa-solid fa-circle fa-2x text-success"></i>
                                         <div class="ms-3 text-light">
@@ -162,7 +156,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 col-md-6 col-sm-6 col-12 mb-4">
+                                <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-4 col-sm-6 col-6 mb-4">
                                     <div class="d-flex align-items-center">
                                         <i class="fa-solid fa-circle fa-2x text-success"></i>
                                         <div class="ms-3 text-light">
@@ -171,7 +165,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 col-md-6 col-sm-6 col-12 mb-4">
+                                <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-4 col-sm-6 col-6 mb-4">
                                     <div class="d-flex align-items-center">
                                         <i class="fa-solid fa-circle fa-2x text-success"></i>
                                         <div class="ms-3 text-light">
@@ -180,7 +174,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 col-md-6 col-sm-6 col-12 mb-4">
+                                <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-4 col-sm-6 col-6 mb-4">
                                     <div class="d-flex align-items-center">
                                         <i class="fa-solid fa-circle fa-2x text-success"></i>
                                         <div class="ms-3 text-light">
@@ -189,7 +183,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 col-md-6 col-sm-6 col-12 mb-4">
+                                <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-4 col-sm-6 col-6 mb-4">
                                     <div class="d-flex align-items-center">
                                         <i class="fa-solid fa-circle fa-2x text-success"></i>
                                         <div class="ms-3 text-light">
@@ -198,7 +192,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 col-md-6 col-sm-6 col-12 mb-4">
+                                <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-4 col-sm-6 col-6 mb-4">
                                     <div class="d-flex align-items-center">
                                         <i class="fa-solid fa-circle fa-2x text-success"></i>
                                         <div class="ms-3 text-light">
@@ -209,28 +203,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
-                            <div class="row">
-                                <p class="fw-bold text-light">Légende</p>
-                                <div class="col-md-6 mb-4">
-                                    <div class="d-flex align-items-center text-light">
-                                        <i class="fa-solid fa-circle text-success me-2"></i>
-                                        <p class="mb-0">Bon</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <div class="d-flex align-items-center text-light">
-                                        <i class="fa-solid fa-circle text-success me-2"></i>
-                                        <p class="mb-0">Dégradé</p>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <h3 class="text-light mt-3 mb-3">
             <i class="fa-solid fa-mountain text-light me-2"></i>
             Météo Montagne
