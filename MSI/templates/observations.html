@@ -91,7 +91,7 @@
             <div class="col-lg-6 mt-lg-0 mt-3">
                 <div class="card bg-primary-color p-3 msi-border">
                     <h5 class="text-light text-center">Indice Qualité de l'Air</h5>
-                    <ul class="nav ms-auto me-auto mt-2 mb-4" role="tablist">
+                    <ul class="nav ms-auto me-auto mt-1 mb-3" role="tablist">
                         <li class="nav-item me-1" role="presentation">
                             <a data-mdb-tab-init class="nav-link text-light active opacity-50 tab-active" role="tab">
                                 Aujourd'hui
@@ -103,7 +103,7 @@
                             </a>
                         </li>
                     </ul>
-                    <hr class="text-light mb-3">
+                    <hr class="text-light mb-2">
                     <div class="mb-3">
                         <span class="badge p-3 bg-active-color border-active text-info">
                             <i class="fa-solid fa-info me-2"></i>Données pour le 09/06/2025
@@ -114,90 +114,183 @@
 
                         <!-- Icône 1 -->
                         <div data-mdb-tooltip-init title="Bon">
-                            <img src="{{ url_for('static', filename='img/atmo_indice_1.svg') }}" alt="Bon" width="90" height="90">
+                            <img src="{{ url_for('static', filename='img/atmo_indice_1.svg') }}" alt="Bon" width="43" height="43">
                         </div>
 
                         <!-- Icône 2 -->
                         <div data-mdb-tooltip-init title="Moyen">
-                            <img src="{{ url_for('static', filename='img/atmo_indice_2.svg') }}" alt="Moyen" width="60" height="60">
+                            <img src="{{ url_for('static', filename='img/atmo_indice_2.svg') }}" alt="Moyen" width="43" height="43">
                         </div>
 
                         <!-- Icône 3 -->
                         <div data-mdb-tooltip-init title="Dégradé">
-                            <img src="{{ url_for('static', filename='img/atmo_indice_3.svg') }}" alt="Dégradé" width="60" height="60">
+                            <img src="{{ url_for('static', filename='img/atmo_indice_3.svg') }}" alt="Dégradé" width="43" height="43">
                         </div>
 
                         <!-- Icône 4 (Actif) -->
                         <div data-mdb-tooltip-init title="Mauvais">
-                            <img src="{{ url_for('static', filename='img/atmo_indice_4.svg') }}" alt="Mauvais" width="60" height="60" class="active-icon">
+                            <img src="{{ url_for('static', filename='img/atmo_indice_4.svg') }}" alt="Mauvais" width="43" height="43" class="active-icon">
                         </div>
 
                         <!-- Icône 5 -->
                         <div data-mdb-tooltip-init title="Très mauvais">
-                            <img src="{{ url_for('static', filename='img/atmo_indice_5.svg') }}" alt="Très mauvais" width="60" height="60">
+                            <img src="{{ url_for('static', filename='img/atmo_indice_5.svg') }}" alt="Très mauvais" width="43" height="43">
                         </div>
 
                         <!-- Icône 6 -->
                         <div data-mdb-tooltip-init title="Extrêmement mauvais">
-                            <img src="{{ url_for('static', filename='img/atmo_indice_6.svg') }}" alt="Extrêmement mauvais" width="60" height="60">
+                            <img src="{{ url_for('static', filename='img/atmo_indice_6.svg') }}" alt="Extrêmement mauvais" width="75" height="75">
                         </div>
                     </div>
-                    <H5 class="text-light fw-bold mt-3 text-center">Extrêmement mauvais</H5>
-<!--                    <hr class="text-light mt-3">-->
-                    <div class="row mt-5">
+                    <H5 class="fw-bold mt-1 text-center" style="color: #7D2181;">Extrêmement mauvais</H5>
+
+<!--                    <div class="d-flex flex-column align-items-center">-->
+<!--                        <img src="{{ url_for('static', filename='img/atmo_indice_6.svg') }}" class="img-fluid" width="90" height="90">-->
+<!--                        <h5 class="fw-bold mt-1" style="color: #7D2181;">Extrêmement mauvais</h5>-->
+<!--                    </div>-->
+
+                    <div class="row mt-4">
                         <div class="col-12">
                             <div class="row">
                                 <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-4 col-sm-6 col-6 mb-4">
                                     <div class="d-flex align-items-center">
-                                        <i class="fa-solid fa-circle fa-2x text-success"></i>
+                                        <i class="fa-solid fa-circle fa-xl text-success"></i>
                                         <div class="ms-3 text-light">
-                                            <p class="fw-bold mb-1">Multi-polluants</p>
-                                            <p class="mb-0">&nbsp;</p>
+                                            <p class="opacity-50 mb-1">Multi-polluants</p>
+                                            <p class="fw-bold mb-0">&nbsp;</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-4 col-sm-6 col-6 mb-4">
                                     <div class="d-flex align-items-center">
-                                        <i class="fa-solid fa-circle fa-2x text-success"></i>
+                                        <i class="fa-solid fa-circle fa-xl text-success"></i>
                                         <div class="ms-3 text-light">
-                                            <p class="fw-bold mb-1">Dioxyde d'azote</p>
-                                            <p class="mb-0">18 µg/m<sup>3</sup></p>
+                                            <p class="opacity-50 mb-1">Dioxyde d'azote</p>
+                                            <p class="fw-bold mb-0">18 µg/m<sup>3</sup></p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-4 col-sm-6 col-6 mb-4">
                                     <div class="d-flex align-items-center">
-                                        <i class="fa-solid fa-circle fa-2x text-success"></i>
+                                        <i class="fa-solid fa-circle fa-xl text-success"></i>
                                         <div class="ms-3 text-light">
-                                            <p class="fw-bold mb-1">Ozone</p>
-                                            <p class="mb-0">126 µg/m<sup>3</sup></p>
+                                            <p class="opacity-50 mb-1">Ozone</p>
+                                            <p class="fw-bold mb-0">126 µg/m<sup>3</sup></p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-4 col-sm-6 col-6 mb-4">
                                     <div class="d-flex align-items-center">
-                                        <i class="fa-solid fa-circle fa-2x text-success"></i>
+                                        <i class="fa-solid fa-circle fa-xl text-success"></i>
                                         <div class="ms-3 text-light">
-                                            <p class="fw-bold mb-1">Dioxyde de soufre</p>
-                                            <p class="mb-0">2.61 µg/m<sup>3</sup></p>
+                                            <p class="opacity-50 fw-bold mb-1">Dioxyde de soufre</p>
+                                            <p class="fw-bold mb-0">2.61 µg/m<sup>3</sup></p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-4 col-sm-6 col-6 mb-4">
                                     <div class="d-flex align-items-center">
-                                        <i class="fa-solid fa-circle fa-2x text-success"></i>
+                                        <i class="fa-solid fa-circle fa-xl text-success"></i>
                                         <div class="ms-3 text-light">
-                                            <p class="fw-bold mb-1">PM10</p>
-                                            <p class="mb-0">41 µg/m<sup>3</sup></p>
+                                            <p class="opacity-50 mb-1">PM10</p>
+                                            <p class="fw-bold mb-0">41 µg/m<sup>3</sup></p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-4 col-sm-6 col-6 mb-4">
                                     <div class="d-flex align-items-center">
-                                        <i class="fa-solid fa-circle fa-2x text-success"></i>
+                                        <i class="fa-solid fa-circle fa-xl text-success"></i>
                                         <div class="ms-3 text-light">
-                                            <p class="fw-bold mb-1">PM2.5</p>
-                                            <p class="mb-0">27 µg/m<sup>3</sup></p>
+                                            <p class="opacity-50 mb-1">PM2.5</p>
+                                            <p class="fw-bold mb-0">27 µg/m<sup>3</sup></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="text-light">
+                    <h6 class="fw-bold text-light">Légende</h6>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-xl-4 col-lg-6 col-md-4 col-6 mb-3">
+                                    <div class="d-flex align-items-start">
+                                        <div class="me-3">
+                                            <i class="fa-solid fa-circle text-success"></i>
+                                        </div>
+                                        <div class="text-light">
+                                            Indisponible
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-6 col-md-4 col-6 mb-3">
+                                    <div class="d-flex align-items-start">
+                                        <div class="me-3">
+                                            <i class="fa-solid fa-circle text-success"></i>
+                                        </div>
+                                        <div class="text-light">
+                                            Bon
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-6 col-md-4 col-6 mb-3">
+                                    <div class="d-flex align-items-start">
+                                        <div class="me-3">
+                                            <i class="fa-solid fa-circle text-success"></i>
+                                        </div>
+                                        <div class="text-light">
+                                            Moyen
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-6 col-md-4 col-6 mb-3">
+                                    <div class="d-flex align-items-start">
+                                        <div class="me-3">
+                                            <i class="fa-solid fa-circle text-success"></i>
+                                        </div>
+                                        <div class="text-light">
+                                            Dégradé
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-6 col-md-4 col-6 mb-3">
+                                    <div class="d-flex align-items-start">
+                                        <div class="me-3">
+                                            <i class="fa-solid fa-circle text-success"></i>
+                                        </div>
+                                        <div class="text-light">
+                                            Mauvais
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-6 col-md-4 col-6 mb-3">
+                                    <div class="d-flex align-items-start">
+                                        <div class="me-3">
+                                            <i class="fa-solid fa-circle text-success"></i>
+                                        </div>
+                                        <div class="text-light">
+                                            Très mauvais
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-6 col-md-4 col-6 mb-3">
+                                    <div class="d-flex align-items-start">
+                                        <div class="me-3">
+                                            <i class="fa-solid fa-circle text-success"></i>
+                                        </div>
+                                        <div class="text-light">
+                                            Extrêmement mauvais
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-6 col-md-4 col-6 mb-3">
+                                    <div class="d-flex align-items-start">
+                                        <div class="me-3">
+                                            <i class="fa-solid fa-circle text-success"></i>
+                                        </div>
+                                        <div class="text-light">
+                                            Evénement
                                         </div>
                                     </div>
                                 </div>
