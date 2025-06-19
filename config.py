@@ -20,6 +20,7 @@ class Config:
     JSON_METADATA_PATH = os.path.join(basedir, os.environ.get('JSON_METADATA_PATH'))
     JSON_MOUNTAIN_WEATHER_PATH = os.path.join(basedir, os.environ.get('JSON_MOUNTAIN_WEATHER_PATH'))
     JSON_WEATHER_ALERT_PATH = os.path.join(basedir, os.environ.get('JSON_WEATHER_ALERT_PATH'))
+    JSON_POLLUTION_ALERT_PATH = os.path.join(basedir, os.environ.get('JSON_POLLUTION_ALERT_PATH'))
 
     PAPERTRAIL_HOST = os.environ.get('PAPERTRAIL_HOST')
     PAPERTRAIL_PORT = int(os.getenv('PAPERTRAIL_PORT'))

@@ -19,3 +19,40 @@
     {{ text_color_map.get(color_id, "text-light") }}
 
 {% endmacro %}
+
+{% macro active_vigilance_pollution(vigilance_pollution_is_active) %}
+    {% if vigilance_pollution_is_active %}
+        ""
+    {% else %}
+        d-none
+
+    {% endif %}
+
+{% endmacro %}
+
+{% macro active_pollution_icon(image_indice, pollution_indice) %}
+    {% if image_indice == pollution_indice %}
+        active_pollution_icon
+
+    {% else %}
+        pollution_icon
+
+    {% endif %}
+
+{% endmacro %}
+
+{% macro pollution_indice_color(pollution_indice) %}
+    {% set pollution_indice_color_map = {
+        0: "indice_atmo_indisponible",
+        1: "indice_atmo_bon",
+        2: "indice_atmo_moyen",
+        3: "indice_atmo_degrade",
+        4: "indice_atmo_mauvais",
+        5: "indice_atmo_tres_mauvais",
+        6: "indice_atmo_extremement_mauvais",
+        7: "indice_atmo_evenement"
+    } %}
+
+    {{ pollution_indice_color_map.get(pollution_indice, "text-light") }}
+
+{% endmacro %}

@@ -7,7 +7,7 @@ from MSI.api import bp
 
 @bp.route('/observations/mountain-weather/<massif_name>', methods=['GET'])
 @response(MountainWeatherOutputSchema)
-@other_responses({404: "Weather station not found", 400: "Bad request", 500: "Internal server error"})
+@other_responses({404: "Massif not found", 400: "Bad request", 500: "Internal server error"})
 def get_mountain_weather(massif_name: str):
     mountain_weather_data = get_mountain_weather_data(massif_name)
     if mountain_weather_data is None:

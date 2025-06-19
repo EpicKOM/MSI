@@ -28,3 +28,47 @@ option {
     width: 50px;
     height: 50px;
 }
+
+/* --- Indice atmo couleur -------------------------------- */
+.indice_atmo_indisponible {
+    color: #dddddd;
+}
+
+.indice_atmo_bon {
+    color: #50f0e6;
+}
+
+.indice_atmo_moyen {
+    color: #50ccaa;
+}
+
+.indice_atmo_degrade {
+    color: #f0e641;
+}
+
+.indice_atmo_mauvais {
+    color: #ff5050;
+}
+
+.indice_atmo_tres_mauvais {
+    color: #960032;
+}
+
+.indice_atmo_extremement_mauvais {
+    color: #872181;
+}
+
+.indice_atmo_evenement {
+    color: #888888;
+}
+
+/* --- Pollution Icone -------------------------------- */
+.pollution_icon {
+    width: 43px;
+    height: 43px;
+}
+
+.active_pollution_icon {
+    width: 75px;
+    height: 75px;
+}

@@ -122,3 +122,8 @@ footer {
 .bold {
     font-weight: bold;
 }
+
+/* --- Visibility -------------------------------- */
+.hide {
+    display: none;
+}
