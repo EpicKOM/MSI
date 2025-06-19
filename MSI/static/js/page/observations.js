@@ -1,6 +1,3 @@
-//let snowCoverUrlWeek = ["https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/AIGLES.gif"];
-//let snowCoverUrlSeason = ["https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/AIGLE.gif"];
-//let intervalDuration = "week";
 const snowCoverageState = {
     intervalDuration: 'week',
     urls: {
@@ -12,11 +9,12 @@ const snowCoverageState = {
 $(document).ready(function() {
     mountainTabsManagement();
     alertTabsManagement();
+    pollutionTabsManagement();
     mountainButtonsManagement();
     snowCoverageSelectorsManagement();
 });
 
-// Gestion des onglets
+// Gestion des tabs
 function mountainTabsManagement() {
     $('#snowTab, #avalancheTab').on('click', function () {
         const isSnowTab = $(this).attr('id') === 'snowTab';
@@ -34,6 +32,16 @@ function alertTabsManagement() {
         $(this).addClass('tab-active');
         $('#todayTabContent').toggle(isTodayTab);
         $('#tomorrowTabContent').toggle(!isTodayTab);
+    });
+}
+
+function pollutionTabsManagement() {
+    $('#pollutionTodayTab, #pollutionTomorrowTab').on('click', function () {
+        const ispollutionTodayTab = $(this).attr('id') === 'pollutionTodayTab';
+        $('.nav-pollution-alert').removeClass('tab-active');
+        $(this).addClass('tab-active');
+        $('#pollutionTodayContent').toggle(ispollutionTodayTab);
+        $('#pollutionTomorrowContent').toggle(!ispollutionTodayTab);
     });
 }
 

@@ -1,61 +1,60 @@
 {
-  "echeance_0": {
-    "date_echeance": "18/06/2025",
-    "indice": 4,
-    "qualificatif": "Mauvais",
-    "vigilance": false,
-    "sous_indices": {
-      "NO2": {
-        "concentration": 33.7,
-        "indice": 1
-      },
-      "O3": {
-        "concentration": 123.5,
-        "indice": 3
-      },
-      "SO2": {
-        "concentration": 0.5,
-        "indice": 1
-      },
-      "PM10": {
-        "concentration": 19.6,
-        "indice": 1
-      },
-      "PM2.5": {
-        "concentration": 12.8,
-        "indice": 2
+  "echeance": [
+    {
+      "date_echeance": "18/06/2025",
+      "indice": 4,
+      "qualificatif": "Mauvais",
+      "vigilance": true,
+      "sous_indices": {
+        "NO2": {
+          "concentration": 33.7,
+          "indice": 1
+        },
+        "O3": {
+          "concentration": 123.5,
+          "indice": 3
+        },
+        "SO2": {
+          "concentration": 0.5,
+          "indice": 1
+        },
+        "PM10": {
+          "concentration": 19.6,
+          "indice": 1
+        },
+        "PM2.5": {
+          "concentration": 12.8,
+          "indice": 2
+        }
+      }
+    },
+    {
+      "date_echeance": "19/06/2025",
+      "indice": 1,
+      "qualificatif": "Bon",
+      "vigilance": false,
+      "sous_indices": {
+        "NO2": {
+          "concentration": 12.3,
+          "indice": 1
+        },
+        "O3": {
+          "concentration": 135.2,
+          "indice": 1
+        },
+        "SO2": {
+          "concentration": 0.1,
+          "indice": 1
+        },
+        "PM10": {
+          "concentration": 21.1,
+          "indice": 1
+        },
+        "PM2.5": {
+          "concentration": 14.1,
+          "indice": 1
+        }
       }
     }
-  },
-
-  "echeance_1": {
-    "date_echeance": "19/06/2025",
-    "indice": 4,
-    "qualificatif": "Mauvais",
-    "vigilance": true,
-    "sous_indices": {
-      "NO2": {
-        "concentration": 37.3537,
-        "indice": 1
-      },
-      "O3": {
-        "concentration": 135.2532,
-        "indice": 4
-      },
-      "SO2": {
-        "concentration": 0.713,
-        "indice": 1
-      },
-      "PM10": {
-        "concentration": 21.15,
-        "indice": 2
-      },
-      "PM2.5": {
-        "concentration": 14.0978,
-        "indice": 2
-      }
-    }
-  }
+  ]
 }
-
-
