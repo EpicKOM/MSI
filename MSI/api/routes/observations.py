@@ -1,7 +1,7 @@
 from apifairy import response, other_responses, arguments
 from flask import abort
 from MSI.api.schemas import *
-from MSI.data_loaders import get_mountain_weather_data
+from MSI.data_loaders import get_mountain_weather_data, get_pollution_alerts_data
 from MSI.api import bp
 
 
@@ -13,3 +13,14 @@ def get_mountain_weather(massif_name: str):
     if mountain_weather_data is None:
         abort(404, description=f"Massif '{massif_name}' non trouvé.")
     return mountain_weather_data
+
+
+@bp.route('/observations/pollution-alerts/', methods=['GET'])
+@response(PollutionOutputSchema)
+@other_responses({404: "Not found", 400: "Bad request", 500: "Internal server error"})
+def get_pollution_alerts():
+    """Return pollution alerts data
+
+    This endpoint returns pollution alerts data for Grenoble (Insee Code = 3185).
+    """
+    return get_pollution_alerts_data()

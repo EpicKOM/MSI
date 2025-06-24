@@ -52,6 +52,6 @@ app.logger.setLevel(logging.INFO)
 app.logger.addHandler(handler)
 
 from MSI.api import bp as api_bp
-app.register_blueprint(api_bp, url_prefix='/api')
+app.register_blueprint(api_bp, url_prefix=f"{app.config.get('API_PATH_PREFIX')}")
 
 from MSI import routes, errors

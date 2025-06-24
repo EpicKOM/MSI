@@ -1,6 +1,6 @@
 from MSI import app, db, sse_broadcaster
 from flask import render_template, request, abort, jsonify, Response
-from MSI.data_loaders import ForecastsApi, get_weather_alert, get_pollution_alert
+from MSI.data_loaders import ForecastsApi, get_weather_alerts, get_pollution_alerts_data
 from MSI.sse import format_sse
 from MSI.utils import *
 import datetime
@@ -107,11 +107,16 @@ def forecasts_update():
 
 @app.route("/observations/")
 def observations():
-    weather_alert = get_weather_alert()
-    pollution_alert = get_pollution_alert()
+    weather_alerts = get_weather_alerts()
+
+    pollution_alerts = get_pollution_alerts_data()
+    pollution_alerts_today = pollution_alerts['echeance'][0]
+    pollution_alerts_tomorrow = pollution_alerts['echeance'][1]
+
     return render_template('observations.html',
-                           weather_alert=weather_alert,
-                           pollution_alert=pollution_alert)
+                           weather_alerts=weather_alerts,
+                           pollution_alerts_today=pollution_alerts_today,
+                           pollution_alerts_tomorrow=pollution_alerts_tomorrow)
 
 
 @app.route("/test/")

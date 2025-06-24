@@ -45,8 +45,8 @@
             <div class="col-lg-6">
                 <div class="card bg-primary-color p-3 msi-border">
                     <h5 class="text-light text-center">Vigilance Isère (38)</h5>
-                    <div class="text-center {{ macros.text_color_class(weather_alert['max_color_id']) }}">
-                        <i class="fa-solid fa-circle fa-fw me-2"></i>{{ weather_alert["max_alert_message"] }}
+                    <div class="text-center {{ macros.text_color_class(weather_alerts['max_color_id']) }}">
+                        <i class="fa-solid fa-circle fa-fw me-2"></i>{{ weather_alerts["max_alert_message"] }}
                     </div>
                     <hr class="text-light">
                     <ul class="nav mb-3 ms-auto me-auto" role="tablist">
@@ -65,7 +65,7 @@
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="todayTabContent" role="tabpanel">
                             <ul class="list-group list-group-light weather-alerts" style="border: None;">
-                                {% for item in weather_alert["results"] %}
+                                {% for item in weather_alerts["results"] %}
                                     <li class="list-group-item d-flex justify-content-between align-items-center ms-4 me-4 alert-item-border">
                                         <div>
                                             <div class="text-light">{{ item['phenomenon'] }}</div>
@@ -109,7 +109,7 @@
                         <div class="tab-pane fade show active" id="pollutionTodayContent" role="tabpanel">
                             <div class="mb-3">
                                 <span class="badge p-3 bg-active-color border-active text-info">
-                                    <i class="fa-solid fa-info me-2"></i>Données pour le {{ pollution_alert['echeance_0']['date_echeance'] }}
+                                    <i class="fa-solid fa-info me-2"></i>Données pour le {{ pollution_alerts_today['date_echeance'] }}
                                 </span>
                             </div>
 
@@ -119,12 +119,12 @@
                                     <div data-mdb-tooltip-init title="{{ ['Bon', 'Moyen', 'Dégradé', 'Mauvais', 'Très mauvais', 'Extrêmement mauvais'][indice - 1] }}">
                                         <img src="{{ url_for('static', filename='img/atmo_indice_' ~ indice ~ '.svg') }}"
                                              alt="{{ ['Bon', 'Moyen', 'Dégradé', 'Mauvais', 'Très mauvais', 'Extrêmement mauvais'][indice - 1] }}"
-                                             class="{{ macros.active_pollution_icon(indice, pollution_alert['echeance_0']['indice']) }}">
+                                             class="{{ macros.active_pollution_icon(indice, pollution_alerts_today['indice']) }}">
                                     </div>
                                 {% endfor %}
                             </div>
-                            <h5 class="fw-bold mt-2 text-center {{ macros.pollution_indice_color(pollution_alert['echeance_0']['indice']) }}">{{ pollution_alert['echeance_0']['qualificatif'] }}</h5>
-                            <p class="border border-danger text-danger rounded p-2 text-center mt-3 {{ macros.active_vigilance_pollution(pollution_alert['echeance_0']['vigilance']) }}">
+                            <h5 class="fw-bold mt-2 text-center {{ macros.pollution_indice_color(pollution_alerts_today['indice']) }}">{{ pollution_alerts_today['qualificatif'] }}</h5>
+                            <p class="border border-danger text-danger rounded p-2 text-center mt-3 {{ macros.active_vigilance_pollution(pollution_alerts_today['vigilance']) }}">
                                 <i class="fas fa-bullhorn me-3"></i>Vigilance pollution en cours
                             </p>
                             <div class="row mt-4">
@@ -132,7 +132,7 @@
                                     <div class="row">
                                         <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-4 col-sm-6 col-6 mb-4">
                                             <div class="d-flex align-items-center">
-                                                <i class="fa-solid fa-circle fa-xl {{ macros.pollution_indice_color(pollution_alert['echeance_0']['indice']) }}"></i>
+                                                <i class="fa-solid fa-circle fa-xl {{ macros.pollution_indice_color(pollution_alerts_today['indice']) }}"></i>
                                                 <div class="ms-3 text-light">
                                                     <p class="opacity-50 mb-1">Multi-polluants</p>
                                                     <p class="fw-bold mb-0">&nbsp;</p>
@@ -141,46 +141,46 @@
                                         </div>
                                         <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-4 col-sm-6 col-6 mb-4">
                                             <div class="d-flex align-items-center">
-                                                <i class="fa-solid fa-circle fa-xl {{ macros.pollution_indice_color(pollution_alert['echeance_0']['sous_indices']['NO2']['indice']) }}"></i>
+                                                <i class="fa-solid fa-circle fa-xl {{ macros.pollution_indice_color(pollution_alerts_today['sous_indices']['NO2']['indice']) }}"></i>
                                                 <div class="ms-3 text-light">
                                                     <p class="opacity-50 mb-1">Dioxyde d'azote</p>
-                                                    <p class="fw-bold mb-0">{{ pollution_alert['echeance_0']['sous_indices']['NO2']['concentration'] }} µg/m<sup>3</sup></p>
+                                                    <p class="fw-bold mb-0">{{ pollution_alerts_today['sous_indices']['NO2']['concentration'] }} µg/m<sup>3</sup></p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-4 col-sm-6 col-6 mb-4">
                                             <div class="d-flex align-items-center">
-                                                <i class="fa-solid fa-circle fa-xl {{ macros.pollution_indice_color(pollution_alert['echeance_0']['sous_indices']['O3']['indice']) }}"></i>
+                                                <i class="fa-solid fa-circle fa-xl {{ macros.pollution_indice_color(pollution_alerts_today['sous_indices']['O3']['indice']) }}"></i>
                                                 <div class="ms-3 text-light">
                                                     <p class="opacity-50 mb-1">Ozone</p>
-                                                    <p class="fw-bold mb-0">{{ pollution_alert['echeance_0']['sous_indices']['O3']['concentration'] }} µg/m<sup>3</sup></p>
+                                                    <p class="fw-bold mb-0">{{ pollution_alerts_today['sous_indices']['O3']['concentration'] }} µg/m<sup>3</sup></p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-4 col-sm-6 col-6 mb-4">
                                             <div class="d-flex align-items-center">
-                                                <i class="fa-solid fa-circle fa-xl {{ macros.pollution_indice_color(pollution_alert['echeance_0']['sous_indices']['SO2']['indice']) }}"></i>
+                                                <i class="fa-solid fa-circle fa-xl {{ macros.pollution_indice_color(pollution_alerts_today['sous_indices']['SO2']['indice']) }}"></i>
                                                 <div class="ms-3 text-light">
                                                     <p class="opacity-50 fw-bold mb-1">Dioxyde de soufre</p>
-                                                    <p class="fw-bold mb-0">{{ pollution_alert['echeance_0']['sous_indices']['SO2']['concentration'] }} µg/m<sup>3</sup></p>
+                                                    <p class="fw-bold mb-0">{{ pollution_alerts_today['sous_indices']['SO2']['concentration'] }} µg/m<sup>3</sup></p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-4 col-sm-6 col-6 mb-4">
                                             <div class="d-flex align-items-center">
-                                                <i class="fa-solid fa-circle fa-xl {{ macros.pollution_indice_color(pollution_alert['echeance_0']['sous_indices']['PM10']['indice']) }}"></i>
+                                                <i class="fa-solid fa-circle fa-xl {{ macros.pollution_indice_color(pollution_alerts_today['sous_indices']['PM10']['indice']) }}"></i>
                                                 <div class="ms-3 text-light">
                                                     <p class="opacity-50 mb-1">PM10</p>
-                                                    <p class="fw-bold mb-0">{{ pollution_alert['echeance_0']['sous_indices']['PM10']['concentration'] }} µg/m<sup>3</sup></p>
+                                                    <p class="fw-bold mb-0">{{ pollution_alerts_today['sous_indices']['PM10']['concentration'] }} µg/m<sup>3</sup></p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-4 col-sm-6 col-6 mb-4">
                                             <div class="d-flex align-items-center">
-                                                <i class="fa-solid fa-circle fa-xl {{ macros.pollution_indice_color(pollution_alert['echeance_0']['sous_indices']['PM2.5']['indice']) }}"></i>
+                                                <i class="fa-solid fa-circle fa-xl {{ macros.pollution_indice_color(pollution_alerts_today['sous_indices']['PM2.5']['indice']) }}"></i>
                                                 <div class="ms-3 text-light">
                                                     <p class="opacity-50 mb-1">PM2.5</p>
-                                                    <p class="fw-bold mb-0">{{ pollution_alert['echeance_0']['sous_indices']['PM2.5']['concentration'] }} µg/m<sup>3</sup></p>
+                                                    <p class="fw-bold mb-0">{{ pollution_alerts_today['sous_indices']['PM2.5']['concentration'] }} µg/m<sup>3</sup></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -192,7 +192,7 @@
                         <div class="tab-pane fade" id="pollutionTomorrowContent" role="tabpanel" style="display: none">
                             <div class="mb-3">
                                 <span class="badge p-3 bg-active-color border-active text-info">
-                                    <i class="fa-solid fa-info me-2"></i>Données pour le {{ pollution_alert['echeance_1']['date_echeance'] }}
+                                    <i class="fa-solid fa-info me-2"></i>Données pour le {{ pollution_alerts_tomorrow['date_echeance'] }}
                                 </span>
                             </div>
 
@@ -202,12 +202,12 @@
                                     <div data-mdb-tooltip-init title="{{ ['Bon', 'Moyen', 'Dégradé', 'Mauvais', 'Très mauvais', 'Extrêmement mauvais'][indice - 1] }}">
                                         <img src="{{ url_for('static', filename='img/atmo_indice_' ~ indice ~ '.svg') }}"
                                              alt="{{ ['Bon', 'Moyen', 'Dégradé', 'Mauvais', 'Très mauvais', 'Extrêmement mauvais'][indice - 1] }}"
-                                             class="{{ macros.active_pollution_icon(indice, pollution_alert['echeance_1']['indice']) }}">
+                                             class="{{ macros.active_pollution_icon(indice, pollution_alerts_tomorrow['indice']) }}">
                                     </div>
                                 {% endfor %}
                             </div>
-                            <h5 class="fw-bold mt-3 text-center {{ macros.pollution_indice_color(pollution_alert['echeance_1']['indice']) }}">{{ pollution_alert['echeance_1']['qualificatif'] }}</h5>
-                            <p class="border border-danger text-danger rounded p-2 text-center mt-3 {{ macros.active_vigilance_pollution(pollution_alert['echeance_1']['vigilance']) }}">
+                            <h5 class="fw-bold mt-3 text-center {{ macros.pollution_indice_color(pollution_alerts_tomorrow['indice']) }}">{{ pollution_alerts_tomorrow['qualificatif'] }}</h5>
+                            <p class="border border-danger text-danger rounded p-2 text-center mt-3 {{ macros.active_vigilance_pollution(pollution_alerts_tomorrow['vigilance']) }}">
                                 <i class="fas fa-bullhorn me-3"></i>Vigilance pollution en cours
                             </p>
                             <div class="row mt-4">
@@ -215,7 +215,7 @@
                                     <div class="row">
                                         <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-4 col-sm-6 col-6 mb-4">
                                             <div class="d-flex align-items-center">
-                                                <i class="fa-solid fa-circle fa-xl {{ macros.pollution_indice_color(pollution_alert['echeance_1']['indice']) }}"></i>
+                                                <i class="fa-solid fa-circle fa-xl {{ macros.pollution_indice_color(pollution_alerts_tomorrow['indice']) }}"></i>
                                                 <div class="ms-3 text-light">
                                                     <p class="opacity-50 mb-1">Multi-polluants</p>
                                                     <p class="fw-bold mb-0">&nbsp;</p>
@@ -224,46 +224,46 @@
                                         </div>
                                         <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-4 col-sm-6 col-6 mb-4">
                                             <div class="d-flex align-items-center">
-                                                <i class="fa-solid fa-circle fa-xl {{ macros.pollution_indice_color(pollution_alert['echeance_1']['sous_indices']['NO2']['indice']) }}"></i>
+                                                <i class="fa-solid fa-circle fa-xl {{ macros.pollution_indice_color(pollution_alerts_tomorrow['sous_indices']['NO2']['indice']) }}"></i>
                                                 <div class="ms-3 text-light">
                                                     <p class="opacity-50 mb-1">Dioxyde d'azote</p>
-                                                    <p class="fw-bold mb-0">{{ pollution_alert['echeance_1']['sous_indices']['NO2']['concentration'] }} µg/m<sup>3</sup></p>
+                                                    <p class="fw-bold mb-0">{{ pollution_alerts_tomorrow['sous_indices']['NO2']['concentration'] }} µg/m<sup>3</sup></p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-4 col-sm-6 col-6 mb-4">
                                             <div class="d-flex align-items-center">
-                                                <i class="fa-solid fa-circle fa-xl {{ macros.pollution_indice_color(pollution_alert['echeance_1']['sous_indices']['O3']['indice']) }}"></i>
+                                                <i class="fa-solid fa-circle fa-xl {{ macros.pollution_indice_color(pollution_alerts_tomorrow['sous_indices']['O3']['indice']) }}"></i>
                                                 <div class="ms-3 text-light">
                                                     <p class="opacity-50 mb-1">Ozone</p>
-                                                    <p class="fw-bold mb-0">{{ pollution_alert['echeance_1']['sous_indices']['O3']['concentration'] }} µg/m<sup>3</sup></p>
+                                                    <p class="fw-bold mb-0">{{ pollution_alerts_tomorrow['sous_indices']['O3']['concentration'] }} µg/m<sup>3</sup></p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-4 col-sm-6 col-6 mb-4">
                                             <div class="d-flex align-items-center">
-                                                <i class="fa-solid fa-circle fa-xl {{ macros.pollution_indice_color(pollution_alert['echeance_1']['sous_indices']['SO2']['indice']) }}"></i>
+                                                <i class="fa-solid fa-circle fa-xl {{ macros.pollution_indice_color(pollution_alerts_tomorrow['sous_indices']['SO2']['indice']) }}"></i>
                                                 <div class="ms-3 text-light">
                                                     <p class="opacity-50 fw-bold mb-1">Dioxyde de soufre</p>
-                                                    <p class="fw-bold mb-0">{{ pollution_alert['echeance_1']['sous_indices']['SO2']['concentration'] }} µg/m<sup>3</sup></p>
+                                                    <p class="fw-bold mb-0">{{ pollution_alerts_tomorrow['sous_indices']['SO2']['concentration'] }} µg/m<sup>3</sup></p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-4 col-sm-6 col-6 mb-4">
                                             <div class="d-flex align-items-center">
-                                                <i class="fa-solid fa-circle fa-xl {{ macros.pollution_indice_color(pollution_alert['echeance_1']['sous_indices']['PM10']['indice']) }}"></i>
+                                                <i class="fa-solid fa-circle fa-xl {{ macros.pollution_indice_color(pollution_alerts_tomorrow['sous_indices']['PM10']['indice']) }}"></i>
                                                 <div class="ms-3 text-light">
                                                     <p class="opacity-50 mb-1">PM10</p>
-                                                    <p class="fw-bold mb-0">{{ pollution_alert['echeance_1']['sous_indices']['PM10']['concentration'] }} µg/m<sup>3</sup></p>
+                                                    <p class="fw-bold mb-0">{{ pollution_alerts_tomorrow['sous_indices']['PM10']['concentration'] }} µg/m<sup>3</sup></p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-4 col-sm-6 col-6 mb-4">
                                             <div class="d-flex align-items-center">
-                                                <i class="fa-solid fa-circle fa-xl {{ macros.pollution_indice_color(pollution_alert['echeance_1']['sous_indices']['PM2.5']['indice']) }}"></i>
+                                                <i class="fa-solid fa-circle fa-xl {{ macros.pollution_indice_color(pollution_alerts_tomorrow['sous_indices']['PM2.5']['indice']) }}"></i>
                                                 <div class="ms-3 text-light">
                                                     <p class="opacity-50 mb-1">PM2.5</p>
-                                                    <p class="fw-bold mb-0">{{ pollution_alert['echeance_1']['sous_indices']['PM2.5']['concentration'] }} µg/m<sup>3</sup></p>
+                                                    <p class="fw-bold mb-0">{{ pollution_alerts_tomorrow['sous_indices']['PM2.5']['concentration'] }} µg/m<sup>3</sup></p>
                                                 </div>
                                             </div>
                                         </div>
