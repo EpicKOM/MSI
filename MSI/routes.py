@@ -110,8 +110,8 @@ def observations():
     weather_alerts = get_weather_alerts()
 
     pollution_alerts = get_pollution_alerts_data()
-    pollution_alerts_today = pollution_alerts['echeance'][0]
-    pollution_alerts_tomorrow = pollution_alerts['echeance'][1]
+    pollution_alerts_today = pollution_alerts[0]
+    pollution_alerts_tomorrow = pollution_alerts[1]
 
     return render_template('observations.html',
                            weather_alerts=weather_alerts,

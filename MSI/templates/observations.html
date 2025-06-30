@@ -44,46 +44,93 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="card bg-primary-color p-3 msi-border">
-                    <h5 class="text-light text-center">Vigilance Isère (38)</h5>
-                    <div class="text-center {{ macros.text_color_class(weather_alerts['max_color_id']) }}">
-                        <i class="fa-solid fa-circle fa-fw me-2"></i>{{ weather_alerts["max_alert_message"] }}
-                    </div>
-                    <hr class="text-light">
-                    <ul class="nav mb-3 ms-auto me-auto" role="tablist">
-                        <li class="nav-item me-3" role="presentation">
-                            <a data-mdb-tab-init class="nav-link nav-weather-alert text-light opacity-50 active tab-active" id="todayTab" href="#todayTabContent" role="tab">
+                    <h5 class="text-light text-center">Vigilance météorologique</h5>
+                    <ul class="nav ms-auto me-auto mt-1 mb-3" role="tablist">
+                        <li class="nav-item me-1" role="presentation">
+                            <a data-mdb-tab-init class="nav-link nav-pollution-alert text-light active opacity-50 tab-active" role="tab">
                                 Aujourd'hui
                             </a>
                         </li>
-                        <li class="nav-item ms-3" role="presentation">
-                            <a data-mdb-tab-init class="nav-link nav-weather-alert text-light opacity-50" id="tomorrowTab" href="#tomorrowTabContent" role="tab">
+                        <li class="nav-item ms-1" role="presentation">
+                            <a data-mdb-tab-init class="nav-link nav-pollution-alert text-light opacity-50" role="tab">
                                 Demain
                             </a>
                         </li>
                     </ul>
+                    <hr class="text-light mb-2">
                     <!-- Tabs content -->
                     <div class="tab-content">
-                        <div class="tab-pane fade show active" id="todayTabContent" role="tabpanel">
-                            <ul class="list-group list-group-light weather-alerts" style="border: None;">
+                        <div class="tab-pane fade show active" role="tabpanel">
+                            <div class="mb-3">
+                                <span class="badge p-3 bg-active-color border-active text-info">
+                                    <i class="fa-solid fa-info me-2"></i>Données pour le {{ pollution_alerts_today['date_echeance'] }}
+                                </span>
+                            </div>
+                            <!-- Flex container -->
+                            <div class="d-flex justify-content-center gap-1 align-items-center">
+
+                            </div>
+                            <h5 class="fw-bold mt-2 text-center {{ macros.pollution_indice_color(pollution_alerts_today['indice']) }}">{{ pollution_alerts_today['qualificatif'] }}</h5>
+
+                            <ul class="list-group list-group-light weather-alerts mb-4 mt-4" style="border: None;">
                                 {% for item in weather_alerts["results"] %}
-                                    <li class="list-group-item d-flex justify-content-between align-items-center ms-4 me-4 alert-item-border">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center alert-item-border">
                                         <div>
-                                            <div class="text-light">{{ item['phenomenon'] }}</div>
+                                            <div class="text-light"><i class="fa-solid fa-bolt text-danger me-2"></i>{{ item['phenomenon'] }}</div>
                                         </div>
                                         <span class="badge rounded-pill {{ macros.bg_color_class(item['color_id']) }}">{{ item['alert_message'] }}</span>
                                     </li>
                                 {% endfor %}
                             </ul>
+
                         </div>
-                        <div class="tab-pane fade" id="tomorrowTabContent" role="tabpanel" style="display: none">
-                            <ul class="list-group list-group-light weather-alerts" style="border: None;">
-                                <li class="list-group-item d-flex justify-content-between align-items-center ms-4 me-4 alert-item-border">
-                                    <div>
-                                        <div class="text-light">Avalanches</div>
+                    </div>
+                    <hr class="text-light mb-4 mt-0">
+                    <h6 class="fw-bold text-light">Légende</h6>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-4 col-6 mb-3">
+                                    <div class="d-flex align-items-start">
+                                        <div class="me-3">
+                                            <i class="fa-solid fa-circle indice_atmo_mauvais"></i>
+                                        </div>
+                                        <div class="text-light">
+                                            Pas de vigilance particulière
+                                        </div>
                                     </div>
-                                    <span class="badge rounded-pill bg-danger text-dark">Vigilance absolue</span>
-                                </li>
-                            </ul>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-4 col-6 mb-3">
+                                    <div class="d-flex align-items-start">
+                                        <div class="me-3">
+                                            <i class="fa-solid fa-circle indice_atmo_tres_mauvais"></i>
+                                        </div>
+                                        <div class="text-light">
+                                            Soyez attentif
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-4 col-6 mb-3">
+                                    <div class="d-flex align-items-start">
+                                        <div class="me-3">
+                                            <i class="fa-solid fa-circle indice_atmo_extremement_mauvais"></i>
+                                        </div>
+                                        <div class="text-light">
+                                            Soyez très vigilant
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-4 col-6 mb-3">
+                                    <div class="d-flex align-items-start">
+                                        <div class="me-3">
+                                            <i class="fa-solid fa-circle indice_atmo_evenement"></i>
+                                        </div>
+                                        <div class="text-light">
+                                            Vigilance absolue
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
