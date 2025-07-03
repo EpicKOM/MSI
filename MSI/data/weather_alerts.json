@@ -1,43 +1,31 @@
 {
-  "error": false,
-  "total_count": 2,
-  "max_color_id": 2,
-  "max_alert_message": "Soyez attentif",
+  "date_echeance": "01/07/2025",
+  "color_id": 4,
+  "qualificatif": "Vigilance absolue",
   "results": [
     {
-      "domain_id": "38",
-      "echeance": "J",
-      "phenomenon_id": 3,
-      "phenomenon": "Orages",
+      "phenomenon": "Canicule",
       "color_id": 4,
+      "qualificatif": "Vigilance absolue",
+      "icon": "fa-temperature-three-quarters",
       "begin_time": "2025-05-30T04:00:00+00:00",
-      "end_time": "2025-05-30T22:00:00+00:00",
-      "product_datetime": "2025-05-30T04:00:00+00:00",
-      "alert_message": "Soyez attentif"
+      "end_time": "2025-05-30T22:00:00+00:00"
     },
     {
-      "domain_id": "38",
-      "echeance": "J",
-      "phenomenon_id": 2,
-      "phenomenon": "Vent",
+      "phenomenon": "Orages",
       "color_id": 2,
-      "color": "jaune",
+      "qualificatif": "Soyez attentif",
+      "icon": "fa-cloud-bolt",
       "begin_time": "2025-05-30T04:00:00+00:00",
-      "end_time": "2025-05-30T22:00:00+00:00",
-      "product_datetime": "2025-05-30T04:00:00+00:00",
-      "alert_message": "Soyez attentif"
+      "end_time": "2025-05-30T22:00:00+00:00"
     },
-        {
-      "domain_id": "38",
-      "echeance": "J",
-      "phenomenon_id": 2,
-      "phenomenon": "Pluie / Verglas",
+    {
+      "phenomenon": "Neige / Verglas",
       "color_id": 2,
-      "color": "jaune",
+      "qualificatif": "Soyez attentif",
+      "icon": "fa-snowflake",
       "begin_time": "2025-05-30T04:00:00+00:00",
-      "end_time": "2025-05-30T22:00:00+00:00",
-      "product_datetime": "2025-05-30T04:00:00+00:00",
-      "alert_message": "Soyez attentif"
+      "end_time": "2025-05-30T22:00:00+00:00"
     }
   ]
 }
