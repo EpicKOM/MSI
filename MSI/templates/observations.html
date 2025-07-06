@@ -67,26 +67,26 @@
                                 </span>
                             </div>
                             <!-- Flex container -->
-                            <div class="d-flex justify-content-center gap-0 align-items-center">
-                                <span class="fa-stack fa-fw text-success">
-                                    <i class="fa-solid fa-circle fa-stack-2x"></i>
-                                    <i class="fa-solid fa-circle fa-stack-1x"></i>
-                                </span>
-                                <span class="fa-stack fa-fw text-light-warning">
-                                    <i class="fa-solid fa-circle fa-stack-2x"></i>
-                                    <i class="fa-solid fa-circle fa-stack-1x"></i>
-                                </span>
-                                <span class="fa-stack fa-xl fa-fw text-warning">
-                                    <i class="fa-solid fa-circle fa-stack-2x"></i>
-                                    <i class="fa-solid fa-circle fa-stack-1x"></i>
-                                </span>
-                                <span class="fa-stack fa-fw text-danger">
-                                    <i class="fa-solid fa-circle fa-stack-2x"></i>
-                                    <i class="fa-solid fa-circle fa-stack-1x"></i>
-                                </span>
+                            <div class="d-flex justify-content-center mt-3">
+                                <div class="d-flex align-items-start">
+                                    <div class="flex-shrink-0">
+                                        <div class="p-2 badge-primary bg-warning rounded-4">
+                                            <span class="fa-stack fa-lg fa-fw">
+                                                <i class="fa-solid fa-exclamation fa-stack-1x text-dark"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-4">
+                                        <p class="text-light mb-1">
+                                            Vigilance Orange
+                                        </p>
+                                        <h5 class="fw-bold mb-1 text-warning">
+                                            Soyez très vigilant
+                                        </h5>
 
+                                    </div>
+                                </div>
                             </div>
-                            <h5 class="fw-bold mt-2 text-center {{ macros.text_color_class(weather_alerts['color_id']) }}">{{ weather_alerts['qualificatif'] }}</h5>
 
                             <ul class="list-group list-group-light weather-alerts mt-4" style="border: None;">
                                 {% for item in weather_alerts["results"] %}
