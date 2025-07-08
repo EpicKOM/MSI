@@ -1,22 +1,33 @@
-{% macro bg_color_class(color_id) %}
-    {% set bg_color_map = {
+{% macro vigilance_bg_color(color_id) %}
+    {% set vigilance_bg_color_map = {
         1: "bg-success text-dark",
         2: "bg-light-warning text-dark",
         3: "bg-warning text-dark",
         4: "bg-danger text-dark"
     } %}
-    {{ bg_color_map.get(color_id, "bg-light") }}
+    {{ vigilance_bg_color_map.get(color_id, "bg-light") }}
 
 {% endmacro %}
 
-{% macro text_color_class(color_id) %}
-    {% set text_color_map = {
+{% macro vigilance_text_color(color_id) %}
+    {% set vigilance_text_color_map = {
         1: "text-success",
         2: "text-light-warning",
         3: "text-warning",
         4: "text-danger"
     } %}
-    {{ text_color_map.get(color_id, "text-light") }}
+    {{ vigilance_text_color_map.get(color_id, "text-light") }}
+
+{% endmacro %}
+
+{% macro vigilance_level_color(color_id) %}
+    {% set vigilance_level_color_map = {
+        1: "Verte",
+        2: "Jaune",
+        3: "Orange",
+        4: "Rouge"
+    } %}
+    {{ vigilance_level_color_map.get(color_id, "text-light") }}
 
 {% endmacro %}
 

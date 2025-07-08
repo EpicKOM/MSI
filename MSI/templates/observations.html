@@ -47,12 +47,12 @@
                     <h5 class="text-light text-center">Vigilance météorologique</h5>
                     <ul class="nav ms-auto me-auto mt-1 mb-3" role="tablist">
                         <li class="nav-item me-1" role="presentation">
-                            <a data-mdb-tab-init class="nav-link nav-pollution-alert text-light active opacity-50 tab-active" role="tab">
+                            <a data-mdb-tab-init class="nav-link nav-vigilance-alert text-light active opacity-50 tab-active" id="vigilanceTodayTab" href="#vigilanceTodayContent" role="tab">
                                 Aujourd'hui
                             </a>
                         </li>
                         <li class="nav-item ms-1" role="presentation">
-                            <a data-mdb-tab-init class="nav-link nav-pollution-alert text-light opacity-50" role="tab">
+                            <a data-mdb-tab-init class="nav-link nav-vigilance-alert text-light opacity-50" id="vigilanceTomorrowTab" href="#vigilanceTomorrowContent" role="tab">
                                 Demain
                             </a>
                         </li>
@@ -60,28 +60,28 @@
                     <hr class="text-light mb-2">
                     <!-- Tabs content -->
                     <div class="tab-content">
-                        <div class="tab-pane fade show active" role="tabpanel">
+                        <div class="tab-pane fade show active"  id="vigilanceTodayContent" role="tabpanel">
                             <div class="mb-3">
                                 <span class="badge p-3 bg-active-color border-active text-info">
-                                    <i class="fa-solid fa-info me-2"></i>Données pour le {{ weather_alerts['date_echeance'] }}
+                                    <i class="fa-solid fa-info me-2"></i>Données pour le {{ weather_alerts_today['date_echeance'] }}
                                 </span>
                             </div>
                             <!-- Flex container -->
                             <div class="d-flex justify-content-center mt-3">
                                 <div class="d-flex align-items-start">
                                     <div class="flex-shrink-0">
-                                        <div class="p-2 badge-primary bg-warning rounded-4">
+                                        <div class="p-2 badge-primary {{ macros.vigilance_bg_color(weather_alerts_today['color_id']) }} rounded-4">
                                             <span class="fa-stack fa-lg fa-fw">
                                                 <i class="fa-solid fa-exclamation fa-stack-1x text-dark"></i>
                                             </span>
                                         </div>
                                     </div>
                                     <div class="flex-grow-1 ms-4">
-                                        <p class="text-light mb-1">
-                                            Vigilance Orange
+                                        <p class="{{ macros.vigilance_text_color(weather_alerts_today['color_id']) }} mb-1">
+                                            Vigilance {{ macros.vigilance_level_color(weather_alerts_today['color_id']) }}
                                         </p>
-                                        <h5 class="fw-bold mb-1 text-warning">
-                                            Soyez très vigilant
+                                        <h5 class="fw-bold mb-1 text-light">
+                                            {{ weather_alerts_today['qualificatif'] }}
                                         </h5>
 
                                     </div>
@@ -89,18 +89,63 @@
                             </div>
 
                             <ul class="list-group list-group-light weather-alerts mt-4" style="border: None;">
-                                {% for item in weather_alerts["results"] %}
+                                {% for item in weather_alerts_today["results"] %}
                                     <li class="list-group-item d-flex justify-content-between align-items-center alert-item-border">
                                         <div>
                                             <div class="d-flex justify-content-center gap-2 align-items-center text-light">
                                                 <span class="fa-stack fa-lg fa-fw">
-                                                    <i class="fa-solid fa-circle fa-stack-2x {{ macros.text_color_class(item['color_id']) }}"></i>
+                                                    <i class="fa-solid fa-circle fa-stack-2x {{ macros.vigilance_text_color(item['color_id']) }}"></i>
                                                     <i class="fa-solid {{ item['icon'] }} fa-stack-1x text-dark"></i>
                                                 </span>
                                                 {{ item['phenomenon'] }}
                                             </div>
                                         </div>
-                                        <span class="badge rounded-pill {{ macros.bg_color_class(item['color_id']) }}">{{ item['qualificatif'] }}</span>
+                                        <span class="badge rounded-pill {{ macros.vigilance_bg_color(item['color_id']) }}">{{ item['qualificatif'] }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="tab-pane fade" id="vigilanceTomorrowContent" role="tabpanel" style="display: none">
+                            <div class="mb-3">
+                                <span class="badge p-3 bg-active-color border-active text-info">
+                                    <i class="fa-solid fa-info me-2"></i>Données pour le {{ weather_alerts_tomorrow['date_echeance'] }}
+                                </span>
+                            </div>
+                            <!-- Flex container -->
+                            <div class="d-flex justify-content-center mt-3">
+                                <div class="d-flex align-items-start">
+                                    <div class="flex-shrink-0">
+                                        <div class="p-2 badge-primary {{ macros.vigilance_bg_color(weather_alerts_tomorrow['color_id']) }} rounded-4">
+                                            <span class="fa-stack fa-lg fa-fw">
+                                                <i class="fa-solid fa-exclamation fa-stack-1x text-dark"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-4">
+                                        <p class="{{ macros.vigilance_text_color(weather_alerts_tomorrow['color_id']) }} mb-1">
+                                            Vigilance {{ macros.vigilance_level_color(weather_alerts_tomorrow['color_id']) }}
+                                        </p>
+                                        <h5 class="fw-bold mb-1 text-light">
+                                            {{ weather_alerts_tomorrow['qualificatif'] }}
+                                        </h5>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <ul class="list-group list-group-light weather-alerts mt-4" style="border: None;">
+                                {% for item in weather_alerts_tomorrow["results"] %}
+                                    <li class="list-group-item d-flex justify-content-between align-items-center alert-item-border">
+                                        <div>
+                                            <div class="d-flex justify-content-center gap-2 align-items-center text-light">
+                                                <span class="fa-stack fa-lg fa-fw">
+                                                    <i class="fa-solid fa-circle fa-stack-2x {{ macros.vigilance_text_color(item['color_id']) }}"></i>
+                                                    <i class="fa-solid {{ item['icon'] }} fa-stack-1x text-dark"></i>
+                                                </span>
+                                                {{ item['phenomenon'] }}
+                                            </div>
+                                        </div>
+                                        <span class="badge rounded-pill {{ macros.vigilance_bg_color(item['color_id']) }}">{{ item['qualificatif'] }}</span>
                                     </li>
                                 {% endfor %}
                             </ul>

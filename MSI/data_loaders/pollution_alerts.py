@@ -10,10 +10,11 @@ def get_pollution_alerts_data() -> list:
     if not pollution_alerts:
         return []
 
-    # first_date = pollution_alerts[0].get("date_echeance")
-    # today_str = date.today().strftime("%d/%m/%Y")
-    #
-    # if first_date != today_str:
-    #     del pollution_alerts[0]
+    if len(pollution_alerts) > 2:
+        first_date = pollution_alerts[0].get("date_echeance")
+        today_str = date.today().strftime("%d/%m/%Y")
+
+        if first_date != today_str:
+            del pollution_alerts[0]
 
     return pollution_alerts

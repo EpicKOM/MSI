@@ -8,7 +8,7 @@ const snowCoverageState = {
 
 $(document).ready(function() {
     mountainTabsManagement();
-    alertTabsManagement();
+    VigilanceTabsManagement();
     pollutionTabsManagement();
     mountainButtonsManagement();
     snowCoverageSelectorsManagement();
@@ -25,13 +25,13 @@ function mountainTabsManagement() {
     });
 }
 
-function alertTabsManagement() {
-    $('#todayTab, #tomorrowTab').on('click', function () {
-        const isTodayTab = $(this).attr('id') === 'todayTab';
-        $('.nav-weather-alert').removeClass('tab-active');
+function VigilanceTabsManagement() {
+    $('#vigilanceTodayTab, #vigilanceTomorrowTab').on('click', function () {
+        const isVigilanceTodayTab = $(this).attr('id') === 'vigilanceTodayTab';
+        $('.nav-vigilance-alert').removeClass('tab-active');
         $(this).addClass('tab-active');
-        $('#todayTabContent').toggle(isTodayTab);
-        $('#tomorrowTabContent').toggle(!isTodayTab);
+        $('#vigilanceTodayContent').toggle(isVigilanceTodayTab);
+        $('#vigilanceTomorrowContent').toggle(!isVigilanceTodayTab);
     });
 }
 

@@ -108,13 +108,16 @@ def forecasts_update():
 @app.route("/observations/")
 def observations():
     weather_alerts = get_weather_alerts()
+    weather_alerts_today = weather_alerts[0]
+    weather_alerts_tomorrow = weather_alerts[1]
 
     pollution_alerts = get_pollution_alerts_data()
     pollution_alerts_today = pollution_alerts[0]
     pollution_alerts_tomorrow = pollution_alerts[1]
 
     return render_template('observations.html',
-                           weather_alerts=weather_alerts,
+                           weather_alerts_today=weather_alerts_today,
+                           weather_alerts_tomorrow=weather_alerts_tomorrow,
                            pollution_alerts_today=pollution_alerts_today,
                            pollution_alerts_tomorrow=pollution_alerts_tomorrow)
 
