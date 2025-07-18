@@ -1,6 +1,13 @@
 from MSI import app, db, sse_broadcaster
 from flask import render_template, request, abort, jsonify, Response
-from MSI.data_loaders import ForecastsApi, get_weather_alerts, get_pollution_alerts_data
+from MSI.data_loaders import (
+    ForecastsApi,
+    get_weather_alerts_data,
+    get_pollution_alerts_data,
+    get_weather_alerts_data_status,
+    get_pollution_alerts_data_status,
+)
+from MSI.data_loaders.pollution_alerts import is_pollution_alerts_data_fresh
 from MSI.sse import format_sse
 from MSI.utils import *
 import datetime
@@ -107,19 +114,24 @@ def forecasts_update():
 
 @app.route("/observations/")
 def observations():
-    weather_alerts = get_weather_alerts()
+    weather_alerts = get_weather_alerts_data()
     weather_alerts_today = weather_alerts[0]
-    weather_alerts_tomorrow = weather_alerts[1]
+    weather_alerts_tomorrow = weather_alerts[1] if len(weather_alerts) > 1 else None
+    is_weather_alerts_data_fresh = get_weather_alerts_data_status()
 
     pollution_alerts = get_pollution_alerts_data()
     pollution_alerts_today = pollution_alerts[0]
     pollution_alerts_tomorrow = pollution_alerts[1]
+    is_pollution_alerts_data_fresh = get_pollution_alerts_data_status()
+    print(is_pollution_alerts_data_fresh)
 
     return render_template('observations.html',
                            weather_alerts_today=weather_alerts_today,
                            weather_alerts_tomorrow=weather_alerts_tomorrow,
+                           is_weather_alerts_data_fresh=is_weather_alerts_data_fresh,
                            pollution_alerts_today=pollution_alerts_today,
-                           pollution_alerts_tomorrow=pollution_alerts_tomorrow)
+                           pollution_alerts_tomorrow=pollution_alerts_tomorrow,
+                           is_pollution_alerts_data_fresh=is_pollution_alerts_data_fresh)
 
 
 @app.route("/test/")

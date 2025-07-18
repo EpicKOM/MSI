@@ -1,9 +1,9 @@
 {% macro vigilance_bg_color(color_id) %}
     {% set vigilance_bg_color_map = {
-        1: "bg-success text-dark",
-        2: "bg-light-warning text-dark",
-        3: "bg-warning text-dark",
-        4: "bg-danger text-dark"
+        1: "bg-dark-green border-achievement",
+        2: "bg-caution border-caution",
+        3: "bg-warning border-warning",
+        4: "bg-dark-red border-error"
     } %}
     {{ vigilance_bg_color_map.get(color_id, "bg-light") }}
 
@@ -11,10 +11,10 @@
 
 {% macro vigilance_text_color(color_id) %}
     {% set vigilance_text_color_map = {
-        1: "text-success",
-        2: "text-light-warning",
+        1: "text-light-green",
+        2: "text-caution",
         3: "text-warning",
-        4: "text-danger"
+        4: "text-light-red"
     } %}
     {{ vigilance_text_color_map.get(color_id, "text-light") }}
 
@@ -31,14 +31,20 @@
 
 {% endmacro %}
 
-{% macro active_vigilance_pollution(vigilance_pollution_is_active) %}
-    {% if vigilance_pollution_is_active %}
+{% macro toggle_visibility(condition) %}
+    {% if condition %}
         ""
     {% else %}
         d-none
-
     {% endif %}
+{% endmacro %}
 
+{% macro data_status_color(condition) %}
+    {% if condition %}
+        text-light-green bg-dark-green border-achievement
+    {% else %}
+        text-light-red bg-dark-red border-error
+    {% endif %}
 {% endmacro %}
 
 {% macro active_pollution_icon(image_indice, pollution_indice) %}

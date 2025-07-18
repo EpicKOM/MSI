@@ -3,9 +3,9 @@
 .text-primary-color {color: rgba(9, 9, 11, 1);}
 .bg-secondary-color {background: rgba(39, 39, 42, 1);}
 .text-secondary-color {color: rgba(39, 39, 42, 1);}
-.bg-active-color {background: rgba(80, 180, 211, 0.2);}
+.bg-active-color {background: rgba(84, 180, 211, 0.2);}
 .bg-light-green {background: rgba(89, 243, 166, 1);}
-.text-light-green {color: rgba(89, 243, 166, 1);}
+.text-light-green {color: rgba(89, 243, 166, 1) !important;}
 .bg-dark-green {background: rgba(0, 31, 15, 1);}
 .text-dark-green {color: rgba(0, 31, 15, 1);}
 .bg-dark-red {background: rgba(44, 15, 20, 1);}

@@ -16,7 +16,7 @@ def get_mountain_weather(massif_name: str):
 
 
 @bp.route('/observations/pollution-alerts/', methods=['GET'])
-@response(PollutionOutputSchema)
+@response(PollutionDataOutputSchema(many=True))
 @other_responses({404: "Not found", 400: "Bad request", 500: "Internal server error"})
 def get_pollution_alerts():
     """Return pollution alerts data

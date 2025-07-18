@@ -15,7 +15,7 @@ class SubIndexSchema(ma.Schema):
     indice = ma.Integer(dump_only=True, allow_none=True, required=True)
 
 
-class PollutionDataSchema(ma.Schema):
+class PollutionDataOutputSchema(ma.Schema):
     date_echeance = ma.String(dump_only=True)
     indice = ma.Integer(dump_only=True, allow_none=True, required=True)
     qualificatif = ma.String(dump_only=True, allow_none=True, required=True)
@@ -25,6 +25,4 @@ class PollutionDataSchema(ma.Schema):
         values=ma.Nested(SubIndexSchema)
     )
 
-
-class PollutionOutputSchema(ma.Schema):
-    echeance = ma.List(ma.Nested(PollutionDataSchema))
+# Weather Alert Output Schema-----------------------------------------------------------------------------------------

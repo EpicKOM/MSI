@@ -10,99 +10,99 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h3 class="text-light mt-3 mb-3">
-        <i class="fa-solid fa-mountain text-light me-2"></i>
-        Météo Montagne
-    </h3>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card bg-primary-color p-3 msi-border">
-                <!-- Tabs navs -->
-                <ul class="nav mb-3 ms-auto me-auto" id="ex-with-icons" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <a data-mdb-tab-init class="nav-link text-light opacity-50 active tab-active" id="snowTab" href="#snowTabContent" role="tab">
-                            <i class="fas fa-snowflake fa-fw me-2"></i>Enneigement
-                        </a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a data-mdb-tab-init class="nav-link text-light opacity-50" id="avalancheTab" href="#avalancheTabContent" role="tab">
-                            <i class="fas fa-hill-avalanche fa-fw me-2"></i>Risques-avalanche
-                        </a>
-                    </li>
-                </ul>
-                <!-- Tabs navs -->
-                <div class="row mt-3">
-                    <div class="col-lg-4">
-                        <h5 class="text-light text-center fw-bold">Isère (38)</h5>
-                        <hr class="text-light">
-                        <div class="text-center">
-                            <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item bg-active-color action-item-disabled" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="belledonne">Belledonne</button>
-                            <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="chartreuse">Chartreuse</button>
-                            <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="grandes_rousses">Grandes Rousses</button>
-                            <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="oisans">Oisans</button>
-                            <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="vercors">Vercors</button>
+    <div class="col-lg-6">
+    <table class="table align-middle mb-0">
+        <thead class="">
+            <tr>
+                <th>Niveau</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="d-flex align-items-center">
+                    <div class="rounded-circle d-flex justify-content-center align-items-center text-light-green bg-dark-green border-achievement"
+                        style="width: 45px; height: 45px;">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                        <div class="ms-3">
+                            <p class="fw-bold mb-1">Vert</p>
                         </div>
                     </div>
-                    <div class="col-lg-4 mt-lg-0 mt-3">
-                        <h5 class="text-light text-center fw-bold">Savoie (73)</h5>
-                        <hr class="text-light">
-                        <div class="text-center">
-                            <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="bauges">Bauges</button>
-                            <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="beaufortain">Beaufortain</button>
-                            <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="haute_maurienne">Haute-Maurienne</button>
-                            <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="haute_tarentaise">Haute-Tarentaise</button>
-                            <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="vanoise">Vanoise</button>
+                </td>
+                <td>
+                    <p class="fw-normal mb-1">
+                        -
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="d-flex align-items-center">
+                        <img
+                        src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+                        alt=""
+                        style="width: 45px; height: 45px"
+                        class="rounded-circle"
+                        />
+                        <div class="ms-3">
+                            <p class="fw-bold mb-1">Jaune</p>
                         </div>
                     </div>
-                    <div class="col-lg-4 mt-lg-0 mt-3">
-                        <h5 class="text-light text-center fw-bold">Haute-Savoie (74)</h5>
-                        <hr class="text-light">
-                        <div class="text-center">
-                            <button type="button" class="btn btn-outline-info mx-1 my-1 mountain-button action-item" data-mdb-ripple-init data-mdb-ripple-color="dark" data-value="mont_blanc">Mont-Blanc</button>
+                </td>
+                <td>
+                    <p class="fw-normal mb-1">
+                        Soyez attentif si vous pratiquez des activités sensibles aux risques météorologiques.
+                        Des phénomènes habituels dans la région mais occasionnellement et localement dangereux sont prévus.
+                        Tenez-vous au courant de l'évolution de la situation.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="d-flex align-items-center">
+                        <img
+                        src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+                        alt=""
+                        style="width: 45px; height: 45px"
+                        class="rounded-circle"
+                        />
+                        <div class="ms-3">
+                            <p class="fw-bold mb-1">Orange</p>
                         </div>
                     </div>
-                </div>
-                <hr class="text-light">
-                <!-- Tabs content -->
-                <div class="tab-content">
-                    <div class="tab-pane fade show active" id="snowTabContent" role="tabpanel">
-                        <div class="row">
-                            <div class="col-lg-3 d-flex align-items-center">
-                                <h5 class="text-light fw-bold" id="snowCoverageTitle"></h5>
-                            </div>
-                            <div class="col-lg-3 ms-auto">
-                                <div class="dropdown custom-dropdown w-100">
-                                    <button
-                                        class="btn btn-hover bg-primary-color msi-border text-light dropdown-toggle w-100 d-flex justify-content-between align-items-center"
-                                        type="button"
-                                        data-mdb-dropdown-init
-                                        data-mdb-ripple-init
-                                        data-mdb-dropdown-animation="off"
-                                        aria-expanded="false">
-                                        <span id="snowCoveragePeriodSelectTitle">Semaine</span>
-                                        <i class="fa-solid fa-sort fa-sm opacity-50"></i>
-                                    </button>
-                                    <ul class="dropdown-menu bg-primary-color msi-border w-100" aria-labelledby="dropdownMenuButton">
-                                        <li><a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item snow-coverage-selector action-item-disabled" data-value="semaine">Semaine<i class="fa-solid fa-check text-success"></i></a></li>
-                                        <li><a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item snow-coverage-selector" data-value="saison">Saison</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt-3" id="snowCoverageContainer">
+                </td>
+                <td>
+                    <p class="fw-normal mb-1">
+                        Des phénomènes dangereux sont prévus.
+                        Tenez-vous au courant de l'évolution de la situation et suivez les conseils de sécurité émis par les pouvoirs publics.
+                    </p>
+                </td>
+            </tr>
+                    <tr>
+                <td>
+                    <div class="d-flex align-items-center">
+                        <img
+                        src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+                        alt=""
+                        style="width: 45px; height: 45px"
+                        class="rounded-circle"
+                        />
+                        <div class="ms-3">
+                            <p class="fw-bold mb-1">Rouge</p>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="avalancheTabContent" role="tabpanel" style="display: none">
-                        <div class="row mt-3">
-                            <div class="col-lg-9 ms-auto me-auto">
-                                <iframe class="rounded" src="https://skitour.fr/neige/bulletin_avalanche_8.pdf"  style="height: 75vh;" width="100%" frameborder="0"></iframe>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Tabs content -->
-            </div>
-        </div>
+                </td>
+                <td>
+                    <p class="fw-normal mb-1">
+                        Des phénomènes dangereux d'intensité exceptionnelle sont prévus.
+                        Tenez-vous régulièrement au courant de l'évolution de la situation et respectez impérativement les consignes de sécurité émises par les pouvoirs publics.
+                    </p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     </div>
 </div>
 {% endblock %}

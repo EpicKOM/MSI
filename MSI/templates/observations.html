@@ -51,7 +51,7 @@
                                 Aujourd'hui
                             </a>
                         </li>
-                        <li class="nav-item ms-1" role="presentation">
+                        <li class="nav-item ms-1 {{ macros.toggle_visibility(weather_alerts_tomorrow) }}" role="presentation">
                             <a data-mdb-tab-init class="nav-link nav-vigilance-alert text-light opacity-50" id="vigilanceTomorrowTab" href="#vigilanceTomorrowContent" role="tab">
                                 Demain
                             </a>
@@ -62,17 +62,17 @@
                     <div class="tab-content">
                         <div class="tab-pane fade show active"  id="vigilanceTodayContent" role="tabpanel">
                             <div class="mb-3">
-                                <span class="badge p-3 bg-active-color border-active text-info">
+                                <span class="badge p-3 {{ macros.data_status_color(is_weather_alerts_data_fresh) }}">
                                     <i class="fa-solid fa-info me-2"></i>Données pour le {{ weather_alerts_today['date_echeance'] }}
                                 </span>
                             </div>
                             <!-- Flex container -->
                             <div class="d-flex justify-content-center mt-3">
-                                <div class="d-flex align-items-start">
+                                <div class="d-flex align-items-center">
                                     <div class="flex-shrink-0">
                                         <div class="p-2 badge-primary {{ macros.vigilance_bg_color(weather_alerts_today['color_id']) }} rounded-4">
                                             <span class="fa-stack fa-lg fa-fw">
-                                                <i class="fa-solid fa-exclamation fa-stack-1x text-dark"></i>
+                                                <i class="{{ weather_alerts_today['global_icon'] }} fa-stack-1x {{ macros.vigilance_text_color(weather_alerts_today['color_id']) }}"></i>
                                             </span>
                                         </div>
                                     </div>
@@ -88,68 +88,69 @@
                                 </div>
                             </div>
 
-                            <ul class="list-group list-group-light weather-alerts mt-4" style="border: None;">
+                            <ul class="list-group list-group-light weather-alerts mt-3" style="border: None;">
                                 {% for item in weather_alerts_today["results"] %}
                                     <li class="list-group-item d-flex justify-content-between align-items-center alert-item-border">
                                         <div>
                                             <div class="d-flex justify-content-center gap-2 align-items-center text-light">
-                                                <span class="fa-stack fa-lg fa-fw">
-                                                    <i class="fa-solid fa-circle fa-stack-2x {{ macros.vigilance_text_color(item['color_id']) }}"></i>
-                                                    <i class="fa-solid {{ item['icon'] }} fa-stack-1x text-dark"></i>
-                                                </span>
+                                                <div class="rounded-circle d-flex justify-content-center align-items-center {{ macros.vigilance_bg_color(item['color_id']) }}"
+                                                     style="width: 45px; height: 45px;">
+                                                    <i class="fa-solid {{ item['icon'] }} fa-xl {{ macros.vigilance_text_color(item['color_id']) }}"></i>
+                                                </div>
                                                 {{ item['phenomenon'] }}
                                             </div>
                                         </div>
-                                        <span class="badge rounded-pill {{ macros.vigilance_bg_color(item['color_id']) }}">{{ item['qualificatif'] }}</span>
+                                        <span class="badge rounded-pill p-2 {{ macros.vigilance_bg_color(item['color_id']) }} {{ macros.vigilance_text_color(item['color_id']) }}">{{ item['qualificatif'] }}</span>
                                     </li>
                                 {% endfor %}
                             </ul>
                         </div>
-                        <div class="tab-pane fade" id="vigilanceTomorrowContent" role="tabpanel" style="display: none">
-                            <div class="mb-3">
-                                <span class="badge p-3 bg-active-color border-active text-info">
-                                    <i class="fa-solid fa-info me-2"></i>Données pour le {{ weather_alerts_tomorrow['date_echeance'] }}
-                                </span>
-                            </div>
-                            <!-- Flex container -->
-                            <div class="d-flex justify-content-center mt-3">
-                                <div class="d-flex align-items-start">
-                                    <div class="flex-shrink-0">
-                                        <div class="p-2 badge-primary {{ macros.vigilance_bg_color(weather_alerts_tomorrow['color_id']) }} rounded-4">
-                                            <span class="fa-stack fa-lg fa-fw">
-                                                <i class="fa-solid fa-exclamation fa-stack-1x text-dark"></i>
-                                            </span>
+                        {% if weather_alerts_tomorrow != None %}
+                            <div class="tab-pane fade" id="vigilanceTomorrowContent" role="tabpanel" style="display: none">
+                                <div class="mb-3">
+                                    <span class="badge p-3 {{ macros.data_status_color(is_weather_alerts_data_fresh) }}">
+                                        <i class="fa-solid fa-info me-2"></i>Données pour le {{ weather_alerts_tomorrow['date_echeance'] }}
+                                    </span>
+                                </div>
+                                <!-- Flex container -->
+                                <div class="d-flex justify-content-center mt-3">
+                                    <div class="d-flex align-items-start">
+                                        <div class="flex-shrink-0">
+                                            <div class="p-2 badge-primary {{ macros.vigilance_bg_color(weather_alerts_tomorrow['color_id']) }} rounded-4">
+                                                <span class="fa-stack fa-lg fa-fw">
+                                                    <i class="{{ weather_alerts_tomorrow['global_icon'] }} fa-stack-1x {{ macros.vigilance_text_color(weather_alerts_tomorrow['color_id']) }}"></i>
+                                                </span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="flex-grow-1 ms-4">
-                                        <p class="{{ macros.vigilance_text_color(weather_alerts_tomorrow['color_id']) }} mb-1">
-                                            Vigilance {{ macros.vigilance_level_color(weather_alerts_tomorrow['color_id']) }}
-                                        </p>
-                                        <h5 class="fw-bold mb-1 text-light">
-                                            {{ weather_alerts_tomorrow['qualificatif'] }}
-                                        </h5>
-
+                                        <div class="flex-grow-1 ms-4">
+                                            <p class="{{ macros.vigilance_text_color(weather_alerts_tomorrow['color_id']) }} mb-1">
+                                                Vigilance {{ macros.vigilance_level_color(weather_alerts_tomorrow['color_id']) }}
+                                            </p>
+                                            <h5 class="fw-bold mb-1 text-light">
+                                                {{ weather_alerts_tomorrow['qualificatif'] }}
+                                            </h5>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <ul class="list-group list-group-light weather-alerts mt-4" style="border: None;">
-                                {% for item in weather_alerts_tomorrow["results"] %}
-                                    <li class="list-group-item d-flex justify-content-between align-items-center alert-item-border">
-                                        <div>
-                                            <div class="d-flex justify-content-center gap-2 align-items-center text-light">
-                                                <span class="fa-stack fa-lg fa-fw">
-                                                    <i class="fa-solid fa-circle fa-stack-2x {{ macros.vigilance_text_color(item['color_id']) }}"></i>
-                                                    <i class="fa-solid {{ item['icon'] }} fa-stack-1x text-dark"></i>
-                                                </span>
-                                                {{ item['phenomenon'] }}
+                                <ul class="list-group list-group-light weather-alerts mt-3" style="border: None;">
+                                    {% for item in weather_alerts_tomorrow["results"] %}
+                                        <li class="list-group-item d-flex justify-content-between align-items-center alert-item-border">
+                                            <div>
+                                                <div class="d-flex justify-content-center gap-2 align-items-center text-light">
+                                                    <div class="rounded-circle d-flex justify-content-center align-items-center {{ macros.vigilance_bg_color(item['color_id']) }}"
+                                                         style="width: 45px; height: 45px;">
+                                                        <i class="fa-solid {{ item['icon'] }} fa-xl {{ macros.vigilance_text_color(item['color_id']) }}"></i>
+                                                    </div>
+                                                    {{ item['phenomenon'] }}
+                                                </div>
                                             </div>
-                                        </div>
-                                        <span class="badge rounded-pill {{ macros.vigilance_bg_color(item['color_id']) }}">{{ item['qualificatif'] }}</span>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
+                                            <span class="badge rounded-pill p-2 {{ macros.vigilance_bg_color(item['color_id']) }} {{ macros.vigilance_text_color(item['color_id']) }}">{{ item['qualificatif'] }}</span>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -173,7 +174,7 @@
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="pollutionTodayContent" role="tabpanel">
                             <div class="mb-3">
-                                <span class="badge p-3 bg-active-color border-active text-info">
+                                <span class="badge p-3 {{ macros.data_status_color(is_pollution_alerts_data_fresh) }}">
                                     <i class="fa-solid fa-info me-2"></i>Données pour le {{ pollution_alerts_today['date_echeance'] }}
                                 </span>
                             </div>
@@ -189,7 +190,7 @@
                                 {% endfor %}
                             </div>
                             <h5 class="fw-bold mt-2 text-center {{ macros.pollution_indice_color(pollution_alerts_today['indice']) }}">{{ pollution_alerts_today['qualificatif'] }}</h5>
-                            <p class="border border-danger text-danger rounded p-2 text-center mt-3 {{ macros.active_vigilance_pollution(pollution_alerts_today['vigilance']) }}">
+                            <p class="border border-danger text-danger rounded p-2 text-center mt-3 {{ macros.toggle_visibility(pollution_alerts_today['vigilance']) }}">
                                 <i class="fas fa-bullhorn me-3"></i>Vigilance pollution en cours
                             </p>
                             <div class="row mt-4">
@@ -256,7 +257,7 @@
 
                         <div class="tab-pane fade" id="pollutionTomorrowContent" role="tabpanel" style="display: none">
                             <div class="mb-3">
-                                <span class="badge p-3 bg-active-color border-active text-info">
+                                <span class="badge p-3 {{ macros.data_status_color(is_pollution_alerts_data_fresh) }}">
                                     <i class="fa-solid fa-info me-2"></i>Données pour le {{ pollution_alerts_tomorrow['date_echeance'] }}
                                 </span>
                             </div>
@@ -271,8 +272,8 @@
                                     </div>
                                 {% endfor %}
                             </div>
-                            <h5 class="fw-bold mt-3 text-center {{ macros.pollution_indice_color(pollution_alerts_tomorrow['indice']) }}">{{ pollution_alerts_tomorrow['qualificatif'] }}</h5>
-                            <p class="border border-danger text-danger rounded p-2 text-center mt-3 {{ macros.active_vigilance_pollution(pollution_alerts_tomorrow['vigilance']) }}">
+                            <h5 class="fw-bold mt-2 text-center {{ macros.pollution_indice_color(pollution_alerts_tomorrow['indice']) }}">{{ pollution_alerts_tomorrow['qualificatif'] }}</h5>
+                            <p class="border border-danger text-danger rounded p-2 text-center mt-3 {{ macros.toggle_visibility(pollution_alerts_tomorrow['vigilance']) }}">
                                 <i class="fas fa-bullhorn me-3"></i>Vigilance pollution en cours
                             </p>
                             <div class="row mt-4">
@@ -331,94 +332,6 @@
                                                     <p class="fw-bold mb-0">{{ pollution_alerts_tomorrow['sous_indices']['PM2.5']['concentration'] }} µg/m<sup>3</sup></p>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <hr class="text-light mb-4 mt-0">
-                    <h6 class="fw-bold text-light">Légende</h6>
-                    <div class="row mt-3">
-                        <div class="col-12">
-                            <div class="row">
-                                <div class="col-xl-4 col-lg-6 col-md-4 col-6 mb-3">
-                                    <div class="d-flex align-items-start">
-                                        <div class="me-3">
-                                            <i class="fa-solid fa-circle indice_atmo_indisponible"></i>
-                                        </div>
-                                        <div class="text-light">
-                                            Indisponible
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6 col-md-4 col-6 mb-3">
-                                    <div class="d-flex align-items-start">
-                                        <div class="me-3">
-                                            <i class="fa-solid fa-circle indice_atmo_bon"></i>
-                                        </div>
-                                        <div class="text-light">
-                                            Bon
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6 col-md-4 col-6 mb-3">
-                                    <div class="d-flex align-items-start">
-                                        <div class="me-3">
-                                            <i class="fa-solid fa-circle indice_atmo_moyen"></i>
-                                        </div>
-                                        <div class="text-light">
-                                            Moyen
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6 col-md-4 col-6 mb-3">
-                                    <div class="d-flex align-items-start">
-                                        <div class="me-3">
-                                            <i class="fa-solid fa-circle indice_atmo_degrade"></i>
-                                        </div>
-                                        <div class="text-light">
-                                            Dégradé
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6 col-md-4 col-6 mb-3">
-                                    <div class="d-flex align-items-start">
-                                        <div class="me-3">
-                                            <i class="fa-solid fa-circle indice_atmo_mauvais"></i>
-                                        </div>
-                                        <div class="text-light">
-                                            Mauvais
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6 col-md-4 col-6 mb-3">
-                                    <div class="d-flex align-items-start">
-                                        <div class="me-3">
-                                            <i class="fa-solid fa-circle indice_atmo_tres_mauvais"></i>
-                                        </div>
-                                        <div class="text-light">
-                                            Très mauvais
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6 col-md-4 col-6 mb-3">
-                                    <div class="d-flex align-items-start">
-                                        <div class="me-3">
-                                            <i class="fa-solid fa-circle indice_atmo_extremement_mauvais"></i>
-                                        </div>
-                                        <div class="text-light">
-                                            Extrêmement mauvais
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6 col-md-4 col-6 mb-3">
-                                    <div class="d-flex align-items-start">
-                                        <div class="me-3">
-                                            <i class="fa-solid fa-circle indice_atmo_evenement"></i>
-                                        </div>
-                                        <div class="text-light">
-                                            Evénement
                                         </div>
                                     </div>
                                 </div>

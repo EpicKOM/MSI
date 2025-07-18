@@ -12,12 +12,25 @@ option {
     background: rgb(0, 0, 0);
 }
 
-.bg-light-warning {
-    background-color: rgba(255, 235, 59, 1);
+/* --- Vigilance couleur -------------------------------- */
+.bg-caution {
+    background-color: rgba(255, 235, 59, 0.2) !important;
 }
 
-.text-light-warning {
-    color: rgba(255, 235, 59, 1);
+.border-caution {border: 1px solid rgba(255, 235, 59, 0.6) !important;}
+
+.text-caution {
+    color: rgba(255, 235, 59, 1) !important;
+}
+
+.bg-warning {
+    background-color: rgba(228, 161, 27, 0.2) !important;
+}
+
+.border-warning {border: 1px solid rgba(228, 161, 27, 0.6) !important;}
+
+.text-warning {
+    color: rgba(228, 161, 27, 1) !important;
 }
 
 .weather-alerts .alert-item-border:not(:last-child) {
