@@ -1,7 +1,7 @@
 from apifairy import response, other_responses, arguments
 from flask import abort
 from MSI.api.schemas import *
-from MSI.data_loaders import get_mountain_weather_data, get_pollution_alerts_data
+from MSI.data_loaders import get_mountain_weather_data, get_pollution_alerts_data, get_weather_alerts_data
 from MSI.api import bp
 
 
@@ -24,3 +24,16 @@ def get_pollution_alerts():
     This endpoint returns pollution alerts data for Grenoble (Insee Code = 3185).
     """
     return get_pollution_alerts_data()
+
+
+@bp.route('/observations/weather-alerts/', methods=['GET'])
+@response(WeatherAlertsDataOutputSchema(many=True))
+@other_responses({404: "Not found", 400: "Bad request", 500: "Internal server error"})
+def get_weather_alerts():
+    """Return weather alerts data
+
+    This endpoint returns weather alerts data for Isere department.
+    """
+
+    print(get_weather_alerts_data())
+    return get_weather_alerts_data()

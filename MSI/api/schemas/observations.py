@@ -25,4 +25,18 @@ class PollutionDataOutputSchema(ma.Schema):
         values=ma.Nested(SubIndexSchema)
     )
 
+
 # Weather Alert Output Schema-----------------------------------------------------------------------------------------
+class ResultsSchema(ma.Schema):
+    phenomenon = ma.String(dump_only=True)
+    color_id = ma.Integer(dump_only=True)
+    qualificatif = ma.String(dump_only=True)
+    icon = ma.String(dump_only=True)
+
+
+class WeatherAlertsDataOutputSchema(ma.Schema):
+    date_echeance = ma.String(dump_only=True)
+    color_id = ma.Integer(dump_only=True)
+    qualificatif = ma.String(dump_only=True)
+    global_icon = ma.String(dump_only=True)
+    results = ma.List(ma.Nested(ResultsSchema), dump_only=True)
