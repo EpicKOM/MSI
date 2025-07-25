@@ -1,28 +1,36 @@
 """
-## API Overview
+## 🌤️ Méteo Grenoble Alpes API Overview
 
-This API provides easy access to weather information from various weather stations located in the French Alps,
-particularly in the Isère department.
+Welcome to the **Méteo Grenoble Alpes API** — Your gateway to real-time weather data for **Grenoble and the mountainous regions of the Isère department ⛰️**.
 
-What can you do with this API?
+### 🔍 What can you do with this API?
 
-Get Current Weather Data
+- **Get current weather data**
+  - Retrieve real-time weather information (e.g., temperature, humidity, wind speed, pressure) from a specific weather station.
 
-Quickly retrieve up-to-date weather information for a specific location.
-Access details like temperature, humidity, wind speed, and more.
+- **Get 7-day forecasts**
+  - Get detailed 7-day weather forecasts for Grenoble — perfect for residents, event organizers, and local businesses.
 
-Generate Live Weather Charts
+- **Access historical weather data**
+  - Get recent weather history by metric and time range (24h to 7 days), returned as hourly data points — ready for use in charts, dashboards, or raw analysis.
 
-Create dynamic charts showing how weather conditions change over time.
-Customize charts based on different weather metrics and time intervals.
+- **Track air pollution**
+  - Access real-time air quality data for Grenoble, including detailed concentrations for each major pollutant (e.g., PM10, NO2, O3).
 
-Why use this API?
+- **Track weather alerts**
+  - Get official weather vigilance information for the Isère department, covering nine types of weather-related risks, as provided by Météo-France.
 
-Real-time Information: Always get the latest weather data.
-Customizable: Choose the weather stations and metrics you're interested in.
-Easy Integration: Perfect for weather apps, websites, or any project needing weather data.
+### ⚠️ Usage Notice
 
-Whether you're building a weather app, planning outdoor activities, or just curious about current conditions, this API provides the weather data you need, when you need it.
+This data is provided for **non-commercial use only**.
+
+### 📬 Need help?
+
+For questions or support, please refer to the full endpoint documentation or contact me at [contact@meteo-grenoble-alpes.fr](mailto:contact@meteo-grenoble-alpes.fr).
+
+### ☕ Support this project
+
+If you find it useful and would like to support future updates, you can offer me a coffee at: [Ko-fi](https://ko-fi.com/epickom).
 """
 from flask import Flask
 from apifairy import APIFairy

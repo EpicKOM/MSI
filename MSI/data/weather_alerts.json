@@ -1,26 +1,13 @@
 [
     {
-        "date_echeance": "18/07/2025",
-        "color_id": 3,
+        "date_echeance": "22/07/2025",
+        "color_id": 1,
         "qualificatif": "Pas de vigilance particuli\u00e8re",
         "global_icon": "fa-solid fa-check",
-        "results": [
-            {
-                "phenomenon": "Orages",
-                "color_id": 3,
-                "qualificatif": "Soyez attentif",
-                "icon": "fa-cloud-bolt"
-            },
-            {
-                "phenomenon": "Pluie-inondation",
-                "color_id": 4,
-                "qualificatif": "Soyez attentif",
-                "icon": "fa-cloud-showers-water"
-            }
-        ]
+        "results": []
     },
     {
-        "date_echeance": "19/07/2025",
+        "date_echeance": "23/07/2025",
         "color_id": 2,
         "qualificatif": "Soyez attentif",
         "global_icon": "fa-solid fa-exclamation",
@@ -32,10 +19,10 @@
                 "icon": "fa-cloud-bolt"
             },
             {
-                "phenomenon": "Pluie-inondation",
+                "phenomenon": "Orages",
                 "color_id": 2,
                 "qualificatif": "Soyez attentif",
-                "icon": "fa-cloud-showers-water"
+                "icon": "fa-cloud-bolt"
             }
         ]
     }
