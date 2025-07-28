@@ -1,5 +1,3 @@
-from calendar import firstweekday
-
 from .data_loaders_utils import load_json
 from datetime import date
 from MSI import app

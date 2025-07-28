@@ -7,7 +7,6 @@ from MSI.data_loaders import (
     get_weather_alerts_data_status,
     get_pollution_alerts_data_status,
 )
-from MSI.data_loaders.pollution_alerts import is_pollution_alerts_data_fresh
 from MSI.sse import format_sse
 from MSI.utils import *
 import datetime
@@ -86,16 +85,20 @@ def stream_meteo_live(station_name):
 
 @app.route("/previsions/")
 def forecasts():
-    forecasts_data = ForecastsApi.get_forecasts_data()
-    forecasts_is_empty = forecasts_data[0]
+    seven_day_forecasts = ForecastsApi.get_7_day_forecasts()
+    forecasts_is_empty = seven_day_forecasts[0]
+    day_index = 0
+    today_forecast = ForecastsApi.get_daily_forecast(day_index)
 
     context = {'forecasts_is_empty': forecasts_is_empty}
 
     if not forecasts_is_empty:
-        context.update(update_datetime=forecasts_data[1],
-                       is_data_fresh=forecasts_data[2],
-                       forecasts_data=forecasts_data[3],)
+        context.update(update_datetime=seven_day_forecasts[1],
+                       is_data_fresh=seven_day_forecasts[2],
+                       seven_day_forecasts=seven_day_forecasts[3],
+                       today_forecast=today_forecast)
 
+    print(today_forecast)
     return render_template("forecasts.html", **context)
 
 
@@ -109,7 +112,8 @@ def forecasts_update():
         abort(404)
 
     day_number = int(day_number)
-    return jsonify(forecasts_data=ForecastsApi.get_forecasts_data_by_index(day_number)), 200
+    print(ForecastsApi.get_daily_forecast(day_number))
+    return jsonify(forecasts_data=ForecastsApi.get_daily_forecast(day_number)), 200
 
 
 @app.route("/observations/")
@@ -123,7 +127,6 @@ def observations():
     pollution_alerts_today = pollution_alerts[0]
     pollution_alerts_tomorrow = pollution_alerts[1]
     is_pollution_alerts_data_fresh = get_pollution_alerts_data_status()
-    print(is_pollution_alerts_data_fresh)
 
     return render_template('observations.html',
                            weather_alerts_today=weather_alerts_today,

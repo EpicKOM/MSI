@@ -9,7 +9,7 @@ class ForecastsApi:
     forecasts_data = load_json(json_path)
 
     @classmethod
-    def get_forecasts_data(cls):
+    def get_7_day_forecasts(cls):
         """Récupère les données du fichier JSON spécifié."""
 
         if not cls.forecasts_data:
@@ -60,7 +60,7 @@ class ForecastsApi:
         return False, update_datetime.strftime("%d/%m/%Y à %H:%M"), is_data_fresh, results
 
     @classmethod
-    def get_forecasts_data_by_index(cls, index):
+    def get_daily_forecast(cls, index):
         """Récupère les données du fichier JSON spécifié."""
 
         if not cls.forecasts_data:
@@ -98,10 +98,10 @@ class ForecastsApi:
                 "felttemperature_min": round(cls.forecasts_data["felttemperature_min"][index]),
                 "felttemperature_mean": round(cls.forecasts_data["felttemperature_mean"][index]),
                 "felttemperature_max": round(cls.forecasts_data["felttemperature_max"][index]),
-                "precipitation": round(cls.forecasts_data["precipitation"][index]),
-                "precipitation_hours": cls.forecasts_data["precipitation_hours"][index],
+                "precipitation": round(cls.forecasts_data["precipitation"][index], 1),
+                "precipitation_hours": ForecastsApi.clean_hours(cls.forecasts_data["precipitation_hours"][index]),
                 "precipitation_probability": cls.forecasts_data["precipitation_probability"][index],
-                "convective_precipitation": round(cls.forecasts_data["convective_precipitation"][index]),
+                "convective_precipitation": round(cls.forecasts_data["convective_precipitation"][index], 1),
                 "snow_fraction": ForecastsApi.get_precipitation_fraction(snow_fraction, "snow"),
                 "rain_fraction": ForecastsApi.get_precipitation_fraction(snow_fraction, "rain"),
                 "windspeed_min": round(cls.forecasts_data["windspeed_min"][index] * 3.6),
@@ -130,6 +130,10 @@ class ForecastsApi:
         except Exception:
             app.logger.exception(f"[ForecastsApi - get_forecasts_data_by_index] - Erreur lors de la récupération des données de prévisions par index.")
             return {}
+
+    @staticmethod
+    def clean_hours(value):
+        return int(value) if value == int(value) else round(value, 1)
 
     @staticmethod
     def get_french_day_name(date):

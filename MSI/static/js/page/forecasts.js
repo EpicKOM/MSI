@@ -12,9 +12,6 @@ $(document).ready(function() {
 
     $("tr.collapsable").hide();
 
-    // Initial AJAX request
-    ajaxRequest(0);
-
     $('.forecast-items').on('click', function() {
         if (!$(this).hasClass('action-item-disabled')) {
             $('.forecast-items').removeClass('bg-active-color border-active action-item-disabled');
@@ -66,27 +63,32 @@ function ajaxRequest(dayNumber) {
             switch(predictabilityLabel) {
                 case "Très faible":
                     $('#predictabilityLabel').removeClass().addClass('text-predictability-class-1');
-                    $('#predictability').removeClass().addClass('progress-bar text-dark fw-bold bg-predictability-class-1');
+                    $('#progressPredictabilityBg').removeClass().addClass('progress forecasts-progress bg-predictability-class-1');
+                    $('#predictability').removeClass().addClass('progress-bar text-dark fw-bold fg-predictability-class-1');
                     break;
 
                 case "Faible":
                     $('#predictabilityLabel').removeClass().addClass('text-predictability-class-2');
-                    $('#predictability').removeClass().addClass('progress-bar text-dark fw-bold bg-predictability-class-2');
+                    $('#progressPredictabilityBg').removeClass().addClass('progress forecasts-progress bg-predictability-class-2');
+                    $('#predictability').removeClass().addClass('progress-bar text-dark fw-bold fg-predictability-class-2');
                     break;
 
                 case "Moyenne":
                     $('#predictabilityLabel').removeClass().addClass('text-predictability-class-3');
-                    $('#predictability').removeClass().addClass('progress-bar text-dark fw-bold bg-predictability-class-3');
+                    $('#progressPredictabilityBg').removeClass().addClass('progress forecasts-progress bg-predictability-class-3');
+                    $('#predictability').removeClass().addClass('progress-bar text-dark fw-bold fg-predictability-class-3');
                     break;
 
                 case "Élevée":
                     $('#predictabilityLabel').removeClass().addClass('text-predictability-class-4');
-                    $('#predictability').removeClass().addClass('progress-bar text-dark fw-bold bg-predictability-class-4');
+                    $('#progressPredictabilityBg').removeClass().addClass('progress forecasts-progress bg-predictability-class-4');
+                    $('#predictability').removeClass().addClass('progress-bar text-dark fw-bold fg-predictability-class-4');
                     break;
 
                 case "Très élevée":
                     $('#predictabilityLabel').removeClass().addClass('text-predictability-class-5');
-                    $('#predictability').removeClass().addClass('progress-bar text-dark fw-bold bg-predictability-class-5');
+                    $('#progressPredictabilityBg').removeClass().addClass('progress forecasts-progress bg-predictability-class-5');
+                    $('#predictability').removeClass().addClass('progress-bar text-dark fw-bold fg-predictability-class-5');
                     break;
             }
 
