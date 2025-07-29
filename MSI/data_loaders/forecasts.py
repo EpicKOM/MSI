@@ -41,7 +41,7 @@ class ForecastsApi:
                 "temperature_min": round(temperature_min),
                 "temperature_max": round(temperature_max),
                 "temperature_mean": round(temperature_mean),
-                "precipitation": round(precipitation),
+                "precipitation": round(precipitation, 1),
             }
 
             for index, (date, pictocode, temperature_min, temperature_max, temperature_mean, precipitation) in
@@ -56,6 +56,9 @@ class ForecastsApi:
                 )
             )
         ]
+
+        for key, value in results[0].items():
+            print(f"{key} : {type(value)}")
 
         return False, update_datetime.strftime("%d/%m/%Y à %H:%M"), is_data_fresh, results
 
@@ -122,6 +125,7 @@ class ForecastsApi:
                 "moonset": cls.forecasts_data["moonset"][index],
                 "moonphasename": ForecastsApi.get_moon_phase_frname(cls.forecasts_data["moonphasename"][index]),
             }
+
             return results
 
         except IndexError:
@@ -166,7 +170,7 @@ class ForecastsApi:
 
     @staticmethod
     def get_precipitation_fraction(snow_fraction, precipitation_type):
-        snow = snow_fraction * 100
+        snow = int(round(snow_fraction * 100))
         rain = 100 - snow
 
         return {"snow": snow, "rain": rain}.get(precipitation_type)

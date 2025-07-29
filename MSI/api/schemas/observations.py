@@ -1,4 +1,3 @@
-from marshmallow import validate
 from MSI import ma
 
 
@@ -11,17 +10,17 @@ class MountainWeatherOutputSchema(ma.Schema):
 
 # Pollution Alert Output Schema-----------------------------------------------------------------------------------------
 class SubIndexSchema(ma.Schema):
-    concentration = ma.Float(dump_only=True, allow_none=True, required=True)
-    indice = ma.Integer(dump_only=True, allow_none=True, required=True)
+    concentration = ma.Float(dump_only=True, allow_none=True)
+    indice = ma.Integer(dump_only=True, allow_none=True)
 
 
 class PollutionDataOutputSchema(ma.Schema):
     date_echeance = ma.String(dump_only=True)
-    indice = ma.Integer(dump_only=True, allow_none=True, required=True)
-    qualificatif = ma.String(dump_only=True, allow_none=True, required=True)
-    vigilance = ma.Boolean(dump_only=True, allow_none=True, required=True)
+    indice = ma.Integer(dump_only=True, allow_none=True)
+    qualificatif = ma.String(dump_only=True, allow_none=True)
+    vigilance = ma.Boolean(dump_only=True, allow_none=True)
     sous_indices = ma.Dict(
-        keys=ma.String(dump_only=True, allow_none=True, required=True),
+        keys=ma.String(dump_only=True, allow_none=True),
         values=ma.Nested(SubIndexSchema)
     )
 

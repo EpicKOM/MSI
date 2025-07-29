@@ -1,4 +1,5 @@
 {% extends 'layout.html' %}
+{% import "macros/forecasts_macros.html" as macros %}
 
 {% block css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/forecasts.css') }}">
@@ -109,14 +110,19 @@
                                 <div class="col-md-4 d-flex align-items-center ms-auto me-auto mt-md-0 mt-3">
                                     <div class="flex-grow-1">
                                         <h6 class="text-light mb-2 opacity-75">
-                                            Prévisibilité : <span class="" id="predictabilityLabel">{{ today_forecast['predictability_label'] }}</span>
+                                            Prévisibilité : <span class="{{ macros.predictability_text_color(today_forecast['predictability_label']) }}"
+                                                                  id="predictabilityLabel">
+                                            {{ today_forecast['predictability_label'] }}
+                                        </span>
                                         </h6>
-                                        <div class="progress forecasts-progress" id="progressPredictabilityBg">
-                                            <div class="progress-bar text-dark fw-bold"
+                                        <div class="progress forecasts-progress {{ macros.predictability_progress_bg_color(today_forecast['predictability_label']) }}" id="progressPredictabilityBg">
+                                            <div class="progress-bar text-dark fw-bold {{ macros.predictability_progress_fg_color(today_forecast['predictability_label']) }}"
+                                                 style="width: {{ today_forecast['predictability'] }}%;"
                                                  role="progressbar"
                                                  aria-valuemin="0"
                                                  aria-valuemax="100"
-                                                 id="predictability">
+                                                 id="progressPredictabilityFg">
+                                                {{ today_forecast['predictability'] }}%
                                             </div>
                                         </div>
                                     </div>
@@ -152,16 +158,20 @@
                                         <tr>
                                             <th class="text-light fw-bold opacity-75" scope="row">Probabilité de précipitation :</th>
                                             <td colspan="2">
+                                                {% set precipitation_probability = today_forecast['precipitation_probability'] %}
                                                 <div class="progress forecasts-progress bg-active-color border border-info">
                                                     <div class="progress-bar bg-info text-dark fw-bold"
                                                          style="width: {{ today_forecast['precipitation_probability'] }}%;"
-                                                         data-mdb-tooltip-init="true"
                                                          role="progressbar"
                                                          aria-valuemin="0"
                                                          aria-valuemax="100"
                                                          id="precipitation_probability"
-                                                         title="">
-                                                        {{ today_forecast['precipitation_probability'] }}%
+                                                         data-mdb-tooltip-init
+                                                         title="{{ precipitation_probability }}%"
+                                                    >
+                                                    {% if precipitation_probability >= 10 %}
+                                                        {{ precipitation_probability }}%
+                                                    {% endif %}
                                                     </div>
                                                 </div>
                                             </td>

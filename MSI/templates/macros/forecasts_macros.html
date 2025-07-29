@@ -1,0 +1,35 @@
+{% macro predictability_progress_bg_color(predictability_label) %}
+    {% set predictability_progress_bg_color_map = {
+        "Très faible": "bg-predictability-class-1",
+        "Faible": "bg-predictability-class-2",
+        "Moyenne": "bg-predictability-class-3",
+        "Élevée": "bg-predictability-class-4",
+        "Très élevée": "bg-predictability-class-5"
+    } %}
+    {{ predictability_progress_bg_color_map.get(predictability_label, "bg-light") }}
+
+{% endmacro %}
+
+{% macro predictability_progress_fg_color(predictability_label) %}
+    {% set predictability_progress_fg_color_map = {
+        "Très faible": "fg-predictability-class-1",
+        "Faible": "fg-predictability-class-2",
+        "Moyenne": "fg-predictability-class-3",
+        "Élevée": "fg-predictability-class-4",
+        "Très élevée": "fg-predictability-class-5"
+    } %}
+    {{ predictability_progress_fg_color_map.get(predictability_label, "bg-light") }}
+
+{% endmacro %}
+
+{% macro predictability_text_color(predictability_label) %}
+    {% set predictability_text_color_map = {
+        "Très faible": "text-predictability-class-1",
+        "Faible": "text-predictability-class-2",
+        "Moyenne": "text-predictability-class-3",
+        "Élevée": "text-predictability-class-4",
+        "Très élevée": "text-predictability-class-5"
+    } %}
+    {{ predictability_text_color_map.get(predictability_label, "text-dark") }}
+
+{% endmacro %}
