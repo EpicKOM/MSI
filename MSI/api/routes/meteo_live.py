@@ -26,7 +26,9 @@ def get_meteo_live(station_name: str):
         CurrentWeatherOutputSchema: Current weather data with metadata.
 
     Raises:
-        404: If the station is not found.
+        - 404: If the weather station is not found.
+        - 400: If the station name is invalid.
+        - 500: For unexpected internal errors.
     """
     station_class = get_station_class(station_name)
 
@@ -64,14 +66,16 @@ def get_live_charts(data, station_name: str):
     Args:
         data (LiveChartsInputSchema): Query parameters including:
             - data_name (str): The weather metric (e.g., temperature, humidity).
-            - interval_duration (str): The time interval (e.g., 1, 2).
+            - interval_duration (str): The time interval (day) (e.g., 1, 2).
         station_name (str): The name of the weather station.
 
     Returns:
         LiveChartsOutputSchema: Live chart data based on metric and interval.
 
     Raises:
-        404: If the weather station is not found.
+        - 400: If the query parameters are invalid (e.g., missing or incorrect format).
+        - 404: If the weather station does not exist.
+        - 500: For unexpected server errors.
     """
 
     data_name = data["data_name"]

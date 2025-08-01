@@ -1,6 +1,6 @@
 from .meteo_live import CurrentWeatherOutputSchema, LiveChartsInputSchema, LiveChartsOutputSchema
 from .observations import MountainWeatherOutputSchema, PollutionDataOutputSchema, WeatherAlertsDataOutputSchema
-from .forecasts import DailyForecastsOutputSchema
+from .forecasts import DailyForecastsOutputSchema, ForecastsOutputSchema
 
 __all__ = ["CurrentWeatherOutputSchema",
            "LiveChartsInputSchema",
@@ -8,4 +8,5 @@ __all__ = ["CurrentWeatherOutputSchema",
            "MountainWeatherOutputSchema",
            "PollutionDataOutputSchema",
            "WeatherAlertsDataOutputSchema",
-           "DailyForecastsOutputSchema"]
+           "DailyForecastsOutputSchema",
+           "ForecastsOutputSchema"]

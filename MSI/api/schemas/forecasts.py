@@ -2,8 +2,23 @@ from MSI import ma
 
 
 # Forecasts Output Schema-----------------------------------------------------------------------------------------------
+class ForecastsSchema(ma.Schema):
+    index = ma.Integer(dump_only=True)
+    date = ma.String(dump_only=True)
+    frDate = ma.String(dump_only=True)
+    day_name = ma.String(dump_only=True)
+    pictocode = ma.String(dump_only=True)
+    temperature_min = ma.Integer(dump_only=True)
+    temperature_max = ma.Integer(dump_only=True)
+    temperature_mean = ma.Integer(dump_only=True)
+    precipitation = ma.Float(dump_only=True)
+
+
 class ForecastsOutputSchema(ma.Schema):
-    pass
+    is_empty = ma.Boolean(dump_only=True)
+    update_datetime = ma.String(dump_only=True)
+    is_data_fresh = ma.Boolean(dump_only=True)
+    forecasts = ma.List(ma.Nested(ForecastsSchema), dump_only=True)
 
 
 # Daily Forecasts Output Schema-----------------------------------------------------------------------------------------

@@ -14,7 +14,13 @@ class ForecastsApi:
 
         if not cls.forecasts_data:
             app.logger.warning("[ForecastsApi - get_forecasts_data] - Aucune donnée de prévision trouvée.")
-            return True, None, True, []
+            response = {
+                "is_empty": True,
+                "update_datetime": None,
+                "is_data_fresh": False,
+                "forecasts": []
+            }
+            return response
 
         current_time = datetime.datetime.now()
         update_datetime = datetime.datetime.strptime(cls.forecasts_data.get("update_datetime"), "%Y-%m-%d %H:%M:%S.%f")
@@ -57,10 +63,14 @@ class ForecastsApi:
             )
         ]
 
-        for key, value in results[0].items():
-            print(f"{key} : {type(value)}")
+        response = {
+            "is_empty": False,
+            "update_datetime": update_datetime.strftime("%d/%m/%Y à %H:%M"),
+            "is_data_fresh": is_data_fresh,
+            "forecasts": results
+        }
 
-        return False, update_datetime.strftime("%d/%m/%Y à %H:%M"), is_data_fresh, results
+        return response
 
     @classmethod
     def get_daily_forecast(cls, index):

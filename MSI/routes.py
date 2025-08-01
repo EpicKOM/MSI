@@ -42,16 +42,16 @@ def meteo_live(station_name="saint-ismier"):
 @app.route("/previsions/")
 def forecasts():
     seven_day_forecasts = ForecastsApi.get_7_day_forecasts()
-    forecasts_is_empty = seven_day_forecasts[0]
+    forecasts_is_empty = seven_day_forecasts["is_empty"]
     day_index = 0
     today_forecast = ForecastsApi.get_daily_forecast(day_index)
 
     context = {'forecasts_is_empty': forecasts_is_empty}
 
     if not forecasts_is_empty:
-        context.update(update_datetime=seven_day_forecasts[1],
-                       is_data_fresh=seven_day_forecasts[2],
-                       seven_day_forecasts=seven_day_forecasts[3],
+        context.update(update_datetime=seven_day_forecasts["update_datetime"],
+                       is_data_fresh=seven_day_forecasts["is_data_fresh"],
+                       seven_day_forecasts=seven_day_forecasts["forecasts"],
                        today_forecast=today_forecast)
 
     return render_template("forecasts.html", **context)
