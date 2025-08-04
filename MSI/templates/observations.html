@@ -12,6 +12,40 @@
 {% block content %}
     <div class="container mt-4">
         <h3 class="text-light mb-3">
+            <i class="fa-solid fa-satellite-dish text-light me-2"></i>
+            Radar de Précipitations
+        </h3>
+        <div class="col-12">
+            <div class="card bg-primary-color p-3 msi-border">
+                <iframe src="https://www.rainviewer.com/map.html?loc=45.2084,5.7358,9.5&oCS=1&c=3&o=83&lm=1&layer=radar&sm=1&sn=1&ts=2"
+                        width="100%"
+                        frameborder="0"
+                        style="height:75vh;"
+                        class="rounded"
+                        id="liveRadar">
+                </iframe>
+                <div style="
+                    position: absolute;
+                    top: 16px;
+                    left: 25px;
+                    width: 140px;
+                    height: 35px;
+                    background: rgba(51, 61, 66, 1);
+                    z-index: 10;">
+                </div>
+                <div style="
+                    position: absolute;
+                    top: 16px;
+                    right: 25px;
+                    width: 110px;
+                    height: 35px;
+                    background: rgba(51, 61, 66, 1);
+                    z-index: 10;">
+                </div>
+            </div>
+        </div>
+
+        <h3 class="text-light mt-3 mb-3">
             <i class="fa-solid fa-map text-light me-2"></i>
             Cartes Météo
         </h3>
@@ -48,22 +82,6 @@
                 </div>
             </div>
 
-        </div>
-
-        <h3 class="text-light mt-3 mb-3">
-            <i class="fa-solid fa-satellite-dish text-light me-2"></i>
-            Radar de Précipitations
-        </h3>
-        <div class="col-12">
-            <div class="card bg-primary-color p-3 msi-border">
-                <iframe src="https://www.rainviewer.com/map.html?loc=45.2084,5.7358,9.5&oCS=1&c=3&o=83&lm=1&layer=radar&sm=1&sn=1&ts=2"
-                        width="100%"
-                        frameborder="0"
-                        style="height:75vh;"
-                        class="rounded"
-                        id="liveRadar">
-                </iframe>
-            </div>
         </div>
 
         <h3 class="text-light mt-3 mb-3">

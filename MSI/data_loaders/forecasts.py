@@ -25,9 +25,15 @@ class ForecastsApi:
         current_time = datetime.datetime.now()
         update_datetime = datetime.datetime.strptime(cls.forecasts_data.get("update_datetime"), "%Y-%m-%d %H:%M:%S.%f")
         delta_time = current_time - update_datetime
-        deadline = datetime.timedelta(days=1)
+        # Mise à jour à 9h le matin --> 39h correspont à 00h J+1
+        deadline = datetime.timedelta(hours=39)
 
         is_data_fresh = delta_time < deadline
+
+        if len(cls.forecasts_data.get('time', [])) > 6 and not ForecastsApi.is_update_today(update_datetime):
+            for key, values in cls.forecasts_data.items():
+                if isinstance(values, list) and values:
+                    cls.forecasts_data[key] = values[1:]
 
         keys = ["time", "pictocode", "temperature_min", "temperature_mean", "temperature_max", "precipitation"]
         if not all(key in cls.forecasts_data for key in keys):
@@ -144,6 +150,12 @@ class ForecastsApi:
         except Exception:
             app.logger.exception(f"[ForecastsApi - get_forecasts_data_by_index] - Erreur lors de la récupération des données de prévisions par index.")
             return {}
+
+    @staticmethod
+    def is_update_today(update_datetime) -> bool:
+        update_date = update_datetime.date()
+        today_date = datetime.datetime.today().date()
+        return update_date == today_date
 
     @staticmethod
     def clean_hours(value):

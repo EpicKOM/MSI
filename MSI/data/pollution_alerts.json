@@ -1,42 +1,15 @@
 [
     {
-        "date_echeance": "22/07/2025",
+        "date_echeance": "04/08/2025",
         "indice": 2,
         "qualificatif": "Moyen",
         "sous_indices": {
             "NO2": {
-                "concentration": 31.6,
+                "concentration": 28.0,
                 "indice": 1
             },
             "O3": {
-                "concentration": 89.0,
-                "indice": 2
-            },
-            "SO2": {
-                "concentration": 0.2,
-                "indice": 1
-            },
-            "PM10": {
-                "concentration": 8.5,
-                "indice": 1
-            },
-            "PM2.5": {
-                "concentration": 4.4,
-                "indice": 1
-            }
-        }
-    },
-    {
-        "date_echeance": "23/07/2025",
-        "indice": 2,
-        "qualificatif": "Moyen",
-        "sous_indices": {
-            "NO2": {
-                "concentration": 29.0,
-                "indice": 1
-            },
-            "O3": {
-                "concentration": 98.6,
+                "concentration": 99.0,
                 "indice": 2
             },
             "SO2": {
@@ -44,38 +17,65 @@
                 "indice": 1
             },
             "PM10": {
-                "concentration": 12.7,
+                "concentration": 10.0,
                 "indice": 1
             },
             "PM2.5": {
-                "concentration": 7.0,
+                "concentration": 6.3,
                 "indice": 1
             }
         }
     },
     {
-        "date_echeance": "24/07/2025",
-        "indice": 2,
-        "qualificatif": "Moyen",
+        "date_echeance": "05/08/2025",
+        "indice": 3,
+        "qualificatif": "D\u00e9grad\u00e9",
         "sous_indices": {
             "NO2": {
-                "concentration": 24.5,
+                "concentration": 28.5,
                 "indice": 1
             },
             "O3": {
-                "concentration": 95.5,
-                "indice": 2
+                "concentration": 119.6,
+                "indice": 3
             },
             "SO2": {
-                "concentration": 0.4,
+                "concentration": 0.5,
                 "indice": 1
             },
             "PM10": {
-                "concentration": 12.9,
+                "concentration": 14.2,
                 "indice": 1
             },
             "PM2.5": {
-                "concentration": 7.2,
+                "concentration": 7.7,
+                "indice": 1
+            }
+        }
+    },
+    {
+        "date_echeance": "06/08/2025",
+        "indice": 3,
+        "qualificatif": "D\u00e9grad\u00e9",
+        "sous_indices": {
+            "NO2": {
+                "concentration": 57.1,
+                "indice": 2
+            },
+            "O3": {
+                "concentration": 114.7,
+                "indice": 3
+            },
+            "SO2": {
+                "concentration": 0.3,
+                "indice": 1
+            },
+            "PM10": {
+                "concentration": 14.1,
+                "indice": 1
+            },
+            "PM2.5": {
+                "concentration": 8.2,
                 "indice": 1
             }
         }
