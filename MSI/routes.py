@@ -76,8 +76,3 @@ def observations():
                            pollution_alerts_today=pollution_alerts_today,
                            pollution_alerts_tomorrow=pollution_alerts_tomorrow,
                            is_pollution_alerts_data_fresh=is_pollution_alerts_data_fresh)
-
-
-@app.route("/test/")
-def test():
-    return render_template("test.html")

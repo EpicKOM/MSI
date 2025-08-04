@@ -7,12 +7,29 @@ const snowCoverageState = {
 };
 
 $(document).ready(function() {
+    reloadLiveRadarIframe();
     mountainTabsManagement();
     VigilanceTabsManagement();
     pollutionTabsManagement();
     mountainButtonsManagement();
     snowCoverageSelectorsManagement();
 });
+
+
+// Rechargement automatique de l'iframe pour éviter problème d'affichage
+function reloadLiveRadarIframe() {
+    const iframe = $('#liveRadar'); // Sélectionne l'iframe par son ID
+
+    if (iframe.length) { // Vérifie si l'iframe existe
+        const originalSrc = iframe.attr('src');
+        iframe.attr('src', ''); // Vide la source
+
+        // Réaffecte la source après un court délai pour forcer le rechargement
+        setTimeout(() => {
+            iframe.attr('src', originalSrc);
+        }, 100);
+    }
+}
 
 // Gestion des tabs
 function mountainTabsManagement() {

@@ -1,9 +1,10 @@
 from flask import abort
 from apifairy import response, other_responses, arguments
-from MSI.data_loaders import get_station_metadata, get_units_metadata
-from MSI.api.schemas import *
-from MSI.utils import get_station_class
+
 from MSI.api import bp
+from MSI.api.schemas import CurrentWeatherOutputSchema, LiveChartsOutputSchema, LiveChartsInputSchema
+from MSI.data_loaders import get_station_metadata, get_units_metadata
+from MSI.utils import get_station_class
 
 
 @bp.route('/meteo-live/<station_name>', methods=['GET'])

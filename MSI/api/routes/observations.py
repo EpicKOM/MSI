@@ -1,6 +1,7 @@
-from apifairy import response, other_responses, arguments
 from flask import abort
-from MSI.api.schemas import *
+from apifairy import response, other_responses
+
+from MSI.api.schemas import MountainWeatherOutputSchema, PollutionDataOutputSchema, WeatherAlertsDataOutputSchema
 from MSI.data_loaders import get_mountain_weather_data, get_pollution_alerts_data, get_weather_alerts_data
 from MSI.api import bp
 
@@ -16,21 +17,24 @@ def get_mountain_weather(massif_name: str):
     """
     GET /observations/mountain-weather/<massif_name>
 
-    Retrieve mountain weather data for a specific massif.
+    Retrieve mountain weather observations for a specific massif.
 
     Args:
-        massif_name (str): The name of the massif (e.g., "Belledonne").
+        massif_name (str): Name of the mountain massif (e.g., "Belledonne").
 
     Returns:
-        MountainWeatherOutputSchema: Weather information for the specified massif.
+        MountainWeatherOutputSchema: A structured object containing weather
+        conditions and observations related to the specified massif.
 
     Raises:
-        404: If the massif is not found.
+        - 404: If the massif is not found.
+        - 400: If the massif name is invalid.
+        - 500: For unexpected internal errors.
     """
     mountain_weather_data = get_mountain_weather_data(massif_name)
 
     if mountain_weather_data is None:
-        abort(404, description=f"Massif '{massif_name}' non trouvé.")
+        abort(404, description=f"Massif '{massif_name}' not found.")
 
     return mountain_weather_data
 
@@ -46,10 +50,15 @@ def get_pollution_alerts():
     """
     GET /observations/pollution-alerts/
 
-    Return pollution alerts data for Grenoble (INSEE code: 3185).
+    Retrieve air pollution alerts for the Grenoble metropolitan area (INSEE code: 3185).
 
     Returns:
-        list[PollutionDataOutputSchema]: A list of pollution alerts.
+        list[PollutionDataOutputSchema]: A list of recent pollution alerts.
+
+    Raises:
+        - 400: If the request is malformed.
+        - 404: If no pollution alert data is available.
+        - 500: For internal server errors.
     """
     return get_pollution_alerts_data()
 
@@ -65,9 +74,14 @@ def get_weather_alerts():
     """
     GET /observations/weather-alerts/
 
-    Return weather alerts data for the Isère department.
+    Retrieve weather alerts for the Isère department.
 
     Returns:
-        list[WeatherAlertsDataOutputSchema]: A list of weather alerts.
+        list[WeatherAlertsDataOutputSchema]: A list of current weather alerts affecting the department.
+
+    Raises:
+        - 400: If the request is malformed.
+        - 404: If no weather alert data is found.
+        - 500: For internal server errors.
     """
     return get_weather_alerts_data()

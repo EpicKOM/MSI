@@ -22,7 +22,13 @@
                         Cartes météo
                     </h5>
                     <hr class="text-light mt-3 mb-3 opacity-25">
-                    <iframe src="https://www.meteoblue.com/fr/meteo/cartes/widget/grenoble_france_3014728?windAnimation=0&windAnimation=1&gust=0&gust=1&satellite=0&satellite=1&cloudsAndPrecipitation=0&cloudsAndPrecipitation=1&temperature=0&temperature=1&sunshine=0&sunshine=1&extremeForecastIndex=0&extremeForecastIndex=1&geoloc=fixed&tempunit=C&windunit=km%252Fh&lengthunit=metric&zoom=8&autowidth=auto"  frameborder="0" scrolling="NO" allowtransparency="true" style="width: 100%; height: 575px;" class="rounded"></iframe>
+                    <iframe src="https://www.meteoblue.com/fr/meteo/cartes/widget/grenoble_france_3014728?windAnimation=0&windAnimation=1&gust=0&gust=1&satellite=0&satellite=1&cloudsAndPrecipitation=0&cloudsAndPrecipitation=1&temperature=0&temperature=1&sunshine=0&sunshine=1&extremeForecastIndex=0&extremeForecastIndex=1&geoloc=fixed&tempunit=C&windunit=km%252Fh&lengthunit=metric&zoom=8&autowidth=auto"
+                            frameborder="0"
+                            scrolling="NO"
+                            allowtransparency="true"
+                            style="width: 100%; height: 575px;"
+                            class="rounded">
+                    </iframe>
                 </div>
             </div>
 
@@ -32,11 +38,34 @@
                         Cartes de chaleur urbaine
                     </h5>
                     <hr class="text-light mt-3 mb-3 opacity-25">
-                    <iframe src="https://www.meteoblue.com/fr/products/cityclimate/widget/grenoble?wind_map=0&wind_map=1&heading=0&webcams=0&webcams=1&share=0&share=1&info=0&info=1&autowidth=auto"  frameborder="0" scrolling="NO" allowtransparency="true" sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox" style="width: 100%; height: 575px" class="rounded"></iframe>
+                    <iframe src="https://www.meteoblue.com/fr/products/cityclimate/widget/grenoble?wind_map=1&heading=0&webcams=0&share=0&info=0&autowidth=auto"
+                            frameborder="0"
+                            scrolling="NO"
+                            allowtransparency="true"
+                            sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"
+                            style="width: 100%; height: 575px">
+                    </iframe>
                 </div>
             </div>
 
         </div>
+
+        <h3 class="text-light mt-3 mb-3">
+            <i class="fa-solid fa-satellite-dish text-light me-2"></i>
+            Radar de Précipitations
+        </h3>
+        <div class="col-12">
+            <div class="card bg-primary-color p-3 msi-border">
+                <iframe src="https://www.rainviewer.com/map.html?loc=45.2084,5.7358,9.5&oCS=1&c=3&o=83&lm=1&layer=radar&sm=1&sn=1&ts=2"
+                        width="100%"
+                        frameborder="0"
+                        style="height:75vh;"
+                        class="rounded"
+                        id="liveRadar">
+                </iframe>
+            </div>
+        </div>
+
         <h3 class="text-light mt-3 mb-3">
             <i class="fa-solid fa-bell text-light me-2"></i>
             Alertes
