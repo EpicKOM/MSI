@@ -14,6 +14,9 @@ Welcome to the **Méteo Grenoble Alpes API** — Your gateway to real-time weath
 - **Access historical weather data**
   - Get recent weather history by metric and time range (24h to 7 days), returned as hourly data points — ready for use in charts, dashboards, or raw analysis.
 
+- **Access mountain snow data and avalanche risk**
+  - Retrieve snow cover levels and daily official avalanche risk bulletins (BRA) for mountain ranges in the Isère — essential for skiers and hikers.
+
 - **Track air pollution**
   - Access real-time air quality data for Grenoble, including detailed concentrations for each major pollutant (e.g., PM10, NO2, O3).
 
