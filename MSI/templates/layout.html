@@ -43,7 +43,7 @@
     {% if title %}
         <title>{{ title }}</title>
     {% else %}
-        <title>Météo Saint-Ismier (38330 - FR) - Live et prévisions</title>
+        <title>Météo Grenoble Alpes - Live et Prévisions</title>
     {% endif %}
 </head>
 
@@ -129,19 +129,20 @@
         <div class="container p-3 pt-5">
             <div class="row">
                 <div class="col-lg-6 col-sm-12 col-xs-12 mb-0">
-                    <h5 class="fw-bold text-info text-uppercase">
-                        <img class="me-2 mb-1" height="25px" width="auto" src="{{ url_for('static', filename='img/logo.png') }}">Meteo-saint-ismier.fr
+                    <h5 class="fw-bold text-info">
+                        <img class="me-2 mb-1" height="25px" width="auto" src="{{ url_for('static', filename='img/logo.png') }}">
+                        Météo Grenoble Alpes
                     </h5>
                     <p class="text-start">
                         Météo en direct | Prévisions | Graphiques | Observations | Climatologie | Records | Webcams
                         pour la commune de Saint Ismier (38330) et ses environs.
                     </p>
                     <p>
-                        <i class="fas fa-envelope me-2"></i><span class="text-info">contact@meteo-saint-ismier.fr</span>
+                        <i class="fas fa-envelope me-2"></i><span class="text-info">contact@meteo-grenoble-alpes.fr</span>
                     </p>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-xs-12 mb-0">
-                    <h5 class="fw-bold text-info text-uppercase">
+                    <h5 class="fw-bold text-info">
                         Informations
                     </h5>
                     <ul class="list-unstyled">
@@ -150,19 +151,19 @@
                     </ul>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-xs-12 mb-0">
-                    <h5 class="fw-bold text-info text-uppercase">
+                    <h5 class="fw-bold text-info">
                         Utilitaires
                     </h5>
                     <ul class="list-unstyled">
                         <li><a href="https://www.infoclimat.fr/" class="text-light" target="_blank">Infoclimat</a></li>
-                        <li><a href="https://www.meteoblue.com/fr/meteo/semaine/grenoble_france_3014728" class="text-light" target="_blank">Météo Blue</a></li>
+                        <li><a href="https://www.meteoblue.com/fr/meteo/semaine/grenoble_france_3014728" class="text-light" target="_blank">Meteoblue</a></li>
                     </ul>
                 </div>
             </div>
         </div>
         <hr class="m-0">
         <div class="footer-copyright text-center py-3 text-light">
-            <span class="text-info"><i class="fas fa-copyright me-1"></i>{{ current_year }} Copyright :</span> meteo-saint-ismier.fr
+            <span class="text-info"><i class="fas fa-copyright me-1"></i>{{ current_year }} Copyright :</span> Météo Grenoble Alpes
         </div>
     </footer>
 

@@ -36,7 +36,7 @@ def http_exception(error):
 
     return render_template('errors.html',
                            error_code=error.code,
-                           title=f"{error.name} - Météo Saint-Ismier (38330 - FR) - Live et prévisions"), error.code
+                           title=f"{error.name} - Météo Grenoble Alpes - Live et Prévisions"), error.code
 
 
 @app.errorhandler(Exception)
@@ -56,4 +56,4 @@ def other_exceptions(error):
 
     return render_template('errors.html',
                            error_code=InternalServerError.code,
-                           title=f"{InternalServerError().name} - Météo Saint-Ismier (38330 - FR) - Live et prévisions"), 500
+                           title=f"{InternalServerError().name} - Météo Météo Grenoble Alpes - Live et Prévisions"), 500
