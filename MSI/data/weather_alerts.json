@@ -1,16 +1,30 @@
 [
     {
-        "date_echeance": "04/08/2025",
-        "color_id": 1,
-        "qualificatif": "Pas de vigilance particuli\u00e8re",
-        "global_icon": "fa-solid fa-check",
-        "results": []
+        "date_echeance": "07/08/2025",
+        "color_id": 2,
+        "qualificatif": "Soyez attentif",
+        "global_icon": "fa-solid fa-exclamation",
+        "results": [
+            {
+                "phenomenon": "Canicule",
+                "color_id": 2,
+                "qualificatif": "Soyez attentif",
+                "icon": "fa-temperature-three-quarters"
+            }
+        ]
     },
     {
-        "date_echeance": "05/08/2025",
-        "color_id": 1,
-        "qualificatif": "Pas de vigilance particuli\u00e8re",
-        "global_icon": "fa-solid fa-check",
-        "results": []
+        "date_echeance": "08/08/2025",
+        "color_id": 3,
+        "qualificatif": "Soyez tr\u00e8s vigilant",
+        "global_icon": "fa-solid fa-exclamation",
+        "results": [
+            {
+                "phenomenon": "Canicule",
+                "color_id": 3,
+                "qualificatif": "Soyez tr\u00e8s vigilant",
+                "icon": "fa-temperature-three-quarters"
+            }
+        ]
     }
 ]
