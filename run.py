@@ -3,7 +3,6 @@ Main script to start MSI
 """
 
 import os
-import ast
 from MSI import app
 
 if __name__ == "__main__":

@@ -55,8 +55,8 @@ class MeteoLiveUtils:
         Returns:
             str: The wind direction as a cardinal or intercardinal direction abbreviation.
         """
-        COMPASS_ROSE = [0, 22.5, 45, 67.5, 90, 112.5, 135, 157.5, 180, 202.5, 225, 247.5, 270, 292.5, 315, 337.5, 360]
-        compass_rose_angle = min(COMPASS_ROSE, key=lambda x: abs(x - wind_angle))
+        compass_rose = [0, 22.5, 45, 67.5, 90, 112.5, 135, 157.5, 180, 202.5, 225, 247.5, 270, 292.5, 315, 337.5, 360]
+        compass_rose_angle = min(compass_rose, key=lambda x: abs(x - wind_angle))
 
         directions = {0: "N", 22.5: "NNE", 45: "NE", 67.5: "ENE", 90: "E", 112.5: "ESE", 135: "SE", 157.5: "SSE",
                       180: "S",

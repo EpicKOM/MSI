@@ -1,6 +1,5 @@
 from MSI import app
 from .data_loaders_utils import load_json
-import json
 import datetime
 
 
@@ -39,7 +38,8 @@ class ForecastsApi:
         if not all(key in cls.forecasts_data for key in keys):
             missing_keys = [key for key in keys if key not in cls.forecasts_data]
             for missing_key in missing_keys:
-                app.logger.error(f"[ForecastsApi - get_forecasts_data] - La clé attendue '{missing_key}' est manquante dans les données du fichier JSON")
+                app.logger.error(f"[ForecastsApi - get_forecasts_data] - La clé attendue '{missing_key}' est "
+                                 f"manquante dans les données du fichier JSON")
 
             raise KeyError("Une ou plusieurs clés attendues sont manquantes dans les données du fichier JSON")
 
@@ -96,7 +96,8 @@ class ForecastsApi:
         if not all(key in cls.forecasts_data for key in keys):
             missing_keys = [key for key in keys if key not in cls.forecasts_data]
             for missing_key in missing_keys:
-                app.logger.error(f"[ForecastsApi - get_forecasts_data] - La clé attendue '{missing_key}' est manquante dans les données du fichier JSON")
+                app.logger.error(f"[ForecastsApi - get_forecasts_data] - La clé attendue '{missing_key}' est "
+                                 f"manquante dans les données du fichier JSON")
 
             raise KeyError("Une ou plusieurs clés attendues sont manquantes dans les données du fichier JSON")
 
@@ -148,7 +149,8 @@ class ForecastsApi:
             app.logger.exception(f"[ForecastsApi - get_forecasts_data_by_index] - Index {index} hors limites.")
             return {}
         except Exception:
-            app.logger.exception(f"[ForecastsApi - get_forecasts_data_by_index] - Erreur lors de la récupération des données de prévisions par index.")
+            app.logger.exception(f"[ForecastsApi - get_forecasts_data_by_index] - Erreur lors de la récupération des "
+                                 f"données de prévisions par index.")
             return {}
 
     @staticmethod
@@ -221,8 +223,8 @@ class ForecastsApi:
         Returns:
             str: The wind direction as a cardinal or intercardinal direction abbreviation.
         """
-        COMPASS_ROSE = [0, 22.5, 45, 67.5, 90, 112.5, 135, 157.5, 180, 202.5, 225, 247.5, 270, 292.5, 315, 337.5, 360]
-        compass_rose_angle = min(COMPASS_ROSE, key=lambda x: abs(x - wind_angle))
+        compass_rose = [0, 22.5, 45, 67.5, 90, 112.5, 135, 157.5, 180, 202.5, 225, 247.5, 270, 292.5, 315, 337.5, 360]
+        compass_rose_angle = min(compass_rose, key=lambda x: abs(x - wind_angle))
 
         directions = {0: "N", 22.5: "NNE", 45: "NE", 67.5: "ENE", 90: "E", 112.5: "ESE", 135: "SE", 157.5: "SSE",
                       180: "S",

@@ -1,6 +1,5 @@
 from MSI import app
 import json
-import os
 
 
 def load_json(file_path):

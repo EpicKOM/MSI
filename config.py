@@ -3,7 +3,6 @@ Main configuration file of MSI
 """
 
 import os
-import ast
 from dotenv import load_dotenv
 
 basedir = os.path.abspath(os.path.dirname(__file__))
