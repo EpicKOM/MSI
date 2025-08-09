@@ -1,15 +1,16 @@
 from MSI import app
-from .data_loaders_utils import load_json
+from .data_loaders_utils import load_json_cached
 import datetime
 
 
 class ForecastsApi:
     json_path = app.config.get('JSON_FORECASTS_PATH')
-    forecasts_data = load_json(json_path)
+    forecasts_data = None
 
     @classmethod
     def get_7_day_forecasts(cls):
         """Récupère les données du fichier JSON spécifié."""
+        cls.forecasts_data = load_json_cached(cls.json_path)
 
         if not cls.forecasts_data:
             app.logger.warning("[ForecastsApi - get_forecasts_data] - Aucune donnée de prévision trouvée.")
@@ -81,6 +82,7 @@ class ForecastsApi:
     @classmethod
     def get_daily_forecast(cls, index):
         """Récupère les données du fichier JSON spécifié."""
+        cls.forecasts_data = load_json_cached(cls.json_path)
 
         if not cls.forecasts_data:
             app.logger.warning("[ForecastsApi - get_forecasts_data_by_index] - Aucune donnée de prévision trouvée.")
