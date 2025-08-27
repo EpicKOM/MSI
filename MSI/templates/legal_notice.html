@@ -1,0 +1,66 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+{% endblock css %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2 class="text-light">Mentions légales et politique de confidentialité</h2>
+        <h3 class="text-light mt-4">I. Informations générales</h3>
+        <p class="text-light">
+            Le site
+            <a class="text-info" href="{{ url_for('meteo_live', station_name='saint-ismier') }}">
+                www.meteo-grenoble-alpes.fr
+            </a>
+            est édité par :
+        </p>
+        <ul class="text-light">
+            <li class="mb-1">Propriétaire / Éditeur : Rémi FABRE</li>
+            <li class="mb-1">Adresse : Coordonnées complètes disponibles sur demande légitime via l’email ci-dessous</li>
+            <li class="mb-1">Email de contact : contact@meteo-grenoble-alpes.fr</li>
+        </ul>
+        <h3 class="text-light mt-4">II. Hébergement</h3>
+        <p class="text-light">Le site est hébergé en auto-hébergement local par le propriétaire.</p>
+        <h3 class="text-light mt-4">III. Objet du site</h3>
+        <p class="text-light">Le site <a class="text-info" href="{{ url_for('meteo_live', station_name='saint-ismier') }}">www.meteo-grenoble-alpes.fr</a> fournit des données météorologiques issues :</p>
+        <ul class="text-light">
+            <li class="mb-1">de la station météorologique personnelle du propriétaire située à Saint-Ismier (38330).</li>
+            <li class="mb-1">de données externes issues d’API partenaires (Infoclimat, Meteoblue, etc.).</li>
+        </ul>
+        <p class="text-light">
+            Ces informations sont fournies à titre indicatif et peuvent comporter des erreurs ou omissions.
+            Elles ne doivent pas être utilisées pour la protection des biens et des personnes.
+        </p>
+        <p class="text-light">
+            Le propriétaire décline toute responsabilité en cas :
+        </p>
+        <ul class="text-light">
+            <li class="mb-1">d’inexactitude ou d’absence des données.</li>
+            <li class="mb-1">d’indisponibilité des API externes.</li>
+            <li class="mb-1">de mauvaise utilisation des données fournies.</li>
+        </ul>
+        <h3 class="text-light mt-4">IV. Propriété intellectuelle</h3>
+        <p class="text-light">
+            Le contenu du site (textes, images, données, graphiques) est la propriété du propriétaire du site ou de leurs auteurs respectifs.
+            Toute reproduction est interdite sans accord préalable.
+        </p>
+        <h3 class="text-light mt-4">V. Protection des données personnelles</h3>
+        <p class="text-light">
+            Le site ne collecte aucune donnée personnelle sur ses visiteurs.
+            Aucun cookie n’est installé pour le suivi ou la publicité.<br>
+            Le site est conforme au Règlement Général sur la Protection des Données (RGPD).
+        </p>
+        <h3 class="text-light mt-4">VI. Liens externes</h3>
+        <p class="text-light">
+            Le site peut contenir des liens vers d’autres sites internet.
+            Le propriétaire n’exerce aucun contrôle sur ces sites et décline toute responsabilité quant à leur contenu.
+        </p>
+        <h3 class="text-light mt-4">VII. Contact</h3>
+        <p class="text-light">
+            Pour toute question concernant ces mentions légales ou la politique de confidentialité, vous pouvez écrire à : contact@meteo-grenoble-alpes.fr
+        </p>
+    </div>
+{% endblock %}
+
+{% block script %}
+{% endblock %}

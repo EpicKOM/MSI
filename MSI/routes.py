@@ -76,3 +76,8 @@ def observations():
                            pollution_alerts_today=pollution_alerts_today,
                            pollution_alerts_tomorrow=pollution_alerts_tomorrow,
                            is_pollution_alerts_data_fresh=is_pollution_alerts_data_fresh)
+
+
+@app.route("/mentions-legales/")
+def legal_notice():
+    return render_template('legal_notice.html')
