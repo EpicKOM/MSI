@@ -43,6 +43,7 @@ def meteo_live(station_name="saint-ismier"):
 def forecasts():
     seven_day_forecasts = ForecastsApi.get_7_day_forecasts()
     forecasts_is_empty = seven_day_forecasts["is_empty"]
+
     day_index = 0
     today_forecast = ForecastsApi.get_daily_forecast(day_index)
 
