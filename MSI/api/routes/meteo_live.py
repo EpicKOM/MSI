@@ -49,7 +49,7 @@ def get_meteo_live(station_name: str):
     return context
 
 
-# ------------Requête AJAX Live Charts---------------------------------------------------------------------------
+# ------------Requête Live Charts---------------------------------------------------------------------------
 @bp.route('/meteo-live/live-charts/<station_name>', methods=['GET'])
 @arguments(LiveChartsInputSchema)
 @response(LiveChartsOutputSchema)

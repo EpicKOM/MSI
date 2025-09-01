@@ -1,5 +1,5 @@
 from MSI import app, db
-from MSI.models.meteo_live_utils import MeteoLiveUtils
+from MSI.models import MeteoLiveUtils
 
 
 class SaintIsmierData(db.Model):
@@ -50,7 +50,6 @@ class SaintIsmierData(db.Model):
                                  }
 
             rain_data = MeteoLiveUtils.get_rain_1h(cls)
-
             current_weather_data = base_weather_data | rain_data
 
             return current_weather_data

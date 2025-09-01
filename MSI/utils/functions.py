@@ -1,4 +1,4 @@
-from MSI.models import *
+from MSI.models import SaintIsmierData, SaintMartinDheresData, LansEnVercorsData
 
 
 def get_station_class(station_name: str):

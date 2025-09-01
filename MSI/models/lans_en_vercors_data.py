@@ -1,5 +1,5 @@
 from MSI import db, app
-from MSI.models.meteo_live_utils import MeteoLiveUtils
+from MSI.models import MeteoLiveUtils
 
 
 class LansEnVercorsData(db.Model):
