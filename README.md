@@ -1,13 +1,13 @@
 # 🌤️ Météo Grenoble Alpes
 
-**Météo Grenoble Alpes** is a non-commercial weather website entirely dedicated to the Grenoble region and the surrounding Alpine massifs.
+**Météo Grenoble Alpes** is a non-commercial weather website dedicated entirely to the Grenoble region and the surrounding Alpine massifs.
 
-The goal of the project? To bring together all essential meteorological data (live weather, forecasts, climatology, radar, alerts..) in a modern and intuitive interface.
-All of this to provide a simple, fast, and pleasant user experience.
+In just a few minutes, access all the essential information—live weather, forecasts, radar, and alerts—through a modern and intuitive interface.
+
+Stay one step ahead of the weather to plan your day or your mountain activities.
 
 👉 Live version here:
 
----
 
 ## 🚀 Features
 
