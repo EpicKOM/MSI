@@ -210,7 +210,7 @@ const windConfig = {
                             return 'Vent moyen : ' + context.parsed.y + ' km/h';
                         }
                         else if (context.datasetIndex === 1) {
-                            return 'Rafales : ' + context.parsed.y.toFixed(1) + ' km/h';
+                            return 'Rafales : ' + context.parsed.y + ' km/h';
                         }
 
                     }

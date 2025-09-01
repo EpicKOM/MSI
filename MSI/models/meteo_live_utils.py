@@ -1,5 +1,5 @@
 from MSI import db, app
-from typing import Type, Dict, Any
+from typing import Type, Dict, Any, Optional
 import datetime
 
 
@@ -63,7 +63,7 @@ class MeteoLiveUtils:
             return {"rain_1h": None, "rain_1h_date": None}
 
     @classmethod
-    def get_rain_24h(cls, db_model_cls: Type[db.Model]) -> float | None:
+    def get_rain_24h(cls, db_model_cls: Type[db.Model]) -> Optional[float]:
         """
         Retrieves the total rain accumulation for the current day (last 24 hours).
 
@@ -218,11 +218,24 @@ class MeteoLiveUtils:
             start_datetime = cls.get_last_record_datetime(db_model_cls) - datetime.timedelta(interval_duration)
 
             if data_name in column_mapping:
-                if data_name == "wind_direction":
+                if data_name == "rain":
+                    query = (
+                        db_model_cls.query
+                        .filter(
+                            db_model_cls.date_time >= start_datetime,
+                            db_model_cls.rain_1h.isnot(None))
+                    )
+                    columns = column_mapping["rain"]
+
+                elif data_name == "wind_direction":
                     return {"wind_direction": cls.get_wind_direction_chart_data(db_model_cls, start_datetime)}
 
                 else:
-                    query = db_model_cls.query.filter(db_model_cls.date_time >= start_datetime)
+                    query = (
+                        db_model_cls.query
+                        .filter(
+                            db_model_cls.date_time >= start_datetime)
+                    )
                     columns = column_mapping[data_name]
 
                 current_charts_data = query.with_entities(*columns).all()
