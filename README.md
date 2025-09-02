@@ -6,7 +6,7 @@ In just a few minutes, access all the essential information—live weather, fore
 
 Stay one step ahead of the weather to plan your day or your mountain activities.
 
-👉 Live version here:
+👉 Live version here: [Météo Grenoble Alpes](https://meteo-grenoble-alpes.fr)
 
 
 ## 🚀 Features
