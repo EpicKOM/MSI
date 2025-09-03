@@ -1,5 +1,7 @@
 from MSI import db, app
-from typing import Type, Dict, Any, Optional
+from typing import Type, Dict, Any, Optional, List
+from sqlalchemy.orm.attributes import InstrumentedAttribute
+
 import datetime
 
 
@@ -18,7 +20,7 @@ class MeteoLiveUtils:
             bool: True if data is fresh, False otherwise.
         """
         current_time = datetime.datetime.now()
-        last_record_datetime = cls.get_last_record_datetime(db_model_cls)
+        last_record_datetime = cls._get_last_record_datetime(db_model_cls)
         delta_time = current_time - last_record_datetime
         deadline = datetime.timedelta(hours=3)
 
@@ -35,7 +37,7 @@ class MeteoLiveUtils:
                 - "rain_1h_date": A formatted string showing the time range of the measurement, or `None` if no data is available.
         """
         try:
-            end_datetime = cls.get_last_record_datetime(db_model_cls).replace(minute=0)
+            end_datetime = cls._get_last_record_datetime(db_model_cls).replace(minute=0)
             start_datetime = end_datetime - datetime.timedelta(hours=1)
 
             rain_1h_value = (
@@ -73,7 +75,7 @@ class MeteoLiveUtils:
             None: if an exception occurs.
         """
         try:
-            last_record_date = cls.get_last_record_datetime(db_model_cls).date()
+            last_record_date = cls._get_last_record_datetime(db_model_cls).date()
             start_datetime = datetime.datetime.combine(last_record_date, datetime.datetime.min.time())
 
             rain_data_today = (
@@ -110,7 +112,7 @@ class MeteoLiveUtils:
                 - "tmin_time": A formatted string showing the datetime of tmin, or `None` if no data is available.
         """
         try:
-            last_record_date = cls.get_last_record_datetime(db_model_cls).date()
+            last_record_date = cls._get_last_record_datetime(db_model_cls).date()
             start_datetime = datetime.datetime.combine(last_record_date, datetime.datetime.min.time())
 
             # Retrieve min and max of the day
@@ -175,7 +177,7 @@ class MeteoLiveUtils:
                 - "gust_max_time" (str or None): The time when the maximum gust occurred, formatted as `HH:MM`. Returns `None` if no data is available.
         """
         try:
-            last_record_date = cls.get_last_record_datetime(db_model_cls).date()
+            last_record_date = cls._get_last_record_datetime(db_model_cls).date()
             start_datetime = datetime.datetime.combine(last_record_date, datetime.datetime.min.time())
 
             gust_max = (
@@ -213,52 +215,106 @@ class MeteoLiveUtils:
             return {"gust_max": None, "gust_max_time": None}
 
     @classmethod
-    def get_current_charts_data(cls, db_model_cls, data_name, interval_duration, column_mapping):
+    def get_current_charts_data(
+            cls,
+            db_model_cls: Type[db.Model],
+            data_name: str,
+            interval_duration: int,
+            column_mapping: Dict[str, List[Any]]
+    ) -> Dict[str, List[Any]]:
         try:
-            start_datetime = cls.get_last_record_datetime(db_model_cls) - datetime.timedelta(interval_duration)
+            start_datetime = cls._get_last_record_datetime(db_model_cls) - datetime.timedelta(interval_duration)
 
-            if data_name in column_mapping:
-                if data_name == "rain":
-                    query = (
-                        db_model_cls.query
-                        .filter(
-                            db_model_cls.date_time >= start_datetime,
-                            db_model_cls.rain_1h.isnot(None))
-                    )
-                    columns = column_mapping["rain"]
+            if data_name not in column_mapping:
+                app.logger.exception(
+                    f"[MeteoLiveUtils::get_current_charts_data] - {data_name} introuvable dans le column mapping."
+                )
+                return {}
 
-                elif data_name == "wind_direction":
-                    return {"wind_direction": cls.get_wind_direction_chart_data(db_model_cls, start_datetime)}
+            if data_name == "rain":
+                return cls._get_rain_chart_data(db_model_cls, start_datetime, column_mapping["rain"])
 
-                else:
-                    query = (
-                        db_model_cls.query
-                        .filter(
-                            db_model_cls.date_time >= start_datetime)
-                    )
-                    columns = column_mapping[data_name]
-
-                current_charts_data = query.with_entities(*columns).all()
-
-                response = {"datetime": [data.date_time.strftime("%Y-%m-%d %H:%M:%S") for data in current_charts_data]}
-
-                for col in columns[1:]:
-                    response[col.name] = [getattr(data, col.name) for data in current_charts_data]
-
-                return response
+            elif data_name == "wind_direction":
+                return {"wind_direction": cls._get_wind_direction_chart_data(db_model_cls, start_datetime)}
 
             else:
-                app.logger.exception(f"[get_current_charts_data] : {data_name} est introuvable dans le column mapping.")
+                return cls._get_default_chart_data(db_model_cls, start_datetime, column_mapping[data_name])
 
         except Exception:
-            app.logger.exception(f"[get_current_charts_data] : {data_name} Erreur lors de la récupération des données pour les graphiques.")
+            app.logger.exception(
+                f"[MeteoLiveUtils::get_current_charts_data] - Erreur lors de la récupération des données de {data_name}"
+                f" pour les graphiques Live."
+            )
+            return {}
 
     @classmethod
-    def get_wind_direction_chart_data(cls, db_model_cls, start_datetime):
-        wind_angle_data = (db_model_cls.query.with_entities(db_model_cls.wind_angle)
-                           .filter(db_model_cls.date_time >= start_datetime,
-                                   db_model_cls.wind_speed > 0,
-                                   db_model_cls.wind_angle.isnot(None)).all())
+    def _get_rain_chart_data(
+            cls,
+            db_model_cls: Type[db.Model],
+            start_datetime: datetime.datetime,
+            columns: List[InstrumentedAttribute]
+    ) -> Dict[str, List[Any]]:
+        """
+        Query rainfall data since `start_datetime` and return it in chart format.
+
+        Args:
+            db_model_cls: SQLAlchemy model class.
+            start_datetime: Start datetime for filtering records.
+            columns: List of columns to include.
+
+        Returns:
+            dict: Contains "datetime" (list of str) and one key per column with corresponding values.
+        """
+        query = (
+            db_model_cls.query
+            .filter(
+                db_model_cls.date_time >= start_datetime,
+                db_model_cls.rain_1h.isnot(None))
+        )
+
+        current_charts_data = query.with_entities(*columns).all()
+
+        return cls._format_response(current_charts_data, columns)
+
+    @classmethod
+    def _get_default_chart_data(
+            cls,
+            db_model_cls: Type[db.Model],
+            start_datetime: datetime.datetime,
+            columns: List[InstrumentedAttribute]
+    ) -> Dict[str, List[Any]]:
+        query = db_model_cls.query.filter(db_model_cls.date_time >= start_datetime)
+
+        current_charts_data = query.with_entities(*columns).all()
+
+        return cls._format_response(current_charts_data, columns)
+
+    @classmethod
+    def _get_wind_direction_chart_data(
+            cls,
+            db_model_cls: Type[db.Model],
+            start_datetime: datetime.datetime
+    ) -> List[float]:
+        """
+        Compute wind direction distribution since `start_datetime`.
+
+        Args:
+            db_model_cls: SQLAlchemy model class.
+            start_datetime: Start datetime for filtering records.
+
+        Returns:
+            list[float]: Percentages (0.0–100.0) for the 16 compass directions,
+                         ordered ["N", "NNE", ..., "NNO"].
+        """
+        wind_angle_data = (
+            db_model_cls
+            .query.with_entities(
+                db_model_cls.wind_angle)
+            .filter(db_model_cls.date_time >= start_datetime,
+                    db_model_cls.wind_speed > 0,
+                    db_model_cls.wind_angle.isnot(None))
+            .all()
+        )
 
         wind_direction_counts = {
             "N": 0, "NNE": 0, "NE": 0, "ENE": 0, "E": 0, "ESE": 0,
@@ -274,18 +330,18 @@ class MeteoLiveUtils:
         total = sum(wind_direction_counts.values())
 
         if total != 0:
-            results = [round(cls.wind_direction_percentage(wind_direction_counts[direction], total), 1)
+            results = [round(cls._wind_direction_percentage(wind_direction_counts[direction], total), 1)
                        for direction in
                        ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSO", "SO", "OSO", "O", "ONO", "NO",
                         "NNO"]]
 
         else:
-            results = [0] * 16
+            results = [0.0] * 16
 
         return results
 
     @staticmethod
-    def get_last_record_datetime(db_model_cls):
+    def _get_last_record_datetime(db_model_cls: Type[db.Model]) -> datetime.datetime:
         """
         Retrieves the date and time of the last recorded entry in the database for the given class.
 
@@ -298,7 +354,7 @@ class MeteoLiveUtils:
         return db_model_cls.query.with_entities(db.func.max(db_model_cls.date_time)).scalar()
 
     @staticmethod
-    def get_last_record(db_model_cls):
+    def get_last_record(db_model_cls: Type[db.Model]):
         """
         Retrieves the last record from the database table associated with the class.
 
@@ -328,7 +384,7 @@ class MeteoLiveUtils:
         return directions.get(compass_rose_angle)
 
     @staticmethod
-    def wind_direction_percentage(part: int, total: int) -> float:
+    def _wind_direction_percentage(part: int, total: int) -> float:
         try:
             return 100 * part / total
 
@@ -344,3 +400,15 @@ class MeteoLiveUtils:
             )
 
         return 0.0
+
+    @staticmethod
+    def _format_response(
+            current_charts_data: List[Any],
+            columns: List[InstrumentedAttribute]
+    ) -> Dict[str, List[Any]]:
+        response = {"datetime": [data.date_time.strftime("%Y-%m-%d %H:%M:%S") for data in current_charts_data]}
+
+        for col in columns[1:]:
+            response[col.name] = [getattr(data, col.name) for data in current_charts_data]
+
+        return response

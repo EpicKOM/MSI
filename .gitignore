@@ -1,0 +1,18 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+MSI/__pycache__/
+
+# Environments
+.env
+.venv
+env/
+venv/
+
+# PyCharm
+.idea
+.run/
+
+# MSI
+instance/msi.db-journal
+instance/msi.db
+

@@ -28,7 +28,7 @@ class SaintIsmierData(db.Model):
 
         except Exception:
             app.logger.exception(
-                "[SaintIsmierData - get_data_status] - Erreur lors de la récupération du status des données de la table "
+                "[SaintIsmierData::get_data_status] - Erreur lors de la récupération du status des données de la table "
                 "saint_ismier_data.")
 
     @classmethod
@@ -56,7 +56,7 @@ class SaintIsmierData(db.Model):
 
         except Exception:
             app.logger.exception(
-                "[SaintIsmierData - get_current_weather_data] - Erreur lors de la récupération des données actuelles.")
+                "[SaintIsmierData::get_current_weather_data] - Erreur lors de la récupération des données actuelles.")
 
     @classmethod
     def get_daily_extremes(cls):
@@ -70,7 +70,7 @@ class SaintIsmierData(db.Model):
 
         except Exception:
             app.logger.exception(
-                "[SaintIsmierData - get_daily_extremes] - Erreur lors de la récupération des températures et des rafales "
+                "[SaintIsmierData::get_daily_extremes] - Erreur lors de la récupération des températures et des rafales "
                 "extrêmes du jour.")
 
     @classmethod
@@ -85,11 +85,13 @@ class SaintIsmierData(db.Model):
                 "wind_direction": []
             }
 
-            current_chart_data = MeteoLiveUtils.get_current_charts_data(cls, data_name, interval_duration,
+            current_chart_data = MeteoLiveUtils.get_current_charts_data(cls,
+                                                                        data_name,
+                                                                        interval_duration,
                                                                         column_mapping)
 
             return current_chart_data
 
         except Exception:
-            app.logger.exception("[SaintIsmierData - current_charts_data] - Erreur lors de la récupération des "
-                                 "données pour les graphiques.")
+            app.logger.exception("[SaintIsmierData::current_charts_data] - Erreur lors de la récupération des "
+                                 "données pour les graphiques Live.")
