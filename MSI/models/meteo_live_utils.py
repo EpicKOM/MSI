@@ -1,8 +1,10 @@
 from MSI import db, app
-from typing import Type, Dict, Any, Optional, List
+from typing import Type, Dict, Any, Optional, List, TypeVar
 from sqlalchemy.orm.attributes import InstrumentedAttribute
 
 import datetime
+
+T = TypeVar('T', bound=db.Model)
 
 
 class MeteoLiveUtils:
@@ -10,14 +12,13 @@ class MeteoLiveUtils:
     @classmethod
     def is_data_fresh(cls, db_model_cls: Type[db.Model]) -> bool:
         """
-        Checks if there has been a reception error based on the time elapsed
-        since the last record was received.
+        Check if the latest record is less than 3 hours old.
 
         Args:
-            db_model_cls: The database model class (e.g., SaintIsmierData).
+            db_model_cls (Type[db.Model]): The SQLAlchemy model class to query.
 
         Returns:
-            bool: True if data is fresh, False otherwise.
+            bool: True if fresh, False otherwise.
         """
         current_time = datetime.datetime.now()
         last_record_datetime = cls._get_last_record_datetime(db_model_cls)
@@ -29,12 +30,14 @@ class MeteoLiveUtils:
     @classmethod
     def get_rain_1h(cls, db_model_cls: Type[db.Model]) -> Dict[str, Any]:
         """
-        Retrieves the rain accumulation for the last recorded hour and formats the results for output.
+        Get the rainfall accumulation for the last recorded hour.
+
+        Args:
+            db_model_cls (Type[db.Model]): The SQLAlchemy model to query.
 
         Returns:
-            dict: A dictionary containing two fields:
-                - "rain_1h": The rounded rain accumulation for the last hour (if available) or `None`.
-                - "rain_1h_date": A formatted string showing the time range of the measurement, or `None` if no data is available.
+            dict: Contains "rain_1h" (float | None) and
+                  "rain_1h_date" (str | None).
         """
         try:
             end_datetime = cls._get_last_record_datetime(db_model_cls).replace(minute=0)
@@ -67,12 +70,14 @@ class MeteoLiveUtils:
     @classmethod
     def get_rain_24h(cls, db_model_cls: Type[db.Model]) -> Optional[float]:
         """
-        Retrieves the total rain accumulation for the current day (last 24 hours).
+        Get the total rainfall accumulation over the last 24 hours.
+
+        Args:
+            db_model_cls (Type[db.Model]): The SQLAlchemy model to query.
 
         Returns:
-            float: The total rain accumulation over the last 24 hours, rounded to 1 decimal place.
-                   Returns 0.0 if no data is found.
-            None: if an exception occurs.
+            float: Total rainfall, rounded to 1 decimal.
+            None: If an error occurs.
         """
         try:
             last_record_date = cls._get_last_record_datetime(db_model_cls).date()
@@ -102,14 +107,17 @@ class MeteoLiveUtils:
     @classmethod
     def get_daily_temperature_extremes(cls, db_model_cls: Type[db.Model]) -> Dict[str, Any]:
         """
-        Retrieves today's temperature extremes (min & max) with their timestamps.
+        Get today's minimum and maximum temperatures with their times.
+
+        Args:
+            db_model_cls (Type[db.Model]): The SQLAlchemy model to query.
 
         Returns:
-            dict: A dictionary containing four fields:
-                - "tmax": The max temperature of the day (if available) or `None`.
-                - "tmin": The min temperature of the day (if available) or `None`.
-                - "tmax_time": A formatted string showing the datetime of tmax, or `None` if no data is available.
-                - "tmin_time": A formatted string showing the datetime of tmin, or `None` if no data is available.
+            dict: Contains:
+                - "tmax" (float | None): Maximum temperature of the day.
+                - "tmin" (float | None): Minimum temperature of the day.
+                - "tmax_time" (str | None): Time of max temperature (HH:MM).
+                - "tmin_time" (str | None): Time of min temperature (HH:MM).
         """
         try:
             last_record_date = cls._get_last_record_datetime(db_model_cls).date()
@@ -169,12 +177,15 @@ class MeteoLiveUtils:
     @classmethod
     def get_daily_max_gust(cls, db_model_cls: Type[db.Model]) -> Dict[str, Any]:
         """
-        Retrieves the maximum gust of wind recorded for the current day and the time it occurred.
+        Get today's maximum wind gust with its time.
+
+        Args:
+            db_model_cls (Type[db.Model]): The SQLAlchemy model to query.
 
         Returns:
-            dict: A dictionary with two keys:
-                - "gust_max" (float or None): The maximum gust speed of the day. Returns `None` if no data is available.
-                - "gust_max_time" (str or None): The time when the maximum gust occurred, formatted as `HH:MM`. Returns `None` if no data is available.
+            dict: Contains:
+                - "gust_max" (float | None): Maximum gust speed of the day.
+                - "gust_max_time" (str | None): Time of max gust (HH:MM).
         """
         try:
             last_record_date = cls._get_last_record_datetime(db_model_cls).date()
@@ -222,6 +233,19 @@ class MeteoLiveUtils:
             interval_duration: int,
             column_mapping: Dict[str, List[Any]]
     ) -> Dict[str, List[Any]]:
+        """
+        Get live chart data for the given metric.
+
+        Args:
+            db_model_cls (Type[db.Model]): The SQLAlchemy model to query.
+            data_name (str): The name of the metric (e.g., "temperature", "wind_direction").
+            interval_duration (int): Interval in days to look back from the last record.
+            column_mapping (dict): Mapping of metric names to corresponding DB columns.
+
+        Returns:
+            dict: Chart data with lists of values by column.
+                  Empty dict if metric is unknown or an error occurs.
+        """
         try:
             start_datetime = cls._get_last_record_datetime(db_model_cls) - datetime.timedelta(interval_duration)
 
@@ -255,15 +279,15 @@ class MeteoLiveUtils:
             columns: List[InstrumentedAttribute]
     ) -> Dict[str, List[Any]]:
         """
-        Query rainfall data since `start_datetime` and return it in chart format.
+        Query and format rainfall data since `start_datetime`.
 
         Args:
-            db_model_cls: SQLAlchemy model class.
-            start_datetime: Start datetime for filtering records.
-            columns: List of columns to include.
+            db_model_cls (Type[db.Model]): The SQLAlchemy model to query.
+            start_datetime (datetime): Start datetime for filtering records.
+            columns (list): List of DB columns to include.
 
         Returns:
-            dict: Contains "datetime" (list of str) and one key per column with corresponding values.
+            dict: Contains "datetime" (list of str) and rainfall values.
         """
         query = (
             db_model_cls.query
@@ -283,6 +307,17 @@ class MeteoLiveUtils:
             start_datetime: datetime.datetime,
             columns: List[InstrumentedAttribute]
     ) -> Dict[str, List[Any]]:
+        """
+         Query and format generic metric data since `start_datetime`.
+
+        Args:
+            db_model_cls (Type[db.Model]): The SQLAlchemy model to query.
+            start_datetime (datetime): Start datetime for filtering records.
+            columns (list): List of DB columns to include.
+
+        Returns:
+            dict: Contains "datetime" (list of str) and one key per column with values.
+        """
         query = db_model_cls.query.filter(db_model_cls.date_time >= start_datetime)
 
         current_charts_data = query.with_entities(*columns).all()
@@ -296,7 +331,7 @@ class MeteoLiveUtils:
             start_datetime: datetime.datetime
     ) -> List[float]:
         """
-        Compute wind direction distribution since `start_datetime`.
+        Query and format wind direction distribution since `start_datetime`.
 
         Args:
             db_model_cls: SQLAlchemy model class.
@@ -330,7 +365,7 @@ class MeteoLiveUtils:
         total = sum(wind_direction_counts.values())
 
         if total != 0:
-            results = [round(cls._wind_direction_percentage(wind_direction_counts[direction], total), 1)
+            results = [round(cls._calculate_percentage(wind_direction_counts[direction], total), 1)
                        for direction in
                        ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSO", "SO", "OSO", "O", "ONO", "NO",
                         "NNO"]]
@@ -343,36 +378,39 @@ class MeteoLiveUtils:
     @staticmethod
     def _get_last_record_datetime(db_model_cls: Type[db.Model]) -> datetime.datetime:
         """
-        Retrieves the date and time of the last recorded entry in the database for the given class.
+        Get the datetime of the last recorded entry.
 
-        This method performs an SQL query on the table associated with the `cls` class and returns
-        the maximum value of the `date_time` field, corresponding to the most recent record.
+        Args:
+            db_model_cls (Type[db.Model]): The SQLAlchemy model to query.
 
         Returns:
-            datetime: The date and time of the last record in the table, or `None` if no records are present.
+            datetime | None: Datetime of the last record, or None if no records exist.
         """
         return db_model_cls.query.with_entities(db.func.max(db_model_cls.date_time)).scalar()
 
     @staticmethod
-    def get_last_record(db_model_cls: Type[db.Model]):
+    def get_last_record(db_model_cls: Type[db.Model]) -> Optional[T]:
         """
-        Retrieves the last record from the database table associated with the class.
+        Get the last record.
+
+        Args:
+            db_model_cls (Type[db.Model]): The SQLAlchemy model to query.
 
         Returns:
-            Model or None: The last record retrieved from the database table, or None if no records are found.
+            Model | None: The last record, or None if no records exist.
         """
         return db_model_cls.query.order_by(db_model_cls.id.desc()).first()
 
     @staticmethod
     def get_wind_direction(wind_angle: float) -> str:
         """
-        Determines the wind direction based on the given wind angle.
+        Convert a wind angle to a compass direction.
 
         Args:
-            wind_angle (float): The wind angle in degrees.
+            wind_angle (float): Wind angle in degrees.
 
         Returns:
-            str: The wind direction as a cardinal or intercardinal direction abbreviation.
+            str: Cardinal or intercardinal direction (e.g., "N", "SO").
         """
         compass_rose = [0, 22.5, 45, 67.5, 90, 112.5, 135, 157.5, 180, 202.5, 225, 247.5, 270, 292.5, 315, 337.5, 360]
         compass_rose_angle = min(compass_rose, key=lambda x: abs(x - wind_angle))
@@ -384,7 +422,17 @@ class MeteoLiveUtils:
         return directions.get(compass_rose_angle)
 
     @staticmethod
-    def _wind_direction_percentage(part: int, total: int) -> float:
+    def _calculate_percentage(part: int, total: int) -> float:
+        """
+        Calculate a percentage, handling division by zero.
+
+        Args:
+            part (int): Numerator.
+            total (int): Denominator.
+
+        Returns:
+            float: Percentage in [0.0, 100.0]. Returns 0.0 if invalid.
+        """
         try:
             return 100 * part / total
 
@@ -406,6 +454,16 @@ class MeteoLiveUtils:
             current_charts_data: List[Any],
             columns: List[InstrumentedAttribute]
     ) -> Dict[str, List[Any]]:
+        """
+        Format query results into a dictionary for chart responses.
+
+        Args:
+            current_charts_data (list): Query results.
+            columns (list): Columns to include.
+
+        Returns:
+            dict: Contains "datetime" (list of str) and one key per column with values.
+        """
         response = {"datetime": [data.date_time.strftime("%Y-%m-%d %H:%M:%S") for data in current_charts_data]}
 
         for col in columns[1:]:
