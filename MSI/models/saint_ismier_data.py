@@ -17,6 +17,8 @@ class SaintIsmierData(db.Model):
 
     @classmethod
     def get_data_status(cls) -> Dict[str, bool]:
+        """Check if the table (saint_ismier_data) is empty and whether the data is fresh."""
+
         try:
             is_table_empty = cls.query.first() is None
             data_status = {"is_table_empty": is_table_empty,

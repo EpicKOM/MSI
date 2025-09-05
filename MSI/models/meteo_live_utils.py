@@ -40,7 +40,7 @@ class MeteoLiveUtils:
                   "rain_1h_date" (str | None).
         """
         try:
-            end_datetime = cls._get_last_record_datetime(db_model_cls).replace(minute=0)
+            end_datetime = cls._get_last_record_datetime(db_model_cls).replace(minute=0, second=0, microsecond=0)
             start_datetime = end_datetime - datetime.timedelta(hours=1)
 
             rain_1h_value = (
@@ -80,8 +80,7 @@ class MeteoLiveUtils:
             None: If an error occurs.
         """
         try:
-            last_record_date = cls._get_last_record_datetime(db_model_cls).date()
-            start_datetime = datetime.datetime.combine(last_record_date, datetime.datetime.min.time())
+            start_datetime = cls._get_last_record_day_start(db_model_cls)
 
             rain_data_today = (
                 db_model_cls.query
@@ -120,8 +119,7 @@ class MeteoLiveUtils:
                 - "tmin_time" (str | None): Time of min temperature (HH:MM).
         """
         try:
-            last_record_date = cls._get_last_record_datetime(db_model_cls).date()
-            start_datetime = datetime.datetime.combine(last_record_date, datetime.datetime.min.time())
+            start_datetime = cls._get_last_record_day_start(db_model_cls)
 
             # Retrieve min and max of the day
             extremes = (
@@ -188,8 +186,7 @@ class MeteoLiveUtils:
                 - "gust_max_time" (str | None): Time of max gust (HH:MM).
         """
         try:
-            last_record_date = cls._get_last_record_datetime(db_model_cls).date()
-            start_datetime = datetime.datetime.combine(last_record_date, datetime.datetime.min.time())
+            start_datetime = cls._get_last_record_day_start(db_model_cls)
 
             gust_max = (
                 db_model_cls.query
@@ -387,6 +384,21 @@ class MeteoLiveUtils:
             datetime | None: Datetime of the last record, or None if no records exist.
         """
         return db_model_cls.query.with_entities(db.func.max(db_model_cls.date_time)).scalar()
+
+    @classmethod
+    def _get_last_record_day_start(cls, db_model_cls: Type[db.Model]) -> Optional[datetime.datetime]:
+        """
+        get the datetime of the start of the day for the last record date.
+
+        Args:
+            db_model_cls (Type[db.Model]): The SQLAlchemy model to query.
+
+        Returns:
+            datetime | None: Datetime of the start of the day, or None if no records exist.
+        """
+        last_dt = cls._get_last_record_datetime(db_model_cls)
+
+        return datetime.datetime.combine(last_dt.date(), datetime.time.min) if last_dt else None
 
     @staticmethod
     def get_last_record(db_model_cls: Type[db.Model]) -> Optional[T]:
