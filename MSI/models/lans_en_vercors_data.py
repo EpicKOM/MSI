@@ -1,5 +1,6 @@
 from MSI import db, app
 from MSI.models import MeteoLiveUtils
+from typing import Dict, Any, List
 
 
 class LansEnVercorsData(db.Model):
@@ -15,7 +16,8 @@ class LansEnVercorsData(db.Model):
     pressure = db.Column(db.Float)
 
     @classmethod
-    def get_data_status(cls):
+    def get_data_status(cls) -> Dict[str, bool]:
+        """Check if the lans_en_vercors_data table is empty and whether the data is fresh."""
         try:
             is_table_empty = cls.query.first() is None
             data_status = {"is_table_empty": is_table_empty,
@@ -32,7 +34,8 @@ class LansEnVercorsData(db.Model):
                 "lans_en_vercors_data.")
 
     @classmethod
-    def get_current_weather_data(cls):
+    def get_current_weather_data(cls) -> Dict[str, Any]:
+        """Retrieves and formats the latest weather data from the lans_en_vercors_data table."""
         try:
             last_record = MeteoLiveUtils.get_last_record(cls)
 
@@ -60,7 +63,8 @@ class LansEnVercorsData(db.Model):
                 "[LansEnVercorsData - current_data] - Erreur lors de la récupération des données actuelles.")
 
     @classmethod
-    def get_daily_extremes(cls):
+    def get_daily_extremes(cls) -> Dict[str, Any]:
+        """Retrieves the daily extreme temperatures and wind gusts from the lans_en_vercors_data table."""
         try:
             daily_temperature_extremes = MeteoLiveUtils.get_daily_temperature_extremes(cls)
             daily_max_gust = MeteoLiveUtils.get_daily_max_gust(cls)
@@ -75,7 +79,11 @@ class LansEnVercorsData(db.Model):
                 "extrêmes du jour.")
 
     @classmethod
-    def current_charts_data(cls, data_name, interval_duration):
+    def current_charts_data(cls, data_name, interval_duration) -> Dict[str, List[Any]]:
+        """
+        Retrieves and formats live chart data based on the specified data type and time interval from the
+        lans_en_vercors_data table.
+        """
         try:
             column_mapping = {
                 "temperature": [cls.date_time, cls.temperature, cls.dew_point],

@@ -17,7 +17,7 @@ class SaintIsmierData(db.Model):
 
     @classmethod
     def get_data_status(cls) -> Dict[str, bool]:
-        """Check if the table (saint_ismier_data) is empty and whether the data is fresh."""
+        """Check if the saint_ismier_data table is empty and whether the data is fresh."""
 
         try:
             is_table_empty = cls.query.first() is None
@@ -42,6 +42,7 @@ class SaintIsmierData(db.Model):
 
     @classmethod
     def get_current_weather_data(cls) -> Dict[str, Any]:
+        """Retrieves and formats the latest weather data from the saint_ismier_data table."""
         try:
             last_record = MeteoLiveUtils.get_last_record(cls)
 
@@ -97,6 +98,7 @@ class SaintIsmierData(db.Model):
 
     @classmethod
     def get_daily_extremes(cls) -> Dict[str, Any]:
+        """Retrieves the daily extreme temperatures and wind gusts from the saint_ismier_data table."""
         try:
             daily_temperature_extremes = MeteoLiveUtils.get_daily_temperature_extremes(cls)
             daily_max_gust = MeteoLiveUtils.get_daily_max_gust(cls)
@@ -121,6 +123,10 @@ class SaintIsmierData(db.Model):
 
     @classmethod
     def current_charts_data(cls, data_name: str, interval_duration: int) -> Dict[str, List[Any]]:
+        """
+        Retrieves and formats live chart data based on the specified data type and time interval from the
+        saint_ismier_data table.
+        """
         try:
             column_mapping = {
                 "temperature": [cls.date_time, cls.temperature],
