@@ -18,7 +18,7 @@
                     <i class="fas fa-slash fa-stack-1x text-danger"></i>
                 </span><br>
                 Aucune donnée n'est actuellement disponible.<br>
-                veuillez réessayer ultérieurement.
+                Veuillez réessayer ultérieurement.
             </h3>
         </div>
     {% else %}
@@ -41,12 +41,12 @@
                 </div>
                 <div>
                     <span class="badge p-3 text-light opacity-75">
-                        <i class="fa-solid fa-map-pin me-2"></i>Lans-en-Vercors
+                        <i class="fa-solid fa-map-pin me-2"></i>Saint-Martin-d'Hères
                     </span>
                 </div>
                 <div>
                     <span class="badge p-3 text-light opacity-75">
-                        <i class="fa-solid fa-mountain me-2"></i>1449 m
+                        <i class="fa-solid fa-mountain me-2"></i>220 m
                     </span>
                 </div>
                 <div>
@@ -85,7 +85,7 @@
                                 </div>
                             {% else %}
                                 <div class="text-light">
-                                    <i class="fa-solid fa-arrow-down text-info me-2"></i>{{ temperature_extremes_today["tmin"] }} °C
+                                    <i class="fa-solid fa-arrow-down text-info me-2"></i>- °C
                                 </div>
                             {% endif %}
 
@@ -217,16 +217,16 @@
                             <div class="flex-shrink-0">
                                 <div class="p-2 badge-primary bg-secondary-color rounded-4">
                                     <span class="fa-stack fa-lg fa-fw">
-                                        <i class="fa-solid fa-gauge fa-stack-1x text-light"></i>
+                                        <i class="fa-solid fa-sun fa-stack-1x text-light"></i>
                                     </span>
                                 </div>
                             </div>
                             <div class="flex-grow-1 ms-4">
                                 <p class="text-light opacity-50 mb-1">
-                                    Pression
+                                    Radiations
                                 </p>
                                 <h5 class="fw-bold mb-1 text-light">
-                                    {{ format_weather_value(current_weather_data['pressure']) }} hPa
+                                    {{ format_weather_value(current_weather_data['uv']) }} W/m²
                                 </h5>
                             </div>
                         </div>
@@ -299,10 +299,10 @@
                             </h6>
                         </div>
                         <hr class="mt-1 mb-1">
-                        <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector" data-value="pressure">
-                            <i class="fa-solid fa-chart-line text-light fa-lg me-3"></i>
+                        <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector" data-value="uv">
+                            <i class="fa-solid fa-chart-column text-light fa-lg me-3"></i>
                             <h6 class="text-light fw-normal mb-0">
-                                Pression
+                                Radiations
                             </h6>
                         </div>
                     </div>
@@ -314,5 +314,5 @@
 
 {% block script %}
     <script src="{{ url_for('static', filename='js/page/meteo_live.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/charts/lans_en_vercors_live.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/charts/saint_martin_dheres_live.js') }}"></script>
 {% endblock %}

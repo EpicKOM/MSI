@@ -1,3 +1,57 @@
+{% macro render_meteo_live_page(data_status, current_weather_data) %}
+    {% if data_status["is_table_empty"] %}
+        <div class="container mt-4">
+            <h3 class="text-center text-danger">
+                <span class="fa-stack fa-2x">
+                    <i class="fas fa-database fa-stack-1x fa-inverse text-info"></i>
+                    <i class="fas fa-slash fa-stack-1x text-danger"></i>
+                </span><br>
+                Aucune donnée n'est actuellement disponible.<br>
+                Veuillez réessayer ultérieurement.
+            </h3>
+        </div>
+    {% else %}
+        {{ render_station_overview(data_status, current_weather_data) }}
+    {% endif %}
+{% endmacro %}
+
+{% macro render_station_overview(data_status, current_weather_data) %}
+    <div class="container mt-4">
+        {% if not data_status["is_data_fresh"] %}
+            <div class="d-flex justify-content-md-center">
+                <div class="alert alert-dismissible w-40 text-center text-light-red bg-dark-red border-error" role="alert" id="weather-station-unavailable-alert" style="display: none;">
+                    Station météorologique indisponible.
+                    <a role="button" class="position-absolute end-0 me-4 text-light-red" id="weather-station-unavailable-alert-button">
+                      <i class="fa-solid fa-xmark fa-lg"></i>
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+        <div class="d-flex flex-column flex-md-row">
+            <div>
+                <span class="badge p-3 {% if not data_status['is_data_fresh'] %}text-light-red bg-dark-red border-error{% else %}text-light-green bg-dark-green border-achievement{% endif %}" id="liveDateTime">
+                    <i class="fa-solid fa-rotate-right me-2"></i>Données mises à jour le {{ current_weather_data["update_datetime"] }}
+                </span>
+            </div>
+            <div>
+                <span class="badge p-3 text-light opacity-75">
+                    <i class="fa-solid fa-map-pin me-2"></i>Saint-Ismier
+                </span>
+            </div>
+            <div>
+                <span class="badge p-3 text-light opacity-75">
+                    <i class="fa-solid fa-mountain me-2"></i>377 m
+                </span>
+            </div>
+            <div>
+                <span class="badge p-3 text-light opacity-75">
+                    <i class="fa-solid fa-diagram-project me-2"></i>Réseau Amateur
+                </span>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
 {% macro format_weather_value(value) %}
     {% if value is not none %}
         {{ value }}
