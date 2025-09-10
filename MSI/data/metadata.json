@@ -5,21 +5,30 @@
       "latitude": 45.248,
       "longitude": 5.826,
       "elevation": 377,
-      "type": "amateur"
+      "network": "Amateur",
+      "has_trend": true,
+      "has_pressure": true,
+      "has_radiation": false
     },
     "saint-martin-d-heres": {
       "city": "Saint-Martin-d'Hères",
       "latitude": 45.167,
       "longitude": 5.767,
       "elevation": 220,
-      "type": "static"
+      "network": "StatIC",
+      "has_trend": false,
+      "has_pressure": false,
+      "has_radiation": true
     },
     "lans-en-vercors": {
       "city": "Lans-en-Vercors",
       "latitude": 45.095,
       "longitude": 5.6,
       "elevation": 1449,
-      "type": "static"
+      "network": "StatIC",
+      "has_trend": false,
+      "has_pressure": true,
+      "has_radiation": false
     }
   },
 

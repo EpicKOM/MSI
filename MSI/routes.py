@@ -9,8 +9,12 @@ from MSI.data_loaders import (
     get_pollution_alerts_data,
     get_weather_alerts_data_status,
     get_pollution_alerts_data_status,
+    get_station_metadata
 )
-from MSI.utils import get_station_class, get_station_template
+from MSI.utils import (
+    get_station_class,
+    get_station_template
+)
 
 
 @app.before_request
@@ -33,8 +37,11 @@ def meteo_live(station_name="saint-ismier"):
     context = {"data_status": data_status}
 
     if not data_status["is_table_empty"]:
-        context.update(current_weather_data=station_class.get_current_weather_data(),
-                       daily_extremes=station_class.get_daily_extremes())
+        context.update(
+            station_data=get_station_metadata(station_name),
+            current_weather_data=station_class.get_current_weather_data(),
+            daily_extremes=station_class.get_daily_extremes()
+        )
 
     return render_template(station_template, **context)
 

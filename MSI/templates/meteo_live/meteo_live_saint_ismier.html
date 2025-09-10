@@ -318,7 +318,7 @@
         </div>
     {% endif %}
     <hr class="text-light">
-    {{ macros.render_meteo_live_page(data_status, current_weather_data) }}
+    {{ macros.render_meteo_live_page(data_status, station_data, current_weather_data, daily_extremes) }}
 {% endblock %}
 
 {% block script %}

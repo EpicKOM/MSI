@@ -8,7 +8,10 @@ class StationSchema(ma.Schema):
     latitude = ma.Float(dump_only=True)
     longitude = ma.Float(dump_only=True)
     elevation = ma.Integer(dump_only=True)
-    type = ma.String(dump_only=True)
+    network = ma.String(dump_only=True)
+    has_trend = ma.Boolean(dump_only=True)
+    has_pressure = ma.Boolean(dump_only=True)
+    has_radiation = ma.Boolean(dump_only=True)
 
 
 # Units Metadata Schema-------------------------------------------------------------------------------------------------
