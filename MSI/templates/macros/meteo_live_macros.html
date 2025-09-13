@@ -1,4 +1,5 @@
-{% macro render_meteo_live_page(data_status, station_data, current_weather_data, daily_extremes) %}
+{% macro render_meteo_live_page(data_status, station_data, current_weather_data, daily_extremes_data) %}
+<!--    Renders the error message if the database is empty-->
     {% if data_status["is_table_empty"] %}
         <div class="container mt-4">
             <h3 class="text-center text-danger">
@@ -11,14 +12,17 @@
             </h3>
         </div>
     {% else %}
+<!--        Renders the main station information badges.-->
         <div class="container mt-4">
             {{ render_station_overview(data_status, station_data, current_weather_data) }}
         </div>
+
+<!--        Renders the weather data cards (temperature, rain, etc.)-->
         <div class="container mt-3">
             <div class="row">
-                {{ render_temperature_card(current_weather_data, station_data["has_trend"], daily_extremes) }}
+                {{ render_temperature_card(current_weather_data, station_data["has_trend"], daily_extremes_data) }}
                 {{ render_rain_card(current_weather_data) }}
-                {{ render_wind_card(current_weather_data, daily_extremes) }}
+                {{ render_wind_card(current_weather_data, daily_extremes_data) }}
                 {{ render_humidity_card(current_weather_data) }}
 
                 {% if station_data["has_pressure"] %}
@@ -27,6 +31,15 @@
                 {% if station_data["has_radiation"] %}
                     {{ render_radiation_card(current_weather_data) }}
                 {% endif %}
+            </div>
+        </div>
+
+<!--        Renders the interactive chart section with its selectors.-->
+        <div class="container mt-3"
+             id="live_charts_container">
+            <div class="row">
+                {{ render_live_chart_canvas() }}
+                {{ render_live_chart_selectors(station_data) }}
             </div>
         </div>
     {% endif %}
@@ -67,12 +80,12 @@
     </div>
 {% endmacro %}
 
-{% macro render_temperature_card(current_weather_data, has_trend, daily_extremes) %}
+{% macro render_temperature_card(current_weather_data, has_trend, daily_extremes_data) %}
     <div class="col-lg">
         <div class="card bg-primary-color weather-card p-3">
             <div class="d-flex align-items-start">
                 <div class="flex-shrink-0">
-                    <div class="p-2 badge-primary bg-secondary-color rounded-4">
+                    <div class="p-2 badge-primary bg-secondary-color msi-border rounded-4">
                         <span class="fa-stack fa-lg fa-fw">
                             <i class="fa-solid fa-temperature-three-quarters fa-stack-1x text-light"></i>
                         </span>
@@ -91,26 +104,25 @@
                             <i class="fa-solid fa-arrow-trend-up text-danger ms-2 ms-xl-1 ms-xxl-2 fs-6"></i>
                         {% endif %}
                     </h5>
-
                 </div>
             </div>
             <div class="d-flex flex-grow-1"></div>
             <div class="d-flex justify-content-between">
                 <div class="text-light"
                      data-mdb-tooltip-init
-                     title="{%- if daily_extremes['tmin_time'] is not none -%}{{ daily_extremes['tmin_time'] }}{% endif %}">
+                     title="{%- if daily_extremes_data['tmin_time'] is not none -%}{{ daily_extremes_data['tmin_time'] }}{% endif %}">
                     <i class="fa-solid fa-arrow-down text-info me-2"></i>
                     <span>
-                        {{ format_weather_value(daily_extremes['tmin']) }} °C
+                        {{ format_weather_value(daily_extremes_data['tmin']) }} °C
                     </span>
                 </div>
 
                 <div class="text-light"
                      data-mdb-tooltip-init
-                     title="{%- if daily_extremes['tmax_time'] is not none -%}{{ daily_extremes['tmax_time'] }}{% endif %}">
+                     title="{%- if daily_extremes_data['tmax_time'] is not none -%}{{ daily_extremes_data['tmax_time'] }}{% endif %}">
                     <i class="fa-solid fa-arrow-up text-danger me-2"></i>
                     <span>
-                        {{ format_weather_value(daily_extremes['tmax']) }} °C
+                        {{ format_weather_value(daily_extremes_data['tmax']) }} °C
                     </span>
                 </div>
             </div>
@@ -123,7 +135,7 @@
         <div class="card bg-primary-color weather-card p-3">
             <div class="d-flex align-items-start">
                 <div class="flex-shrink-0">
-                    <div class="p-2 badge-primary bg-secondary-color rounded-4">
+                    <div class="p-2 badge-primary bg-secondary-color msi-border rounded-4">
                         <span class="fa-stack fa-lg fa-fw">
                             <i class="fa-solid fa-cloud-rain fa-stack-1x text-light"></i>
                             {%- if current_weather_data['rain_1h']|float <= 0 or current_weather_data['rain_1h'] is none -%}
@@ -156,12 +168,12 @@
     </div>
 {% endmacro %}
 
-{% macro render_wind_card(current_weather_data, daily_extremes) %}
+{% macro render_wind_card(current_weather_data, daily_extremes_data) %}
     <div class="col-xl mt-xl-0 mt-3">
         <div class="card bg-primary-color weather-card p-3">
             <div class="d-flex align-items-start">
                 <div class="flex-shrink-0">
-                    <div class="p-2 badge-primary bg-secondary-color rounded-4">
+                    <div class="p-2 badge-primary bg-secondary-color msi-border rounded-4">
                         <span class="fa-stack fa-lg fa-fw">
                             <i class="fa-solid fa-wind fa-stack-1x text-light"></i>
                             {%- if current_weather_data["wind_speed"]|float <= 0 or current_weather_data["wind_speed"] is none -%}
@@ -185,10 +197,10 @@
             <div class="d-flex justify-content-between">
                 <div class="text-light"
                      data-mdb-tooltip-init
-                     title="{%- if daily_extremes['gust_max_time'] is not none -%}{{ daily_extremes['gust_max_time'] }}{% endif %}">
+                     title="{%- if daily_extremes_data['gust_max_time'] is not none -%}{{ daily_extremes_data['gust_max_time'] }}{% endif %}">
                     <i class="fa-solid fa-location-arrow text-danger me-2"></i>
                     <span>
-                        {{ format_weather_value(daily_extremes['gust_max']) }} km/h
+                        {{ format_weather_value(daily_extremes_data['gust_max']) }} km/h
                     </span>
                 </div>
 
@@ -214,7 +226,7 @@
         <div class="card bg-primary-color weather-card p-3">
             <div class="d-flex align-items-start">
                 <div class="flex-shrink-0">
-                    <div class="p-2 badge-primary bg-secondary-color rounded-4">
+                    <div class="p-2 badge-primary bg-secondary-color msi-border rounded-4">
                         <span class="fa-stack fa-lg fa-fw">
                             <i class="fa-solid fa-droplet fa-stack-1x text-light"></i>
                         </span>
@@ -238,7 +250,7 @@
         <div class="card bg-primary-color weather-card p-3">
             <div class="d-flex align-items-start">
                 <div class="flex-shrink-0">
-                    <div class="p-2 badge-primary bg-secondary-color rounded-4">
+                    <div class="p-2 badge-primary bg-secondary-color msi-border rounded-4">
                         <span class="fa-stack fa-lg fa-fw">
                             <i class="fa-solid fa-gauge fa-stack-1x text-light"></i>
                         </span>
@@ -279,6 +291,125 @@
             </div>
         </div>
     </div>
+{% endmacro %}
+
+{% macro render_live_chart_canvas() %}
+    <div class="col-lg-9 mt-lg-0 mt-3 order-2 order-lg-1">
+        <div class="card bg-primary-color p-3 msi-border">
+            <h5 class="card-title text-center text-light"
+                id="liveChartTitle">
+            </h5>
+
+            <canvas id="liveChart"></canvas>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro render_live_chart_selectors(station_data) %}
+<div class="col-lg-3 order-1 order-lg-2">
+    <div class="dropdown custom-dropdown w-100">
+        <button
+            class="btn btn-hover bg-primary-color msi-border text-light dropdown-toggle w-100 d-flex justify-content-between align-items-center"
+            type="button"
+            data-mdb-dropdown-init
+            data-mdb-ripple-init
+            data-mdb-dropdown-animation="off"
+            aria-expanded="false">
+            <span id="chartPeriodSelectorTitle">
+                24h
+            </span>
+            <i class="fa-solid fa-chevron-down fa-sm"></i>
+        </button>
+        <ul class="dropdown-menu bg-primary-color msi-border w-100"
+            aria-labelledby="dropdownMenuButton">
+            <li>
+                <a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item chart-period-selector action-item-disabled"
+                   data-value="1">
+                    24h<i class="fa-solid fa-check text-success"></i>
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item chart-period-selector"
+                   data-value="2">
+                    48h
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item chart-period-selector"
+                   data-value="3">
+                    72h
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item chart-period-selector"
+                   data-value="7">
+                    7 jours
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="card bg-primary-color p-2 msi-border mt-3">
+        <div class="d-flex align-items-center rounded-3 p-3 bg-active-color border-active action-item chart-data-selector action-item-disabled"
+             data-value="temperature">
+            <i class="fa-solid fa-chart-line text-light fa-lg me-3"></i>
+            <h6 class="text-light fw-normal mb-0">
+                Température
+            </h6>
+        </div>
+        <hr class="mt-1 mb-1">
+        <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector"
+             data-value="rain">
+            <i class="fa-solid fa-chart-column text-light fa-lg me-3"></i>
+            <h6 class="text-light fw-normal mb-0">
+                Pluie
+            </h6>
+        </div>
+        <hr class="mt-1 mb-1">
+        <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector"
+             data-value="wind">
+            <i class="fa-solid fa-chart-line text-light fa-lg me-3"></i>
+            <h6 class="text-light fw-normal mb-0">
+                Vent
+            </h6>
+        </div>
+        <hr class="mt-1 mb-1">
+        <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector"
+             data-value="wind_direction">
+            <i class="fa-solid fa-chart-area text-light fa-lg me-3"></i>
+            <h6 class="text-light fw-normal mb-0">
+                Direction du vent
+            </h6>
+        </div>
+        <hr class="mt-1 mb-1">
+        <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector"
+             data-value="humidity">
+            <i class="fa-solid fa-chart-line text-light fa-lg me-3"></i>
+            <h6 class="text-light fw-normal mb-0">
+                Humidité
+            </h6>
+        </div>
+        <hr class="mt-1 mb-1">
+        {% if station_data["has_pressure"] %}
+            <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector"
+                 data-value="pressure">
+                <i class="fa-solid fa-chart-line text-light fa-lg me-3"></i>
+                <h6 class="text-light fw-normal mb-0">
+                    Pression
+                </h6>
+            </div>
+        {% endif %}
+
+        {% if station_data["has_radiation"] %}
+            <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector"
+                 data-value="uv">
+                <i class="fa-solid fa-chart-column text-light fa-lg me-3"></i>
+                <h6 class="text-light fw-normal mb-0">
+                    Radiations
+                </h6>
+            </div>
+        {% endif %}
+    </div>
+</div>
 {% endmacro %}
 
 {% macro format_weather_value(value) %}

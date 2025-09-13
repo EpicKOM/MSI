@@ -97,7 +97,7 @@ class SaintIsmierData(db.Model):
             }
 
     @classmethod
-    def get_daily_extremes(cls) -> Dict[str, Any]:
+    def get_daily_extremes_data(cls) -> Dict[str, Any]:
         """Retrieves the daily extreme temperatures and wind gusts from the saint_ismier_data table."""
         try:
             daily_temperature_extremes = MeteoLiveUtils.get_daily_temperature_extremes(cls)

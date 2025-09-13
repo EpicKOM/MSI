@@ -40,7 +40,7 @@ def meteo_live(station_name="saint-ismier"):
         context.update(
             station_data=get_station_metadata(station_name),
             current_weather_data=station_class.get_current_weather_data(),
-            daily_extremes=station_class.get_daily_extremes()
+            daily_extremes_data=station_class.get_daily_extremes_data()
         )
 
     return render_template(station_template, **context)

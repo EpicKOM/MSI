@@ -79,9 +79,9 @@
                         </div>
                         <div class="d-flex flex-grow-1"></div>
                         <div class="d-flex justify-content-between">
-                            {% if daily_extremes["tmin"] is not none %}
-                                <div class="text-light" data-mdb-tooltip-init title="{{ daily_extremes['tmin_time'] }}">
-                                    <i class="fa-solid fa-arrow-down text-info me-2"></i>{{ daily_extremes['tmin'] }} °C
+                            {% if daily_extremes_data["tmin"] is not none %}
+                                <div class="text-light" data-mdb-tooltip-init title="{{ daily_extremes_data['tmin_time'] }}">
+                                    <i class="fa-solid fa-arrow-down text-info me-2"></i>{{ daily_extremes_data['tmin'] }} °C
                                 </div>
                             {% else %}
                                 <div class="text-light">
@@ -89,9 +89,9 @@
                                 </div>
                             {% endif %}
 
-                            {% if daily_extremes["tmax"] is not none %}
-                                <div class="text-light" data-mdb-tooltip-init title="{{ daily_extremes['tmax_time'] }}">
-                                    <i class="fa-solid fa-arrow-up text-danger me-2"></i>{{ daily_extremes['tmax'] }} °C
+                            {% if daily_extremes_data["tmax"] is not none %}
+                                <div class="text-light" data-mdb-tooltip-init title="{{ daily_extremes_data['tmax_time'] }}">
+                                    <i class="fa-solid fa-arrow-up text-danger me-2"></i>{{ daily_extremes_data['tmax'] }} °C
                                 </div>
                             {% else %}
                                 <div class="text-light">
@@ -161,9 +161,9 @@
                         </div>
                         <div class="d-flex flex-grow-1"></div>
                         <div class="d-flex justify-content-between">
-                            {% if daily_extremes['gust_max'] is not none %}
-                                <div class="text-light" data-mdb-tooltip-init title="{{ daily_extremes['gust_max_time'] }}">
-                                    <i class="fa-solid fa-location-arrow text-danger me-2"></i>{{ daily_extremes['gust_max'] }} km/h
+                            {% if daily_extremes_data['gust_max'] is not none %}
+                                <div class="text-light" data-mdb-tooltip-init title="{{ daily_extremes_data['gust_max_time'] }}">
+                                    <i class="fa-solid fa-location-arrow text-danger me-2"></i>{{ daily_extremes_data['gust_max'] }} km/h
                                 </div>
                             {% else %}
                                 <div class="text-light">
