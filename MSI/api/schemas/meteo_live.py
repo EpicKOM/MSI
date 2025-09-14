@@ -12,6 +12,7 @@ class StationSchema(ma.Schema):
     has_trend = ma.Boolean(dump_only=True)
     has_pressure = ma.Boolean(dump_only=True)
     has_radiation = ma.Boolean(dump_only=True)
+    has_dew_point = ma.Boolean(dump_only=True)
 
 
 # Units Metadata Schema-------------------------------------------------------------------------------------------------

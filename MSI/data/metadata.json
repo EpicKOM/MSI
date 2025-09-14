@@ -8,7 +8,8 @@
       "network": "Amateur",
       "has_trend": true,
       "has_pressure": true,
-      "has_radiation": false
+      "has_radiation": false,
+      "has_dew_point": false
     },
     "saint-martin-d-heres": {
       "city": "Saint-Martin-d'Hères",
@@ -18,7 +19,8 @@
       "network": "StatIC",
       "has_trend": false,
       "has_pressure": false,
-      "has_radiation": true
+      "has_radiation": true,
+      "has_dew_point": true
     },
     "lans-en-vercors": {
       "city": "Lans-en-Vercors",
@@ -28,7 +30,8 @@
       "network": "StatIC",
       "has_trend": false,
       "has_pressure": true,
-      "has_radiation": false
+      "has_radiation": false,
+      "has_dew_point": true
     }
   },
 

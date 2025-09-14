@@ -44,7 +44,7 @@ def get_meteo_live(station_name: str):
 
     if not data_status.get("is_table_empty", True):
         context.update(current_weather_data=station_class.get_current_weather_data(),
-                       daily_extremes=station_class.get_daily_extremes())
+                       daily_extremes=station_class.get_daily_extremes_data())
 
     return context
 

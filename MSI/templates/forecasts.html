@@ -12,10 +12,10 @@
 {% block content %}
     {% if forecasts_is_empty %}
         <div class="container mt-4">
-            <h3 class="text-center text-danger">
+            <h3 class="text-center text-light-red">
                 <span class="fa-stack fa-2x">
                     <i class="fas fa-database fa-stack-1x fa-inverse text-info"></i>
-                    <i class="fas fa-slash fa-stack-1x text-danger"></i>
+                    <i class="fas fa-slash fa-stack-1x text-light-red"></i>
                 </span><br>
                 Aucune prévision n'est actuellement disponible.<br>
                 Veuillez réessayer ultérieurement.
@@ -80,7 +80,7 @@
                                     <h6 class="text-info mb-2 fw-normal">
                                         {{ data["temperature_min"] }} °C
                                     </h6>
-                                    <h6 class="text-danger mb-0 fw-normal">
+                                    <h6 class="text-light-red mb-0 fw-normal">
                                         {{ data["temperature_max"] }} °C
                                     </h6>
                                 </div>
@@ -135,13 +135,13 @@
                                             <th class="text-light fw-bold opacity-75" scope="row">Température :</th>
                                             <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i><span id="temperature_min">{{ today_forecast['temperature_min'] }}</span> <sup><span class="opacity-75">°C</span></sup></td>
                                             <td class="text-light"><span id="temperature_mean">{{ today_forecast['temperature_mean'] }}</span> <sup><span class="opacity-75">°C</span></sup></td>
-                                            <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-danger"></i><span id="temperature_max">{{ today_forecast['temperature_max'] }}</span> <sup><span class="opacity-75">°C</span></sup></td>
+                                            <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-light-red"></i><span id="temperature_max">{{ today_forecast['temperature_max'] }}</span> <sup><span class="opacity-75">°C</span></sup></td>
                                         </tr>
                                         <tr class="bg-active-color">
                                             <th class="text-light fw-bold opacity-75" scope="row">Température ressentie :</th>
                                             <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i><span id="felttemperature_min">{{ today_forecast['felttemperature_min'] }}</span> <sup><span class="opacity-75">°C</span></sup></td>
                                             <td class="text-light"><span id="felttemperature_mean">{{ today_forecast['felttemperature_mean'] }}</span> <sup><span class="opacity-75">°C</span></sup></td>
-                                            <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-danger"></i><span id="felttemperature_max">{{ today_forecast['felttemperature_max'] }}</span> <sup><span class="opacity-75">°C</span></sup></td>
+                                            <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-light-red"></i><span id="felttemperature_max">{{ today_forecast['felttemperature_max'] }}</span> <sup><span class="opacity-75">°C</span></sup></td>
                                         </tr>
                                         <tr>
                                             <th class="text-light fw-bold opacity-75" scope="row">Précipitations :</th>
@@ -187,7 +187,7 @@
                                             <th class="text-light fw-bold opacity-75" scope="row">Vitesse du vent :</th>
                                             <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i><span id="windspeed_min">{{ today_forecast['windspeed_min'] }}</span> <sup><span class="opacity-75">km/h</span></sup></td>
                                             <td class="text-light"><span id="windspeed_mean">{{ today_forecast['windspeed_mean'] }}</span> <sup><span class="opacity-75">km/h</span></sup></td>
-                                            <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-danger"></i><span id="windspeed_max">{{ today_forecast['windspeed_max'] }}</span> <sup><span class="opacity-75">km/h</span></sup></td>
+                                            <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-light-red"></i><span id="windspeed_max">{{ today_forecast['windspeed_max'] }}</span> <sup><span class="opacity-75">km/h</span></sup></td>
                                         </tr>
                                         <tr class="collapsable bg-active-color">
                                             <th class="text-light fw-bold opacity-75" scope="row">Direction du vent :</th>
@@ -203,13 +203,13 @@
                                             <th class="text-light fw-bold opacity-75" scope="row">Pression :</th>
                                             <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i><span id="sealevelpressure_min">{{ today_forecast['sealevelpressure_min'] }}</span> <sup><span class="opacity-75">hPa</span></sup></td>
                                             <td class="text-light"><span id="sealevelpressure_mean">{{ today_forecast['sealevelpressure_mean'] }}</span> <sup><span class="opacity-75">hPa</span></sup></td>
-                                            <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-danger"></i><span id="sealevelpressure_max">{{ today_forecast['sealevelpressure_max'] }}</span> <sup><span class="opacity-75">hPa</span></sup></td>
+                                            <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-light-red"></i><span id="sealevelpressure_max">{{ today_forecast['sealevelpressure_max'] }}</span> <sup><span class="opacity-75">hPa</span></sup></td>
                                         </tr>
                                         <tr class="collapsable bg-active-color">
                                             <th class="text-light fw-bold opacity-75" scope="row">Humidité :</th>
                                             <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i><span id="relativehumidity_min">{{ today_forecast['relativehumidity_min'] }}</span> <sup><span class="opacity-75">%</span></sup></td>
                                             <td class="text-light"><span id="relativehumidity_mean">{{ today_forecast['relativehumidity_mean'] }}</span> <sup><span class="opacity-75">%</span></sup></td>
-                                            <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-danger"></i><span id="relativehumidity_max">{{ today_forecast['relativehumidity_max'] }}</span> <sup><span class="opacity-75">%</span></sup></td>
+                                            <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-light-red"></i><span id="relativehumidity_max">{{ today_forecast['relativehumidity_max'] }}</span> <sup><span class="opacity-75">%</span></sup></td>
                                         </tr>
                                         <tr class="collapsable">
                                             <th class="text-light fw-bold opacity-75" scope="row">Soleil :</th>
