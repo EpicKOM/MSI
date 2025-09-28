@@ -87,4 +87,4 @@ def get_live_charts(data, station_name: str):
     if station_class is None:
         abort(404, description=f"Weather station '{station_name}' not found.")
 
-    return station_class.current_charts_data(data_name, interval_duration)
+    return station_class.get_current_charts_data(data_name, interval_duration)

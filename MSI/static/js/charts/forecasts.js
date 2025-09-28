@@ -1,17 +1,11 @@
 $(document).ready(function() {
-    //------------------TEMPERATURE CHART-----------------------------------------------------------------------------------
-    let dateData = $('#forecastsTemperatureChartValues').attr('values-w').split(',').slice(0, -1);
-    let temperatureMinData = $('#forecastsTemperatureChartValues').attr('values-x').split(',').slice(0, -1).map(Number);
-    let temperatureMeanData = $('#forecastsTemperatureChartValues').attr('values-y').split(',').slice(0, -1).map(Number);
-    let temperatureMaxData = $('#forecastsTemperatureChartValues').attr('values-z').split(',').slice(0, -1).map(Number);
-    let precipitationData = $('#forecastsRainChartValues').attr('values-x').split(',').slice(0, -1).map(Number);
-
+    //------------------TEMPERATURE CHART-------------------------------------------------------------------------------
     // setup
     const temperatureData = {
-        labels: dateData,
+        labels: forecastsChartData.date,
         datasets: [{
             label: 'Temp.min',
-            data: temperatureMinData,
+            data: forecastsChartData.temperature_min,
             borderColor: 'rgba(84, 180, 211, 1)',
             tension: 0,
             borderWidth: 2,
@@ -23,7 +17,7 @@ $(document).ready(function() {
         },
         {
             label: 'Temp.moy',
-            data: temperatureMeanData,
+            data: forecastsChartData.temperature_mean,
             borderColor: 'rgba(29, 233, 182, 1)',
             tension: 0,
             borderWidth: 2,
@@ -35,7 +29,7 @@ $(document).ready(function() {
         },
         {
             label: 'Temp.max',
-            data: temperatureMaxData,
+            data: forecastsChartData.temperature_max,
             borderColor: 'rgba(220, 76, 100, 1)',
             tension: 0,
             borderWidth: 2,
@@ -114,12 +108,13 @@ $(document).ready(function() {
         }
     };
 
+    //------------------RAIN CHART--------------------------------------------------------------------------------------
     // setup
     const rainData = {
-        labels: dateData,
+        labels: forecastsChartData.date,
         datasets: [{
             label: 'Précipitation',
-            data: precipitationData,
+            data: forecastsChartData.precipitation,
             borderColor: 'rgba(74, 171, 237, 1)',
             backgroundColor: 'rgba(74, 171, 237, .2)',
             borderWidth: 2,

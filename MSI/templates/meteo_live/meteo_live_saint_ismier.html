@@ -15,5 +15,8 @@
 
 {% block script %}
     <script src="{{ url_for('static', filename='js/page/meteo_live.js') }}"></script>
+    <script>
+        const initialChartsData = {{ init_charts_data | tojson }};
+    </script>
     <script src="{{ url_for('static', filename='js/charts/saint_ismier_live.js') }}"></script>
 {% endblock %}

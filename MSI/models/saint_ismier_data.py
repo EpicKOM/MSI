@@ -122,7 +122,7 @@ class SaintIsmierData(db.Model):
                 "gust_max_time": None}
 
     @classmethod
-    def current_charts_data(cls, data_name: str, interval_duration: int) -> Dict[str, List[Any]]:
+    def get_current_charts_data(cls, data_name: str, interval_duration: int) -> Dict[str, List[Any]]:
         """
         Retrieves and formats live chart data based on the specified data type and time interval from the
         saint_ismier_data table.

@@ -1,11 +1,10 @@
 //------------------TEMPERATURE CHART-----------------------------------------------------------------------------------
-
 // setup
 const temperatureData = {
-    labels:[],
+    labels: initialChartsData.datetime,
     datasets: [{
         label: 'Température',
-        data:[],
+        data: initialChartsData.temperature,
         borderColor: 'rgba(250, 250, 250, 1)',
         backgroundColor: 'rgba(224, 224, 224, .2)',
         fill: true,
@@ -500,7 +499,7 @@ const pressureConfig = {
 }
 
 // Chart Init
-let liveChart = new Chart(document.getElementById('liveChart'));
+let liveChart;
 let dataName = "temperature";
 let intervalDuration = 1;
 
@@ -534,7 +533,7 @@ $(document).ready(function(){
     });
 
     // Initial AJAX request
-    ajaxRequest(dataName, 1);
+    liveChart = new Chart(document.getElementById('liveChart'), temperatureConfig);
 
     //  Refreshes the charts when the tab becomes active again (ChartJS issue ?)
     document.addEventListener("visibilitychange", event => {

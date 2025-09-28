@@ -14,11 +14,20 @@ class ForecastsSchema(ma.Schema):
     precipitation = ma.Float(dump_only=True)
 
 
+class ForecastsChartDataSchema(ma.Schema):
+    date = ma.List(ma.String(), dump_only=True)
+    temperature_min = ma.List(ma.Integer(), dump_only=True)
+    temperature_mean = ma.List(ma.Integer(), dump_only=True)
+    temperature_max = ma.List(ma.Integer(), dump_only=True)
+    precipitation = ma.List(ma.Float(), dump_only=True)
+
+
 class ForecastsOutputSchema(ma.Schema):
     is_empty = ma.Boolean(dump_only=True)
     update_datetime = ma.String(dump_only=True)
     is_data_fresh = ma.Boolean(dump_only=True)
     forecasts = ma.List(ma.Nested(ForecastsSchema), dump_only=True)
+    forecasts_chart_data = ma.Nested(ForecastsChartDataSchema, dump_only=True)
 
 
 # Daily Forecasts Output Schema-----------------------------------------------------------------------------------------

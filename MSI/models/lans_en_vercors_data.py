@@ -79,7 +79,7 @@ class LansEnVercorsData(db.Model):
                 "extrêmes du jour.")
 
     @classmethod
-    def current_charts_data(cls, data_name, interval_duration) -> Dict[str, List[Any]]:
+    def get_current_charts_data(cls, data_name, interval_duration) -> Dict[str, List[Any]]:
         """
         Retrieves and formats live chart data based on the specified data type and time interval from the
         lans_en_vercors_data table.

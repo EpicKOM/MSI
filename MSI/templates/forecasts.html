@@ -242,13 +242,6 @@
                         <h5 class="card-title text-center text-light">
                             Évolution des températures sur 7 jours (°C)
                         </h5>
-                        <span id="forecastsTemperatureChartValues"
-                            values-w = "{% for value in seven_day_forecasts %}{{ value['date'] }},{% endfor %}"
-                            values-x = "{% for value in seven_day_forecasts %}{{ value['temperature_min'] }},{% endfor %}"
-                            values-y = "{% for value in seven_day_forecasts %}{{ value['temperature_mean'] }},{% endfor %}"
-                            values-z = "{% for value in seven_day_forecasts %}{{ value['temperature_max'] }},{% endfor %}"
-                            style="display: none;">
-                        </span>
                         <canvas id="forecastsTemperatureChart"></canvas>
                     </div>
                 </div>
@@ -258,10 +251,6 @@
                         <h5 class="card-title text-center text-light">
                             Évolution des précipitations sur 7 jours (mm)
                         </h5>
-                        <span id="forecastsRainChartValues"
-                            values-x = "{% for value in seven_day_forecasts %}{{ value['precipitation'] }},{% endfor %}"
-                            style="display: none;">
-                        </span>
                         <canvas id="forecastsRainChart"></canvas>
                     </div>
                 </div>
@@ -271,6 +260,9 @@
 {% endblock %}
 
 {% block script %}
+    <script>
+        const forecastsChartData = {{ forecasts_chart_data | tojson }};
+    </script>
     <script src="{{ url_for('static', filename='js/page/forecasts.js') }}"></script>
     <script src="{{ url_for('static', filename='js/charts/forecasts.js') }}"></script>
 {% endblock %}

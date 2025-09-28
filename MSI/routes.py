@@ -40,7 +40,8 @@ def meteo_live(station_name="saint-ismier"):
         context.update(
             station_data=get_station_metadata(station_name),
             current_weather_data=station_class.get_current_weather_data(),
-            daily_extremes_data=station_class.get_daily_extremes_data()
+            daily_extremes_data=station_class.get_daily_extremes_data(),
+            init_charts_data=station_class.get_current_charts_data("temperature", 1)
         )
 
     return render_template(station_template, **context)
@@ -60,7 +61,8 @@ def forecasts():
         context.update(update_datetime=seven_day_forecasts["update_datetime"],
                        is_data_fresh=seven_day_forecasts["is_data_fresh"],
                        seven_day_forecasts=seven_day_forecasts["forecasts"],
-                       today_forecast=today_forecast)
+                       today_forecast=today_forecast,
+                       forecasts_chart_data=seven_day_forecasts["forecasts_chart_data"])
 
     return render_template("forecasts.html", **context)
 

@@ -41,8 +41,8 @@ class ForecastsApi:
         current_time = datetime.datetime.now()
         update_datetime = datetime.datetime.strptime(data.get("update_datetime"), "%Y-%m-%d %H:%M:%S.%f")
         delta_time = current_time - update_datetime
-        # Mise à jour à 9h le matin → 39h correspont à 00h J+1
-        deadline = datetime.timedelta(hours=39)
+        # Mise à jour à 8h le matin → 40h correspont à 00h J+1
+        deadline = datetime.timedelta(hours=40)
 
         is_data_fresh = delta_time < deadline
 
@@ -85,7 +85,14 @@ class ForecastsApi:
             "is_empty": False,
             "update_datetime": update_datetime.strftime("%d/%m/%Y à %H:%M"),
             "is_data_fresh": is_data_fresh,
-            "forecasts": results
+            "forecasts": results,
+            "forecasts_chart_data": {
+                "date": [forecast['date'] for forecast in results],
+                "temperature_min": [forecast['temperature_min'] for forecast in results],
+                "temperature_mean": [forecast['temperature_mean'] for forecast in results],
+                "temperature_max": [forecast['temperature_max'] for forecast in results],
+                "precipitation": [forecast['precipitation'] for forecast in results]
+            }
         }
 
         return response
