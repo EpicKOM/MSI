@@ -47,6 +47,11 @@ def meteo_live(station_name="saint-ismier"):
     return render_template(station_template, **context)
 
 
+@app.route("/test/")
+def test():
+    return render_template("test.html")
+
+
 @app.route("/previsions/")
 def forecasts():
     seven_day_forecasts = ForecastsApi.get_7_day_forecasts()

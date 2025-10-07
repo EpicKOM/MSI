@@ -633,7 +633,7 @@ function updateLiveCharts(_dataName, _data, _interval_duration)
     (updateFunctions[_dataName] || updateFunctions["default"])();
 
     //Update charts
-    liveChart.update();
+    liveChart.update('show');
 }
 
 function convertSelectResponseToDays(intervalDurationString) {
