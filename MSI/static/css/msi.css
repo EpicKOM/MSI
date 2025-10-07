@@ -125,3 +125,16 @@ footer {
 .hide {
     display: none;
 }
+
+/* --- Effect -------------------------------- */
+
+.zoom-effect {
+    /* Fluidité pour l'animation du bouton (zoom) */
+    transition: transform 0.3s ease;
+    transform: scale(1);
+}
+
+.zoom-effect:hover {
+    /* Le bouton fait son zoom principal (échelle 1.03) */
+    transform: scale(1.02);
+}

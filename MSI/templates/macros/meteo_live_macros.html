@@ -37,11 +37,17 @@
 <!--        Renders the interactive chart section with its selectors.-->
         <div class="container mt-3"
              id="live_charts_container">
-            <div class="row">
-                {{ render_live_chart_canvas() }}
-                {{ render_live_chart_selectors(station_data) }}
+            <div class="col-lg-12 mt-lg-0 mt-3">
+                <div class="card bg-primary-color p-3 msi-border">
+                    <div class="row">
+                        {{ render_live_chart_selectors(station_data) }}
+                        {{ render_live_chart_canvas() }}
+                    </div>
+                </div>
             </div>
         </div>
+
+
     {% endif %}
 {% endmacro %}
 
@@ -304,8 +310,8 @@
 {% endmacro %}
 
 {% macro render_live_chart_canvas() %}
-    <div class="col-lg-9 mt-lg-0 mt-3 order-2 order-lg-1">
-        <div class="card bg-primary-color p-3 msi-border">
+    <div class="col-lg-9 mt-lg-0 mt-3 bg-primary-color">
+        <div class="card bg-primary-color msi-border p-3">
             <h5 class="card-title text-center text-light"
                 id="liveChartTitle">
                 Température sur 24h (°C)
@@ -317,114 +323,116 @@
 {% endmacro %}
 
 {% macro render_live_chart_selectors(station_data) %}
-<div class="col-lg-3 order-1 order-lg-2">
-    <div class="dropdown custom-dropdown w-100">
-        <button
-            class="btn btn-hover bg-primary-color msi-border text-light dropdown-toggle w-100 d-flex justify-content-between align-items-center"
-            type="button"
-            data-mdb-dropdown-init
-            data-mdb-ripple-init
-            data-mdb-dropdown-animation="off"
-            aria-expanded="false">
-            <span id="chartPeriodSelectorTitle">
-                24h
-            </span>
-            <i class="fa-solid fa-chevron-down fa-sm"></i>
-        </button>
-        <ul class="dropdown-menu bg-primary-color msi-border w-100"
-            aria-labelledby="dropdownMenuButton">
-            <li>
-                <a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item chart-period-selector action-item-disabled"
-                   data-value="1">
-                    24h<i class="fa-solid fa-check text-success"></i>
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item chart-period-selector"
-                   data-value="2">
-                    48h
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item chart-period-selector"
-                   data-value="3">
-                    72h
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item chart-period-selector"
-                   data-value="7">
-                    7 jours
-                </a>
-            </li>
-        </ul>
-    </div>
-    <div class="card bg-primary-color p-2 msi-border mt-3">
-        <div class="d-flex align-items-center rounded-3 p-3 bg-active-color border-active action-item chart-data-selector action-item-disabled"
-             data-value="temperature">
+    <div class="col-lg-3">
+        <div class="dropdown custom-dropdown w-100">
+            <button
+                class="btn btn-hover bg-primary-color msi-border text-light dropdown-toggle w-100 d-flex justify-content-between align-items-center"
+                type="button"
+                data-mdb-dropdown-init
+                data-mdb-ripple-init
+                data-mdb-dropdown-animation="off"
+                aria-expanded="false">
+                <span id="chartPeriodSelectorTitle">
+                    24h
+                </span>
+                <i class="fa-solid fa-chevron-down fa-sm"></i>
+            </button>
+            <ul class="dropdown-menu bg-primary-color msi-border w-100"
+                aria-labelledby="dropdownMenuButton">
+                <li>
+                    <a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item chart-period-selector action-item-disabled"
+                       data-value="1">
+                        24h<i class="fa-solid fa-check text-success"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item chart-period-selector"
+                       data-value="2">
+                        48h
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item chart-period-selector"
+                       data-value="3">
+                        72h
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item text-light d-flex justify-content-between align-items-center action-item chart-period-selector"
+                       data-value="7">
+                        7 jours
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="card bg-primary-color p-2 msi-border mt-3">
+            <div class="d-flex align-items-center rounded-3 p-3 bg-active-color border-active action-item chart-data-selector action-item-disabled zoom-effect"
+                 data-value="temperature">
 
-            <div class="badge bg-primary-color p-3 rounded-4 me-3">
-                <i class="fas fa-chart-pie"></i>
-            </div>
-            <h6 class="text-light fw-normal mb-0">
-                Température
-            </h6>
-        </div>
-        <hr class="mt-1 mb-1">
-        <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector"
-             data-value="rain">
-            <i class="fa-solid fa-arrow-right text-light fa-lg me-3"></i>
-            <h6 class="text-light fw-normal mb-0">
-                Pluie
-            </h6>
-        </div>
-        <hr class="mt-1 mb-1">
-        <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector"
-             data-value="wind">
-            <i class="fa-solid fa-arrow-right text-light fa-lg me-3"></i>
-            <h6 class="text-light fw-normal mb-0">
-                Vent
-            </h6>
-        </div>
-        <hr class="mt-1 mb-1">
-        <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector"
-             data-value="wind_direction">
-            <i class="fa-solid fa-arrow-right text-light fa-lg me-3"></i>
-            <h6 class="text-light fw-normal mb-0">
-                Direction du vent
-            </h6>
-        </div>
-        <hr class="mt-1 mb-1">
-        <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector"
-             data-value="humidity">
-            <i class="fa-solid fa-arrow-right text-light fa-lg me-3"></i>
-            <h6 class="text-light fw-normal mb-0">
-                Humidité
-            </h6>
-        </div>
-        <hr class="mt-1 mb-1">
-        {% if station_data["has_pressure"] %}
-            <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector"
-                 data-value="pressure">
-                <i class="fa-solid fa-arrow-right text-light fa-lg me-3"></i>
+
+                <i class="fas fa-temperature-three-quarters text-light fa-lg me-3"></i>
+
                 <h6 class="text-light fw-normal mb-0">
-                    Pression
+                    Température
                 </h6>
             </div>
-        {% endif %}
-
-        {% if station_data["has_radiation"] %}
-            <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector"
-                 data-value="uv">
-                <i class="fa-solid fa-arrow-right text-light fa-lg me-3"></i>
+            <hr class="mt-1 mb-1">
+            <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector zoom-effect"
+                 data-value="rain">
+                <i class="fa-solid fa-cloud-rain text-light fa-lg me-3"></i>
                 <h6 class="text-light fw-normal mb-0">
-                    Radiations
+                    Pluie
                 </h6>
             </div>
-        {% endif %}
+            <hr class="mt-1 mb-1">
+            <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector zoom-effect"
+                 data-value="wind">
+                <i class="fa-solid fa-wind text-light fa-lg me-3"></i>
+                <h6 class="text-light fw-normal mb-0">
+                    Vent
+                </h6>
+            </div>
+            <hr class="mt-1 mb-1">
+            <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector zoom-effect"
+                 data-value="wind_direction">
+                <i class="fa-solid fa-compass text-light fa-lg me-3"></i>
+                <h6 class="text-light fw-normal mb-0">
+                    Direction du vent
+                </h6>
+            </div>
+            <hr class="mt-1 mb-1">
+            <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector zoom-effect"
+                 data-value="humidity">
+                <i class="fa-solid fa-droplet text-light fa-lg me-3"></i>
+                <h6 class="text-light fw-normal mb-0">
+                    Humidité
+                </h6>
+            </div>
+            <hr class="mt-1 mb-1">
+            {% if station_data["has_pressure"] %}
+                <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector zoom-effect"
+                     data-value="pressure">
+                    <i class="fa-solid fa-gauge text-light fa-lg me-3"></i>
+                    <h6 class="text-light fw-normal mb-0">
+                        Pression
+                    </h6>
+                </div>
+            {% endif %}
+
+            {% if station_data["has_radiation"] %}
+                <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector zoom-effect"
+                     data-value="uv">
+                    <i class="fa-solid fa-sun text-light fa-lg me-3"></i>
+                    <h6 class="text-light fw-normal mb-0">
+                        Radiations
+                    </h6>
+                </div>
+            {% endif %}
+        </div>
     </div>
-</div>
 {% endmacro %}
+
+
 
 {% macro format_weather_value(value) %}
     {% if value is not none %}
