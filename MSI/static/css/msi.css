@@ -11,7 +11,7 @@
 .bg-dark-red {background: rgba(44, 15, 20, 1);}
 .text-dark-red {color: rgba(44, 15, 20, 1);}
 .bg-light-red {background: rgba(227, 112, 102, 1);}
-.text-light-red {color: rgba(227, 112, 102, 1);}
+.text-light-red {color: rgba(227, 112, 102, 1) !important;}
 .bg-dew-point-color {background: rgba(41, 247, 255, 1);}
 .text-dew-point-color {color: rgba(41, 247, 255, 1);}
 .bg-amber-color {background: rgba(255, 193, 7, 1) !important;}
