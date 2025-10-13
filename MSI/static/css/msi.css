@@ -132,9 +132,14 @@ footer {
     /* Fluidité pour l'animation du bouton (zoom) */
     transition: transform 0.3s ease;
     transform: scale(1);
+
+    /* === Ajouts pour la netteté === */
+    backface-visibility: hidden;
+    will-change: transform;
+    /* ============================== */
 }
 
 .zoom-effect:hover {
-    /* Le bouton fait son zoom principal (échelle 1.03) */
+    /* Le bouton fait son zoom principal (échelle 1.02) */
     transform: scale(1.02);
 }

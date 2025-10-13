@@ -2,7 +2,7 @@
 
 
 {% block content %}
-    <div class="col-lg-12 mt-lg-0 mt-3 bg-primary-color">
+    <div class="col-lg-9 mt-lg-0 mt-3 bg-primary-color">
         <div class="card bg-primary-color msi-border p-3">
             <h5 class="card-title text-center text-light"
                 id="liveChartTitle">
@@ -10,10 +10,24 @@
             </h5>
 
             <canvas id="myAnimatedChart"></canvas>
+            <button type="button" class="btn btn-primary mt-4" id="ajaxButtonTemperature"
+                data-mdb-ripple-init>Temperature
+            </button>
+
+            <button type="button" class="btn btn-primary mt-4" id="ajaxButtonPression"
+                    data-mdb-ripple-init>Pression
+            </button>
+
+            <button type="button" class="btn btn-primary mt-4" id="ajaxButtonHumidity"
+                data-mdb-ripple-init>Humidité
+            </button>
         </div>
     </div>
 {% endblock %}
 
 {% block script %}
+    <script>
+        const initialChartsData = {{ init_charts_data | tojson }};
+    </script>
     <script src="{{ url_for('static', filename='js/charts/test.js') }}"></script>
 {% endblock %}
