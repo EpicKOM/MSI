@@ -1,5 +1,5 @@
 const totalDuration = 1500;
-const delayBetweenPoints = totalDuration / initialChartsData.temperature.length;
+const delayBetweenPoints = totalDuration / initialChartsData.datetime.length;
 
 // Fonction pour déterminer la position Y précédente (clé pour l'animation)
 const previousY = (ctx) => {
@@ -44,16 +44,32 @@ const progress = {
     }
 };
 
+let delayed
+const delayAnimation = {
+
+      onComplete: () => {
+        console.log("caca");
+        delayed = true;
+      },
+      delay: (context) => {
+        let delay = 0;
+        if (context.type === 'data' && context.mode === 'default' && !delayed) {
+          delay = context.dataIndex * 300 + context.datasetIndex * 100;
+        }
+        return delay;
+      },
+    };
+
+
 
 const smoothUpdateAnimation = {
     y: { duration: 700, easing: 'easeInOutQuad' },
-
 };
 
 //------------------TEMPERATURE CHART-----------------------------------------------------------------------------------
 // setup
 const temperatureData = {
-    labels: initialChartsData.datetime,
+    labels:initialChartsData.datetime,
     datasets: [{
         label: 'Température',
         data: initialChartsData.temperature,
@@ -136,7 +152,6 @@ const temperatureConfig = {
 };
 
 //------------------RAIN CHART------------------------------------------------------------------------------------------
-
 // setup
 const rainData = {
     labels:[],
@@ -149,8 +164,6 @@ const rainData = {
         borderRadius: 4,
     }]
 };
-
-let delayed;
 // config
 const rainConfig = {
     type: 'bar',
@@ -598,6 +611,7 @@ $(document).ready(function(){
     });
 
     // Initial AJAX request
+    console.log(initialChartsData);
     liveChart = new Chart(document.getElementById('liveChart'), temperatureConfig);
 
     //  Refreshes the charts when the tab becomes active again (ChartJS issue ?)
@@ -622,22 +636,34 @@ function ajaxRequest(_dataName, _intervalDuration) {
         {
             // Recup data
             let data = results;
-
-            //update chart config
             liveChart.destroy();
+            //update chart config
+
             let config = getChartConfig(_dataName);
             if (!loadedParameters[dataName]) {
-                config.options.animations = progress; // Choisir la bonne animation en fonction du type de graphe
+
+                if (config.type === 'line') {
+                    config.options.animations = progress; // Choisir la bonne animation en fonction du type de graphe
+                }
+                else if (config.type === 'bar') {
+                    console.log("test");
+                    config.options.animations = delayAnimation;
+                }
+                else {
+                    config.options.animations = smoothUpdateAnimation;
+                }
+
                 loadedParameters[dataName] = true; // Marquer comme "vu"
             }
 
             else {
                 // Si le paramètre a déjà été vu, passer à l'animation Smooth Update
                 config.options.animations = smoothUpdateAnimation;
-
             }
 
             if (config) {
+
+                console.log("Animation sélectionnée:", config.options.animations);
                 liveChart = new Chart(document.getElementById('liveChart'), config);
 
                 // update chart data
