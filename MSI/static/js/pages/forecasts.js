@@ -1,3 +1,13 @@
+import {
+    temperatureConfig,
+    rainConfig
+} from '../charts/configurations/forecasts.js';
+
+import {
+    smoothUpdateAnimation,
+    staggeredAnimation
+} from '../charts/animations.js';
+
 // Initialize the tooltip on document ready
 const tooltipPrecipitationProbability = document.getElementById('precipitation_probability');
 
@@ -40,6 +50,25 @@ $(document).ready(function() {
             });
         }
     })
+
+    //Chart Init
+    console.log(forecastsChartData);
+    let dataLength = forecastsChartData["date"].length;
+
+    temperatureConfig.data.labels = forecastsChartData["date"];
+    temperatureConfig.data.datasets[0].data = forecastsChartData["temperature_min"];
+    temperatureConfig.data.datasets[1].data = forecastsChartData["temperature_mean"];
+    temperatureConfig.data.datasets[2].data = forecastsChartData["temperature_max"];
+    temperatureConfig.options.animations = smoothUpdateAnimation;
+
+    rainConfig.data.labels = forecastsChartData["date"];
+    rainConfig.data.datasets[0].data = forecastsChartData["precipitation"];
+    rainConfig.options.animations = {
+        y: staggeredAnimation(dataLength)
+    };
+
+    const forecastsTemperatureChart = new Chart(document.getElementById('forecastsTemperatureChart'), temperatureConfig);
+    const forecastsRainChart = new Chart(document.getElementById('forecastsRainChart'), rainConfig);
 })
 
 //----------------Ajax request------------------------------------------------------------------------------------------

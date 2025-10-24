@@ -263,6 +263,5 @@
     <script>
         const forecastsChartData = {{ forecasts_chart_data | tojson }};
     </script>
-    <script src="{{ url_for('static', filename='js/page/forecasts.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/charts/forecasts.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/pages/forecasts.js') }}"></script>
 {% endblock %}
