@@ -1,12 +1,11 @@
 import {
+    smoothUpdateAnimation,
+} from '../charts/animations.js';
+
+import {
     temperatureConfig,
     rainConfig
 } from '../charts/configurations/forecasts.js';
-
-import {
-    smoothUpdateAnimation,
-    staggeredAnimation
-} from '../charts/animations.js';
 
 // Initialize the tooltip on document ready
 const tooltipPrecipitationProbability = document.getElementById('precipitation_probability');
@@ -52,7 +51,6 @@ $(document).ready(function() {
     })
 
     //Chart Init
-    console.log(forecastsChartData);
     let dataLength = forecastsChartData["date"].length;
 
     temperatureConfig.data.labels = forecastsChartData["date"];
@@ -63,9 +61,7 @@ $(document).ready(function() {
 
     rainConfig.data.labels = forecastsChartData["date"];
     rainConfig.data.datasets[0].data = forecastsChartData["precipitation"];
-    rainConfig.options.animations = {
-        y: staggeredAnimation(dataLength)
-    };
+    rainConfig.options.animations = smoothUpdateAnimation;
 
     const forecastsTemperatureChart = new Chart(document.getElementById('forecastsTemperatureChart'), temperatureConfig);
     const forecastsRainChart = new Chart(document.getElementById('forecastsRainChart'), rainConfig);

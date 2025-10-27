@@ -44,22 +44,6 @@ export const progressiveLineAnimation = (dataLength) => {
     };
 };
 
-// Configuration de l'objet d'animation pour les barres (staggered)
-export const staggeredAnimation = (dataLength) => {
-    let delayBetweenPoints = TOTAL_ANIMATION_DURATION / dataLength;
-
-    // Retourne l'objet de configuration
-    return {
-        duration: 1500, // Durée totale de l'animation
-        delay: (context) => {
-            if (context.type === 'data' && context.mode === 'default') {
-              return context.dataIndex * delayBetweenPoints;
-            }
-            return 0;
-        },
-    };
-};
-
 export const smoothUpdateAnimation = {
     y: { duration: 700, easing: 'easeInOutQuad' },
 };

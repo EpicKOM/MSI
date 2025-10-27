@@ -1,10 +1,10 @@
 //------------------TEMPERATURE CHART-----------------------------------------------------------------------------------
 // setup
 const temperatureData = {
-    labels:initialChartsData.datetime,
+    labels:[],
     datasets: [{
         label: 'Température',
-        data: initialChartsData.temperature,
+        data: [],
         borderColor: 'rgba(250, 250, 250, 1)',
         backgroundColor: 'rgba(224, 224, 224, .2)',
         fill: true,
@@ -19,11 +19,10 @@ const temperatureData = {
 };
 
 // config
-const temperatureConfig = {
+export const temperatureConfig = {
     type: 'line',
     data: temperatureData,
     options: {
-        animations: progressiveLineAnimation(initialChartsData.datetime.length),
         responsive: true,
         plugins: {
             legend: {
@@ -97,7 +96,7 @@ const rainData = {
     }]
 };
 // config
-const rainConfig = {
+export const rainConfig = {
     type: 'bar',
     data: rainData,
     options: {
@@ -189,7 +188,7 @@ const windData = {
 };
 
 // config
-const windConfig = {
+export const windConfig = {
     type: 'line',
     data: windData,
     options: {
@@ -358,7 +357,7 @@ const humidityData = {
 };
 
 // config
-const humidityConfig = {
+export const humidityConfig = {
     type: 'line',
     data: humidityData,
     options: {
@@ -440,7 +439,7 @@ const pressureData = {
 };
 
 // config
-const pressureConfig = {
+export const pressureConfig = {
     type: 'line',
     data: pressureData,
     options: {
