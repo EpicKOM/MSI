@@ -29,6 +29,7 @@ let loadedParameters =
     "temperature": true,
     "rain": false,
     "wind": false,
+    "wind_direction": false,
     "humidity": false,
     "pressure": false
 };
@@ -38,6 +39,7 @@ const $periodSelectors = $('.chart-period-selector');
 const $dataSelectors = $('.chart-data-selector');
 const $periodTitle = $('#chartPeriodSelectorTitle');
 const $liveChartCanvas = document.getElementById('liveChart');
+const $liveChartTitle = $('#liveChartTitle');
 
 //------------------ FONCTIONS -----------------------------------------------------------------------------------------
 
@@ -87,7 +89,9 @@ function updateDataSelectorUI($clickedElement) {
 
 $(function(){
     // 1. Initialisation du graphique
-    liveChart = initializeChart(CHART_CONFIGS[dataName]);
+    window.requestAnimationFrame(() => {
+        liveChart = initializeChart(CHART_CONFIGS[dataName]);
+    });
 
     // 2. Gestion des événements : Sélecteur de période
     $periodSelectors.on('click', function() {
@@ -142,7 +146,7 @@ function ajaxRequest() {
 
         if (isNewDataName) {
             // Changement radical: on récupère une nouvelle config complète
-            chartConfig = getChartConfig(dataName);
+            chartConfig = CHART_CONFIGS[dataName];
         }
 
         updateChartConfig(chartConfig, data);
@@ -164,6 +168,10 @@ function ajaxRequest() {
         }
 
         loadedParameters[dataName] = true;
+
+        // update chart title
+        let chartTitle = getChartTitle();
+        $liveChartTitle.text(chartTitle);
     })
 
     .fail(function(jqXHR, textStatus, errorThrown) {
@@ -224,30 +232,7 @@ function updateChartConfig(_chartConfig, _data)
     }
 }
 
-function convertSelectResponseToDays(intervalDurationString) {
-    const durations = {
-        "24 heures": 1,
-        "48 heures": 2,
-        "72 heures": 3,
-        "7 jours": 7
-    };
-
-    return durations[intervalDurationString] || 1;
-}
-
-function getChartConfig(_dataName) {
-    const chartConfig = {
-        "temperature": temperatureConfig,
-        "rain": rainConfig,
-        "wind": windConfig,
-        "humidity": humidityConfig,
-        "pressure": pressureConfig,
-    };
-
-    return chartConfig[_dataName] || null;
-}
-
-function getChartTitle(_dataName, _intervalDuration) {
+function getChartTitle() {
     const dataNameTitle = {
         "temperature": "Température",
         "rain": "Pluie",
@@ -273,5 +258,5 @@ function getChartTitle(_dataName, _intervalDuration) {
         7: "7 jours"
     };
 
-    return `${dataNameTitle[_dataName]} sur ${durationsTitle[_intervalDuration]} (${unity[_dataName]})` || "-";
+    return `${dataNameTitle[dataName]} sur ${durationsTitle[intervalDuration]} (${unity[dataName]})` || "-";
 }
