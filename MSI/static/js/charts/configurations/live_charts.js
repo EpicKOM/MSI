@@ -287,7 +287,7 @@ const windDirectionData = {
     }]
 };
 
-const windDirectionConfig = {
+export const windDirectionConfig = {
     type: 'radar',
     data: windDirectionData,
     options: {
@@ -459,6 +459,82 @@ export const pressureConfig = {
                     label: function(context) {
                         if (context.datasetIndex === 0) {
                             return 'Pression : ' + context.parsed.y + ' hPa';
+                        }
+                    }
+                },
+            },
+        },
+        scales: {
+            x:{
+                type: 'time',
+                time: {
+                    unit: 'hour',
+                    tooltipFormat: "dd'/'MM'/'yyyy 'à' HH':'mm",
+                    displayFormats:
+                    {
+                        hour: "HH'h'",
+                    },
+                },
+
+                ticks: {
+                    stepSize: 2,
+                    color: 'rgba(251, 251, 251, .5)',
+                },
+
+                grid: {
+                    color: 'rgba(251, 251, 251, .1)',
+                },
+
+            },
+            y: {
+                grid: {
+                    color: 'rgba(251, 251, 251, .1)',
+                },
+
+                ticks: {
+                    color: 'rgba(251, 251, 251, .5)',
+                },
+            }
+        }
+    }
+}
+
+//------------------UV CHART--------------------------------------------------------------------------------------------
+
+// setup
+const uvData = {
+    labels:[],
+    datasets: [{
+        label: 'Radiations',
+        data:[],
+        borderColor: 'rgba(255, 193, 7, 1)',
+        backgroundColor: 'rgba(230, 81, 0, .2)',
+        borderWidth: 2,
+        borderRadius: 4,
+    }]
+};
+
+// config
+const uvConfig = {
+    type: 'bar',
+    data: uvData,
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+                labels: {
+                    color: 'rgba(251, 251, 251, .6)',
+                },
+            },
+            tooltip: {
+                borderWidth: 1,
+                borderColor: 'rgba(251, 251, 251, .3)',
+                displayColors: false,
+                callbacks:{
+                    label: function(context) {
+                        if (context.datasetIndex === 0) {
+                            return 'Radiations : ' + context.parsed.y + ' W/m²';
                         }
                     }
                 },
