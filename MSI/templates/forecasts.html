@@ -213,14 +213,38 @@
                                         </tr>
                                         <tr class="collapsable">
                                             <th class="text-light fw-bold opacity-75" scope="row">Soleil :</th>
-                                            <td class="text-light"><i class="fa-solid fa-sun me-2 text-amber-color"><sup><span class="opacity-75">&nbsp;&nbsp;<i class="fa-solid fa-caret-up text-light"></i></span></sup></i><span id="sunrise">{{ today_forecast['sunrise'] }}</span></td>
-                                            <td class="text-light"><i class="fa-solid fa-sun me-2 text-amber-color"><sup><span class="opacity-75">&nbsp;&nbsp;<i class="fa-solid fa-caret-down text-light"></i></span></sup></i><span id="sunset">{{ today_forecast['sunset'] }}</span></td>
+                                            <td class="text-light">
+                                                <i class="fa-solid fa-sun text-amber-color"></i>
+                                                <sup class="opacity-75 me-1">
+                                                  <i class="fa-solid fa-caret-up text-light"></i>
+                                                </sup>
+                                                <span id="sunrise">{{ today_forecast['sunrise'] }}</span>
+                                            </td>
+                                            <td class="text-light">
+                                                <i class="fa-solid fa-sun text-amber-color"></i>
+                                                <sup class="opacity-75 me-1">
+                                                  <i class="fa-solid fa-caret-down text-light"></i>
+                                                </sup>
+                                                <span id="sunset">{{ today_forecast['sunset'] }}</span>
+                                            </td>
                                             <td class="text-light"><i class="fa-regular fa-sun me-2 text-amber-color"></i><span id="uvindex">{{ today_forecast['uvindex'] }}</span></td>
                                         </tr>
                                         <tr class="collapsable bg-active-color">
                                             <th class="text-light fw-bold opacity-75" scope="row">Lune :</th>
-                                            <td class="text-light"><i class="fa-solid fa-moon me-2"><sup><span class="opacity-75">&nbsp;&nbsp;<i class="fa-solid fa-caret-up text-light"></i></span></sup></i><span id="moonrise">{{ today_forecast['moonrise'] }}</span></td>
-                                            <td class="text-light"><i class="fa-solid fa-moon me-2"><sup><span class="opacity-75">&nbsp;&nbsp;<i class="fa-solid fa-caret-down text-light"></i></span></sup></i><span id="moonset">{{ today_forecast['moonset'] }}</span></td>
+                                            <td class="text-light">
+                                                <i class="fa-solid fa-moon"></i>
+                                                <sup class="opacity-75 me-1">
+                                                  <i class="fa-solid fa-caret-up text-light"></i>
+                                                </sup>
+                                                <span id="moonrise">{{ today_forecast['moonrise'] }}</span>
+                                            </td>
+                                            <td class="text-light">
+                                                <i class="fa-solid fa-moon"></i>
+                                                <sup class="opacity-75 me-1">
+                                                  <i class="fa-solid fa-caret-down text-light"></i>
+                                                </sup>
+                                                <span id="moonset">{{ today_forecast['moonset'] }}</span>
+                                            </td>
                                             <td class="text-light"><span id="moonphasename">{{ today_forecast['moonphasename'] }}</span></td>
                                         </tr>
                                     </tbody>
