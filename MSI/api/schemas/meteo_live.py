@@ -4,6 +4,7 @@ from marshmallow import validate
 
 # Station Metadata Schema-----------------------------------------------------------------------------------------------
 class StationSchema(ma.Schema):
+    name = ma.String(dump_only=True)
     city = ma.String(dump_only=True)
     latitude = ma.Float(dump_only=True)
     longitude = ma.Float(dump_only=True)

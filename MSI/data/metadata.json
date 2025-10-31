@@ -1,6 +1,7 @@
 {
   "stations": {
     "saint-ismier": {
+      "name": "saint-ismier",
       "city": "Saint-Ismier",
       "latitude": 45.248,
       "longitude": 5.826,
@@ -12,6 +13,7 @@
       "has_dew_point": false
     },
     "saint-martin-d-heres": {
+      "name": "saint-martin-d-heres",
       "city": "Saint-Martin-d'Hères",
       "latitude": 45.167,
       "longitude": 5.767,
@@ -23,6 +25,7 @@
       "has_dew_point": true
     },
     "lans-en-vercors": {
+      "name": "lans-en-vercors",
       "city": "Lans-en-Vercors",
       "latitude": 45.095,
       "longitude": 5.6,

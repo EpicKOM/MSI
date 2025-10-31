@@ -19,7 +19,7 @@ const temperatureData = {
 };
 
 // config
-export const temperatureConfig = {
+const temperatureConfig = {
     type: 'line',
     data: temperatureData,
     options: {
@@ -82,6 +82,101 @@ export const temperatureConfig = {
     }
 };
 
+//------------------TEMPERATURE & DEW POINT CHART-----------------------------------------------------------------------
+// setup
+const temperatureDewPointData = {
+    labels:[],
+    datasets: [{
+        label: 'Température',
+        data:[],
+        borderColor: 'rgba(250, 250, 250, 1)',
+        tension: 0,
+        borderWidth: 2,
+        pointStyle: 'circle',
+        pointBorderColor: 'rgba(0, 0, 0, 0)',
+        pointBackgroundColor: 'rgba(0, 0, 0, 0)',
+        pointHoverBorderColor: 'rgba(250, 250, 250, 1)',
+        pointHoverBackgroundColor: 'rgba(250, 250, 250, 1)',
+    },
+    {
+        label: 'Point de rosée',
+        data: [],
+        borderColor: 'rgba(41, 247, 255, 1)',
+        tension: 0,
+        borderWidth: 2,
+        pointStyle: 'circle',
+        pointBorderColor: 'rgba(0, 0, 0, 0)',
+        pointBackgroundColor: 'rgba(0, 0, 0, 0)',
+        pointHoverBorderColor: 'rgba(41, 247, 255, 1)',
+        pointHoverBackgroundColor: 'rgba(41, 247, 255, 1)',
+    }]
+};
+
+// config
+const temperatureDewPointConfig = {
+    type: 'line',
+    data: temperatureDewPointData,
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+                labels: {
+                    color: 'rgba(251, 251, 251, .6)',
+                },
+            },
+            tooltip: {
+                borderWidth: 1,
+                borderColor: 'rgba(251, 251, 251, .3)',
+                displayColors: false,
+                callbacks:{
+                    label: function(context) {
+                        if (context.datasetIndex === 0) {
+                            return 'Température : ' + context.parsed.y.toFixed(1) + ' °C';
+                        }
+                        else if (context.datasetIndex === 1) {
+                            return 'Point de rosée : ' + context.parsed.y.toFixed(1) + ' °C';
+                        }
+
+                    }
+                },
+            },
+        },
+        scales: {
+            x:{
+                type: 'time',
+                time: {
+                    unit: 'hour',
+                    tooltipFormat: "dd'/'MM'/'yyyy 'à' HH':'mm",
+                    displayFormats:
+                    {
+                        hour: "HH'h'",
+                    },
+                },
+
+                ticks: {
+                    stepSize: 2,
+                    color: 'rgba(251, 251, 251, .5)',
+                },
+
+                grid: {
+                    color: 'rgba(251, 251, 251, .1)',
+                },
+
+            },
+            y: {
+                grid: {
+                    color: 'rgba(251, 251, 251, .1)',
+                },
+
+                ticks: {
+                    color: 'rgba(251, 251, 251, .5)',
+                },
+            }
+        }
+    }
+};
+
 //------------------RAIN CHART------------------------------------------------------------------------------------------
 // setup
 const rainData = {
@@ -96,7 +191,7 @@ const rainData = {
     }]
 };
 // config
-export const rainConfig = {
+const rainConfig = {
     type: 'bar',
     data: rainData,
     options: {
@@ -157,7 +252,6 @@ export const rainConfig = {
 }
 
 //------------------WIND CHART------------------------------------------------------------------------------------------
-
 // setup
 const windData = {
     labels:[],
@@ -188,7 +282,7 @@ const windData = {
 };
 
 // config
-export const windConfig = {
+const windConfig = {
     type: 'line',
     data: windData,
     options: {
@@ -253,7 +347,6 @@ export const windConfig = {
 };
 
 //------------------WIND DIRECTION CHART--------------------------------------------------------------------------------
-
 // setup
 const windDirectionData = {
     labels: ['N',
@@ -287,7 +380,7 @@ const windDirectionData = {
     }]
 };
 
-export const windDirectionConfig = {
+const windDirectionConfig = {
     type: 'radar',
     data: windDirectionData,
     options: {
@@ -336,7 +429,6 @@ export const windDirectionConfig = {
 };
 
 //------------------Humidity CHART-----------------------------------------------------------------------------------
-
 // setup
 const humidityData = {
     labels:[],
@@ -357,7 +449,7 @@ const humidityData = {
 };
 
 // config
-export const humidityConfig = {
+const humidityConfig = {
     type: 'line',
     data: humidityData,
     options: {
@@ -418,7 +510,6 @@ export const humidityConfig = {
 }
 
 //------------------PRESSURE CHART--------------------------------------------------------------------------------------------
-
 // setup
 const pressureData = {
     labels:[],
@@ -439,7 +530,7 @@ const pressureData = {
 };
 
 // config
-export const pressureConfig = {
+const pressureConfig = {
     type: 'line',
     data: pressureData,
     options: {
@@ -500,7 +591,6 @@ export const pressureConfig = {
 }
 
 //------------------UV CHART--------------------------------------------------------------------------------------------
-
 // setup
 const uvData = {
     labels:[],
@@ -574,3 +664,30 @@ const uvConfig = {
         }
     }
 }
+
+export const CHART_CONFIGS_BY_STATION = {
+    "saint-ismier": {
+        "temperature": temperatureConfig,
+        "rain": rainConfig,
+        "wind": windConfig,
+        "wind_direction": windDirectionConfig,
+        "humidity": humidityConfig,
+        "pressure": pressureConfig,
+    },
+    "saint-martin-d-heres": {
+        "temperature": temperatureDewPointConfig,
+        "rain": rainConfig,
+        "wind": windConfig,
+        "wind_direction": windDirectionConfig,
+        "humidity": humidityConfig,
+        "uv": uvConfig,
+    },
+   "lans-en-vercors": {
+        "temperature": temperatureDewPointConfig,
+        "rain": rainConfig,
+        "wind": windConfig,
+        "wind_direction": windDirectionConfig,
+        "humidity": humidityConfig,
+        "pressure": pressureConfig,
+    },
+};

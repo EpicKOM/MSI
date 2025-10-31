@@ -4,47 +4,35 @@ import {
 } from '../charts/animations.js';
 
 import {
-    temperatureConfig,
-    rainConfig,
-    windConfig,
-    windDirectionConfig,
-    humidityConfig,
-    pressureConfig
+    CHART_CONFIGS_BY_STATION
 } from '../charts/configurations/live_charts.js';
 
-const CHART_CONFIGS = {
-    "temperature": temperatureConfig,
-    "rain": rainConfig,
-    "wind": windConfig,
-    "wind_direction": windDirectionConfig,
-    "humidity": humidityConfig,
-    "pressure": pressureConfig,
+const CHART_CONFIGS = CHART_CONFIGS_BY_STATION[stationName];
+
+const DATA_NAME_TITLE = {
+    "temperature": "Température",
+    "rain": "Pluie",
+    "wind": "Vent",
+    "wind_direction": "Rose des vents",
+    "humidity": "Humidité",
+    "pressure": "Pression",
 };
 
-    const DATA_NAME_TITLE = {
-        "temperature": "Température",
-        "rain": "Pluie",
-        "wind": "Vent",
-        "wind_direction": "Rose des vents",
-        "humidity": "Humidité",
-        "pressure": "Pression",
-    };
+const UNITY = {
+    "temperature": "°C",
+    "rain": "mm",
+    "wind": "km/h",
+    "wind_direction": "%",
+    "humidity": "%",
+    "pressure": "hPa",
+};
 
-    const UNITY = {
-        "temperature": "°C",
-        "rain": "mm",
-        "wind": "km/h",
-        "wind_direction": "%",
-        "humidity": "%",
-        "pressure": "hPa",
-    };
-
-    const DURATION_TITLE = {
-        1: "24h",
-        2: "48h",
-        3: "72h",
-        7: "7 jours"
-    };
+const DURATION_TITLE = {
+    1: "24h",
+    2: "48h",
+    3: "72h",
+    7: "7 jours"
+};
 
 // --- Variables d'état ---
 let liveChart;
@@ -83,6 +71,9 @@ function initializeChart(config) {
     const dataLength = initialChartsData["datetime"].length;
     config.data.labels = initialChartsData["datetime"];
     config.data.datasets[0].data = initialChartsData["temperature"];
+    if (config.data.datasets.length > 1) {
+        config.data.datasets[1].data = initialChartsData["dew_point"];
+    }
     config.options.animations = progressiveLineAnimation(dataLength);
 
     return new Chart($liveChartCanvas, config);
@@ -123,7 +114,7 @@ function getChartTitle() {
 function fetchChartData() {
     $.ajax({
         type : 'GET',
-        url : '/api/meteo-live/live-charts/saint-ismier',
+        url : `/api/meteo-live/live-charts/${stationName}`,
         data: {
             'data_name': dataName,  // Paramètres à inclure dans l'URL
             'interval_duration': intervalDuration
@@ -179,6 +170,9 @@ function updateChartConfig(_chartConfig, _data) {
     }
     else {
         _chartConfig.data.datasets[0].data = _data[dataName];
+        if (dataName === "temperature" && _chartConfig.data.datasets.length > 1) {
+            _chartConfig.data.datasets[1].data = _data["dew_point"];
+        }
     }
 
     if (!loadedParameters[dataName] && _chartConfig.type === "line") {
@@ -190,7 +184,7 @@ function updateChartConfig(_chartConfig, _data) {
 }
 
 //------------------ LOGIQUE D'INITIALISATION --------------------------------------------------------------------------
-$(function(){
+$(function() {
     // 1. Initialisation du graphique
     window.requestAnimationFrame(() => {
         liveChart = initializeChart(CHART_CONFIGS[dataName]);

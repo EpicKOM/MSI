@@ -49,8 +49,9 @@ def meteo_live(station_name="saint-ismier"):
 
 @app.route("/test/")
 def test():
-    station_class = get_station_class("saint-ismier")
+    station_class = get_station_class("saint-martin-d-heres")
     return render_template("test.html",
+                           station_data={"name": "saint-martin-d-heres"},
                            init_charts_data=station_class.get_current_charts_data("temperature", 1))
 
 
