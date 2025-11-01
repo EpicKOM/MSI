@@ -311,13 +311,16 @@
 
 {% macro render_live_chart_canvas() %}
     <div class="col-lg-9 mt-lg-0 mt-3 bg-primary-color">
-        <div class="card bg-primary-color msi-border p-3">
+        <div class="card bg-primary-color msi-border p-3"
+            id="liveChartContainer">
             <h5 class="card-title text-center text-light"
                 id="liveChartTitle">
                 Température sur 24h (°C)
             </h5>
-
             <canvas id="liveChart"></canvas>
+        </div>
+        <div class="card bg-primary-color msi-border p-3 text-danger lead d-none align-items-center justify-content-center h-100"
+             id="liveChartErrorMessage">
         </div>
     </div>
 {% endmacro %}

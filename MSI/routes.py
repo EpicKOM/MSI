@@ -13,7 +13,6 @@ from MSI.data_loaders import (
 )
 from MSI.utils import (
     get_station_class,
-    get_station_template
 )
 
 
@@ -31,7 +30,6 @@ def current_year():
 @app.route("/meteo-live/<station_name>/")
 def meteo_live(station_name="saint-ismier"):
     station_class = get_station_class(station_name)
-    station_template = get_station_template(station_name)
 
     data_status = station_class.get_data_status()
     context = {"data_status": data_status}
@@ -44,7 +42,7 @@ def meteo_live(station_name="saint-ismier"):
             init_charts_data=station_class.get_current_charts_data("temperature", 1)
         )
 
-    return render_template(station_template, **context)
+    return render_template("meteo_live.html", **context)
 
 
 @app.route("/test/")

@@ -14,6 +14,9 @@
 {% endblock %}
 
 {% block script %}
-    <script src="{{ url_for('static', filename='js/pages/meteo_live.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/charts/lans_en_vercors_live.js') }}"></script>
+    <script>
+        const initialChartsData = {{ init_charts_data | tojson }};
+        const stationName = "{{ station_data.name }}";
+    </script>
+    <script type="module" src="{{ url_for('static', filename='js/pages/meteo_live.js') }}"></script>
 {% endblock %}
