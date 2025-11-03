@@ -319,8 +319,18 @@
             </h5>
             <canvas id="liveChart"></canvas>
         </div>
-        <div class="card bg-primary-color msi-border p-3 text-danger lead d-none align-items-center justify-content-center h-100"
-             id="liveChartErrorMessage">
+        <div class="d-none card bg-primary-color msi-border p-3 align-items-center justify-content-center h-100"
+             id="liveChartErrorContainer">
+            <p class="text-danger">
+                <i class="fa-solid fa-xmark me-2"></i>Erreur lors de la tentative de récupération des données.
+                Veuillez réessayer plus tard.
+            </p>
+        </div>
+        <div class="d-none align-items-center justify-content-center h-100"
+            id="liveChartSpinnerContainer">
+            <div class="spinner-border text-info me-3" role="status">
+            </div>
+            <div class="text-light">Chargement en cours...</div>
         </div>
     </div>
 {% endmacro %}

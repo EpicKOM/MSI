@@ -57,6 +57,9 @@ const $dataSelectors = $('.chart-data-selector');
 const $periodTitle = $('#chartPeriodSelectorTitle');
 const $liveChartCanvas = document.getElementById('liveChart');
 const $liveChartTitle = $('#liveChartTitle');
+const $liveChartContainer = $('#liveChartContainer');
+const $liveChartErrorContainer = $('#liveChartErrorContainer');
+const $liveChartSpinnerContainer = $('#liveChartSpinnerContainer');
 
 //------------------FONCTIONS UTILITAIRES ------------------------------------------------------------------------------
 /**
@@ -112,13 +115,17 @@ function getChartTitle() {
     return "-";
 }
 
+function toggleWidgetDisplay($widget, isVisible) {
+    isVisible ? $widget.removeClass('d-none').addClass('d-flex') : $widget.removeClass('d-flex').addClass('d-none');
+}
+
 //----------------FONCTIONS PRINCIPALES---------------------------------------------------------------------------------
 function fetchChartData() {
-    $("#liveChartContainer").hide();
-    $('#liveChartErrorMessage')
-    .removeClass('flex')
-    .addClass('d-none')
-    .empty();
+    let showLoaderTimeout = setTimeout(() => {
+        toggleWidgetDisplay($liveChartContainer, false);
+        toggleWidgetDisplay($liveChartErrorContainer, false);
+        toggleWidgetDisplay($liveChartSpinnerContainer, true);
+    }, 300);
 
     $.ajax({
         type : 'GET',
@@ -130,7 +137,9 @@ function fetchChartData() {
     })
 
     .done(function(data) {
-        $("#liveChartContainer").show();
+        toggleWidgetDisplay($liveChartErrorContainer, false);
+        toggleWidgetDisplay($liveChartContainer, true);
+
         const isNewDataName = (currentDataName !== dataName);
 
         if (isNewDataName) {
@@ -159,12 +168,13 @@ function fetchChartData() {
     })
 
     .fail(function(jqXHR, textStatus, errorThrown) {
-        const errorMessage = '<i class="fa-solid fa-xmark me-2"></i>Erreur lors de la tentative de récupération des données. Veuillez réessayer plus tard.';
+        toggleWidgetDisplay($liveChartContainer, false);
+        toggleWidgetDisplay($liveChartErrorContainer, true);
+    })
 
-        $('#liveChartErrorMessage')
-        .html(`<p>${errorMessage}</p>`)
-        .removeClass('d-none')
-        .addClass('d-flex');
+    .always(function(dataOrJqXHR, textStatus, jqXHROrErrorThrown) {
+        clearTimeout(showLoaderTimeout);
+        toggleWidgetDisplay($liveChartSpinnerContainer, false);
     });
 }
 
