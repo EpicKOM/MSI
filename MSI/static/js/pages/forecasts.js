@@ -10,7 +10,16 @@ import {
 // Initialize the tooltip on document ready
 const tooltipPrecipitationProbability = document.getElementById('precipitation_probability');
 
-$(document).ready(function() {
+// --- Mise en cache des sélecteurs DOM ---
+const $forecastsContainer = $('#forecastsContainer');
+const $forecastsErrorContainer = $('#forecastsErrorContainer');
+const $forecastsSpinnerContainer = $('#forecastsSpinnerContainer');
+
+function toggleWidgetDisplay($widget, isVisible) {
+    isVisible ? $widget.removeClass('d-none').addClass('d-flex') : $widget.removeClass('d-flex').addClass('d-none');
+}
+
+$(function() {
     $('#forecasts-unavailable-alert').fadeIn(1000);
 
     $("#forecasts-unavailable-alert-button").click(function(){
@@ -28,7 +37,7 @@ $(document).ready(function() {
 
             let dayNumber = parseInt($(this).data('value'), 10);
 
-            ajaxRequest(dayNumber);
+            fetchForecastsData(dayNumber);
         }
     });
 
@@ -68,110 +77,122 @@ $(document).ready(function() {
 })
 
 //----------------Ajax request------------------------------------------------------------------------------------------
-function ajaxRequest(dayNumber) {
+function fetchForecastsData(dayNumber) {
+    let showLoaderTimeout = setTimeout(() => {
+        toggleWidgetDisplay($forecastsContainer, false);
+        toggleWidgetDisplay($forecastsErrorContainer, false);
+        toggleWidgetDisplay($forecastsSpinnerContainer, true);
+    }, 300);
 
     $.ajax({
         type : 'GET',
-        url : `/api/forecasts/${dayNumber}`,
-
-        success:function(results) {
-            // Forecasts Header
-            $('#pictocode').attr('src', `https://static.meteoblue.com/assets/images/picto/${results['pictocode']}_iday.svg`);
-            $('#dayName').text(results['day_name']);
-            $('#date').text(results['date']);
-
-            let predictabilityLabel = results['predictability_label'];
-
-            $('#predictabilityLabel').text(predictabilityLabel);
-            switch(predictabilityLabel) {
-                case "Très faible":
-                    $('#predictabilityLabel').removeClass().addClass('text-predictability-class-1');
-                    $('#progressPredictabilityBg').removeClass().addClass('progress forecasts-progress bg-predictability-class-1');
-                    $('#progressPredictabilityFg').removeClass().addClass('progress-bar text-dark fw-bold fg-predictability-class-1');
-                    break;
-
-                case "Faible":
-                    $('#predictabilityLabel').removeClass().addClass('text-predictability-class-2');
-                    $('#progressPredictabilityBg').removeClass().addClass('progress forecasts-progress bg-predictability-class-2');
-                    $('#progressPredictabilityFg').removeClass().addClass('progress-bar text-dark fw-bold fg-predictability-class-2');
-                    break;
-
-                case "Moyenne":
-                    $('#predictabilityLabel').removeClass().addClass('text-predictability-class-3');
-                    $('#progressPredictabilityBg').removeClass().addClass('progress forecasts-progress bg-predictability-class-3');
-                    $('#progressPredictabilityFg').removeClass().addClass('progress-bar text-dark fw-bold fg-predictability-class-3');
-                    break;
-
-                case "Élevée":
-                    $('#predictabilityLabel').removeClass().addClass('text-predictability-class-4');
-                    $('#progressPredictabilityBg').removeClass().addClass('progress forecasts-progress bg-predictability-class-4');
-                    $('#progressPredictabilityFg').removeClass().addClass('progress-bar text-dark fw-bold fg-predictability-class-4');
-                    break;
-
-                case "Très élevée":
-                    $('#predictabilityLabel').removeClass().addClass('text-predictability-class-5');
-                    $('#progressPredictabilityBg').removeClass().addClass('progress forecasts-progress bg-predictability-class-5');
-                    $('#progressPredictabilityFg').removeClass().addClass('progress-bar text-dark fw-bold fg-predictability-class-5');
-                    break;
-            }
-
-            $('#progressPredictabilityFg').css('width', `${results['predictability']}%`);
-            $('#progressPredictabilityFg').text(`${results['predictability']}%`);
-
-            // Forecasts Table
-            $('#temperature_min').text(results['temperature_min']);
-            $('#temperature_mean').text(results['temperature_mean']);
-            $('#temperature_max').text(results['temperature_max']);
-            $('#felttemperature_min').text(results['felttemperature_min']);
-            $('#felttemperature_mean').text(results['felttemperature_mean']);
-            $('#felttemperature_max').text(results['felttemperature_max']);
-
-            $('#precipitation').text(results['precipitation']);
-            $('#precipitation_hours').text(results['precipitation_hours']);
-            $('#precipitation_probability').css('width', `${results['precipitation_probability']}%`);
-            $('#precipitation_probability').text("");
-            $('#precipitation_probability').attr('title', `${results['precipitation_probability']}%`);
-            let tooltipInstance = new mdb.Tooltip(tooltipPrecipitationProbability);
-
-            if (results['precipitation_probability'] >= 10) {
-                tooltipInstance.dispose(); // Dispose of the current tooltip instance
-                $('#precipitation_probability').removeAttr('title');
-                $('#precipitation_probability').text(`${results['precipitation_probability']}%`);
-            }
-
-            $('#convective_precipitation').text(results['convective_precipitation']);
-            $('#snow_fraction').text(results['snow_fraction']);
-            $('#rain_fraction').text(results['rain_fraction']);
-
-            $('#windspeed_min').text(results['windspeed_min']);
-            $('#windspeed_mean').text(results['windspeed_mean']);
-            $('#windspeed_max').text(results['windspeed_max']);
-            $('#windDirectionArrow').css('transform', `rotate(${results['wind_angle']}deg)`);
-            $('#wind_direction').text(results['wind_direction']);
-
-            $('#sealevelpressure_min').text(results['sealevelpressure_min']);
-            $('#sealevelpressure_mean').text(results['sealevelpressure_mean']);
-            $('#sealevelpressure_max').text(results['sealevelpressure_max']);
-            $('#relativehumidity_min').text(results['relativehumidity_min']);
-            $('#relativehumidity_mean').text(results['relativehumidity_mean']);
-            $('#relativehumidity_max').text(results['relativehumidity_max']);
-
-            $('#sunrise').text(results['sunrise']);
-            $('#sunset').text(results['sunset']);
-            $('#uvindex').text(results['uvindex']);
-            $('#moonrise').text(results['moonrise']);
-            $('#moonset').text(results['moonset']);
-            $('#moonphasename').text(results['moonphasename']);
-
-            $('#forecasts-message-errors').remove();
-            $("#forecasts-content").show();
-        },
-
-        error:function() {
-
-            $('#forecasts-message-errors').remove();
-            $("#forecasts-content").hide();
-            $("#forecasts-content").before('<p class="text-danger mt-4 text-center lead" id="forecasts-message-errors"><i class="fa-solid fa-xmark me-2"></i>Erreur lors de la tentative de récupération des données. Veuillez réessayer plus tard.</p>');
-        },
+        url : `/api/forecasts/${dayNumber}`
     })
+
+
+    .done(function(results) {
+        toggleWidgetDisplay($forecastsErrorContainer, false);
+        toggleWidgetDisplay($forecastsContainer, true);
+
+        // Forecasts Header
+        $('#pictocode').attr('src', `https://static.meteoblue.com/assets/images/picto/${results['pictocode']}_iday.svg`);
+        $('#dayName').text(results['day_name']);
+        $('#date').text(results['date']);
+
+        let predictabilityLabel = results['predictability_label'];
+
+        $('#predictabilityLabel').text(predictabilityLabel);
+        switch(predictabilityLabel) {
+            case "Très faible":
+                $('#predictabilityLabel').removeClass().addClass('text-predictability-class-1');
+                $('#progressPredictabilityBg').removeClass().addClass('progress forecasts-progress bg-predictability-class-1');
+                $('#progressPredictabilityFg').removeClass().addClass('progress-bar text-dark fw-bold fg-predictability-class-1');
+                break;
+
+            case "Faible":
+                $('#predictabilityLabel').removeClass().addClass('text-predictability-class-2');
+                $('#progressPredictabilityBg').removeClass().addClass('progress forecasts-progress bg-predictability-class-2');
+                $('#progressPredictabilityFg').removeClass().addClass('progress-bar text-dark fw-bold fg-predictability-class-2');
+                break;
+
+            case "Moyenne":
+                $('#predictabilityLabel').removeClass().addClass('text-predictability-class-3');
+                $('#progressPredictabilityBg').removeClass().addClass('progress forecasts-progress bg-predictability-class-3');
+                $('#progressPredictabilityFg').removeClass().addClass('progress-bar text-dark fw-bold fg-predictability-class-3');
+                break;
+
+            case "Élevée":
+                $('#predictabilityLabel').removeClass().addClass('text-predictability-class-4');
+                $('#progressPredictabilityBg').removeClass().addClass('progress forecasts-progress bg-predictability-class-4');
+                $('#progressPredictabilityFg').removeClass().addClass('progress-bar text-dark fw-bold fg-predictability-class-4');
+                break;
+
+            case "Très élevée":
+                $('#predictabilityLabel').removeClass().addClass('text-predictability-class-5');
+                $('#progressPredictabilityBg').removeClass().addClass('progress forecasts-progress bg-predictability-class-5');
+                $('#progressPredictabilityFg').removeClass().addClass('progress-bar text-dark fw-bold fg-predictability-class-5');
+                break;
+        }
+
+        $('#progressPredictabilityFg').css('width', `${results['predictability']}%`);
+        $('#progressPredictabilityFg').text(`${results['predictability']}%`);
+
+        // Forecasts Table
+        $('#temperature_min').text(results['temperature_min']);
+        $('#temperature_mean').text(results['temperature_mean']);
+        $('#temperature_max').text(results['temperature_max']);
+        $('#felttemperature_min').text(results['felttemperature_min']);
+        $('#felttemperature_mean').text(results['felttemperature_mean']);
+        $('#felttemperature_max').text(results['felttemperature_max']);
+
+        $('#precipitation').text(results['precipitation']);
+        $('#precipitation_hours').text(results['precipitation_hours']);
+        $('#precipitation_probability').css('width', `${results['precipitation_probability']}%`);
+        $('#precipitation_probability').text("");
+        $('#precipitation_probability').attr('title', `${results['precipitation_probability']}%`);
+        let tooltipInstance = new mdb.Tooltip(tooltipPrecipitationProbability);
+
+        if (results['precipitation_probability'] >= 10) {
+            tooltipInstance.dispose(); // Dispose of the current tooltip instance
+            $('#precipitation_probability').removeAttr('title');
+            $('#precipitation_probability').text(`${results['precipitation_probability']}%`);
+        }
+
+        $('#convective_precipitation').text(results['convective_precipitation']);
+        $('#snow_fraction').text(results['snow_fraction']);
+        $('#rain_fraction').text(results['rain_fraction']);
+
+        $('#windspeed_min').text(results['windspeed_min']);
+        $('#windspeed_mean').text(results['windspeed_mean']);
+        $('#windspeed_max').text(results['windspeed_max']);
+        $('#windDirectionArrow').css('transform', `rotate(${results['wind_angle']}deg)`);
+        $('#wind_direction').text(results['wind_direction']);
+
+        $('#sealevelpressure_min').text(results['sealevelpressure_min']);
+        $('#sealevelpressure_mean').text(results['sealevelpressure_mean']);
+        $('#sealevelpressure_max').text(results['sealevelpressure_max']);
+        $('#relativehumidity_min').text(results['relativehumidity_min']);
+        $('#relativehumidity_mean').text(results['relativehumidity_mean']);
+        $('#relativehumidity_max').text(results['relativehumidity_max']);
+
+        $('#sunrise').text(results['sunrise']);
+        $('#sunset').text(results['sunset']);
+        $('#uvindex').text(results['uvindex']);
+        $('#moonrise').text(results['moonrise']);
+        $('#moonset').text(results['moonset']);
+        $('#moonphasename').text(results['moonphasename']);
+
+        $('#forecasts-message-errors').remove();
+        $("#forecasts-content").show();
+    })
+
+    .fail(function() {
+        toggleWidgetDisplay($forecastsContainer, false);
+        toggleWidgetDisplay($forecastsErrorContainer, true);
+    })
+
+    .always(function() {
+        clearTimeout(showLoaderTimeout);
+        toggleWidgetDisplay($forecastsSpinnerContainer, false);
+    });
 }

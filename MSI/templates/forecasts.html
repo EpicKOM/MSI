@@ -59,7 +59,7 @@
         <div class="container mt-3">
             <div class="row">
                 <div class="col-lg-4">
-                    <div class="card bg-primary-color msi-border p-2">
+                    <div class="card bg-primary-color msi-border p-3">
                         {% for data in seven_day_forecasts %}
                             {% if data["index"] > 0 %}
                                 <hr class="mt-1 mb-1">
@@ -89,173 +89,186 @@
                     </div>
                 </div>
                 <div class="col-lg-8 mt-lg-0 mt-3">
-                    <div class="card bg-primary-color msi-border p-4">
-                        <div id="forecasts-content">
-                            <div class="row">
-                                <div class="col-md-4 ms-auto me-auto">
-                                    <div class="d-flex align-items-center justify-content-center">
-                                        <div class="flex-shrink-0">
-                                            <img class="img-fluid" alt="weather-icon" style="width: 80px; height: 80px;" id="pictocode" src="https://static.meteoblue.com/assets/images/picto/{{ today_forecast['pictocode'] }}_iday.svg">
-                                        </div>
-                                        <div class="flex-shrink-0 ms-3 justify-content-center">
-                                            <h5 class="text-light mb-2 fw-bold" id="dayName">
-                                                {{ today_forecast['day_name'] }}
-                                            </h5>
-                                            <h6 class="text-light opacity-50 mb-0 fw-normal" id="date">
-                                                {{ today_forecast['date'] }}
-                                            </h6>
-                                        </div>
+                    <div class="card bg-primary-color msi-border p-3"
+                        id="forecastsContainer">
+                        <div class="row">
+                            <div class="col-md-4 ms-auto me-auto">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <div class="flex-shrink-0">
+                                        <img class="img-fluid" alt="weather-icon" style="width: 80px; height: 80px;" id="pictocode" src="https://static.meteoblue.com/assets/images/picto/{{ today_forecast['pictocode'] }}_iday.svg">
                                     </div>
-                                </div>
-                                <div class="col-md-4 d-flex align-items-center ms-auto me-auto mt-md-0 mt-3">
-                                    <div class="flex-grow-1">
-                                        <h6 class="text-light mb-2 opacity-75">
-                                            Prévisibilité : <span class="{{ macros.predictability_text_color(today_forecast['predictability_label']) }}"
-                                                                  id="predictabilityLabel">
-                                            {{ today_forecast['predictability_label'] }}
-                                        </span>
+                                    <div class="flex-shrink-0 ms-3 justify-content-center">
+                                        <h5 class="text-light mb-2 fw-bold" id="dayName">
+                                            {{ today_forecast['day_name'] }}
+                                        </h5>
+                                        <h6 class="text-light opacity-50 mb-0 fw-normal" id="date">
+                                            {{ today_forecast['date'] }}
                                         </h6>
-                                        <div class="progress forecasts-progress {{ macros.predictability_progress_bg_color(today_forecast['predictability_label']) }}" id="progressPredictabilityBg">
-                                            <div class="progress-bar text-dark fw-bold {{ macros.predictability_progress_fg_color(today_forecast['predictability_label']) }}"
-                                                 style="width: {{ today_forecast['predictability'] }}%;"
-                                                 role="progressbar"
-                                                 aria-valuemin="0"
-                                                 aria-valuemax="100"
-                                                 id="progressPredictabilityFg">
-                                                {{ today_forecast['predictability'] }}%
-                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 d-flex align-items-center ms-auto me-auto mt-md-0 mt-3">
+                                <div class="flex-grow-1">
+                                    <h6 class="text-light mb-2 opacity-75">
+                                        Prévisibilité : <span class="{{ macros.predictability_text_color(today_forecast['predictability_label']) }}"
+                                                              id="predictabilityLabel">
+                                        {{ today_forecast['predictability_label'] }}
+                                    </span>
+                                    </h6>
+                                    <div class="progress forecasts-progress {{ macros.predictability_progress_bg_color(today_forecast['predictability_label']) }}" id="progressPredictabilityBg">
+                                        <div class="progress-bar text-dark fw-bold {{ macros.predictability_progress_fg_color(today_forecast['predictability_label']) }}"
+                                             style="width: {{ today_forecast['predictability'] }}%;"
+                                             role="progressbar"
+                                             aria-valuemin="0"
+                                             aria-valuemax="100"
+                                             id="progressPredictabilityFg">
+                                            {{ today_forecast['predictability'] }}%
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="table-outline table-responsive p-2 mt-3">
-                                <table class="table align-middle table-borderless text-nowrap" data-value="true" id="forecasts-table">
-                                    <tbody>
-                                        <tr>
-                                            <th class="text-light fw-bold opacity-75" scope="row">Température :</th>
-                                            <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i><span id="temperature_min">{{ today_forecast['temperature_min'] }}</span> <sup><span class="opacity-75">°C</span></sup></td>
-                                            <td class="text-light"><span id="temperature_mean">{{ today_forecast['temperature_mean'] }}</span> <sup><span class="opacity-75">°C</span></sup></td>
-                                            <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-light-red"></i><span id="temperature_max">{{ today_forecast['temperature_max'] }}</span> <sup><span class="opacity-75">°C</span></sup></td>
-                                        </tr>
-                                        <tr class="bg-active-color">
-                                            <th class="text-light fw-bold opacity-75" scope="row">Température ressentie :</th>
-                                            <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i><span id="felttemperature_min">{{ today_forecast['felttemperature_min'] }}</span> <sup><span class="opacity-75">°C</span></sup></td>
-                                            <td class="text-light"><span id="felttemperature_mean">{{ today_forecast['felttemperature_mean'] }}</span> <sup><span class="opacity-75">°C</span></sup></td>
-                                            <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-light-red"></i><span id="felttemperature_max">{{ today_forecast['felttemperature_max'] }}</span> <sup><span class="opacity-75">°C</span></sup></td>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-light fw-bold opacity-75" scope="row">Précipitations :</th>
-                                            <td class="text-light"><span id="precipitation">{{ today_forecast['precipitation'] }}</span> <sup><span class="opacity-75">mm</span></sup></td>
-                                            <td class="text-light"><i class="fa-solid fa-clock me-2"></i><span id="precipitation_hours">{{ today_forecast['precipitation_hours'] }}</span> <sup><span class="opacity-75">h</span></sup></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr class="bg-active-color">
-                                            <th class="text-light fw-bold opacity-75" scope="row">Pluie convective :</th>
-                                            <td class="text-light"><span id="convective_precipitation">{{ today_forecast['convective_precipitation'] }}</span> <sup><span class="opacity-75">mm</span></sup></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-light fw-bold opacity-75" scope="row">Probabilité de précipitation :</th>
-                                            <td colspan="2">
-                                                {% set precipitation_probability = today_forecast['precipitation_probability'] %}
-                                                <div class="progress forecasts-progress bg-active-color border border-info">
-                                                    <div class="progress-bar bg-info text-dark fw-bold"
-                                                         style="width: {{ today_forecast['precipitation_probability'] }}%;"
-                                                         role="progressbar"
-                                                         aria-valuemin="0"
-                                                         aria-valuemax="100"
-                                                         id="precipitation_probability"
-                                                         data-mdb-tooltip-init
-                                                         title="{{ precipitation_probability }}%"
-                                                    >
-                                                    {% if precipitation_probability >= 10 %}
-                                                        {{ precipitation_probability }}%
-                                                    {% endif %}
-                                                    </div>
+                        </div>
+                        <div class="table-outline table-responsive p-2 mt-3">
+                            <table class="table align-middle table-borderless text-nowrap" data-value="true" id="forecasts-table">
+                                <tbody>
+                                    <tr>
+                                        <th class="text-light fw-bold opacity-75" scope="row">Température :</th>
+                                        <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i><span id="temperature_min">{{ today_forecast['temperature_min'] }}</span> <sup><span class="opacity-75">°C</span></sup></td>
+                                        <td class="text-light"><span id="temperature_mean">{{ today_forecast['temperature_mean'] }}</span> <sup><span class="opacity-75">°C</span></sup></td>
+                                        <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-light-red"></i><span id="temperature_max">{{ today_forecast['temperature_max'] }}</span> <sup><span class="opacity-75">°C</span></sup></td>
+                                    </tr>
+                                    <tr class="bg-active-color">
+                                        <th class="text-light fw-bold opacity-75" scope="row">Température ressentie :</th>
+                                        <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i><span id="felttemperature_min">{{ today_forecast['felttemperature_min'] }}</span> <sup><span class="opacity-75">°C</span></sup></td>
+                                        <td class="text-light"><span id="felttemperature_mean">{{ today_forecast['felttemperature_mean'] }}</span> <sup><span class="opacity-75">°C</span></sup></td>
+                                        <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-light-red"></i><span id="felttemperature_max">{{ today_forecast['felttemperature_max'] }}</span> <sup><span class="opacity-75">°C</span></sup></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-light fw-bold opacity-75" scope="row">Précipitations :</th>
+                                        <td class="text-light"><span id="precipitation">{{ today_forecast['precipitation'] }}</span> <sup><span class="opacity-75">mm</span></sup></td>
+                                        <td class="text-light"><i class="fa-solid fa-clock me-2"></i><span id="precipitation_hours">{{ today_forecast['precipitation_hours'] }}</span> <sup><span class="opacity-75">h</span></sup></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="bg-active-color">
+                                        <th class="text-light fw-bold opacity-75" scope="row">Pluie convective :</th>
+                                        <td class="text-light"><span id="convective_precipitation">{{ today_forecast['convective_precipitation'] }}</span> <sup><span class="opacity-75">mm</span></sup></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-light fw-bold opacity-75" scope="row">Probabilité de précipitation :</th>
+                                        <td colspan="2">
+                                            {% set precipitation_probability = today_forecast['precipitation_probability'] %}
+                                            <div class="progress forecasts-progress bg-active-color border border-info">
+                                                <div class="progress-bar bg-info text-dark fw-bold"
+                                                     style="width: {{ today_forecast['precipitation_probability'] }}%;"
+                                                     role="progressbar"
+                                                     aria-valuemin="0"
+                                                     aria-valuemax="100"
+                                                     id="precipitation_probability"
+                                                     data-mdb-tooltip-init
+                                                     title="{{ precipitation_probability }}%"
+                                                >
+                                                {% if precipitation_probability >= 10 %}
+                                                    {{ precipitation_probability }}%
+                                                {% endif %}
                                                 </div>
-                                            </td>
-                                            <td></td>
-                                        </tr>
-                                        <tr class="bg-active-color">
-                                            <th class="text-light fw-bold opacity-75" scope="row">Fraction de neige :</th>
-                                            <td class="text-light"><i class="fa-solid fa-snowflake me-2"></i><span id="snow_fraction">{{ today_forecast['snow_fraction'] }}</span> <sup><span class="opacity-75">%</span></sup></td>
-                                            <td class="text-light"><i class="fa-solid fa-droplet text-rain-color me-2"></i><span id="rain_fraction">{{ today_forecast['rain_fraction'] }}</span> <sup><span class="opacity-75">%</span></sup></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr class="collapsable">
-                                            <th class="text-light fw-bold opacity-75" scope="row">Vitesse du vent :</th>
-                                            <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i><span id="windspeed_min">{{ today_forecast['windspeed_min'] }}</span> <sup><span class="opacity-75">km/h</span></sup></td>
-                                            <td class="text-light"><span id="windspeed_mean">{{ today_forecast['windspeed_mean'] }}</span> <sup><span class="opacity-75">km/h</span></sup></td>
-                                            <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-light-red"></i><span id="windspeed_max">{{ today_forecast['windspeed_max'] }}</span> <sup><span class="opacity-75">km/h</span></sup></td>
-                                        </tr>
-                                        <tr class="collapsable bg-active-color">
-                                            <th class="text-light fw-bold opacity-75" scope="row">Direction du vent :</th>
-                                            <td class="text-light">
-                                                <i class="fa-solid fa-arrow-up-long me-2"
-                                                   id="windDirectionArrow"
-                                                   style="transform: rotate({{ today_forecast['wind_angle'] }}deg);"></i>
-                                                <span id="wind_direction">{{ today_forecast['wind_direction'] }}</span></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr class="collapsable">
-                                            <th class="text-light fw-bold opacity-75" scope="row">Pression :</th>
-                                            <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i><span id="sealevelpressure_min">{{ today_forecast['sealevelpressure_min'] }}</span> <sup><span class="opacity-75">hPa</span></sup></td>
-                                            <td class="text-light"><span id="sealevelpressure_mean">{{ today_forecast['sealevelpressure_mean'] }}</span> <sup><span class="opacity-75">hPa</span></sup></td>
-                                            <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-light-red"></i><span id="sealevelpressure_max">{{ today_forecast['sealevelpressure_max'] }}</span> <sup><span class="opacity-75">hPa</span></sup></td>
-                                        </tr>
-                                        <tr class="collapsable bg-active-color">
-                                            <th class="text-light fw-bold opacity-75" scope="row">Humidité :</th>
-                                            <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i><span id="relativehumidity_min">{{ today_forecast['relativehumidity_min'] }}</span> <sup><span class="opacity-75">%</span></sup></td>
-                                            <td class="text-light"><span id="relativehumidity_mean">{{ today_forecast['relativehumidity_mean'] }}</span> <sup><span class="opacity-75">%</span></sup></td>
-                                            <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-light-red"></i><span id="relativehumidity_max">{{ today_forecast['relativehumidity_max'] }}</span> <sup><span class="opacity-75">%</span></sup></td>
-                                        </tr>
-                                        <tr class="collapsable">
-                                            <th class="text-light fw-bold opacity-75" scope="row">Soleil :</th>
-                                            <td class="text-light">
-                                                <i class="fa-solid fa-sun text-amber-color"></i>
-                                                <sup class="opacity-75 me-1">
-                                                  <i class="fa-solid fa-caret-up text-light"></i>
-                                                </sup>
-                                                <span id="sunrise">{{ today_forecast['sunrise'] }}</span>
-                                            </td>
-                                            <td class="text-light">
-                                                <i class="fa-solid fa-sun text-amber-color"></i>
-                                                <sup class="opacity-75 me-1">
-                                                  <i class="fa-solid fa-caret-down text-light"></i>
-                                                </sup>
-                                                <span id="sunset">{{ today_forecast['sunset'] }}</span>
-                                            </td>
-                                            <td class="text-light"><i class="fa-regular fa-sun me-2 text-amber-color"></i><span id="uvindex">{{ today_forecast['uvindex'] }}</span></td>
-                                        </tr>
-                                        <tr class="collapsable bg-active-color">
-                                            <th class="text-light fw-bold opacity-75" scope="row">Lune :</th>
-                                            <td class="text-light">
-                                                <i class="fa-solid fa-moon"></i>
-                                                <sup class="opacity-75 me-1">
-                                                  <i class="fa-solid fa-caret-up text-light"></i>
-                                                </sup>
-                                                <span id="moonrise">{{ today_forecast['moonrise'] }}</span>
-                                            </td>
-                                            <td class="text-light">
-                                                <i class="fa-solid fa-moon"></i>
-                                                <sup class="opacity-75 me-1">
-                                                  <i class="fa-solid fa-caret-down text-light"></i>
-                                                </sup>
-                                                <span id="moonset">{{ today_forecast['moonset'] }}</span>
-                                            </td>
-                                            <td class="text-light"><span id="moonphasename">{{ today_forecast['moonphasename'] }}</span></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div class="text-center">
-                                    <button type="button" class="btn btn-floating text-light collapseButton" data-mdb-ripple-init id="collapseButton">
-                                        <i class="fa-solid fa-angles-down" id="collapseButtonIcon"></i>
-                                    </button>
-                                </div>
-
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="bg-active-color">
+                                        <th class="text-light fw-bold opacity-75" scope="row">Fraction de neige :</th>
+                                        <td class="text-light"><i class="fa-solid fa-snowflake me-2"></i><span id="snow_fraction">{{ today_forecast['snow_fraction'] }}</span> <sup><span class="opacity-75">%</span></sup></td>
+                                        <td class="text-light"><i class="fa-solid fa-droplet text-rain-color me-2"></i><span id="rain_fraction">{{ today_forecast['rain_fraction'] }}</span> <sup><span class="opacity-75">%</span></sup></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="collapsable">
+                                        <th class="text-light fw-bold opacity-75" scope="row">Vitesse du vent :</th>
+                                        <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i><span id="windspeed_min">{{ today_forecast['windspeed_min'] }}</span> <sup><span class="opacity-75">km/h</span></sup></td>
+                                        <td class="text-light"><span id="windspeed_mean">{{ today_forecast['windspeed_mean'] }}</span> <sup><span class="opacity-75">km/h</span></sup></td>
+                                        <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-light-red"></i><span id="windspeed_max">{{ today_forecast['windspeed_max'] }}</span> <sup><span class="opacity-75">km/h</span></sup></td>
+                                    </tr>
+                                    <tr class="collapsable bg-active-color">
+                                        <th class="text-light fw-bold opacity-75" scope="row">Direction du vent :</th>
+                                        <td class="text-light">
+                                            <i class="fa-solid fa-arrow-up-long me-2"
+                                               id="windDirectionArrow"
+                                               style="transform: rotate({{ today_forecast['wind_angle'] }}deg);"></i>
+                                            <span id="wind_direction">{{ today_forecast['wind_direction'] }}</span></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="collapsable">
+                                        <th class="text-light fw-bold opacity-75" scope="row">Pression :</th>
+                                        <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i><span id="sealevelpressure_min">{{ today_forecast['sealevelpressure_min'] }}</span> <sup><span class="opacity-75">hPa</span></sup></td>
+                                        <td class="text-light"><span id="sealevelpressure_mean">{{ today_forecast['sealevelpressure_mean'] }}</span> <sup><span class="opacity-75">hPa</span></sup></td>
+                                        <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-light-red"></i><span id="sealevelpressure_max">{{ today_forecast['sealevelpressure_max'] }}</span> <sup><span class="opacity-75">hPa</span></sup></td>
+                                    </tr>
+                                    <tr class="collapsable bg-active-color">
+                                        <th class="text-light fw-bold opacity-75" scope="row">Humidité :</th>
+                                        <td class="text-light"><i class="fa-solid fa-caret-down me-2 text-info"></i><span id="relativehumidity_min">{{ today_forecast['relativehumidity_min'] }}</span> <sup><span class="opacity-75">%</span></sup></td>
+                                        <td class="text-light"><span id="relativehumidity_mean">{{ today_forecast['relativehumidity_mean'] }}</span> <sup><span class="opacity-75">%</span></sup></td>
+                                        <td class="text-light"><i class="fa-solid fa-caret-up me-2 text-light-red"></i><span id="relativehumidity_max">{{ today_forecast['relativehumidity_max'] }}</span> <sup><span class="opacity-75">%</span></sup></td>
+                                    </tr>
+                                    <tr class="collapsable">
+                                        <th class="text-light fw-bold opacity-75" scope="row">Soleil :</th>
+                                        <td class="text-light">
+                                            <i class="fa-solid fa-sun text-amber-color"></i>
+                                            <sup class="opacity-75 me-1">
+                                              <i class="fa-solid fa-caret-up text-light"></i>
+                                            </sup>
+                                            <span id="sunrise">{{ today_forecast['sunrise'] }}</span>
+                                        </td>
+                                        <td class="text-light">
+                                            <i class="fa-solid fa-sun text-amber-color"></i>
+                                            <sup class="opacity-75 me-1">
+                                              <i class="fa-solid fa-caret-down text-light"></i>
+                                            </sup>
+                                            <span id="sunset">{{ today_forecast['sunset'] }}</span>
+                                        </td>
+                                        <td class="text-light"><i class="fa-regular fa-sun me-2 text-amber-color"></i><span id="uvindex">{{ today_forecast['uvindex'] }}</span></td>
+                                    </tr>
+                                    <tr class="collapsable bg-active-color">
+                                        <th class="text-light fw-bold opacity-75" scope="row">Lune :</th>
+                                        <td class="text-light">
+                                            <i class="fa-solid fa-moon"></i>
+                                            <sup class="opacity-75 me-1">
+                                              <i class="fa-solid fa-caret-up text-light"></i>
+                                            </sup>
+                                            <span id="moonrise">{{ today_forecast['moonrise'] }}</span>
+                                        </td>
+                                        <td class="text-light">
+                                            <i class="fa-solid fa-moon"></i>
+                                            <sup class="opacity-75 me-1">
+                                              <i class="fa-solid fa-caret-down text-light"></i>
+                                            </sup>
+                                            <span id="moonset">{{ today_forecast['moonset'] }}</span>
+                                        </td>
+                                        <td class="text-light"><span id="moonphasename">{{ today_forecast['moonphasename'] }}</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <button type="button" class="btn btn-floating text-light collapseButton" data-mdb-ripple-init id="collapseButton">
+                                    <i class="fa-solid fa-angles-down" id="collapseButtonIcon"></i>
+                                </button>
                             </div>
+                        </div>
+                    </div>
+                    <div class="d-none card bg-primary-color msi-border p-3 align-items-center justify-content-center h-100"
+                            id="forecastsErrorContainer">
+                        <p class="text-danger">
+                            <i class="fa-solid fa-xmark me-2"></i>Erreur lors de la tentative de récupération des données.
+                            Veuillez réessayer plus tard.
+                        </p>
+                    </div>
+                    <div class="d-none card bg-primary-color msi-border p-3 align-items-center justify-content-center h-100"
+                        id="forecastsSpinnerContainer">
+                        <div class="d-flex align-items-center">
+                            <div class="spinner-border text-info me-3" role="status">
+                            </div>
+                            <div class="text-light">Chargement en cours...</div>
                         </div>
                     </div>
                 </div>

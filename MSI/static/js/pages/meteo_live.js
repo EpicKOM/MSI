@@ -51,7 +51,7 @@ let loadedParameters =
     "pressure": false
 };
 
-// --- Mise en cache des sélecteurs DOM (Bonne pratique jQuery) ---
+// --- Mise en cache des sélecteurs DOM ---
 const $periodSelectors = $('.chart-period-selector');
 const $dataSelectors = $('.chart-data-selector');
 const $periodTitle = $('#chartPeriodSelectorTitle');
@@ -167,12 +167,12 @@ function fetchChartData() {
         $liveChartTitle.text(chartTitle);
     })
 
-    .fail(function(jqXHR, textStatus, errorThrown) {
+    .fail(function() {
         toggleWidgetDisplay($liveChartContainer, false);
         toggleWidgetDisplay($liveChartErrorContainer, true);
     })
 
-    .always(function(dataOrJqXHR, textStatus, jqXHROrErrorThrown) {
+    .always(function() {
         clearTimeout(showLoaderTimeout);
         toggleWidgetDisplay($liveChartSpinnerContainer, false);
     });
