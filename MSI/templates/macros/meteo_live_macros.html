@@ -309,35 +309,9 @@
     </div>
 {% endmacro %}
 
-{% macro render_live_chart_canvas() %}
-    <div class="col-lg-9 mt-lg-0 mt-3 bg-primary-color">
-        <div class="card bg-primary-color msi-border p-3"
-            id="liveChartContainer">
-            <h5 class="card-title text-center text-light"
-                id="liveChartTitle">
-                Température sur 24h (°C)
-            </h5>
-            <canvas id="liveChart"></canvas>
-        </div>
-        <div class="d-none card bg-primary-color msi-border p-3 align-items-center justify-content-center h-100"
-             id="liveChartErrorContainer">
-            <p class="text-danger">
-                <i class="fa-solid fa-xmark me-2"></i>Erreur lors de la tentative de récupération des données.
-                Veuillez réessayer plus tard.
-            </p>
-        </div>
-        <div class="d-none align-items-center justify-content-center h-100"
-            id="liveChartSpinnerContainer">
-            <div class="spinner-border text-info me-3" role="status">
-            </div>
-            <div class="text-light">Chargement en cours...</div>
-        </div>
-    </div>
-{% endmacro %}
-
 {% macro render_live_chart_selectors(station_data) %}
-    <div class="col-lg-3">
-        <div class="dropdown custom-dropdown w-100">
+    <div class="col-xl-3">
+        <div class="dropdown custom-dropdown">
             <button
                 class="btn btn-hover bg-primary-color msi-border text-light dropdown-toggle w-100 d-flex justify-content-between align-items-center"
                 type="button"
@@ -379,65 +353,109 @@
             </ul>
         </div>
         <div class="card bg-primary-color p-2 msi-border mt-3">
-            <div class="d-flex align-items-center rounded-3 p-3 bg-active-color border-active action-item chart-data-selector action-item-disabled zoom-effect"
-                 data-value="temperature">
-                <i class="fas fa-temperature-three-quarters text-light fa-lg me-3"></i>
-                <h6 class="text-light fw-normal mb-0">
-                    Température
-                </h6>
-            </div>
-            <hr class="mt-1 mb-1">
-            <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector zoom-effect"
-                 data-value="rain">
-                <i class="fa-solid fa-cloud-rain text-light fa-lg me-3"></i>
-                <h6 class="text-light fw-normal mb-0">
-                    Pluie
-                </h6>
-            </div>
-            <hr class="mt-1 mb-1">
-            <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector zoom-effect"
-                 data-value="wind">
-                <i class="fa-solid fa-wind text-light fa-lg me-3"></i>
-                <h6 class="text-light fw-normal mb-0">
-                    Vent
-                </h6>
-            </div>
-            <hr class="mt-1 mb-1">
-            <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector zoom-effect"
-                 data-value="wind_direction">
-                <i class="fa-solid fa-compass text-light fa-lg me-3"></i>
-                <h6 class="text-light fw-normal mb-0">
-                    Direction du vent
-                </h6>
-            </div>
-            <hr class="mt-1 mb-1">
-            <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector zoom-effect"
-                 data-value="humidity">
-                <i class="fa-solid fa-droplet text-light fa-lg me-3"></i>
-                <h6 class="text-light fw-normal mb-0">
-                    Humidité
-                </h6>
-            </div>
-            <hr class="mt-1 mb-1">
-            {% if station_data["has_pressure"] %}
-                <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector zoom-effect"
-                     data-value="pressure">
-                    <i class="fa-solid fa-gauge text-light fa-lg me-3"></i>
-                    <h6 class="text-light fw-normal mb-0">
-                        Pression
-                    </h6>
+            <div class="row">
+                <div class="col-xl-12 col-lg-4 col-sm-6">
+                    <div class="d-flex align-items-center rounded-3 p-3 bg-active-color border-active action-item chart-data-selector action-item-disabled zoom-effect"
+                         data-value="temperature">
+                        <i class="fas fa-temperature-three-quarters text-light fa-lg me-3"></i>
+                        <h6 class="text-light fw-normal mb-0">
+                            Température
+                        </h6>
+                    </div>
+                    <hr class="mt-1 mb-1">
                 </div>
-            {% endif %}
+                <div class="col-xl-12 col-lg-4 col-sm-6">
+                    <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector zoom-effect"
+                         data-value="rain">
+                        <i class="fa-solid fa-cloud-rain text-light fa-lg me-3"></i>
+                        <h6 class="text-light fw-normal mb-0">
+                            Pluie
+                        </h6>
+                    </div>
+                    <hr class="mt-1 mb-1">
+                </div>
+                <div class="col-xl-12 col-lg-4 col-sm-6 mt-sm-3 mt-lg-0">
+                    <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector zoom-effect"
+                         data-value="wind">
+                        <i class="fa-solid fa-wind text-light fa-lg me-3"></i>
+                        <h6 class="text-light fw-normal mb-0">
+                            Vent
+                        </h6>
+                    </div>
+                    <hr class="mt-1 mb-1">
+                </div>
+                <div class="col-xl-12 col-lg-4 col-sm-6 mt-sm-3 mt-xl-0">
+                    <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector zoom-effect"
+                         data-value="wind_direction">
+                        <i class="fa-solid fa-compass text-light fa-lg me-3"></i>
+                        <h6 class="text-light fw-normal mb-0">
+                            Direction du vent
+                        </h6>
+                    </div>
+                    <hr class="mt-1 mb-1">
+                </div>
+                <div class="col-xl-12 col-lg-4 col-sm-6 mt-sm-3 mt-xl-0">
+                    <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector zoom-effect"
+                         data-value="humidity">
+                        <i class="fa-solid fa-droplet text-light fa-lg me-3"></i>
+                        <h6 class="text-light fw-normal mb-0">
+                            Humidité
+                        </h6>
+                    </div>
+                    <hr class="mt-1 mb-1">
+                </div>
+                {% if station_data["has_pressure"] %}
+                    <div class="col-xl-12 col-lg-4 col-sm-6 mt-sm-3 mt-xl-0">
+                        <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector zoom-effect"
+                             data-value="pressure">
+                            <i class="fa-solid fa-gauge text-light fa-lg me-3"></i>
+                            <h6 class="text-light fw-normal mb-0">
+                                Pression
+                            </h6>
+                        </div>
+                        <hr class="mt-1 mb-1 d-none d-sm-block d-xl-none">
+                    </div>
+                {% endif %}
 
-            {% if station_data["has_radiation"] %}
-                <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector zoom-effect"
-                     data-value="uv">
-                    <i class="fa-solid fa-sun text-light fa-lg me-3"></i>
-                    <h6 class="text-light fw-normal mb-0">
-                        Radiations
-                    </h6>
-                </div>
-            {% endif %}
+                {% if station_data["has_radiation"] %}
+                    <div class="col-xl-12 col-lg-4 col-sm-6 mt-sm-3 mt-xl-0">
+                        <div class="d-flex align-items-center rounded-3 p-3 action-item chart-data-selector zoom-effect"
+                             data-value="uv">
+                            <i class="fa-solid fa-sun text-light fa-lg me-3"></i>
+                            <h6 class="text-light fw-normal mb-0">
+                                Radiations
+                            </h6>
+                        </div>
+                        <hr class="mt-1 mb-1 d-none d-sm-block d-xl-none">
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro render_live_chart_canvas() %}
+    <div class="col-xl-9 mt-xl-0 mt-3 bg-primary-color">
+        <div class="card bg-primary-color msi-border p-3"
+            id="liveChartContainer">
+            <h5 class="card-title text-center text-light"
+                id="liveChartTitle">
+                Température sur 24h (°C)
+            </h5>
+            <canvas id="liveChart"></canvas>
+        </div>
+        <div class="d-none card bg-primary-color msi-border p-3 align-items-center justify-content-center h-100"
+             id="liveChartErrorContainer">
+            <p class="text-danger">
+                <i class="fa-solid fa-xmark me-2"></i>Erreur lors de la tentative de récupération des données.
+                Veuillez réessayer plus tard.
+            </p>
+        </div>
+        <div class="d-none align-items-center justify-content-center h-100"
+            id="liveChartSpinnerContainer">
+            <div class="spinner-border text-info me-3" role="status">
+            </div>
+            <div class="text-light">Chargement en cours...</div>
         </div>
     </div>
 {% endmacro %}

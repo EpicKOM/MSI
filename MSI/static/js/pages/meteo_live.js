@@ -252,7 +252,7 @@ $(function() {
     // Refraîchir le graphique lors du retour à l'onglet actif
     document.addEventListener("visibilitychange", () => {
         if (document.visibilityState === "visible") {
-            liveChart.update("show");
+            liveChart.update();
         }
     });
 });
