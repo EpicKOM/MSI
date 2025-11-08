@@ -124,6 +124,13 @@ const temperatureDewPointConfig = {
     type: 'line',
     data: temperatureDewPointData,
     options: {
+        transitions: {
+            resize: {
+                animations: {
+                    y: { duration: 700},
+                }
+            }
+        },
         responsive: true,
         plugins: {
             legend: {
@@ -293,6 +300,13 @@ const windConfig = {
     type: 'line',
     data: windData,
     options: {
+        transitions: {
+            resize: {
+                animations: {
+                    y: { duration: 700},
+                }
+            }
+        },
         responsive: true,
         plugins: {
             legend: {

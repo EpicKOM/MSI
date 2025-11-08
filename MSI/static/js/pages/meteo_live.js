@@ -81,13 +81,6 @@ function initializeChart(config) {
     }
 
     config.options.animations = progressiveLineAnimation(dataLength);
-//    config.options.transitions = {
-//        resize: {
-//            animations: {
-//                y: { duration: 500},
-//            }
-//        },
-//    };
 
     return new Chart($liveChartCanvas, config);
 }
