@@ -69,7 +69,7 @@ const $liveChartSpinnerContainer = $('#liveChartSpinnerContainer');
  */
 function initializeChart(config) {
     if (liveChart) {
-        liveChart.destroy(); // Assure qu'une seule instance est active (robustesse)
+        liveChart.destroy();
     }
 
     // Préparation des données initiales
@@ -79,7 +79,15 @@ function initializeChart(config) {
     if (config.data.datasets.length > 1) {
         config.data.datasets[1].data = initialChartsData["dew_point"];
     }
+
     config.options.animations = progressiveLineAnimation(dataLength);
+//    config.options.transitions = {
+//        resize: {
+//            animations: {
+//                y: { duration: 500},
+//            }
+//        },
+//    };
 
     return new Chart($liveChartCanvas, config);
 }

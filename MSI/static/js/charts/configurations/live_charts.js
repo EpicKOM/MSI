@@ -23,6 +23,13 @@ const temperatureConfig = {
     type: 'line',
     data: temperatureData,
     options: {
+        transitions: {
+            resize: {
+                animations: {
+                    y: { duration: 700},
+                }
+            }
+        },
         responsive: true,
         plugins: {
             legend: {
@@ -453,6 +460,13 @@ const humidityConfig = {
     type: 'line',
     data: humidityData,
     options: {
+        transitions: {
+            resize: {
+                animations: {
+                    y: { duration: 700},
+                }
+            }
+        },
         responsive: true,
         plugins: {
             legend: {
@@ -534,6 +548,13 @@ const pressureConfig = {
     type: 'line',
     data: pressureData,
     options: {
+        transitions: {
+            resize: {
+                animations: {
+                    y: { duration: 700},
+                }
+            }
+        },
         responsive: true,
         plugins: {
             legend: {
