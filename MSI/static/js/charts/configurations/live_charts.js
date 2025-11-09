@@ -717,7 +717,15 @@ export const CHART_CONFIGS_BY_STATION = {
         "humidity": humidityConfig,
         "uv": uvConfig,
     },
-   "lans-en-vercors": {
+    "lans-en-vercors": {
+        "temperature": temperatureDewPointConfig,
+        "rain": rainConfig,
+        "wind": windConfig,
+        "wind_direction": windDirectionConfig,
+        "humidity": humidityConfig,
+        "pressure": pressureConfig,
+    },
+    "saint-pancrasse": {
         "temperature": temperatureDewPointConfig,
         "rain": rainConfig,
         "wind": windConfig,

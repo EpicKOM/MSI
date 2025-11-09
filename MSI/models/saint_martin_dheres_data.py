@@ -43,8 +43,8 @@ class SaintMartinDheresData(db.Model):
                                  "temperature": round(last_record.temperature, 1) if last_record.temperature is not None else None,
                                  "humidity": last_record.humidity if last_record.humidity is not None else None,
                                  "dew_point": round(last_record.dew_point, 1) if last_record.dew_point is not None else None,
-                                 "wind_speed": last_record.wind_speed if last_record.wind_speed is not None else None,
-                                 "gust_speed": last_record.gust_speed if last_record.gust_speed is not None else None,
+                                 "wind_speed": round(last_record.wind_speed, 1) if last_record.wind_speed is not None else None,
+                                 "gust_speed": round(last_record.gust_speed, 1) if last_record.gust_speed is not None else None,
                                  "wind_angle": last_record.wind_angle if last_record.wind_angle is not None else None,
                                  "wind_direction": MeteoLiveUtils.get_wind_direction(
                                      last_record.wind_angle) if last_record.wind_angle is not None else None,

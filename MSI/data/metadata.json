@@ -35,6 +35,18 @@
       "has_pressure": true,
       "has_radiation": false,
       "has_dew_point": true
+    },
+    "saint-pancrasse": {
+      "name": "saint-pancrasse",
+      "city": "Saint-Pancrasse",
+      "latitude": 45.293,
+      "longitude": 5.862,
+      "elevation": 1000,
+      "network": "StatIC",
+      "has_trend": false,
+      "has_pressure": true,
+      "has_radiation": false,
+      "has_dew_point": true
     }
   },
 
@@ -61,6 +73,17 @@
       "wind_angle": "wind angle,deg"
     },
     "lans-en-vercors": {
+      "temperature": "temperature,degC",
+      "humidity": "relative humidity,%",
+      "pressure": "mean sea level pressure,hPa",
+      "dew_point": "dewpoint,degC",
+      "rain_1h": "precipitation over 1h,mm",
+      "rain_24h": "precipitation of the day since midnight,mm",
+      "wind_speed": "mean wind speed,km/h",
+      "gust_speed": "wind gust,km/h",
+      "wind_angle": "wind angle,deg"
+    },
+    "saint-pancrasse": {
       "temperature": "temperature,degC",
       "humidity": "relative humidity,%",
       "pressure": "mean sea level pressure,hPa",

@@ -15,7 +15,7 @@
 
 {% block script %}
     <script>
-        const initialChartsData = {{ init_charts_data | tojson }};
+        const initialChartsData = {{ init_charts_data | default({}) | tojson }};
         const stationName = "{{ station_data.name }}";
     </script>
     <script type="module" src="{{ url_for('static', filename='js/pages/meteo_live.js') }}"></script>

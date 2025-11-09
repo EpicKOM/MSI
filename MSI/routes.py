@@ -32,7 +32,9 @@ def meteo_live(station_name="saint-ismier"):
     station_class = get_station_class(station_name)
 
     data_status = station_class.get_data_status()
-    context = {"data_status": data_status}
+    context = {"data_status": data_status,
+               "init_charts_data": {},
+               "station_data": {"name": station_name}}
 
     if not data_status["is_table_empty"]:
         context.update(

@@ -3,7 +3,7 @@ from MSI.models import MeteoLiveUtils
 from typing import Dict, Any, List
 
 
-class LansEnVercorsData(db.Model):
+class SaintPancrasseData(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date_time = db.Column(db.DateTime, index=True)
     temperature = db.Column(db.Float)
@@ -17,7 +17,7 @@ class LansEnVercorsData(db.Model):
 
     @classmethod
     def get_data_status(cls) -> Dict[str, bool]:
-        """Check if the lans_en_vercors_data table is empty and whether the data is fresh."""
+        """Check if the saint_pancrasse_data table is empty and whether the data is fresh."""
         try:
             is_table_empty = cls.query.first() is None
             data_status = {"is_table_empty": is_table_empty,
@@ -30,12 +30,12 @@ class LansEnVercorsData(db.Model):
 
         except Exception:
             app.logger.exception(
-                "[LansEnVercorsData - get_data_status] - Erreur lors de la récupération du status des données de la table "
-                "lans_en_vercors_data.")
+                "[SaintPancrasseData - get_data_status] - Erreur lors de la récupération du status des données de la table "
+                "saint_pancrasse_data.")
 
     @classmethod
     def get_current_weather_data(cls) -> Dict[str, Any]:
-        """Retrieves and formats the latest weather data from the lans_en_vercors_data table."""
+        """Retrieves and formats the latest weather data from the saint_pancrasse_data table."""
         try:
             last_record = MeteoLiveUtils.get_last_record(cls)
 
@@ -60,11 +60,11 @@ class LansEnVercorsData(db.Model):
 
         except Exception:
             app.logger.exception(
-                "[LansEnVercorsData - current_data] - Erreur lors de la récupération des données actuelles.")
+                "[SaintPancrasseData - current_data] - Erreur lors de la récupération des données actuelles.")
 
     @classmethod
     def get_daily_extremes_data(cls) -> Dict[str, Any]:
-        """Retrieves the daily extreme temperatures and wind gusts from the lans_en_vercors_data table."""
+        """Retrieves the daily extreme temperatures and wind gusts from the saint_pancrasse_data table."""
         try:
             daily_temperature_extremes = MeteoLiveUtils.get_daily_temperature_extremes(cls)
             daily_max_gust = MeteoLiveUtils.get_daily_max_gust(cls)
@@ -75,14 +75,14 @@ class LansEnVercorsData(db.Model):
 
         except Exception:
             app.logger.exception(
-                "[LansEnVercorsData - get_daily_extremes] - Erreur lors de la récupération des températures et des rafales "
+                "[SaintPancrasseData - get_daily_extremes] - Erreur lors de la récupération des températures et des rafales "
                 "extrêmes du jour.")
 
     @classmethod
     def get_current_charts_data(cls, data_name, interval_duration) -> Dict[str, List[Any]]:
         """
         Retrieves and formats live chart data based on the specified data type and time interval from the
-        lans_en_vercors_data table.
+        saint_pancrasse_data table.
         """
         try:
             column_mapping = {
@@ -101,4 +101,4 @@ class LansEnVercorsData(db.Model):
 
         except Exception:
             app.logger.exception(
-                "[LansEnVercorsData - current_charts_data] - Erreur lors de la récupération des données pour les graphiques.")
+                "[SaintPancrasseData - current_charts_data] - Erreur lors de la récupération des données pour les graphiques.")
