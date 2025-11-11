@@ -47,14 +47,6 @@ def meteo_live(station_name="saint-ismier"):
     return render_template("meteo_live.html", **context)
 
 
-@app.route("/test/")
-def test():
-    station_class = get_station_class("saint-martin-d-heres")
-    return render_template("test.html",
-                           station_data={"name": "saint-martin-d-heres"},
-                           init_charts_data=station_class.get_current_charts_data("temperature", 1))
-
-
 @app.route("/previsions/")
 def forecasts():
     seven_day_forecasts = ForecastsApi.get_7_day_forecasts()
