@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/webcams.css') }}">
+{% endblock css %}
+
+{% block webcams_active %}
+    active
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="card bg-primary-color p-3 msi-border">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="rounded"
+                        id="map">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="rounded bg-danger"
+                        id=""
+                        style="width: 100%;height: 100vh;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script type="module" src="{{ url_for('static', filename='js/pages/webcams.js') }}"></script>
+{% endblock %}

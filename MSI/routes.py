@@ -79,7 +79,7 @@ def observations():
     pollution_alerts_tomorrow = pollution_alerts[1]
     is_pollution_alerts_data_fresh = get_pollution_alerts_data_status()
 
-    return render_template('observations.html',
+    return render_template("observations.html",
                            weather_alerts_today=weather_alerts_today,
                            weather_alerts_tomorrow=weather_alerts_tomorrow,
                            is_weather_alerts_data_fresh=is_weather_alerts_data_fresh,
@@ -88,6 +88,11 @@ def observations():
                            is_pollution_alerts_data_fresh=is_pollution_alerts_data_fresh)
 
 
+@app.route("/webcams/")
+def webcams():
+    return render_template("webcams.html")
+
+
 @app.route("/mentions-legales/")
 def legal_notice():
-    return render_template('legal_notice.html')
+    return render_template("legal_notice.html")
