@@ -132,7 +132,6 @@ hr {
 }
 
 /* --- Effect -------------------------------- */
-
 .zoom-effect {
     /* Fluidité pour l'animation du bouton (zoom) */
     transition: transform 0.3s ease;
@@ -147,4 +146,8 @@ hr {
 .zoom-effect:hover {
     /* Le bouton fait son zoom principal (échelle 1.02) */
     transform: scale(1.02);
+}
+
+.zoom-effect.zoom-large:hover {
+    transform: scale(1.06);
 }

@@ -14,7 +14,6 @@ const bounds = L.latLngBounds(
     [45.5, 6.1]   // Coin nord-est [lat, lng]
 );
 
-
 document.addEventListener('DOMContentLoaded', () => {
     const createTileLayer = (url, attribution = '') =>
         L.tileLayer(url, {
@@ -38,8 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
         center: [geographicCoordinate.lat, geographicCoordinate.lng],
         zoom: MAP_CONFIG.zoomLevel,
         layers: [layers.esri],
-        maxBounds: bounds,              // Limite la zone de navigation
-        maxBoundsViscosity: 1.0
+//        maxBounds: bounds,              // Limite la zone de navigation
+//        maxBoundsViscosity: 1.0
     });
 
     L.control.layers({
@@ -47,8 +46,42 @@ document.addEventListener('DOMContentLoaded', () => {
         "Carte": layers.osm
     }).addTo(map);
 
-
-
     var marker = L.marker([geographicCoordinate.lat, geographicCoordinate.lng]).addTo(map);
-    marker.bindPopup("<h3>Hello World</h3>");
+    var html = `
+    <div class="card bg-primary-color">
+        <div class="p-2">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 text-light">Col de Porte - "La Prairie"</h5>
+                <button type="button" class="btn btn-floating text-light popup-close zoom-effect zoom-large">
+                    <i class="fas fa-xmark fa-lg"></i>
+                </button>
+            </div>
+            <div>
+                <span class="text-light" style="font-size: 12px;">
+                    <i class="fas fa-mountain fa-lg me-1"></i>1326 m
+                </span>
+                <span class="me-1 ms-1 text-light">|</span>
+                <span class="badge rounded-pill p-2 bg-active-color border-active" style="font-size: 12px;">
+                    Montagne
+                </span>
+            </div>
+        </div>
+        <iframe class="rounded"
+            src="https://www.skaping.com/col-de-porte/ski-alpin"
+            style="width: 100%; min-height: 270px;"></iframe>
+    </div>
+    `;
+
+    marker.bindPopup(html, {
+        className: 'myCustomPopup',
+        minWidth: 600,
+        maxWidth: 600
+    });
+
+    marker.bindTooltip("Hello world", {
+        permanent: false,     // tooltip seulement au survol
+        direction: "top",     // position
+        opacity: 0.9,
+        className: "myTooltip"  // pour ton CSS perso
+    });
 });

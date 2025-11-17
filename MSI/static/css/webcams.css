@@ -1,4 +1,38 @@
 #map {
     width: 100%;
-    height: 60vh;
+    height: 80vh;
+}
+
+.popup-close {
+    border: 2px solid rgba(84, 180, 211, 1);
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.popup-close:hover {
+    border: 2px solid rgba(84, 180, 211, 1);
+    background-color: rgba(80, 180, 211, 0.2);
+}
+
+/* ENCADREMENT Leaflet : Ne touche qu'à ta popup */
+.leaflet-popup.myCustomPopup .leaflet-popup-content-wrapper {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+/* Retirer la pointe */
+.leaflet-popup.myCustomPopup .leaflet-popup-tip {
+    display: none !important;
+}
+
+/* Contenu interne */
+.leaflet-popup.myCustomPopup .leaflet-popup-content {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* cache la croix de fermeture native Leaflet (optionnel si tu veux la remplacer) */
+.leaflet-popup-close-button {
+  display: none !important;
 }
