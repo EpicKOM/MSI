@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="p-2">
             <div class="d-flex justify-content-between align-items-center">
                 <h5 class="mb-0 text-light">Col de Porte - "La Prairie"</h5>
-                <button type="button" class="btn btn-floating text-light popup-close zoom-effect zoom-large">
+                <button type="button" class="btn btn-floating text-light popup-close zoom-effect zoom-large" data-mdb-ripple-init>
                     <i class="fas fa-xmark fa-lg"></i>
                 </button>
             </div>
@@ -77,6 +77,15 @@ document.addEventListener('DOMContentLoaded', () => {
         minWidth: 600,
         maxWidth: 600
     });
+    marker.on('popupopen', function (e) {
+    const btn = document.querySelector('.popup-close');
+    if (btn) {
+        btn.addEventListener('click', function () {
+            marker.closePopup();
+        });
+    }
+});
+
 
     marker.bindTooltip("Hello world", {
         permanent: false,     // tooltip seulement au survol

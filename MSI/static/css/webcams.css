@@ -4,13 +4,13 @@
 }
 
 .popup-close {
-    border: 2px solid rgba(84, 180, 211, 1);
-    background-color: rgba(0, 0, 0, 0);
+    border: 2px solid rgba(84, 180, 211, 1) !important;
+    background-color: rgba(0, 0, 0, 0) !important;
 }
 
 .popup-close:hover {
-    border: 2px solid rgba(84, 180, 211, 1);
-    background-color: rgba(80, 180, 211, 0.2);
+    border: 2px solid rgba(84, 180, 211, 1) !important;
+    background-color: rgba(80, 180, 211, 0.2) !important;
 }
 
 /* ENCADREMENT Leaflet : Ne touche qu'à ta popup */
