@@ -1,12 +1,34 @@
 [
   {
-    "name": "Col de Porte - \"La Prairie\"",
+    "name": "Col de Porte - Ski alpin",
     "geographicCoordinate": {
       "lat": 45.294330,
       "lng": 5.764530
     },
     "elevation": 1326,
     "url": "https://www.skaping.com/col-de-porte/ski-alpin",
+    "type": ["montagne", "ski"]
+  },
+
+  {
+    "name": "Les 7 Laux - Pipay - Grand Cerf",
+    "geographicCoordinate": {
+      "lat": 45.257087,
+      "lng": 6.030592
+    },
+    "elevation": 2114,
+    "url": "https://www.skaping.com/les7laux/pipay/grand-cerf",
+    "type": ["montagne", "ski"]
+  },
+
+  {
+    "name": "Chamrousse - La Croix",
+    "geographicCoordinate": {
+      "lat": 45.125662,
+      "lng": 5.903979
+    },
+    "elevation": 2250,
+    "url": "https://www.skaping.com/chamrousse/la-croix",
     "type": ["montagne", "ski"]
   }
 ]

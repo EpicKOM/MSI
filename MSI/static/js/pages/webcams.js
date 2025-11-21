@@ -68,7 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         <iframe class="rounded"
             src="https://www.skaping.com/col-de-porte/ski-alpin"
-            style="width: 100%; min-height: 270px;"></iframe>
+            style="width: 100%; min-height: 270px;">
+        </iframe>
     </div>
     `;
 

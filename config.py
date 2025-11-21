@@ -20,6 +20,7 @@ class Config:
     JSON_MOUNTAIN_WEATHER_PATH = os.path.join(basedir, os.getenv('JSON_MOUNTAIN_WEATHER_PATH'))
     JSON_WEATHER_ALERTS_PATH = os.path.join(basedir, os.getenv('JSON_WEATHER_ALERTS_PATH'))
     JSON_POLLUTION_ALERTS_PATH = os.path.join(basedir, os.getenv('JSON_POLLUTION_ALERTS_PATH'))
+    JSON_WEBCAMS_PATH = os.path.join(basedir, os.getenv('JSON_WEBCAMS_PATH'))
 
     # Logger
     PAPERTRAIL_HOST = os.getenv('PAPERTRAIL_HOST')

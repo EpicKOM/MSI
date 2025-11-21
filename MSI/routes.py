@@ -9,7 +9,8 @@ from MSI.data_loaders import (
     get_pollution_alerts_data,
     get_weather_alerts_data_status,
     get_pollution_alerts_data_status,
-    get_station_metadata
+    get_station_metadata,
+    get_webcams
 )
 from MSI.utils import (
     get_station_class,
@@ -90,7 +91,10 @@ def observations():
 
 @app.route("/webcams/")
 def webcams():
-    return render_template("webcams.html")
+    webcams = get_webcams()
+    print(webcams)
+    return render_template("webcams.html",
+                           webcams=webcams)
 
 
 @app.route("/mentions-legales/")
