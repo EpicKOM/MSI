@@ -1,6 +1,6 @@
 [
   {
-    "name": "Col de Porte - Ski alpin",
+    "title": "Col de Porte - Ski alpin",
     "geographicCoordinate": {
       "lat": 45.294330,
       "lng": 5.764530
@@ -11,7 +11,7 @@
   },
 
   {
-    "name": "Les 7 Laux - Pipay - Grand Cerf",
+    "title": "Les 7 Laux - Pipay - Grand Cerf",
     "geographicCoordinate": {
       "lat": 45.257087,
       "lng": 6.030592
@@ -22,7 +22,7 @@
   },
 
   {
-    "name": "Chamrousse - La Croix",
+    "title": "Chamrousse - La Croix",
     "geographicCoordinate": {
       "lat": 45.125662,
       "lng": 5.903979

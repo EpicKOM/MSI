@@ -19,5 +19,8 @@
 {% endblock %}
 
 {% block script %}
+    <script>
+        const webcams = {{ webcams | default({}) | tojson }};
+    </script>
     <script type="module" src="{{ url_for('static', filename='js/pages/webcams.js') }}"></script>
 {% endblock %}

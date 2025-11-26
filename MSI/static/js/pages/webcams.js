@@ -15,13 +15,6 @@ const bounds = L.latLngBounds(
 );
 
 document.addEventListener('DOMContentLoaded', () => {
-    const createTileLayer = (url, attribution = '') =>
-        L.tileLayer(url, {
-            maxZoom: MAP_CONFIG.maxZoom,
-            minZoom: MAP_CONFIG.minZoom,
-            attribution
-        });
-
     const layers = {
         esri: createTileLayer(
             'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
@@ -46,52 +39,82 @@ document.addEventListener('DOMContentLoaded', () => {
         "Carte": layers.osm
     }).addTo(map);
 
-    var marker = L.marker([geographicCoordinate.lat, geographicCoordinate.lng]).addTo(map);
-    var html = `
-    <div class="card bg-primary-color">
-        <div class="p-2">
-            <div class="d-flex justify-content-between align-items-center">
-                <h5 class="mb-0 text-light">Col de Porte - "La Prairie"</h5>
-                <button type="button" class="btn btn-floating text-light popup-close zoom-effect zoom-large" data-mdb-ripple-init>
-                    <i class="fas fa-xmark fa-lg"></i>
-                </button>
-            </div>
-            <div>
-                <span class="text-light" style="font-size: 12px;">
-                    <i class="fas fa-mountain fa-lg me-1"></i>1326 m
-                </span>
-                <span class="me-1 ms-1 text-light">|</span>
-                <span class="badge rounded-pill p-2 bg-active-color border-active" style="font-size: 12px;">
-                    Montagne
-                </span>
-            </div>
-        </div>
-        <iframe class="rounded"
-            src="https://www.skaping.com/col-de-porte/ski-alpin"
-            style="width: 100%; min-height: 270px;">
-        </iframe>
-    </div>
-    `;
+    initWebcamMarkers(map, webcams);
+});
 
-    marker.bindPopup(html, {
-        className: 'myCustomPopup',
-        minWidth: 600,
-        maxWidth: 600
+function createTileLayer(url, attribution = '') {
+    return L.tileLayer(url, {
+        maxZoom: MAP_CONFIG.maxZoom,
+        minZoom: MAP_CONFIG.minZoom,
+        attribution
     });
-    marker.on('popupopen', function (e) {
-    const btn = document.querySelector('.popup-close');
-    if (btn) {
-        btn.addEventListener('click', function () {
-            marker.closePopup();
+}
+
+function initWebcamMarkers(map, webcams) {
+    webcams.forEach(webcam => {
+        const { lat, lng } = webcam.geographicCoordinate;
+
+        const html = generatePopupHtml(webcam);
+
+        const marker = L.marker([lat, lng]).addTo(map);
+        marker.bindPopup(html, {
+            className: 'myCustomPopup',
+            minWidth: 600,
+            maxWidth: 600
         });
-    }
-});
 
+        generateToolTip(marker, webcam.title);
 
-    marker.bindTooltip("Hello world", {
-        permanent: false,     // tooltip seulement au survol
-        direction: "top",     // position
-        opacity: 0.9,
-        className: "myTooltip"  // pour ton CSS perso
+        marker.on('popupopen', function (e) {
+            const popupContent = e.popup._contentNode;
+
+            const btn = popupContent.querySelector('.popup-close');
+            if (btn) {
+                btn.addEventListener('click', () => {
+                    marker.closePopup();
+                });
+            }
+        });
     });
-});
+}
+
+function generatePopupHtml({ title, elevation, type, url }) {
+    const typeHtml = type.map((t, i) => `
+        ${i > 0 ? '<span class="me-1 ms-1 text-light">|</span>' : ''}
+        <span class="badge rounded-pill p-2 bg-active-color border-active" style="font-size: 12px;">
+            ${t}
+        </span>
+    `).join('');
+
+    return `
+        <div class="card bg-primary-color">
+            <div class="p-2">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0 text-light">${title}</h5>
+                    <button type="button" class="btn btn-floating text-light popup-close zoom-effect zoom-large" data-mdb-ripple-init>
+                        <i class="fas fa-xmark fa-lg"></i>
+                    </button>
+                </div>
+                <div>
+                    <span class="text-light me-2" style="font-size: 12px;">
+                        <i class="fas fa-mountain fa-lg me-1"></i>${elevation} m
+                    </span>
+                    ${typeHtml}
+                </div>
+            </div>
+            <iframe class="rounded"
+                src=${url}
+                style="width: 100%; min-height: 270px;">
+            </iframe>
+        </div>
+    `;
+}
+
+function generateToolTip(marker, title) {
+    marker.bindTooltip(title, {
+        direction: "top",
+        offset: [-16, -10],
+        opacity: 0.9,
+        className: "webcam-tooltip"
+    });
+}

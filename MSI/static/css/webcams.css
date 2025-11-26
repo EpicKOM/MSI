@@ -36,3 +36,17 @@
 .leaflet-popup-close-button {
   display: none !important;
 }
+
+.webcam-tooltip.leaflet-tooltip:before {
+    display: none !important;
+}
+
+.webcam-tooltip {
+    background-color: rgba(9, 9, 11, .7);
+    color: rgba(251, 251, 251, 1);
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family : "roboto";
+    border: 1px solid rgba(251, 251, 251, .7);
+}
