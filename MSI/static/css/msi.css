@@ -149,5 +149,5 @@ hr {
 }
 
 .zoom-effect.zoom-large:hover {
-    transform: scale(1.06);
+    transform: scale(1.1);
 }

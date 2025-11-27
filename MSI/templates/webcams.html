@@ -21,6 +21,7 @@
 {% block script %}
     <script>
         const webcams = {{ webcams | default({}) | tojson }};
+        const icon_path = "{{ url_for('static', filename='img/webcam_marker.svg') }}";
     </script>
     <script type="module" src="{{ url_for('static', filename='js/pages/webcams.js') }}"></script>
 {% endblock %}

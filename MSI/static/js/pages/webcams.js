@@ -14,6 +14,15 @@ const bounds = L.latLngBounds(
     [45.5, 6.1]   // Coin nord-est [lat, lng]
 );
 
+const webcamIcon = L.divIcon({
+    className: 'webcam-marker-container', // Une classe pour le conteneur (Leaflet gère sa position)
+    html: `<img src="${icon_path}" class="webcam-marker" alt="webcam marker">`, // Ton image à l'intérieur
+    iconSize: [32, 40],
+    iconAnchor: [16, 40],
+    popupAnchor: [0, -38]
+});
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const layers = {
         esri: createTileLayer(
@@ -56,7 +65,7 @@ function initWebcamMarkers(map, webcams) {
 
         const html = generatePopupHtml(webcam);
 
-        const marker = L.marker([lat, lng]).addTo(map);
+        const marker = L.marker([lat, lng], { icon: webcamIcon }).addTo(map);
         marker.bindPopup(html, {
             className: 'myCustomPopup',
             minWidth: 600,
@@ -113,7 +122,7 @@ function generatePopupHtml({ title, elevation, type, url }) {
 function generateToolTip(marker, title) {
     marker.bindTooltip(title, {
         direction: "top",
-        offset: [-16, -10],
+        offset: [0, -45],
         opacity: 0.9,
         className: "webcam-tooltip"
     });

@@ -50,3 +50,21 @@
     font-family : "roboto";
     border: 1px solid rgba(251, 251, 251, .7);
 }
+
+
+.webcam-marker-container {
+    background: transparent;
+    border: none;
+}
+
+.webcam-marker {
+    width: 100%;
+    height: 100%;
+    display: block;
+    transition: transform 0.3s ease;
+    transform-origin: bottom center;
+}
+
+.webcam-marker-container:hover .webcam-marker {
+    transform: scale(1.2);
+}
