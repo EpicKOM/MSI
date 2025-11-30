@@ -22,6 +22,17 @@ const webcamIcon = L.divIcon({
     popupAnchor: [0, -38]
 });
 
+const webcamVideoIcon = L.divIcon({
+    className: 'webcam-marker-container', // Une classe pour le conteneur (Leaflet gère sa position)
+    html: `
+    <img src="${icon_path}" class="webcam-marker-video" alt="webcam marker">
+    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light-red">
+        VIDEO
+    </span>`, // Ton image à l'intérieur
+    iconSize: [32, 40],
+    iconAnchor: [16, 40],
+    popupAnchor: [0, -38]
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     const layers = {
@@ -62,10 +73,11 @@ function createTileLayer(url, attribution = '') {
 function initWebcamMarkers(map, webcams) {
     webcams.forEach(webcam => {
         const { lat, lng } = webcam.geographicCoordinate;
+        const icon = webcam.is_recording_video ? webcamVideoIcon : webcamIcon;
 
         const html = generatePopupHtml(webcam);
 
-        const marker = L.marker([lat, lng], { icon: webcamIcon }).addTo(map);
+        const marker = L.marker([lat, lng], { icon: icon }).addTo(map);
         marker.bindPopup(html, {
             className: 'myCustomPopup',
             minWidth: 600,

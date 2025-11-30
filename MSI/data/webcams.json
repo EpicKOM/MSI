@@ -7,7 +7,8 @@
     },
     "elevation": 1326,
     "url": "https://www.skaping.com/col-de-porte/ski-alpin",
-    "type": ["montagne", "ski"]
+    "type": ["montagne", "ski"],
+    "is_recording_video" : false
   },
 
   {
@@ -18,7 +19,8 @@
     },
     "elevation": 2114,
     "url": "https://www.skaping.com/les7laux/pipay/grand-cerf",
-    "type": ["montagne", "ski"]
+    "type": ["montagne", "ski"],
+    "is_recording_video" : false
   },
 
   {
@@ -29,6 +31,19 @@
     },
     "elevation": 2250,
     "url": "https://www.skaping.com/chamrousse/la-croix",
-    "type": ["montagne", "ski"]
+    "type": ["montagne", "ski"],
+    "is_recording_video" : false
+  },
+
+  {
+    "title": "Chamrousse - Le Recoin",
+    "geographicCoordinate": {
+      "lat": 45.125618,
+      "lng": 5.878651
+    },
+    "elevation": 1665,
+    "url": "https://www.skaping.com/chamrousse/recoin/video",
+    "type": ["montagne", "ski"],
+    "is_recording_video" : true
   }
 ]
