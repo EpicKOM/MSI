@@ -1,4 +1,4 @@
-const geographicCoordinate = {
+const coordinates = {
     lat: 45.181210,
     lng: 5.722505
 }
@@ -26,7 +26,7 @@ const webcamVideoIcon = L.divIcon({
     className: 'webcam-marker-container', // Une classe pour le conteneur (Leaflet gère sa position)
     html: `
     <img src="${icon_path}" class="webcam-marker-video" alt="webcam marker">
-    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light-red">
+    <span class="position-absolute top-0 start-100 badge rounded-pill bg-light-red badge-zoom">
         VIDEO
     </span>`, // Ton image à l'intérieur
     iconSize: [32, 40],
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const map = L.map('map', {
-        center: [geographicCoordinate.lat, geographicCoordinate.lng],
+        center: [coordinates.lat, coordinates.lng],
         zoom: MAP_CONFIG.zoomLevel,
         layers: [layers.esri],
 //        maxBounds: bounds,              // Limite la zone de navigation
@@ -72,8 +72,8 @@ function createTileLayer(url, attribution = '') {
 
 function initWebcamMarkers(map, webcams) {
     webcams.forEach(webcam => {
-        const { lat, lng } = webcam.geographicCoordinate;
-        const icon = webcam.is_recording_video ? webcamVideoIcon : webcamIcon;
+        const { lat, lng } = webcam.coordinates;
+        const icon = webcam.recording ? webcamVideoIcon : webcamIcon;
 
         const html = generatePopupHtml(webcam);
 
@@ -99,8 +99,8 @@ function initWebcamMarkers(map, webcams) {
     });
 }
 
-function generatePopupHtml({ title, elevation, type, url }) {
-    const typeHtml = type.map((t, i) => `
+function generatePopupHtml({ title, elevation, tags, url }) {
+    const tagHtml = tags.map((t, i) => `
         ${i > 0 ? '<span class="me-1 ms-1 text-light">|</span>' : ''}
         <span class="badge rounded-pill p-2 bg-active-color border-active" style="font-size: 12px;">
             ${t}
@@ -120,7 +120,7 @@ function generatePopupHtml({ title, elevation, type, url }) {
                     <span class="text-light me-2" style="font-size: 12px;">
                         <i class="fas fa-mountain fa-lg me-1"></i>${elevation} m
                     </span>
-                    ${typeHtml}
+                    ${tagHtml}
                 </div>
             </div>
             <iframe class="rounded"

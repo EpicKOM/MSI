@@ -91,9 +91,8 @@ def observations():
 
 @app.route("/webcams/")
 def webcams():
-    webcams = get_webcams()
     return render_template("webcams.html",
-                           webcams=webcams)
+                           webcams=get_webcams())
 
 
 @app.route("/mentions-legales/")

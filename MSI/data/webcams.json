@@ -1,49 +1,167 @@
 [
   {
     "title": "Col de Porte - Ski alpin",
-    "geographicCoordinate": {
+    "coordinates": {
       "lat": 45.294330,
       "lng": 5.764530
     },
     "elevation": 1326,
     "url": "https://www.skaping.com/col-de-porte/ski-alpin",
-    "type": ["montagne", "ski"],
-    "is_recording_video" : false
+    "tags": ["Moyenne-Montagne", "Ski Alpin", "Ski de Fond"],
+    "recording" : false
   },
 
   {
     "title": "Les 7 Laux - Pipay - Grand Cerf",
-    "geographicCoordinate": {
+    "coordinates": {
       "lat": 45.257087,
       "lng": 6.030592
     },
     "elevation": 2114,
     "url": "https://www.skaping.com/les7laux/pipay/grand-cerf",
-    "type": ["montagne", "ski"],
-    "is_recording_video" : false
+    "tags": ["Haute-Montagne", "Ski Alpin"],
+    "recording" : false
   },
 
   {
     "title": "Chamrousse - La Croix",
-    "geographicCoordinate": {
+    "coordinates": {
       "lat": 45.125662,
       "lng": 5.903979
     },
     "elevation": 2250,
     "url": "https://www.skaping.com/chamrousse/la-croix",
-    "type": ["montagne", "ski"],
-    "is_recording_video" : false
+    "tags": ["Haute-Montagne", "Ski Alpin"],
+    "recording" : false
   },
 
   {
     "title": "Chamrousse - Le Recoin",
-    "geographicCoordinate": {
+    "coordinates": {
       "lat": 45.125618,
       "lng": 5.878651
     },
     "elevation": 1665,
     "url": "https://www.skaping.com/chamrousse/recoin/video",
-    "type": ["montagne", "ski"],
-    "is_recording_video" : true
+    "tags": ["Moyenne-Montagne", "Ski-Alpin"],
+    "recording" : true
+  },
+  {
+    "title": "Collet d'Allevard - Les Plagnes",
+    "coordinates": {
+      "lat": 45.386444,
+      "lng": 6.148287
+    },
+    "elevation": 2084,
+    "url": "https://www.skaping.com/collet-d-allevard/sommet",
+    "tags": ["Haute-Montagne", "Ski Alpin"],
+    "recording" : false
+  },
+  {
+    "title": "Prapoutel - Sommet des Bouquetins",
+    "coordinates": {
+      "lat": 45.251217,
+      "lng": 6.00158
+    },
+    "elevation": 1565,
+    "url": "https://www.skaping.com/les7laux/prapoutel/sommetdesbouquetins",
+    "tags": ["Moyenne-Montagne", "Ski Alpin"],
+    "recording" : false
+  },
+
+  {
+    "title": "Le Sappey-en-Chartreuse",
+    "coordinates": {
+      "lat": 45.260087,
+      "lng": 5.777563
+    },
+    "elevation": 1014,
+    "url": "https://www.skaping.com/sappey-en-chartreuse",
+    "tags": ["Moyenne-Montagne", "Ski Alpin", "Ski de Fond"],
+    "recording" : false
+  },
+
+  {
+    "title": "Col de Porte - Ski de Fond",
+    "coordinates": {
+      "lat": 45.290144,
+      "lng": 5.767335
+    },
+    "elevation": 1326,
+    "url": "https://www.skaping.com/grenoble/col-de-porte",
+    "tags": ["Moyenne-Montagne", "Ski de Fond"],
+    "recording" : false
+  },
+
+  {
+    "title": "Col de Porte - Stade de Biathlon",
+    "coordinates": {
+      "lat": 45.295048,
+      "lng": 5.770204
+    },
+    "elevation": 1282,
+    "url": "https://www.skaping.com/col-de-porte/biathlon",
+    "tags": ["Moyenne-Montagne", "Ski de Fond"],
+    "recording" : false
+  },
+
+  {
+    "title": "Grenoble - Hotel de Ville",
+    "coordinates": {
+      "lat": 45.186562,
+      "lng": 5.736524
+    },
+    "elevation": 212,
+    "url": "https://www.skaping.com/grenoble/hotel-de-ville",
+    "tags": ["Plaine", "Ville"],
+    "recording" : false
+  },
+
+  {
+    "title": "Grenoble - Bastille",
+    "coordinates": {
+      "lat": 45.198653,
+      "lng": 5.724625
+    },
+    "elevation": 479,
+    "url": "https://www.skaping.com/grenoble/bastille",
+    "tags": ["Plaine", "Ville"],
+    "recording" : false
+  },
+
+  {
+    "title": "Chamrousse - Casserousse",
+    "coordinates": {
+      "lat": 45.128452,
+      "lng": 5.886922
+    },
+    "elevation": 1866,
+    "url": "https://www.skaping.com/chamrousse/panorama-casserousse",
+    "tags": ["Moyenne-Montagne", "Ski Alpin"],
+    "recording" : false
+  },
+
+  {
+    "title": "Chamrousse - Roche-Béranger",
+    "coordinates": {
+      "lat": 45.110347,
+      "lng": 5.877376
+    },
+    "elevation": 1756,
+    "url": "https://www.skaping.com/chamrousse/roche-beranger",
+    "tags": ["Moyenne-Montagne", "Ski Alpin"],
+    "recording" : false
+  },
+
+  {
+    "title": "Le Bourg-d'Oisans",
+    "coordinates": {
+      "lat": 45.052314,
+      "lng": 6.030014
+    },
+    "elevation": 720,
+    "url": "https://www.skaping.com/le-bourg-d-oisans/mairie",
+    "tags": ["Basse-Montagne", "Ville"],
+    "recording" : true
   }
 ]
