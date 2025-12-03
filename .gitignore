@@ -15,4 +15,7 @@ venv/
 # MSI
 instance/msi.db-journal
 instance/msi.db
+MSI/data/forecasts.json
+MSI/data/pollution_alerts.json
+MSI/data/weather_alerts.json
 
