@@ -163,5 +163,149 @@
     "url": "https://www.skaping.com/le-bourg-d-oisans/mairie",
     "tags": ["Basse-Montagne", "Ville"],
     "recording" : true
+  },
+
+  {
+    "title": "Alpe d'Huez - Pic Blanc",
+    "coordinates": {
+      "lat": 45.124992,
+      "lng": 6.127304
+    },
+    "elevation": 3306,
+    "url": "https://www.skaping.com/alpedhuez/pic-blanc",
+    "tags": ["Haute-Montagne", "Ski Alpin"],
+    "recording" : false
+  },
+
+  {
+    "title": "Alpe d'Huez - 2700m",
+    "coordinates": {
+      "lat": 45.118037,
+      "lng": 6.10372
+    },
+    "elevation": 2611,
+    "url": "https://www.skaping.com/alpedhuez/2700m",
+    "tags": ["Haute-Montagne", "Ski Alpin"],
+    "recording" : false
+  },
+
+  {
+    "title": "Vaujany - Montfrais",
+    "coordinates": {
+      "lat": 45.159782,
+      "lng": 6.099995
+    },
+    "elevation": 1727,
+    "url": "https://www.skaping.com/alpedhuez/vaujany/montfrais",
+    "tags": ["Moyenne-Montagne", "Ski Alpin"],
+    "recording" : false
+  },
+
+  {
+    "title": "Alpe d'Huez - 2100m",
+    "coordinates": {
+      "lat": 45.10557,
+      "lng": 6.084977
+    },
+    "elevation": 2099,
+    "url": "https://www.skaping.com/alpedhuez/2100m",
+    "tags": ["Haute-Montagne", "Ski Alpin"],
+    "recording" : false
+  },
+
+  {
+    "title": "Autrans - Front de Neige - La Sure",
+    "coordinates": {
+      "lat": 45.230153,
+      "lng": 5.58165
+    },
+    "elevation": 1254,
+    "url": "https://app.webcam-hd.com/autrans-meaudre/la-poya",
+    "tags": ["Moyenne-Montagne", "Ski Alpin"],
+    "recording" : false
+  },
+
+  {
+    "title": "Lans-en-Vercors - Combe des Virets",
+    "coordinates": {
+      "lat": 45.11515,
+      "lng": 5.62476
+    },
+    "elevation": 1715,
+    "url": "https://app.webcam-hd.com/lans_en_vercors/vertige_des_cimes",
+    "tags": ["Moyenne-Montagne", "Ski Alpin"],
+    "recording" : false
+  },
+
+  {
+    "title": "Corrençon-en-Vercors - Stade de Biathlon",
+    "coordinates": {
+      "lat": 45.01694,
+      "lng": 5.51299
+    },
+    "elevation": 1171,
+    "url": "https://app.webcam-hd.com/correncon-en-vercors/stand-de-tir",
+    "tags": ["Moyenne-Montagne", "Ski de Fond"],
+    "recording" : false
+  },
+
+  {
+    "title": "Les 2 Alpes - Vallée Blanche",
+    "coordinates": {
+      "lat": 45.009124,
+      "lng": 6.105584
+    },
+    "elevation": 2095,
+    "url": "https://www.skaping.com/les2alpes/vallee-blanche",
+    "tags": ["Haute-Montagne", "Ski Alpin"],
+    "recording" : false
+  },
+
+  {
+    "title": "Les 2 Alpes - La Fée",
+    "coordinates": {
+      "lat": 45.003851,
+      "lng": 6.168171
+    },
+    "elevation": 2642,
+    "url": "https://www.skaping.com/les2alpes/la-fee",
+    "tags": ["Haute-Montagne", "Ski Alpin"],
+    "recording" : false
+  },
+
+  {
+    "title": "Les 2 Alpes - 3400m",
+    "coordinates": {
+      "lat": 44.997296,
+      "lng": 6.223041
+    },
+    "elevation": 3408,
+    "url": "https://www.skaping.com/les2alpes/3400m",
+    "tags": ["Haute-Montagne", "Ski Alpin"],
+    "recording" : false
+  },
+
+  {
+    "title": "La Grave - 3200m",
+    "coordinates": {
+      "lat": 45.009569,
+      "lng": 6.263916
+    },
+    "elevation": 3209,
+    "url": "https://www.skaping.com/lagrave/3200m",
+    "tags": ["Haute-Montagne", "Alpinisme", "Ski Hors-Piste"],
+    "recording" : false
+  },
+
+  {
+    "title": "Villar-d'Arêne - Domaine Nordique",
+    "coordinates": {
+      "lat": 45.030859,
+      "lng": 6.363163
+    },
+    "elevation": 1668,
+    "url": "https://www.skaping.com/villar-d-arene/arsine",
+    "tags": ["Moyenne-Montagne", "Ski de Fond"],
+    "recording" : false
   }
 ]

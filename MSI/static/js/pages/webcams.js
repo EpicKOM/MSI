@@ -10,8 +10,8 @@ const MAP_CONFIG = {
 };
 
 const bounds = L.latLngBounds(
-    [44.8, 5.3],  // Coin sud-ouest [lat, lng]
-    [45.5, 6.1]   // Coin nord-est [lat, lng]
+    [44.579857, 4.732141],  // Coin sud-ouest [lat, lng]
+    [45.831157, 6.805342]   // Coin nord-est [lat, lng]
 );
 
 const webcamIcon = L.divIcon({
@@ -50,8 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
         center: [coordinates.lat, coordinates.lng],
         zoom: MAP_CONFIG.zoomLevel,
         layers: [layers.esri],
-//        maxBounds: bounds,              // Limite la zone de navigation
-//        maxBoundsViscosity: 1.0
+        maxBounds: bounds,              // Limite la zone de navigation
+        maxBoundsViscosity: 1.0
     });
 
     L.control.layers({
@@ -79,7 +79,7 @@ function initWebcamMarkers(map, webcams) {
 
         const marker = L.marker([lat, lng], { icon: icon }).addTo(map);
         marker.bindPopup(html, {
-            className: 'myCustomPopup',
+            className: 'webcam-popup',
             minWidth: 600,
             maxWidth: 600
         });

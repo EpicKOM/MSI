@@ -5,9 +5,7 @@
 
 /* Cache l'apparence native du bouton radio */
 .leaflet-control-layers-base input[type="radio"] {
-    /* Cache l'élément radio natif */
     opacity: 0;
-    /* Prend un espace minimal */
     width: 0;
     height: 0;
 }
@@ -16,21 +14,19 @@
 .leaflet-control-layers-base input[type="radio"] + span::before {
     content: '';
     display: inline-block;
-    width: 15px; /* Taille du cercle */
+    width: 15px;
     height: 15px;
     margin-right: 5px;
-    border-radius: 50%; /* Pour un cercle */
-    border: 2px solid #ccc; /* Couleur de la bordure (gris clair) */
-    background-color: #fff; /* Fond blanc */
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    background-color: #fff;
     vertical-align: middle;
 }
 
 /* Style l'apparence du bouton radio lorsqu'il est SÉLECTIONNÉ */
 .leaflet-control-layers-base input[type="radio"]:checked + span::before {
-    /* La couleur de remplissage (le "point") lorsque la couche est active */
-    background-color: #54B4D3; /* Par exemple, un bleu Leaflet */
+    background-color: #54B4D3;
     border-color: #54B4D3;
-    /* Ajout d'un point central plus foncé si vous le souhaitez */
     box-shadow: inset 0 0 0 4px #fff;
 }
 
@@ -44,26 +40,26 @@
     background-color: rgba(80, 180, 211, 0.2) !important;
 }
 
-/* ENCADREMENT Leaflet : Ne touche qu'à ta popup */
-.leaflet-popup.myCustomPopup .leaflet-popup-content-wrapper {
+/* Popup Leaflet */
+.leaflet-popup.webcam-popup .leaflet-popup-content-wrapper {
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
     padding: 0 !important;
 }
 
-/* Retirer la pointe */
-.leaflet-popup.myCustomPopup .leaflet-popup-tip {
+/* Cache la pointe native Leaflet */
+.leaflet-popup.webcam-popup .leaflet-popup-tip {
     display: none !important;
 }
 
 /* Contenu interne */
-.leaflet-popup.myCustomPopup .leaflet-popup-content {
+.leaflet-popup.webcam-popup .leaflet-popup-content {
     margin: 0 !important;
     padding: 0 !important;
 }
 
-/* cache la croix de fermeture native Leaflet (optionnel si tu veux la remplacer) */
+/* cache la croix de fermeture native Leaflet */
 .leaflet-popup-close-button {
   display: none !important;
 }
