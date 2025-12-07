@@ -37,6 +37,13 @@
         crossorigin=""
      />
 
+    <!-- NProgress-->
+     <link
+        rel="stylesheet"
+        href="https://unpkg.com/nprogress@0.2.0/nprogress.css"
+     />
+
+
     <!--- Website Icon --------------------------------------------------------------------------------->
     <link rel='icon' type='image/gif' href="{{ url_for('static', filename='img/favicon.ico') }}">
 
@@ -203,6 +210,14 @@
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
         crossorigin="">
     </script>
+
+    <!-- NProgress -->
+    <script
+        type="text/javascript"
+        src="https://unpkg.com/nprogress@0.2.0/nprogress.js">
+    </script>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/pages/layout.js') }}"></script>
 
     <!--- Custom Javascript ------------------------------------------------->
     {% block script %}

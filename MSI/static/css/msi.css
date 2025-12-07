@@ -151,3 +151,19 @@ hr {
 .zoom-effect.zoom-large:hover {
     transform: scale(1.1);
 }
+
+/* --- NProgress -------------------------------- */
+/* Couleur de la barre de progression (le trait principal) */
+#nprogress .bar {
+    /* Utilisation de l'ID parent pour garantir la spécificité */
+    background: #DC4C64 !important;
+    height: 3px !important; /* Ajoutez !important sur la hauteur aussi */
+
+    /* Effet de lueur moderne (facultatif mais recommandé) */
+    box-shadow: 0 0 10px rgba(84, 180, 211, 0.7) !important;
+}
+
+/* Le petit triangle à la fin (le "peg") */
+#nprogress .peg {
+    box-shadow: 0 0 10px #54B4D3, 0 0 5px #54B4D3 !important;
+}
