@@ -122,6 +122,7 @@ function toggleWidgetDisplay($widget, isVisible) {
 
 //----------------FONCTIONS PRINCIPALES---------------------------------------------------------------------------------
 function fetchChartData() {
+    NProgress.start();
     let showLoaderTimeout = setTimeout(() => {
         toggleWidgetDisplay($liveChartContainer, false);
         toggleWidgetDisplay($liveChartErrorContainer, false);
@@ -176,6 +177,7 @@ function fetchChartData() {
     .always(function() {
         clearTimeout(showLoaderTimeout);
         toggleWidgetDisplay($liveChartSpinnerContainer, false);
+        NProgress.done();
     });
 }
 

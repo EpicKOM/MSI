@@ -147,47 +147,64 @@
         </div>
     </main>
 
+    <!-- Footer -->
     <footer class="text-light mt-4 bg-primary-color">
-        <div class="container p-3 pt-5">
-            <div class="row">
-                <div class="col-lg-6 col-sm-12 col-xs-12 mb-0">
-                    <h5 class="fw-bold text-info">
-                        <img class="me-2 mb-1" height="25px" width="auto" src="{{ url_for('static', filename='img/logo.png') }}">
-                        Météo Grenoble Alpes
-                    </h5>
-                    <p class="text-start">
-                        Météo Live | Prévisions | Climatologie | Cartes Météo | Alertes | Webcams pour Grenoble,
-                        sa métropole et les massifs alpins environnants.
-                    </p>
-                    <p>
-                        <i class="fas fa-envelope me-2"></i><span class="text-info">contact@meteo-grenoble-alpes.fr</span>
-                    </p>
-                </div>
-                <div class="col-lg-3 col-sm-6 col-xs-12 mb-0">
-                    <h5 class="fw-bold text-info">
-                        Informations
-                    </h5>
-                    <ul class="list-unstyled">
-                        <li><a href="https://github.com/EpicKOM/MSI" class="text-light" target="_blank">Github</a></li>
-                        <li><a href="{{ url_for('legal_notice') }}" class="text-light">Mentions légales</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-sm-6 col-xs-12 mb-0">
-                    <h5 class="fw-bold text-info">
-                        Utilitaires
-                    </h5>
-                    <ul class="list-unstyled">
-                        <li><a href="https://www.infoclimat.fr/" class="text-light" target="_blank">Infoclimat</a></li>
-                        <li><a href="https://www.meteoblue.com/fr/meteo/semaine/grenoble_france_3014728" class="text-light" target="_blank">Meteoblue</a></li>
-                    </ul>
+        <section class="">
+            <div class="container text-md-start mt-5">
+                <!-- Grid row -->
+                <div class="row mt-3">
+                    <!-- Grid column -->
+                    <div class="col-lg-5 col-sm-12 col-xs-12 mx-auto mb-4">
+                        <!-- Content -->
+                        <h5 class="fw-bold mb-4 text-info d-flex align-items-center">
+                            <img class="me-2" width="24" src="{{ url_for('static', filename='img/logo.png') }}">
+                            Météo Grenoble Alpes
+                        </h5>
+                        <p>
+                            Météo Live | Prévisions | Climatologie | Cartes Météo | Alertes | Webcams pour Grenoble,
+                            sa métropole et les massifs alpins environnants.
+                        </p>
+                        <p>
+                            <i class="fas fa-envelope me-2"></i>
+                            <span class="text-info">contact@meteo-grenoble-alpes.fr</span>
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-lg-2 col-sm-6 col-xs-12  mx-auto mb-4">
+                        <h5 class="fw-bold mb-4 text-info">
+                            Informations
+                        </h5>
+                        <ul class="list-unstyled">
+                            <li><a href="https://github.com/EpicKOM/MSI" class="text-light" target="_blank">Github</a></li>
+                            <li><a href="{{ url_for('legal_notice') }}" class="text-light">Mentions légales</a></li>
+                        </ul>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-lg-2 col-sm-6 col-xs-12  mx-auto mb-4">
+                        <h5 class="fw-bold mb-4 text-info">
+                            Utilitaires
+                        </h5>
+                        <ul class="list-unstyled">
+                            <li><a href="https://www.infoclimat.fr/" class="text-light" target="_blank">Infoclimat</a></li>
+                            <li><a href="https://www.meteoblue.com/fr/meteo/semaine/grenoble_france_3014728" class="text-light" target="_blank">Meteoblue</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-        <hr class="m-0">
-        <div class="footer-copyright text-center py-3 text-light">
+
+        </section>
+
+        <!-- Copyright -->
+        <div class="bg-footer-color text-center p-4">
             <span class="text-info"><i class="fas fa-copyright me-1"></i>{{ current_year }} Copyright :</span> Météo Grenoble Alpes
         </div>
+        <!-- Copyright -->
     </footer>
+    <!-- Footer -->
 
     <!--- Javascript CDN ---------------------------------------------------->
     <!-- MDB -->

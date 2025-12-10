@@ -2,6 +2,7 @@
 .bg-primary-color {background: rgba(9, 9, 11, 1);}
 .text-primary-color {color: rgba(9, 9, 11, 1);}
 .bg-secondary-color {background: rgba(39, 39, 42, 1);}
+.bg-footer-color {background: rgba(20, 20, 20, 1);}
 .text-secondary-color {color: rgba(39, 39, 42, 1);}
 .bg-active-color {background: rgba(84, 180, 211, 0.2);}
 .bg-light-green {background: rgba(89, 243, 166, 1);}
@@ -153,17 +154,7 @@ hr {
 }
 
 /* --- NProgress -------------------------------- */
-/* Couleur de la barre de progression (le trait principal) */
 #nprogress .bar {
-    /* Utilisation de l'ID parent pour garantir la spécificité */
-    background: #DC4C64 !important;
-    height: 3px !important; /* Ajoutez !important sur la hauteur aussi */
-
-    /* Effet de lueur moderne (facultatif mais recommandé) */
+    background: rgba(84, 180, 211, 1) !important;
     box-shadow: 0 0 10px rgba(84, 180, 211, 0.7) !important;
-}
-
-/* Le petit triangle à la fin (le "peg") */
-#nprogress .peg {
-    box-shadow: 0 0 10px #54B4D3, 0 0 5px #54B4D3 !important;
 }

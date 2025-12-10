@@ -78,6 +78,7 @@ $(function() {
 
 //----------------Ajax request------------------------------------------------------------------------------------------
 function fetchForecastsData(dayNumber) {
+    NProgress.start();
     let showLoaderTimeout = setTimeout(() => {
         toggleWidgetDisplay($forecastsContainer, false);
         toggleWidgetDisplay($forecastsErrorContainer, false);
@@ -194,5 +195,6 @@ function fetchForecastsData(dayNumber) {
     .always(function() {
         clearTimeout(showLoaderTimeout);
         toggleWidgetDisplay($forecastsSpinnerContainer, false);
+        NProgress.done();
     });
 }
